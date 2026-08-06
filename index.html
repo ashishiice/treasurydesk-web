@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TreasuryDesk — Automated Treasury Operations for Indian NBFCs</title>
+<meta name="description" content="TreasuryDesk delivers institutional-grade treasury automation — morning briefs, RBI circular alerts, funding optimization, liquidity pulse, T-bill monitoring — to mid-sized Indian NBFCs at a fraction of the cost of an in-house desk.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f17; --bg2:#111827; --card:#151d2e; --card2:#1a2440;
+  --ink:#e8edf6; --dim:#8fa3bf; --line:#243252;
+  --gold:#d4af37; --teal:#2dd4bf; --red:#f87171; --green:#4ade80; --amber:#fbbf24;
+  --blue:#60a5fa;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(11,15,23,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--dim);font-size:.9rem;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+.cta-btn{background:var(--gold);color:#0b0f17 !important;font-weight:700;padding:8px 18px;border-radius:8px;font-size:.85rem}
+.cta-btn:hover{background:#e6c95c;text-decoration:none}
+
+/* HERO */
+.hero{padding:88px 0 64px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(600px 300px at 70% 20%,rgba(45,212,191,.08),transparent),radial-gradient(500px 280px at 15% 60%,rgba(212,175,55,.06),transparent);pointer-events:none}
+.hero .wrap{position:relative}
+.eyebrow{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(212,175,55,.35);padding:5px 12px;border-radius:100px;margin-bottom:20px}
+h1{font-size:2.9rem;line-height:1.15;font-weight:800;letter-spacing:-.03em;max-width:820px}
+h1 .grad{background:linear-gradient(90deg,var(--gold),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:1.15rem;color:var(--dim);max-width:680px;margin:22px 0 36px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 26px;border-radius:10px;font-weight:700;font-size:.95rem;transition:.15s}
+.btn-gold{background:var(--gold);color:#0b0f17}
+.btn-gold:hover{background:#e6c95c;text-decoration:none}
+.btn-ghost{border:1px solid var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--teal);text-decoration:none}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.stat b{display:block;font-size:1.55rem;font-weight:800;color:var(--gold)}
+.stat span{font-size:.8rem;color:var(--dim)}
+
+/* SECTIONS */
+section{padding:72px 0}
+.section-label{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+h2{font-size:2rem;font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+.lead{color:var(--dim);max-width:720px;margin-bottom:36px}
+
+/* PROBLEM */
+.problem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.prob{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:10px;padding:20px 22px}
+.prob b{display:block;margin-bottom:6px;color:var(--ink)}
+.prob p{color:var(--dim);font-size:.92rem}
+
+/* SOLUTION */
+.solution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.sol{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;position:relative;transition:.15s}
+.sol:hover{border-color:var(--teal);transform:translateY(-2px)}
+.sol .num{position:absolute;top:16px;right:18px;font-size:2rem;font-weight:800;color:rgba(96,165,250,.15)}
+.sol h3{font-size:1.05rem;margin-bottom:10px}
+.sol p{color:var(--dim);font-size:.9rem}
+.sol ul{list-style:none;margin-top:12px}
+.sol li{font-size:.85rem;color:var(--dim);padding:3px 0 3px 18px;position:relative}
+.sol li::before{content:'▸';position:absolute;left:0;color:var(--teal)}
+
+/* DEMOS */
+.demo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.demo-card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.15s;display:flex;flex-direction:column}
+.demo-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.demo-head{padding:20px 22px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.demo-head h3{font-size:1.02rem}
+.demo-tag{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;white-space:nowrap}
+.tag-daily{background:rgba(45,212,191,.12);color:var(--teal)}
+.tag-intraday{background:rgba(251,191,36,.12);color:var(--amber)}
+.tag-weekly{background:rgba(96,165,250,.12);color:var(--blue)}
+.tag-live{background:rgba(74,222,128,.12);color:var(--green)}
+.demo-body{padding:16px 22px;flex:1}
+.demo-body p{color:var(--dim);font-size:.9rem;margin-bottom:12px}
+.demo-body .deliver{font-size:.78rem;color:var(--dim)}
+.demo-body .deliver b{color:var(--teal);font-weight:600}
+.demo-foot{padding:12px 22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.demo-foot .live-demo{font-size:.8rem;color:var(--green);font-weight:600}
+.demo-foot a{font-size:.82rem;font-weight:600}
+
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+.price-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;display:flex;flex-direction:column;position:relative}
+.price-card.featured{border-color:var(--gold);box-shadow:0 0 0 1px rgba(212,175,55,.4),0 20px 50px -20px rgba(212,175,55,.25)}
+.price-card .flag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0b0f17;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;border-radius:100px}
+.price-card h3{font-size:1.05rem;margin-bottom:4px}
+.price-card .who{font-size:.8rem;color:var(--dim);margin-bottom:18px}
+.price-card .amt{font-size:1.9rem;font-weight:800;letter-spacing:-.02em}
+.price-card .amt span{font-size:.85rem;color:var(--dim);font-weight:500}
+.price-card ul{list-style:none;margin:18px 0 22px;flex:1}
+.price-card li{font-size:.86rem;color:var(--dim);padding:5px 0 5px 20px;position:relative}
+.price-card li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:700}
+.price-card .btn{text-align:center}
+
+/* PROCESS */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;position:relative}
+.step .snum{display:inline-block;width:30px;height:30px;line-height:30px;text-align:center;border-radius:8px;background:rgba(212,175,55,.15);color:var(--gold);font-weight:800;font-size:.85rem;margin-bottom:12px}
+.step b{display:block;margin-bottom:6px}
+.step p{color:var(--dim);font-size:.85rem}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.contact-info p{color:var(--dim);margin-bottom:18px}
+.contact-item{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
+.contact-item .ic{width:40px;height:40px;flex-shrink:0;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.contact-item b{display:block;font-size:.9rem}
+.contact-item span{color:var(--dim);font-size:.85rem}
+form{display:flex;flex-direction:column;gap:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+input,select,textarea{background:var(--bg2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:13px 16px;font-size:.92rem;font-family:inherit;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal)}
+textarea{min-height:110px;resize:vertical}
+.form-note{font-size:.78rem;color:var(--dim)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--dim);font-size:.82rem}
+.foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .solution-grid,.price-grid,.demo-grid{grid-template-columns:1fr}
+  .problem-grid,.contact-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  h1{font-size:2.1rem}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="logo">Treasury<span>Desk</span></div>
+    <div class="nav-links">
+      <a href="#problem">The Problem</a>
+      <a href="#solutions">What You Get</a>
+      <a href="#demos">Live Demos</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#process">How It Works</a>
+      <a class="cta-btn" href="#contact">Book a Demo</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Treasury Automation for Indian NBFCs</span>
+    <h1>Your treasury desk, <span class="grad">automated end-to-end</span> — at 1/10th the cost of hiring one.</h1>
+    <p class="hero-sub">TreasuryDesk delivers institutional-grade treasury operations to mid-sized NBFCs: daily market &amp; regulatory briefs, RBI circular alerts, funding optimization, liquidity monitoring, and T-bill tracking — run by one fractional expert and a fully automated stack. No team. No software license. No missed circular.</p>
+    <div class="hero-ctas">
+      <a href="#demos" class="btn btn-gold">See Live Demos</a>
+      <a href="#contact" class="btn btn-ghost">Book a 30-min Walkthrough</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><b>₹3–5L</b><span>annual savings vs in-house desk</span></div>
+      <div class="stat"><b>24/7</b><span>RBI circular &amp; market monitoring</span></div>
+      <div class="stat"><b>60+</b><span>data points tracked daily</span></div>
+      <div class="stat"><b>5 days</b><span>to go live</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="section-label">The Problem</div>
+    <h2>Your funding cost is decided by information you don't have.</h2>
+    <p class="lead">Mid-sized NBFCs (₹200–2,000 Cr AUM) face the same treasury complexity as large banks — but without the headcount. Every day, decisions are made on stale rates, missed circulars, and gut feel.</p>
+    <div class="problem-grid">
+      <div class="prob"><b>RBI circulars move your ALM</b><p>New Master Directions, scale-based regulations, liquidity norms — you read about them in the newspaper a week after the deadline to comment.</p></div>
+      <div class="prob"><b>Funding costs drift silently</b><p>Borrowing mix, CP vs NCD vs bank lines — 15–20 bps of avoidable cost compounds into crores of P&L drag over a year.</p></div>
+      <div class="prob"><b>Liquidity is managed reactively</b><p>You find out you're short only when the lender calls. Structural liquidity gaps show up in ALM statements — after the quarter ends.</p></div>
+      <div class="prob"><b>A full desk is unaffordable</b><p>A competent treasury team costs ₹60L+ a year. A fractional consultant costs ₹25–40L and still can't watch the market 24/7.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="solutions" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="section-label">What You Get</div>
+    <h2>Six products. One desk. Zero headcount.</h2>
+    <p class="lead">Every product is delivered to your CFO and treasury team on Telegram/WhatsApp/Email, with a live dashboard for drill-down.</p>
+    <div class="solution-grid">
+      <div class="sol">
+        <span class="num">01</span>
+        <h3>🌅 Daily Morning Brief</h3>
+        <p>Pre-market intelligence on your desk by 8:00 AM IST — every trading day.</p>
+        <ul>
+          <li>Nifty, Bank Nifty, FII/DII flows, USD/INR</li>
+          <li>Global overnight: US, Europe, Asia, commodities</li>
+          <li>Verified RBI policy rates &amp; liquidity operations</li>
+          <li>G-Sec yields, OIS curve, CP/NCD levels</li>
+          <li>3–4 actionable items for your desk</li>
+        </ul>
+      </div>
+      <div class="sol">
+        <span class="num">02</span>
+        <h3>🚨 RBI Circular Intelligence</h3>
+        <p>Every RBI press release and circular — parsed, deduplicated, and delivered with NBFC-specific impact notes.</p>
+        <ul>
+          <li>Flash alerts within 30 min of release</li>
+          <li>Master Directions, SBR, liquidity, FEMA</li>
+          <li>Impact analysis for your lending book</li>
+          <li>Compliance calendar integration</li>
+        </ul>
+      </div>
+      <div class="sol">
+        <span class="num">03</span>
+        <h3>💰 Funding Optimization</h3>
+        <p>Your borrowing mix, optimized daily against live market prices.</p>
+        <ul>
+          <li>Bank TL vs NCD vs CP vs ECB cost comparison</li>
+          <li>CP calendar &amp; rollover alerts</li>
+          <li>Concentration and tenor mismatch flags</li>
+          <li>ECB all-in cost vs domestic arbitrage</li>
+        </ul>
+      </div>
+      <div class="sol">
+        <span class="num">04</span>
+        <h3>💧 Liquidity Pulse</h3>
+        <p>Systemic and structural liquidity, monitored continuously.</p>
+        <ul>
+          <li>LAF/VRR auction results &amp; system surplus</li>
+          <li>Call money &amp; repo rates</li>
+          <li>Your 30-day liquidity buffer tracking</li>
+          <li>ALM gap alerts (0–1M, 1–3M buckets)</li>
+        </ul>
+      </div>
+      <div class="sol">
+        <span class="num">05</span>
+        <h3>📊 T-Bill &amp; G-Sec Monitor</h3>
+        <p>Auction intelligence with cut-off yield tracking and spread analysis.</p>
+        <ul>
+          <li>91/182/364-day T-bill auction cut-offs</li>
+          <li>G-Sec auction calendar &amp; cut-off yields</li>
+          <li>OIS curve &amp; G-Sec spread monitoring</li>
+          <li>Sovereign yield signals for your pricing</li>
+        </ul>
+      </div>
+      <div class="sol">
+        <span class="num">06</span>
+        <h3>🌙 EOD Wrap &amp; Overnight Risk</h3>
+        <p>Close-of-day market summary plus pre-sleep risk scan for tomorrow's Asia open.</p>
+        <ul>
+          <li>Full day recap: rates, FX, credit, oil</li>
+          <li>Overnight risk flags (geopolitics, oil shocks)</li>
+          <li>Position risk assessment before Asia opens</li>
+          <li>Next-day calendar &amp; auction preview</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="demos">
+  <div class="wrap">
+    <div class="section-label">Live Demos</div>
+    <h2>See the actual output — built from real market data.</h2>
+    <p class="lead">These are not mockups. Each demo was generated from live market data (Nifty, USD/INR, OIS curve, RBI rates) on the date shown. Click through to see the real thing.</p>
+    <div class="demo-grid">
+
+      <div class="demo-card">
+        <div class="demo-head">
+          <h3>Morning Brief — sample</h3>
+          <span class="demo-tag tag-daily">Daily 08:00</span>
+        </div>
+        <div class="demo-body">
+          <p>Full pre-market brief: India markets, global overnight, RBI rates &amp; liquidity, credit markets, risk flags, and action items.</p>
+          <div class="deliver">Delivered to: <b>CFO + Treasury on Telegram</b></div>
+        </div>
+        <div class="demo-foot">
+          <span class="live-demo">● Generated from live data</span>
+          <a href="demos/morning-brief.html">Open demo →</a>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-head">
+          <h3>Funding Optimization — sample</h3>
+          <span class="demo-tag tag-daily">Daily 08:10</span>
+        </div>
+        <div class="demo-body">
+          <p>Borrowing mix vs live rates: CP vs NCD vs bank lines vs ECB. Rule-based recommendations with quantified savings.</p>
+          <div class="deliver">Delivered to: <b>Treasury Head on Telegram</b></div>
+        </div>
+        <div class="demo-foot">
+          <span class="live-demo">● Generated from live data</span>
+          <a href="demos/funding-optimization.html">Open demo →</a>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-head">
+          <h3>Liquidity Pulse — sample</h3>
+          <span class="demo-tag tag-intraday">10:00 + alerts</span>
+        </div>
+        <div class="demo-body">
+          <p>Systemic liquidity (LAF/VRR), call money, repo rates — plus your own 30-day buffer and ALM gap tracking.</p>
+          <div class="deliver">Delivered to: <b>ALM &amp; Treasury on Telegram</b></div>
+        </div>
+        <div class="demo-foot">
+          <span class="live-demo">● Generated from live data</span>
+          <a href="demos/liquidity-pulse.html">Open demo →</a>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-head">
+          <h3>T-Bill Auction Monitor — sample</h3>
+          <span class="demo-tag tag-weekly">Auction days</span>
+        </div>
+        <div class="demo-body">
+          <p>91/182/364-day cut-off yields with trend charting, spread analysis vs OIS, and funding signals for your desk.</p>
+          <div class="deliver">Delivered to: <b>Funding desk on Telegram</b></div>
+        </div>
+        <div class="demo-foot">
+          <span class="live-demo">● Generated from live data</span>
+          <a href="demos/tbill-monitor.html">Open demo →</a>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-head">
+          <h3>EOD Markets Wrap — sample</h3>
+          <span class="demo-tag tag-daily">Daily 18:00</span>
+        </div>
+        <div class="demo-body">
+          <p>Close-of-day recap across rates, FX, credit, and oil — with tomorrow's calendar and overnight risk flags.</p>
+          <div class="deliver">Delivered to: <b>CFO + Treasury on Telegram</b></div>
+        </div>
+        <div class="demo-foot">
+          <span class="live-demo">● Generated from live data</span>
+          <a href="demos/eod-wrap.html">Open demo →</a>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-head">
+          <h3>RBI Circular Alerts — sample</h3>
+          <span class="demo-tag tag-live">Flash 24/7</span>
+        </div>
+        <div class="demo-body">
+          <p>How a real RBI circular reaches your desk: raw release → parsed → impact note for NBFC treasury — in 30 minutes.</p>
+          <div class="deliver">Delivered to: <b>Compliance + Treasury, flash alert</b></div>
+        </div>
+        <div class="demo-foot">
+          <span class="live-demo">● Generated from live data</span>
+          <a href="demos/rbi-alerts.html">Open demo →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="pricing" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="section-label">Pricing</div>
+    <h2>Fractional desk. Institutional output.</h2>
+    <p class="lead">Compare: a full treasury team costs ₹60L+ a year. TreasuryDesk starts at ₹6L.</p>
+    <div class="price-grid">
+      <div class="price-card">
+        <h3>Essentials</h3>
+        <div class="who">For NBFCs building their first treasury function</div>
+        <div class="amt">₹50,000<span>/month</span></div>
+        <ul>
+          <li>Morning Brief (daily, 08:00)</li>
+          <li>RBI circular flash alerts</li>
+          <li>T-Bill / G-Sec auction monitor</li>
+          <li>Weekly funding cost summary</li>
+          <li>Email + Telegram delivery</li>
+          <li>Monthly desk review call</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Start Here</a>
+      </div>
+      <div class="price-card featured">
+        <div class="flag">Most Popular</div>
+        <h3>Professional</h3>
+        <div class="who">For active funding desks (₹500–2,000 Cr AUM)</div>
+        <div class="amt">₹1,00,000<span>/month</span></div>
+        <ul>
+          <li>Everything in Essentials</li>
+          <li>Funding optimization engine</li>
+          <li>Liquidity pulse + ALM gap alerts</li>
+          <li>EOD wrap + overnight risk scan</li>
+          <li>CP calendar &amp; rollover alerts</li>
+          <li>Quarterly ALM review + strategy memo</li>
+          <li>Priority support (same-day)</li>
+        </ul>
+        <a href="#contact" class="btn btn-gold">Book a Demo</a>
+      </div>
+      <div class="price-card">
+        <h3>Enterprise</h3>
+        <div class="who">For groups, multiple entities, custom builds</div>
+        <div class="amt">Custom</div>
+        <ul>
+          <li>Everything in Professional</li>
+          <li>Multi-entity consolidation</li>
+          <li>Custom dashboards &amp; connectors</li>
+          <li>Bank / CCIL / FBIL data feeds</li>
+          <li>Dedicated fractional treasurer</li>
+          <li>SLA-backed delivery</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Talk to Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-label">How It Works</div>
+    <h2>Live in 5 days. No IT project.</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="snum">1</span>
+        <b>Discovery call</b>
+        <p>30 minutes. We map your funding mix, ALM structure, and which alerts matter most.</p>
+      </div>
+      <div class="step">
+        <span class="snum">2</span>
+        <b>Pilot week</b>
+        <p>We run your desk for 5 business days — full output, zero obligation. You judge the quality.</p>
+      </div>
+      <div class="step">
+        <span class="snum">3</span>
+        <b>Go live</b>
+        <p>Delivery channels configured, alerts tuned, first month invoiced at the agreed tier.</p>
+      </div>
+      <div class="step">
+        <span class="snum">4</span>
+        <b>Continuous desk</b>
+        <p>Daily output, monthly reviews, quarterly ALM memos. Your desk, without the headcount.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="section-label">Contact</div>
+    <h2>Book a 30-minute walkthrough.</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>See the demos live, discuss your funding structure, and get a tailored pilot plan. No sales pressure — we'll show you exactly what your desk would receive.</p>
+        <div class="contact-item">
+          <div class="ic">✉️</div>
+          <div><b>Email</b><span>treasurydesk@proton.me</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="ic">📱</div>
+          <div><b>WhatsApp / Telegram</b><span>+91 98XXXXXXXX (available on request)</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="ic">🕐</div>
+          <div><b>Response time</b><span>Same business day</span></div>
+        </div>
+      </div>
+      <form action="mailto:treasurydesk@proton.me" method="get" enctype="text/plain">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="text" name="company" placeholder="Company / NBFC" required>
+        </div>
+        <div class="form-row">
+          <input type="email" name="email" placeholder="Work email" required>
+          <input type="tel" name="phone" placeholder="Phone / WhatsApp">
+        </div>
+        <select name="tier" required>
+          <option value="" disabled selected>AUM range (optional)</option>
+          <option>Under ₹500 Cr</option>
+          <option>₹500–2,000 Cr</option>
+          <option>₹2,000–10,000 Cr</option>
+          <option>Above ₹10,000 Cr</option>
+        </select>
+        <textarea name="message" placeholder="What does your treasury look like today? (funding mix, team size, biggest pain point)"></textarea>
+        <button type="submit" class="btn btn-gold" style="border:none;cursor:pointer">Request Walkthrough</button>
+        <span class="form-note">The form opens your email client with the details prefilled. We reply the same business day.</span>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>© 2026 TreasuryDesk. Built for Indian NBFC treasury desks.</span>
+    <span>Demo data generated from live market sources. Not investment advice.</span>
+  </div>
+</footer>
+
+</body>
+</html>

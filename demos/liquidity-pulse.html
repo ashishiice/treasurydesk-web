@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — Liquidity Pulse | TreasuryDesk</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/demo.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">Treasury<span>Desk</span> <span class="badge badge-demo">SAMPLE OUTPUT</span></div>
+    <div class="meta">Generated: Thu, 06 Aug 2026 · 10:02 IST · Intraday liquidity scan</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<h1>💧 Liquidity Pulse — Thu, 06 Aug 2026 · 10:00 IST</h1>
+<p class="sub">Prepared for: ALM &amp; Treasury Desk · Systemic + structural liquidity, monitored continuously</p>
+
+<div class="kpi-row">
+  <div class="kpi"><div class="lbl">System Surplus</div><div class="val num">Surplus</div><div class="dlt flat">LAF window</div></div>
+  <div class="kpi"><div class="lbl">Call Money Wtd Avg</div><div class="val num">5.33%</div><div class="dlt flat">range 4.00–5.45%</div></div>
+  <div class="kpi"><div class="lbl">SDF Rate</div><div class="val num">5.00%</div><div class="dlt flat">verified</div></div>
+  <div class="kpi"><div class="lbl">30D Buffer</div><div class="val num">18%</div><div class="dlt down">▼ below 20% target</div></div>
+</div>
+
+<h2>🏦 SYSTEMIC LIQUIDITY</h2>
+<div class="card">
+<table>
+<tr><th>Indicator</th><th>Reading</th><th>Interpretation</th></tr>
+<tr><td>LAF / VRR operations</td><td class="num">Surplus window active</td><td>RBI absorbing; system comfortable</td></tr>
+<tr><td>Call money (weighted avg)</td><td class="num">5.33%</td><td>Within corridor (SDF 5.00% – MSF 5.50%)</td></tr>
+<tr><td>Call money range</td><td class="num">4.00–5.45%</td><td>Normal dispersion</td></tr>
+<tr><td>MIBOR (indicative)</td><td class="num">~5.35%</td><td>In line with call money</td></tr>
+<tr><td>3M OIS</td><td class="num">5.36%</td><td>Easing priced into front end</td></tr>
+</table>
+<ul class="tight" style="margin-top:12px">
+<li><b>System surplus is structural, not tactical</b> — RBI's VRRR absorptions + SDF usage confirm durable comfort.</li>
+<li>With call money at 5.33% vs SDF 5.00%, there's a 33 bps carry for lenders — normal functioning.</li>
+<li>Watch: if Brent stays above $83, liquidity could tighten via FX intervention (RBI selling USD absorbs INR).</li>
+</ul>
+</div>
+
+<h2>🏢 YOUR STRUCTURAL LIQUIDITY (30-day)</h2>
+<div class="card">
+<table>
+<tr><th>Bucket</th><th>Inflows (₹ Cr)</th><th>Outflows (₹ Cr)</th><th>Net (₹ Cr)</th><th>Status</th></tr>
+<tr><td>0–14 days</td><td class="num">145</td><td class="num">162</td><td class="num down">-17</td><td><span class="tag tag-amber">Cover by CP/line</span></td></tr>
+<tr><td>15–30 days</td><td class="num">210</td><td class="num">178</td><td class="num up">+32</td><td><span class="tag tag-teal">Comfortable</span></td></tr>
+<tr><td><b>30D total</b></td><td class="num"><b>355</b></td><td class="num"><b>340</b></td><td class="num"><b>+15</b></td><td><span class="tag tag-gold">Buffer at 18%</span></td></tr>
+</table>
+<ul class="tight" style="margin-top:12px">
+<li><b>0–14 day gap of -₹17 Cr</b> — funded via undrawn CP capacity; ensure CP rollover calendar is respected (see Funding Optimization).</li>
+<li><b>30-day liquidity buffer at 18%</b> vs internal 20% policy — bring forward one NCD issuance or extend a bank line to close the gap.</li>
+<li>No ALM gap breach in 1–3M bucket this week.</li>
+</ul>
+</div>
+
+<h2>🚨 ALERTS</h2>
+<div class="alert crit">
+<span class="at">ALERT — Buffer below policy</span>
+30-day liquidity buffer at 18% vs 20% internal minimum. Recommendation: draw ₹20 Cr from undrawn bank line (available, 8.35%) or front-load NCD issuance by one week. Recheck Monday.
+</div>
+<div class="alert">
+<span class="at">WATCH — FX intervention risk</span>
+Brent +4.09% overnight. If USD/INR breaks 95.30, RBI may intervene via USD sales, absorbing INR liquidity. Recompute buffer under a -₹30 Cr systemic drain scenario.
+</div>
+
+<div class="src">Systemic data: RBI LAF/VRR operations, CCIL call money, FBIL MIBOR (latest available prints). Client liquidity figures illustrative for demo. Sample output demonstrating TreasuryDesk format — not investment advice.</div>
+
+<div class="footnav"><a href="../index.html">← Back to TreasuryDesk</a> &nbsp;·&nbsp; <a href="tbill-monitor.html">Next: T-Bill Monitor →</a></div>
+
+</div>
+</body>
+</html>
