@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TreasuryDesk — Automated Treasury Operations for Indian NBFCs</title>
-<meta name="description" content="TreasuryDesk delivers institutional-grade treasury automation — morning briefs, RBI circular alerts, funding optimization, liquidity pulse, T-bill monitoring — to mid-sized Indian NBFCs at a fraction of the cost of an in-house desk.">
+<title>Hero FinCorp Treasury Desk — Command Center</title>
+<meta name="description" content="The Hero FinCorp Treasury Desk command center: 19 automated agents covering markets open, RBI intelligence, liquidity, credit, FX, OIS, and overnight risk — every deliverable personalized for an NBFC-ML balance sheet.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -17,129 +17,131 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
 a{color:var(--teal);text-decoration:none}
 a:hover{text-decoration:underline}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:50;background:rgba(11,15,23,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav{position:sticky;top:0;z-index:50;background:rgba(11,15,23,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+.logo{font-weight:800;font-size:1.05rem;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.logo .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--teal));display:flex;align-items:center;justify-content:center;font-size:.85rem;color:#0b0f17}
 .logo span{color:var(--gold)}
-.nav-links{display:flex;gap:28px;align-items:center}
-.nav-links a{color:var(--dim);font-size:.9rem;font-weight:500}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{color:var(--dim);font-size:.88rem;font-weight:500}
 .nav-links a:hover{color:var(--ink)}
-.cta-btn{background:var(--gold);color:#0b0f17 !important;font-weight:700;padding:8px 18px;border-radius:8px;font-size:.85rem}
-.cta-btn:hover{background:#e6c95c;text-decoration:none}
+.badge-live{display:inline-flex;align-items:center;gap:6px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.35);color:var(--green);font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px}
+.badge-live .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
 /* HERO */
-.hero{padding:88px 0 64px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(600px 300px at 70% 20%,rgba(45,212,191,.08),transparent),radial-gradient(500px 280px at 15% 60%,rgba(212,175,55,.06),transparent);pointer-events:none}
+.hero{padding:80px 0 56px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(650px 320px at 72% 18%,rgba(45,212,191,.09),transparent),radial-gradient(550px 300px at 12% 65%,rgba(212,175,55,.07),transparent);pointer-events:none}
 .hero .wrap{position:relative}
-.eyebrow{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(212,175,55,.35);padding:5px 12px;border-radius:100px;margin-bottom:20px}
-h1{font-size:2.9rem;line-height:1.15;font-weight:800;letter-spacing:-.03em;max-width:820px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(212,175,55,.35);padding:5px 14px;border-radius:100px;margin-bottom:20px}
+h1{font-size:2.75rem;line-height:1.14;font-weight:800;letter-spacing:-.03em;max-width:860px}
 h1 .grad{background:linear-gradient(90deg,var(--gold),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero-sub{font-size:1.15rem;color:var(--dim);max-width:680px;margin:22px 0 36px}
+.hero-sub{font-size:1.1rem;color:var(--dim);max-width:720px;margin:20px 0 32px}
 .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
-.btn{display:inline-block;padding:13px 26px;border-radius:10px;font-weight:700;font-size:.95rem;transition:.15s}
+.btn{display:inline-block;padding:12px 24px;border-radius:10px;font-weight:700;font-size:.92rem;transition:.15s}
 .btn-gold{background:var(--gold);color:#0b0f17}
 .btn-gold:hover{background:#e6c95c;text-decoration:none}
 .btn-ghost{border:1px solid var(--line);color:var(--ink)}
 .btn-ghost:hover{border-color:var(--teal);text-decoration:none}
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
-.stat b{display:block;font-size:1.55rem;font-weight:800;color:var(--gold)}
-.stat span{font-size:.8rem;color:var(--dim)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.stat b{display:block;font-size:1.5rem;font-weight:800;color:var(--gold)}
+.stat span{font-size:.78rem;color:var(--dim)}
+
+/* FACT STRIP */
+.facts{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:34px 0}
+.facts h3{font-size:.95rem;margin-bottom:16px;color:var(--ink)}
+.fact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.fact b{display:block;font-size:1.02rem;color:var(--teal);margin-bottom:2px}
+.fact span{font-size:.76rem;color:var(--dim)}
+.fact .vintage{display:block;font-size:.66rem;color:var(--amber);margin-top:4px}
 
 /* SECTIONS */
-section{padding:72px 0}
-.section-label{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
-h2{font-size:2rem;font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
-.lead{color:var(--dim);max-width:720px;margin-bottom:36px}
+section{padding:64px 0}
+.section-label{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+h2{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+.lead{color:var(--dim);max-width:760px;margin-bottom:30px}
 
-/* PROBLEM */
-.problem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.prob{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:10px;padding:20px 22px}
-.prob b{display:block;margin-bottom:6px;color:var(--ink)}
-.prob p{color:var(--dim);font-size:.92rem}
+/* TIMELINE / ROSTER */
+.roster-note{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.roster-note .tag{font-size:.74rem;padding:4px 10px;border-radius:100px;border:1px solid var(--line);color:var(--dim)}
+.day-part{margin-bottom:26px}
+.day-part h3{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.day-part h3::after{content:'';flex:1;height:1px;background:var(--line)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.88rem}
+th{background:var(--card2);text-align:left;padding:11px 14px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top}
+tr:hover td{background:rgba(45,212,191,.03)}
+td.time{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--gold);white-space:nowrap;font-weight:600}
+td.agent b{font-size:.9rem}
+td.agent p{font-size:.78rem;color:var(--dim);margin-top:2px}
+.cadence{font-size:.7rem;color:var(--dim);white-space:nowrap}
+.deliv{font-size:.72rem;white-space:nowrap}
+.deliv .grp{color:var(--blue)}
+.deliv .dm{color:var(--teal)}
+.status{white-space:nowrap;font-size:.74rem;font-weight:600}
+.status .ok{color:var(--green)}
+.status .fix{color:var(--amber)}
+.status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.status .ok .dot{background:var(--green)}
+.status .fix .dot{background:var(--amber)}
 
-/* SOLUTION */
-.solution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.sol{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;position:relative;transition:.15s}
+/* LIVE DATA */
+.live-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+.live-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.live-card h3{font-size:.95rem;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.live-card .sub{font-size:.72rem;color:var(--dim);margin:-8px 0 12px}
+.live-card table{background:transparent}
+.live-card th{padding:8px 10px;background:rgba(26,36,64,.6)}
+.live-card td{padding:8px 10px}
+.rate{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--teal);font-weight:600}
+.footnote{font-size:.72rem;color:var(--dim);margin-top:12px}
+.curve-note{font-size:.78rem;color:var(--dim);margin-top:10px}
+
+/* PRODUCTS */
+.solution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sol{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;transition:.15s}
 .sol:hover{border-color:var(--teal);transform:translateY(-2px)}
-.sol .num{position:absolute;top:16px;right:18px;font-size:2rem;font-weight:800;color:rgba(96,165,250,.15)}
-.sol h3{font-size:1.05rem;margin-bottom:10px}
-.sol p{color:var(--dim);font-size:.9rem}
-.sol ul{list-style:none;margin-top:12px}
-.sol li{font-size:.85rem;color:var(--dim);padding:3px 0 3px 18px;position:relative}
+.sol h3{font-size:1rem;margin-bottom:8px}
+.sol p{color:var(--dim);font-size:.86rem;margin-bottom:10px}
+.sol ul{list-style:none}
+.sol li{font-size:.8rem;color:var(--dim);padding:3px 0 3px 18px;position:relative}
 .sol li::before{content:'▸';position:absolute;left:0;color:var(--teal)}
 
 /* DEMOS */
-.demo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.demo-card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.15s;display:flex;flex-direction:column}
+.demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.demo-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;transition:.15s}
 .demo-card:hover{border-color:var(--gold);transform:translateY(-2px)}
-.demo-head{padding:20px 22px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.demo-head h3{font-size:1.02rem}
-.demo-tag{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;white-space:nowrap}
-.tag-daily{background:rgba(45,212,191,.12);color:var(--teal)}
-.tag-intraday{background:rgba(251,191,36,.12);color:var(--amber)}
-.tag-weekly{background:rgba(96,165,250,.12);color:var(--blue)}
-.tag-live{background:rgba(74,222,128,.12);color:var(--green)}
-.demo-body{padding:16px 22px;flex:1}
-.demo-body p{color:var(--dim);font-size:.9rem;margin-bottom:12px}
-.demo-body .deliver{font-size:.78rem;color:var(--dim)}
-.demo-body .deliver b{color:var(--teal);font-weight:600}
-.demo-foot{padding:12px 22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-.demo-foot .live-demo{font-size:.8rem;color:var(--green);font-weight:600}
-.demo-foot a{font-size:.82rem;font-weight:600}
+.demo-card h3{font-size:.95rem;margin-bottom:6px}
+.demo-card p{color:var(--dim);font-size:.8rem;flex:1;margin-bottom:12px}
+.demo-card .meta{font-size:.72rem;color:var(--dim);margin-bottom:12px}
+.demo-card .meta b{color:var(--teal)}
+.demo-card a{font-size:.82rem;font-weight:600}
 
-/* PRICING */
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
-.price-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;display:flex;flex-direction:column;position:relative}
-.price-card.featured{border-color:var(--gold);box-shadow:0 0 0 1px rgba(212,175,55,.4),0 20px 50px -20px rgba(212,175,55,.25)}
-.price-card .flag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0b0f17;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;border-radius:100px}
-.price-card h3{font-size:1.05rem;margin-bottom:4px}
-.price-card .who{font-size:.8rem;color:var(--dim);margin-bottom:18px}
-.price-card .amt{font-size:1.9rem;font-weight:800;letter-spacing:-.02em}
-.price-card .amt span{font-size:.85rem;color:var(--dim);font-weight:500}
-.price-card ul{list-style:none;margin:18px 0 22px;flex:1}
-.price-card li{font-size:.86rem;color:var(--dim);padding:5px 0 5px 20px;position:relative}
-.price-card li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:700}
-.price-card .btn{text-align:center}
-
-/* PROCESS */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;position:relative}
-.step .snum{display:inline-block;width:30px;height:30px;line-height:30px;text-align:center;border-radius:8px;background:rgba(212,175,55,.15);color:var(--gold);font-weight:800;font-size:.85rem;margin-bottom:12px}
-.step b{display:block;margin-bottom:6px}
-.step p{color:var(--dim);font-size:.85rem}
-
-/* CONTACT */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
-.contact-info p{color:var(--dim);margin-bottom:18px}
-.contact-item{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
-.contact-item .ic{width:40px;height:40px;flex-shrink:0;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
-.contact-item b{display:block;font-size:.9rem}
-.contact-item span{color:var(--dim);font-size:.85rem}
-form{display:flex;flex-direction:column;gap:14px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-input,select,textarea{background:var(--bg2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:13px 16px;font-size:.92rem;font-family:inherit;width:100%}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal)}
-textarea{min-height:110px;resize:vertical}
-.form-note{font-size:.78rem;color:var(--dim)}
+/* IMPACT */
+.impact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.imp{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:18px 20px}
+.imp b{display:block;margin-bottom:6px}
+.imp p{color:var(--dim);font-size:.85rem}
 
 /* FOOTER */
-footer{border-top:1px solid var(--line);padding:32px 0;color:var(--dim);font-size:.82rem}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--dim);font-size:.78rem}
 .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 
 /* RESPONSIVE */
-@media(max-width:900px){
-  .hero-stats{grid-template-columns:repeat(2,1fr)}
-  .solution-grid,.price-grid,.demo-grid{grid-template-columns:1fr}
-  .problem-grid,.contact-grid{grid-template-columns:1fr}
-  .steps{grid-template-columns:repeat(2,1fr)}
-  h1{font-size:2.1rem}
+@media(max-width:960px){
+  .hero-stats,.fact-grid{grid-template-columns:repeat(2,1fr)}
+  .solution-grid,.demo-grid,.impact-grid,.live-grid{grid-template-columns:1fr}
+  h1{font-size:2rem}
   .nav-links{display:none}
+  table{font-size:.8rem}
+  td{padding:9px 10px}
 }
 </style>
 </head>
@@ -147,120 +149,201 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--dim);font-siz
 
 <nav>
   <div class="wrap nav-inner">
-    <div class="logo">Treasury<span>Desk</span></div>
+    <div class="logo"><span class="mark">HF</span>Hero FinCorp <span>Treasury Desk</span></div>
     <div class="nav-links">
-      <a href="#problem">The Problem</a>
-      <a href="#solutions">What You Get</a>
-      <a href="#demos">Live Demos</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#process">How It Works</a>
-      <a class="cta-btn" href="#contact">Book a Demo</a>
+      <a href="#roster">Daily Operations</a>
+      <a href="#live">Live Market Data</a>
+      <a href="#demos">Deliverables</a>
+      <a href="#impact">Desk Impact</a>
+      <span class="badge-live"><span class="dot"></span>19 agents running</span>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow">Treasury Automation for Indian NBFCs</span>
-    <h1>Your treasury desk, <span class="grad">automated end-to-end</span> — at 1/10th the cost of hiring one.</h1>
-    <p class="hero-sub">TreasuryDesk delivers institutional-grade treasury operations to mid-sized NBFCs: daily market &amp; regulatory briefs, RBI circular alerts, funding optimization, liquidity monitoring, and T-bill tracking — run by one fractional expert and a fully automated stack. No team. No software license. No missed circular.</p>
+    <span class="eyebrow">● Treasury Command Center · NBFC-ML</span>
+    <h1>Every rate. Every circular. Every risk. <span class="grad">On the desk before the market opens.</span></h1>
+    <p class="hero-sub">The Hero FinCorp treasury desk runs on a fully automated intelligence stack — 19 scheduled agents covering markets, RBI, liquidity, credit, FX, OIS, and overnight risk. Each deliverable is built for an NBFC-ML balance sheet: funding mix decisions, ALM gaps, CP/NCD levels, and regulatory exposure. No missed circular. No stale rate. No silent weekend.</p>
     <div class="hero-ctas">
-      <a href="#demos" class="btn btn-gold">See Live Demos</a>
-      <a href="#contact" class="btn btn-ghost">Book a 30-min Walkthrough</a>
+      <a href="#roster" class="btn btn-gold">See the Daily Desk Schedule</a>
+      <a href="#live" class="btn btn-ghost">Live Market Snapshot</a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><b>₹3–5L</b><span>annual savings vs in-house desk</span></div>
-      <div class="stat"><b>24/7</b><span>RBI circular &amp; market monitoring</span></div>
-      <div class="stat"><b>60+</b><span>data points tracked daily</span></div>
-      <div class="stat"><b>5 days</b><span>to go live</span></div>
+      <div class="stat"><b>19</b><span>automated desk agents</span></div>
+      <div class="stat"><b>15+</b><span>deliverables every trading day</span></div>
+      <div class="stat"><b>24/7</b><span>RBI &amp; market monitoring</span></div>
+      <div class="stat"><b>15 min</b><span>OIS curve refresh cadence</span></div>
     </div>
   </div>
 </header>
 
-<section id="problem">
+<div class="facts">
   <div class="wrap">
-    <div class="section-label">The Problem</div>
-    <h2>Your funding cost is decided by information you don't have.</h2>
-    <p class="lead">Mid-sized NBFCs (₹200–2,000 Cr AUM) face the same treasury complexity as large banks — but without the headcount. Every day, decisions are made on stale rates, missed circulars, and gut feel.</p>
-    <div class="problem-grid">
-      <div class="prob"><b>RBI circulars move your ALM</b><p>New Master Directions, scale-based regulations, liquidity norms — you read about them in the newspaper a week after the deadline to comment.</p></div>
-      <div class="prob"><b>Funding costs drift silently</b><p>Borrowing mix, CP vs NCD vs bank lines — 15–20 bps of avoidable cost compounds into crores of P&L drag over a year.</p></div>
-      <div class="prob"><b>Liquidity is managed reactively</b><p>You find out you're short only when the lender calls. Structural liquidity gaps show up in ALM statements — after the quarter ends.</p></div>
-      <div class="prob"><b>A full desk is unaffordable</b><p>A competent treasury team costs ₹60L+ a year. A fractional consultant costs ₹25–40L and still can't watch the market 24/7.</p></div>
+    <h3>Hero FinCorp — at a glance <span style="color:var(--dim);font-weight:500;font-size:.78rem">(facts sourced from public filings &amp; DRHP; vintage labelled)</span></h3>
+    <div class="fact-grid">
+      <div class="fact"><b>₹51,821 Cr</b><span>AUM (Mar 2024, DRHP)</span><span class="vintage">FY24 · latest public</span></div>
+      <div class="fact"><b>1.18 Cr</b><span>customer base</span><span class="vintage">DRHP</span></div>
+      <div class="fact"><b>₹9,110 Cr</b><span>FY25 net revenue</span><span class="vintage">FY25 · PAT ₹32 Cr after one-off provisions</span></div>
+      <div class="fact"><b>₹3,408 Cr</b><span>IPO size (₹1,840 Cr fresh + ₹1,568 Cr OFS) · SEBI nod May 2025</span><span class="vintage">Dates TBA as of Aug 2026 · unlisted ~₹1,250</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="roster">
+  <div class="wrap">
+    <div class="section-label">Daily Operations</div>
+    <h2>The desk schedule — every task, every hour, all IST.</h2>
+    <p class="lead">The full automated roster, exactly as it runs. Times are India Standard Time. The desk never sleeps: pre-market intelligence at 04:35, market-open coverage from 09:15, credit and FX closes through the evening, and an overnight risk scan before Asia reopens.</p>
+    <div class="roster-note">
+      <span class="tag">● 18 agents nominal</span>
+      <span class="tag">▲ 1 agent — dependency fixed Aug 8, verify Mon</span>
+      <span class="tag">Delivered to: Hermes Bolt Group (treasury critical) · Personal DM</span>
+    </div>
+
+    <div class="day-part">
+      <h3>Pre-Market · 00:00 – 07:45</h3>
+      <table>
+        <tr><th style="width:110px">Time (IST)</th><th>Agent / Task</th><th style="width:110px">Cadence</th><th style="width:170px">Delivery</th><th style="width:80px">Status</th></tr>
+        <tr><td class="time">00:00</td><td class="agent"><b>Daily Fitness Protocol Reminder</b><p>Workout plan for the calendar day (script-driven, no agent)</p></td><td class="cadence">Daily</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">04:35</td><td class="agent"><b>Unified YouTube Daily Digest</b><p>Curated video digest from subscribed channels — markets, macro, treasury</p></td><td class="cadence">Daily</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">06:00</td><td class="agent"><b>Life Experience Engine</b><p>Daily plan + bucket-list tracker</p></td><td class="cadence">Daily</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">06:30</td><td class="agent"><b>Alpha Ideas — Indian Debt &amp; Equity</b><p>1 high-conviction, actionable money-making idea (rate cuts, SDL ladders, dividend barbells)</p></td><td class="cadence">Mon/Wed/Fri</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">07:45</td><td class="agent"><b>Treasury Open Brief</b><p>Consolidated market pulse + policy rates + funding optimization — replaces three separate briefs</p></td><td class="cadence">Daily</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+      </table>
+    </div>
+
+    <div class="day-part">
+      <h3>Market Hours · 09:00 – 16:45</h3>
+      <table>
+        <tr><th style="width:110px">Time (IST)</th><th>Agent / Task</th><th style="width:110px">Cadence</th><th style="width:170px">Delivery</th><th style="width:80px">Status</th></tr>
+        <tr><td class="time">09:00</td><td class="agent"><b>Hong Kong Treasury Job Scout</b><p>VP/Director treasury roles in HK — career intelligence</p></td><td class="cadence">Mon &amp; Thu</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">09:00–16:45</td><td class="agent"><b>CCIL ASTROID MIBOR OIS Data Dump</b><p>Intraday OIS curve snapshots every 15 min — feeds the curve table below (script)</p></td><td class="cadence">Every 15 min</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">10:00</td><td class="agent"><b>Indian Money Market Liquidity Pulse</b><p>Repo, CRR, G-Sec, CD, CP rates; systemic liquidity assessment</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">11:30</td><td class="agent"><b>Mid-Day Markets Wrap</b><p>Consolidated intraday brief — indices, FX, rates, credit</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">12:15</td><td class="agent"><b>Midday Credit &amp; Auction Monitor</b><p>T-Bill auction coverage + NBFC credit market monitor</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+      </table>
+    </div>
+
+    <div class="day-part">
+      <h3>Close &amp; Evening · 17:00 – 22:00</h3>
+      <table>
+        <tr><th style="width:110px">Time (IST)</th><th>Agent / Task</th><th style="width:110px">Cadence</th><th style="width:170px">Delivery</th><th style="width:80px">Status</th></tr>
+        <tr><td class="time">17:00</td><td class="agent"><b>Trendlyne Conference Call &amp; Transcript Tracker</b><p>Earnings-call transcripts for NBFCs &amp; counterparties</p></td><td class="cadence">Daily</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">17:15</td><td class="agent"><b>CCIL OIS EOD Fetch</b><p>Official ASTROID closing table (script)</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">17:15</td><td class="agent"><b>Penny Stock Intelligence Scan</b><p>Sub-₹50, mcap &lt; ₹500 Cr momentum scan</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">17:20</td><td class="agent"><b>CCIL OIS Day-End Summary</b><p>Official EOD OHLC + intraday volatility + curve interpretation (script)</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="fix"><span class="dot"></span>FIXED</span></td></tr>
+        <tr><td class="time">18:00</td><td class="agent"><b>Master Treasurer RBI Press Release Deep Dive</b><p>Every RBI press release parsed with NBFC-ML impact notes</p></td><td class="cadence">Daily</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">18:00</td><td class="agent"><b>AI Daily Intelligence</b><p>Daily AI/tech news digest</p></td><td class="cadence">Daily</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">20:30</td><td class="agent"><b>Geopolitics &amp; Energy Brief</b><p>Oil, geopolitics, macro risk — silent unless material</p></td><td class="cadence">Daily</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">21:00</td><td class="agent"><b>Overnight Risk Scan — Asian Market Open</b><p>Pre-sleep risk assessment: geopolitics, oil shocks, position risk before Asia opens</p></td><td class="cadence">Daily</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+        <tr><td class="time">22:00</td><td class="agent"><b>Treasury Build-Ideas Engine</b><p>10 product/tool ideas for the desk — the stack keeps building itself</p></td><td class="cadence">Daily</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
+      </table>
+    </div>
+
+    <p class="footnote">▲ 17:20 CCIL OIS Day-End Summary: failed 7 Aug due to an openpyxl version mismatch in the scheduler environment (3.1.2 vs required 3.1.5). Dependency upgraded 8 Aug — next scheduled run Mon 17:20 IST will confirm. Intraday OIS snapshots and EOD fetch were unaffected.</p>
+  </div>
+</section>
+
+<section id="live" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="section-label">Live Market Data</div>
+    <h2>What the desk is watching right now.</h2>
+    <p class="lead">Real numbers from the production pipeline — no mockups. The OIS curve is the CCIL ASTROID EOD close; the intraday table refreshes every 15 minutes on trading days.</p>
+    <div class="live-grid">
+      <div class="live-card">
+        <h3>📈 INR OIS Curve — CCIL ASTROID EOD <span style="color:var(--gold);font-size:.75rem">Fri 7 Aug 2026</span></h3>
+        <p class="sub">Weighted average rates, official closing table</p>
+        <table>
+          <tr><th>Tenor</th><th>WAR (%)</th><th>Tenor</th><th>WAR (%)</th></tr>
+          <tr><td>1M</td><td class="rate">5.2700</td><td>2Y</td><td class="rate">5.9626</td></tr>
+          <tr><td>3M</td><td class="rate">5.3525</td><td>3Y</td><td class="rate">6.0691</td></tr>
+          <tr><td>6M</td><td class="rate">5.4876</td><td>5Y</td><td class="rate">6.2805</td></tr>
+          <tr><td>1Y</td><td class="rate">5.7724</td><td>10Y</td><td class="rate">—</td></tr>
+        </table>
+        <p class="curve-note">Curve shape: <b style="color:var(--green)">upward-sloping</b> 1M→5Y (+101 bp). 1Y–5Y spread ≈ +51 bp. Source: <code style="color:var(--teal)">~/workspace/treasury-data/ccil-ois/ccil-ois-all.xlsx</code></p>
+        <p class="footnote">Intraday last snapshot (16:45 IST): 1Y 5.7728 · 2Y 5.963 · 5Y 6.282 · vol leaders: 5Y ₹11,600 Cr, 1Y ₹2,855 Cr.</p>
+      </div>
+      <div class="live-card">
+        <h3>🏛️ RBI Policy Rates</h3>
+        <p class="sub">Verified baselines — per latest MPC (May 2026); always re-verify at rbi.org.in</p>
+        <table>
+          <tr><th>Rate</th><th>Level</th></tr>
+          <tr><td>Repo</td><td class="rate">5.25%</td></tr>
+          <tr><td>SDF (operative reverse repo)</td><td class="rate">5.00%</td></tr>
+          <tr><td>MSF</td><td class="rate">5.50%</td></tr>
+          <tr><td>CRR</td><td class="rate">3.00%</td></tr>
+          <tr><td>SLR</td><td class="rate">18.00%</td></tr>
+        </table>
+        <p class="footnote">Legacy "fixed reverse repo" 3.35% shown on RBI homepage is NOT operative since Apr 2022 — the SDF is the floor of the LAF corridor.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="solutions" style="background:var(--bg2)">
+<section id="products">
   <div class="wrap">
-    <div class="section-label">What You Get</div>
-    <h2>Six products. One desk. Zero headcount.</h2>
-    <p class="lead">Every product is delivered to your CFO and treasury team on Telegram/WhatsApp/Email, with a live dashboard for drill-down.</p>
+    <div class="section-label">The Stack</div>
+    <h2>Six modules. One desk. Zero missed inputs.</h2>
+    <p class="lead">Every scheduled agent above belongs to one of these modules. Each is built with the funding and ALM reality of an NBFC-ML lender in mind — 15–20 bp of avoidable funding cost compounds into crores of P&amp;L drag over a year.</p>
     <div class="solution-grid">
       <div class="sol">
-        <span class="num">01</span>
-        <h3>🌅 Daily Morning Brief</h3>
-        <p>Pre-market intelligence on your desk by 8:00 AM IST — every trading day.</p>
+        <h3>🌅 Morning Open</h3>
+        <p>Pre-market intelligence by 07:45 IST.</p>
         <ul>
-          <li>Nifty, Bank Nifty, FII/DII flows, USD/INR</li>
-          <li>Global overnight: US, Europe, Asia, commodities</li>
-          <li>Verified RBI policy rates &amp; liquidity operations</li>
+          <li>Indices, FII/DII flows, USD/INR</li>
+          <li>Global overnight: US, Europe, Asia, oil</li>
+          <li>Verified RBI rates &amp; liquidity ops</li>
           <li>G-Sec yields, OIS curve, CP/NCD levels</li>
-          <li>3–4 actionable items for your desk</li>
         </ul>
       </div>
       <div class="sol">
-        <span class="num">02</span>
-        <h3>🚨 RBI Circular Intelligence</h3>
-        <p>Every RBI press release and circular — parsed, deduplicated, and delivered with NBFC-specific impact notes.</p>
+        <h3>🚨 RBI Intelligence</h3>
+        <p>Every press release and circular — parsed, deduped, delivered with NBFC impact notes.</p>
         <ul>
-          <li>Flash alerts within 30 min of release</li>
-          <li>Master Directions, SBR, liquidity, FEMA</li>
-          <li>Impact analysis for your lending book</li>
-          <li>Compliance calendar integration</li>
+          <li>Flash alerts on release</li>
+          <li>Master Directions, SBR, FEMA</li>
+          <li>Impact notes for a secured retail/MSME book</li>
+          <li>PAST → PRESENT → FUTURE framing</li>
         </ul>
       </div>
       <div class="sol">
-        <span class="num">03</span>
         <h3>💰 Funding Optimization</h3>
-        <p>Your borrowing mix, optimized daily against live market prices.</p>
+        <p>Borrowing mix vs live market prices, daily.</p>
         <ul>
           <li>Bank TL vs NCD vs CP vs ECB cost comparison</li>
           <li>CP calendar &amp; rollover alerts</li>
-          <li>Concentration and tenor mismatch flags</li>
+          <li>Concentration &amp; tenor mismatch flags</li>
           <li>ECB all-in cost vs domestic arbitrage</li>
         </ul>
       </div>
       <div class="sol">
-        <span class="num">04</span>
         <h3>💧 Liquidity Pulse</h3>
-        <p>Systemic and structural liquidity, monitored continuously.</p>
+        <p>Systemic + structural liquidity, monitored continuously.</p>
         <ul>
-          <li>LAF/VRR auction results &amp; system surplus</li>
+          <li>LAF/VRR results &amp; system surplus</li>
           <li>Call money &amp; repo rates</li>
-          <li>Your 30-day liquidity buffer tracking</li>
+          <li>30-day liquidity buffer tracking</li>
           <li>ALM gap alerts (0–1M, 1–3M buckets)</li>
         </ul>
       </div>
       <div class="sol">
-        <span class="num">05</span>
         <h3>📊 T-Bill &amp; G-Sec Monitor</h3>
-        <p>Auction intelligence with cut-off yield tracking and spread analysis.</p>
+        <p>Auction intelligence with cut-off yield tracking.</p>
         <ul>
-          <li>91/182/364-day T-bill auction cut-offs</li>
-          <li>G-Sec auction calendar &amp; cut-off yields</li>
-          <li>OIS curve &amp; G-Sec spread monitoring</li>
-          <li>Sovereign yield signals for your pricing</li>
+          <li>91/182/364-day T-bill cut-offs</li>
+          <li>G-Sec auction calendar &amp; cut-offs</li>
+          <li>OIS curve &amp; spread monitoring</li>
+          <li>Sovereign yield signals for pricing</li>
         </ul>
       </div>
       <div class="sol">
-        <span class="num">06</span>
-        <h3>🌙 EOD Wrap &amp; Overnight Risk</h3>
-        <p>Close-of-day market summary plus pre-sleep risk scan for tomorrow's Asia open.</p>
+        <h3>🌙 EOD &amp; Overnight Risk</h3>
+        <p>Close-of-day recap + pre-sleep risk scan.</p>
         <ul>
           <li>Full day recap: rates, FX, credit, oil</li>
-          <li>Overnight risk flags (geopolitics, oil shocks)</li>
-          <li>Position risk assessment before Asia opens</li>
+          <li>Overnight risk flags before Asia opens</li>
+          <li>Position risk assessment</li>
           <li>Next-day calendar &amp; auction preview</li>
         </ul>
       </div>
@@ -268,238 +351,70 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--dim);font-siz
   </div>
 </section>
 
-<section id="demos">
+<section id="demos" style="background:var(--bg2)">
   <div class="wrap">
-    <div class="section-label">Live Demos</div>
-    <h2>See the actual output — built from real market data.</h2>
-    <p class="lead">These are not mockups. Each demo was generated from live market data (Nifty, USD/INR, OIS curve, RBI rates) on the date shown. Click through to see the real thing.</p>
+    <div class="section-label">Deliverables</div>
+    <h2>Actual desk output — generated from live market data.</h2>
+    <p class="lead">Not mockups. Each sample was produced from real market data (Nifty, USD/INR, OIS curve, RBI rates) on the date shown. Click through to see exactly what lands on the desk.</p>
     <div class="demo-grid">
-
       <div class="demo-card">
-        <div class="demo-head">
-          <h3>Morning Brief — sample</h3>
-          <span class="demo-tag tag-daily">Daily 08:00</span>
-        </div>
-        <div class="demo-body">
-          <p>Full pre-market brief: India markets, global overnight, RBI rates &amp; liquidity, credit markets, risk flags, and action items.</p>
-          <div class="deliver">Delivered to: <b>CFO + Treasury on Telegram</b></div>
-        </div>
-        <div class="demo-foot">
-          <span class="live-demo">● Generated from live data</span>
-          <a href="demos/morning-brief.html">Open demo →</a>
-        </div>
+        <h3>Morning Brief — sample</h3>
+        <p>Full pre-market brief: India markets, global overnight, RBI rates &amp; liquidity, credit markets, risk flags, action items.</p>
+        <div class="meta">Delivered to: <b>Bolt Group · 07:45 IST</b></div>
+        <a href="demos/morning-brief.html">Open sample →</a>
       </div>
-
       <div class="demo-card">
-        <div class="demo-head">
-          <h3>Funding Optimization — sample</h3>
-          <span class="demo-tag tag-daily">Daily 08:10</span>
-        </div>
-        <div class="demo-body">
-          <p>Borrowing mix vs live rates: CP vs NCD vs bank lines vs ECB. Rule-based recommendations with quantified savings.</p>
-          <div class="deliver">Delivered to: <b>Treasury Head on Telegram</b></div>
-        </div>
-        <div class="demo-foot">
-          <span class="live-demo">● Generated from live data</span>
-          <a href="demos/funding-optimization.html">Open demo →</a>
-        </div>
+        <h3>Funding Optimization — sample</h3>
+        <p>Borrowing mix vs live rates: CP vs NCD vs bank lines vs ECB. Rule-based recommendations with quantified savings.</p>
+        <div class="meta">Delivered to: <b>Bolt Group · 07:45 IST</b></div>
+        <a href="demos/funding-optimization.html">Open sample →</a>
       </div>
-
       <div class="demo-card">
-        <div class="demo-head">
-          <h3>Liquidity Pulse — sample</h3>
-          <span class="demo-tag tag-intraday">10:00 + alerts</span>
-        </div>
-        <div class="demo-body">
-          <p>Systemic liquidity (LAF/VRR), call money, repo rates — plus your own 30-day buffer and ALM gap tracking.</p>
-          <div class="deliver">Delivered to: <b>ALM &amp; Treasury on Telegram</b></div>
-        </div>
-        <div class="demo-foot">
-          <span class="live-demo">● Generated from live data</span>
-          <a href="demos/liquidity-pulse.html">Open demo →</a>
-        </div>
+        <h3>Liquidity Pulse — sample</h3>
+        <p>Systemic liquidity (LAF/VRR), call money, repo rates — plus 30-day buffer and ALM gap tracking.</p>
+        <div class="meta">Delivered to: <b>Bolt Group · 10:00 IST</b></div>
+        <a href="demos/liquidity-pulse.html">Open sample →</a>
       </div>
-
       <div class="demo-card">
-        <div class="demo-head">
-          <h3>T-Bill Auction Monitor — sample</h3>
-          <span class="demo-tag tag-weekly">Auction days</span>
-        </div>
-        <div class="demo-body">
-          <p>91/182/364-day cut-off yields with trend charting, spread analysis vs OIS, and funding signals for your desk.</p>
-          <div class="deliver">Delivered to: <b>Funding desk on Telegram</b></div>
-        </div>
-        <div class="demo-foot">
-          <span class="live-demo">● Generated from live data</span>
-          <a href="demos/tbill-monitor.html">Open demo →</a>
-        </div>
+        <h3>T-Bill Auction Monitor — sample</h3>
+        <p>91/182/364-day cut-off yields with trend, spread analysis vs OIS, funding signals.</p>
+        <div class="meta">Delivered to: <b>Bolt Group · 12:15 IST</b></div>
+        <a href="demos/tbill-monitor.html">Open sample →</a>
       </div>
-
       <div class="demo-card">
-        <div class="demo-head">
-          <h3>EOD Markets Wrap — sample</h3>
-          <span class="demo-tag tag-daily">Daily 18:00</span>
-        </div>
-        <div class="demo-body">
-          <p>Close-of-day recap across rates, FX, credit, and oil — with tomorrow's calendar and overnight risk flags.</p>
-          <div class="deliver">Delivered to: <b>CFO + Treasury on Telegram</b></div>
-        </div>
-        <div class="demo-foot">
-          <span class="live-demo">● Generated from live data</span>
-          <a href="demos/eod-wrap.html">Open demo →</a>
-        </div>
+        <h3>EOD Markets Wrap — sample</h3>
+        <p>Close-of-day recap across rates, FX, credit, oil — with tomorrow's calendar and overnight risk flags.</p>
+        <div class="meta">Delivered to: <b>Bolt Group · 21:00 IST</b></div>
+        <a href="demos/eod-wrap.html">Open sample →</a>
       </div>
-
       <div class="demo-card">
-        <div class="demo-head">
-          <h3>RBI Circular Alerts — sample</h3>
-          <span class="demo-tag tag-live">Flash 24/7</span>
-        </div>
-        <div class="demo-body">
-          <p>How a real RBI circular reaches your desk: raw release → parsed → impact note for NBFC treasury — in 30 minutes.</p>
-          <div class="deliver">Delivered to: <b>Compliance + Treasury, flash alert</b></div>
-        </div>
-        <div class="demo-foot">
-          <span class="live-demo">● Generated from live data</span>
-          <a href="demos/rbi-alerts.html">Open demo →</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section id="pricing" style="background:var(--bg2)">
-  <div class="wrap">
-    <div class="section-label">Pricing</div>
-    <h2>Fractional desk. Institutional output.</h2>
-    <p class="lead">Compare: a full treasury team costs ₹60L+ a year. TreasuryDesk starts at ₹6L.</p>
-    <div class="price-grid">
-      <div class="price-card">
-        <h3>Essentials</h3>
-        <div class="who">For NBFCs building their first treasury function</div>
-        <div class="amt">₹50,000<span>/month</span></div>
-        <ul>
-          <li>Morning Brief (daily, 08:00)</li>
-          <li>RBI circular flash alerts</li>
-          <li>T-Bill / G-Sec auction monitor</li>
-          <li>Weekly funding cost summary</li>
-          <li>Email + Telegram delivery</li>
-          <li>Monthly desk review call</li>
-        </ul>
-        <a href="#contact" class="btn btn-ghost">Start Here</a>
-      </div>
-      <div class="price-card featured">
-        <div class="flag">Most Popular</div>
-        <h3>Professional</h3>
-        <div class="who">For active funding desks (₹500–2,000 Cr AUM)</div>
-        <div class="amt">₹1,00,000<span>/month</span></div>
-        <ul>
-          <li>Everything in Essentials</li>
-          <li>Funding optimization engine</li>
-          <li>Liquidity pulse + ALM gap alerts</li>
-          <li>EOD wrap + overnight risk scan</li>
-          <li>CP calendar &amp; rollover alerts</li>
-          <li>Quarterly ALM review + strategy memo</li>
-          <li>Priority support (same-day)</li>
-        </ul>
-        <a href="#contact" class="btn btn-gold">Book a Demo</a>
-      </div>
-      <div class="price-card">
-        <h3>Enterprise</h3>
-        <div class="who">For groups, multiple entities, custom builds</div>
-        <div class="amt">Custom</div>
-        <ul>
-          <li>Everything in Professional</li>
-          <li>Multi-entity consolidation</li>
-          <li>Custom dashboards &amp; connectors</li>
-          <li>Bank / CCIL / FBIL data feeds</li>
-          <li>Dedicated fractional treasurer</li>
-          <li>SLA-backed delivery</li>
-        </ul>
-        <a href="#contact" class="btn btn-ghost">Talk to Us</a>
+        <h3>RBI Circular Alert — sample</h3>
+        <p>How a real RBI circular reaches the desk: raw release → parsed → NBFC-ML impact note — in 30 minutes.</p>
+        <div class="meta">Delivered to: <b>Bolt Group · Flash 24/7</b></div>
+        <a href="demos/rbi-alerts.html">Open sample →</a>
       </div>
     </div>
   </div>
 </section>
 
-<section id="process">
+<section id="impact">
   <div class="wrap">
-    <div class="section-label">How It Works</div>
-    <h2>Live in 5 days. No IT project.</h2>
-    <div class="steps">
-      <div class="step">
-        <span class="snum">1</span>
-        <b>Discovery call</b>
-        <p>30 minutes. We map your funding mix, ALM structure, and which alerts matter most.</p>
-      </div>
-      <div class="step">
-        <span class="snum">2</span>
-        <b>Pilot week</b>
-        <p>We run your desk for 5 business days — full output, zero obligation. You judge the quality.</p>
-      </div>
-      <div class="step">
-        <span class="snum">3</span>
-        <b>Go live</b>
-        <p>Delivery channels configured, alerts tuned, first month invoiced at the agreed tier.</p>
-      </div>
-      <div class="step">
-        <span class="snum">4</span>
-        <b>Continuous desk</b>
-        <p>Daily output, monthly reviews, quarterly ALM memos. Your desk, without the headcount.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="contact" style="background:var(--bg2)">
-  <div class="wrap">
-    <div class="section-label">Contact</div>
-    <h2>Book a 30-minute walkthrough.</h2>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <p>See the demos live, discuss your funding structure, and get a tailored pilot plan. No sales pressure — we'll show you exactly what your desk would receive.</p>
-        <div class="contact-item">
-          <div class="ic">✉️</div>
-          <div><b>Email</b><span>treasurydesk@proton.me</span></div>
-        </div>
-        <div class="contact-item">
-          <div class="ic">📱</div>
-          <div><b>WhatsApp / Telegram</b><span>+91 98XXXXXXXX (available on request)</span></div>
-        </div>
-        <div class="contact-item">
-          <div class="ic">🕐</div>
-          <div><b>Response time</b><span>Same business day</span></div>
-        </div>
-      </div>
-      <form action="mailto:treasurydesk@proton.me" method="get" enctype="text/plain">
-        <div class="form-row">
-          <input type="text" name="name" placeholder="Your name" required>
-          <input type="text" name="company" placeholder="Company / NBFC" required>
-        </div>
-        <div class="form-row">
-          <input type="email" name="email" placeholder="Work email" required>
-          <input type="tel" name="phone" placeholder="Phone / WhatsApp">
-        </div>
-        <select name="tier" required>
-          <option value="" disabled selected>AUM range (optional)</option>
-          <option>Under ₹500 Cr</option>
-          <option>₹500–2,000 Cr</option>
-          <option>₹2,000–10,000 Cr</option>
-          <option>Above ₹10,000 Cr</option>
-        </select>
-        <textarea name="message" placeholder="What does your treasury look like today? (funding mix, team size, biggest pain point)"></textarea>
-        <button type="submit" class="btn btn-gold" style="border:none;cursor:pointer">Request Walkthrough</button>
-        <span class="form-note">The form opens your email client with the details prefilled. We reply the same business day.</span>
-      </form>
+    <div class="section-label">Desk Impact</div>
+    <h2>What this means for the Hero FinCorp balance sheet.</h2>
+    <p class="lead">The stack is not a dashboard — it is the desk. Every module maps to a line item the treasury owns.</p>
+    <div class="impact-grid">
+      <div class="imp"><b>Funding cost</b><p>Daily CP vs NCD vs bank-line repricing catches 15–20 bp of drift before it compounds. On a ₹30,000 Cr borrow book, 10 bp ≈ ₹30 Cr/year of interest cost.</p></div>
+      <div class="imp"><b>ALM &amp; liquidity</b><p>Liquidity pulse + buffer tracking surfaces 0–1M and 1–3M gaps before they hit the ALM statement. Regulatory liquidity coverage is a moat, not an afterthought.</p></div>
+      <div class="imp"><b>Regulatory radar</b><p>RBI Master Directions, scale-based regulations, and FEMA changes reach the desk within 30 minutes — not a week after the comment deadline.</p></div>
+      <div class="imp"><b>IPO-readiness</b><p>With a ₹3,408 Cr IPO in the pipeline (dates TBA), the desk runs on the same discipline a listed treasury will face: mark-to-market, disclosure-grade data, zero missed events.</p></div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap foot-inner">
-    <span>© 2026 TreasuryDesk. Built for Indian NBFC treasury desks.</span>
-    <span>Demo data generated from live market sources. Not investment advice.</span>
+    <span>Hero FinCorp Treasury Desk — internal command center. Sample outputs, not investment advice.</span>
+    <span>Data: CCIL ASTROID · rbi.org.in · Yahoo Finance · built with Hermes Agent · Updated 8 Aug 2026</span>
   </div>
 </footer>
 
