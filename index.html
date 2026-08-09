@@ -1,422 +1,375 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hero FinCorp Treasury Desk — Command Center</title>
-<meta name="description" content="The Hero FinCorp Treasury Desk command center: 19 automated agents covering markets open, RBI intelligence, liquidity, credit, FX, OIS, and overnight risk — every deliverable personalized for an NBFC-ML balance sheet.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<title>Treasury Desk — Live Cron Tracker — Treasury Desk</title>
 <style>
-:root{
-  --bg:#0b0f17; --bg2:#111827; --card:#151d2e; --card2:#1a2440;
-  --ink:#e8edf6; --dim:#8fa3bf; --line:#243252;
-  --gold:#d4af37; --teal:#2dd4bf; --red:#f87171; --green:#4ade80; --amber:#fbbf24;
-  --blue:#60a5fa;
-}
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6}
-.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
-a{color:var(--teal);text-decoration:none}
-a:hover{text-decoration:underline}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
 
-/* NAV */
-nav{position:sticky;top:0;z-index:50;background:rgba(11,15,23,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{font-weight:800;font-size:1.05rem;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
-.logo .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--teal));display:flex;align-items:center;justify-content:center;font-size:.85rem;color:#0b0f17}
-.logo span{color:var(--gold)}
-.nav-links{display:flex;gap:26px;align-items:center}
-.nav-links a{color:var(--dim);font-size:.88rem;font-weight:500}
-.nav-links a:hover{color:var(--ink)}
-.badge-live{display:inline-flex;align-items:center;gap:6px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.35);color:var(--green);font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px}
-.badge-live .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-
-/* HERO */
-.hero{padding:80px 0 56px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(650px 320px at 72% 18%,rgba(45,212,191,.09),transparent),radial-gradient(550px 300px at 12% 65%,rgba(212,175,55,.07),transparent);pointer-events:none}
-.hero .wrap{position:relative}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(212,175,55,.35);padding:5px 14px;border-radius:100px;margin-bottom:20px}
-h1{font-size:2.75rem;line-height:1.14;font-weight:800;letter-spacing:-.03em;max-width:860px}
-h1 .grad{background:linear-gradient(90deg,var(--gold),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero-sub{font-size:1.1rem;color:var(--dim);max-width:720px;margin:20px 0 32px}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
-.btn{display:inline-block;padding:12px 24px;border-radius:10px;font-weight:700;font-size:.92rem;transition:.15s}
-.btn-gold{background:var(--gold);color:#0b0f17}
-.btn-gold:hover{background:#e6c95c;text-decoration:none}
-.btn-ghost{border:1px solid var(--line);color:var(--ink)}
-.btn-ghost:hover{border-color:var(--teal);text-decoration:none}
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
-.stat b{display:block;font-size:1.5rem;font-weight:800;color:var(--gold)}
-.stat span{font-size:.78rem;color:var(--dim)}
-
-/* FACT STRIP */
-.facts{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:34px 0}
-.facts h3{font-size:.95rem;margin-bottom:16px;color:var(--ink)}
-.fact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
-.fact b{display:block;font-size:1.02rem;color:var(--teal);margin-bottom:2px}
-.fact span{font-size:.76rem;color:var(--dim)}
-.fact .vintage{display:block;font-size:.66rem;color:var(--amber);margin-top:4px}
-
-/* SECTIONS */
-section{padding:64px 0}
-.section-label{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
-h2{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
-.lead{color:var(--dim);max-width:760px;margin-bottom:30px}
-
-/* TIMELINE / ROSTER */
-.roster-note{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:26px}
-.roster-note .tag{font-size:.74rem;padding:4px 10px;border-radius:100px;border:1px solid var(--line);color:var(--dim)}
-.day-part{margin-bottom:26px}
-.day-part h3{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:10px}
-.day-part h3::after{content:'';flex:1;height:1px;background:var(--line)}
-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.88rem}
-th{background:var(--card2);text-align:left;padding:11px 14px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
-td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top}
-tr:hover td{background:rgba(45,212,191,.03)}
-td.time{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--gold);white-space:nowrap;font-weight:600}
-td.agent b{font-size:.9rem}
-td.agent p{font-size:.78rem;color:var(--dim);margin-top:2px}
-.cadence{font-size:.7rem;color:var(--dim);white-space:nowrap}
-.deliv{font-size:.72rem;white-space:nowrap}
-.deliv .grp{color:var(--blue)}
-.deliv .dm{color:var(--teal)}
-.status{white-space:nowrap;font-size:.74rem;font-weight:600}
-.status .ok{color:var(--green)}
-.status .fix{color:var(--amber)}
-.status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:middle}
-.status .ok .dot{background:var(--green)}
-.status .fix .dot{background:var(--amber)}
-
-/* LIVE DATA */
-.live-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
-.live-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
-.live-card h3{font-size:.95rem;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.live-card .sub{font-size:.72rem;color:var(--dim);margin:-8px 0 12px}
-.live-card table{background:transparent}
-.live-card th{padding:8px 10px;background:rgba(26,36,64,.6)}
-.live-card td{padding:8px 10px}
-.rate{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--teal);font-weight:600}
-.footnote{font-size:.72rem;color:var(--dim);margin-top:12px}
-.curve-note{font-size:.78rem;color:var(--dim);margin-top:10px}
-
-/* PRODUCTS */
-.solution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.sol{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;transition:.15s}
-.sol:hover{border-color:var(--teal);transform:translateY(-2px)}
-.sol h3{font-size:1rem;margin-bottom:8px}
-.sol p{color:var(--dim);font-size:.86rem;margin-bottom:10px}
-.sol ul{list-style:none}
-.sol li{font-size:.8rem;color:var(--dim);padding:3px 0 3px 18px;position:relative}
-.sol li::before{content:'▸';position:absolute;left:0;color:var(--teal)}
-
-/* DEMOS */
-.demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.demo-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;transition:.15s}
-.demo-card:hover{border-color:var(--gold);transform:translateY(-2px)}
-.demo-card h3{font-size:.95rem;margin-bottom:6px}
-.demo-card p{color:var(--dim);font-size:.8rem;flex:1;margin-bottom:12px}
-.demo-card .meta{font-size:.72rem;color:var(--dim);margin-bottom:12px}
-.demo-card .meta b{color:var(--teal)}
-.demo-card a{font-size:.82rem;font-weight:600}
-
-/* IMPACT */
-.impact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.imp{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:18px 20px}
-.imp b{display:block;margin-bottom:6px}
-.imp p{color:var(--dim);font-size:.85rem}
-
-/* FOOTER */
-footer{border-top:1px solid var(--line);padding:28px 0;color:var(--dim);font-size:.78rem}
-.foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-
-/* RESPONSIVE */
-@media(max-width:960px){
-  .hero-stats,.fact-grid{grid-template-columns:repeat(2,1fr)}
-  .solution-grid,.demo-grid,.impact-grid,.live-grid{grid-template-columns:1fr}
-  h1{font-size:2rem}
-  .nav-links{display:none}
-  table{font-size:.8rem}
-  td{padding:9px 10px}
-}
-</style>
-</head>
-<body>
-
-<nav>
-  <div class="wrap nav-inner">
-    <div class="logo"><span class="mark">HF</span>Hero FinCorp <span>Treasury Desk</span></div>
-    <div class="nav-links">
-      <a href="#roster">Daily Operations</a>
-      <a href="#live">Live Market Data</a>
-      <a href="#demos">Deliverables</a>
-      <a href="#impact">Desk Impact</a>
-      <span class="badge-live"><span class="dot"></span>19 agents running</span>
-    </div>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <span class="eyebrow">● Treasury Command Center · NBFC-ML</span>
-    <h1>Every rate. Every circular. Every risk. <span class="grad">On the desk before the market opens.</span></h1>
-    <p class="hero-sub">The Hero FinCorp treasury desk runs on a fully automated intelligence stack — 19 scheduled agents covering markets, RBI, liquidity, credit, FX, OIS, and overnight risk. Each deliverable is built for an NBFC-ML balance sheet: funding mix decisions, ALM gaps, CP/NCD levels, and regulatory exposure. No missed circular. No stale rate. No silent weekend.</p>
-    <div class="hero-ctas">
-      <a href="#roster" class="btn btn-gold">See the Daily Desk Schedule</a>
-      <a href="#live" class="btn btn-ghost">Live Market Snapshot</a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><b>19</b><span>automated desk agents</span></div>
-      <div class="stat"><b>15+</b><span>deliverables every trading day</span></div>
-      <div class="stat"><b>24/7</b><span>RBI &amp; market monitoring</span></div>
-      <div class="stat"><b>15 min</b><span>OIS curve refresh cadence</span></div>
-    </div>
-  </div>
-</header>
-
-<div class="facts">
-  <div class="wrap">
-    <h3>Hero FinCorp — at a glance <span style="color:var(--dim);font-weight:500;font-size:.78rem">(facts sourced from public filings &amp; DRHP; vintage labelled)</span></h3>
-    <div class="fact-grid">
-      <div class="fact"><b>₹51,821 Cr</b><span>AUM (Mar 2024, DRHP)</span><span class="vintage">FY24 · latest public</span></div>
-      <div class="fact"><b>1.18 Cr</b><span>customer base</span><span class="vintage">DRHP</span></div>
-      <div class="fact"><b>₹9,110 Cr</b><span>FY25 net revenue</span><span class="vintage">FY25 · PAT ₹32 Cr after one-off provisions</span></div>
-      <div class="fact"><b>₹3,408 Cr</b><span>IPO size (₹1,840 Cr fresh + ₹1,568 Cr OFS) · SEBI nod May 2025</span><span class="vintage">Dates TBA as of Aug 2026 · unlisted ~₹1,250</span></div>
-    </div>
-  </div>
+<div class="bar">
+  <div class="logo">🏛️ TREASURY DESK <small>— live cron tracker</small></div>
+  <div class="meta">Last updated 09 Aug 2026, 14:19:00 IST · regenerates automatically after every cron run · <a href="https://github.com/ashishiice/treasurydesk-web">source</a></div>
 </div>
 
-<section id="roster">
-  <div class="wrap">
-    <div class="section-label">Daily Operations</div>
-    <h2>The desk schedule — every task, every hour, all IST.</h2>
-    <p class="lead">The full automated roster, exactly as it runs. Times are India Standard Time. The desk never sleeps: pre-market intelligence at 04:35, market-open coverage from 09:15, credit and FX closes through the evening, and an overnight risk scan before Asia reopens.</p>
-    <div class="roster-note">
-      <span class="tag">● 18 agents nominal</span>
-      <span class="tag">▲ 1 agent — dependency fixed Aug 8, verify Mon</span>
-      <span class="tag">Delivered to: Hermes Bolt Group (treasury critical) · Personal DM</span>
-    </div>
-
-    <div class="day-part">
-      <h3>Pre-Market · 00:00 – 07:45</h3>
-      <table>
-        <tr><th style="width:110px">Time (IST)</th><th>Agent / Task</th><th style="width:110px">Cadence</th><th style="width:170px">Delivery</th><th style="width:80px">Status</th></tr>
-        <tr><td class="time">00:00</td><td class="agent"><b>Daily Fitness Protocol Reminder</b><p>Workout plan for the calendar day (script-driven, no agent)</p></td><td class="cadence">Daily</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">04:35</td><td class="agent"><b>Unified YouTube Daily Digest</b><p>Curated video digest from subscribed channels — markets, macro, treasury</p></td><td class="cadence">Daily</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">06:00</td><td class="agent"><b>Life Experience Engine</b><p>Daily plan + bucket-list tracker</p></td><td class="cadence">Daily</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">06:30</td><td class="agent"><b>Alpha Ideas — Indian Debt &amp; Equity</b><p>1 high-conviction, actionable money-making idea (rate cuts, SDL ladders, dividend barbells)</p></td><td class="cadence">Mon/Wed/Fri</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">07:45</td><td class="agent"><b>Treasury Open Brief</b><p>Consolidated market pulse + policy rates + funding optimization — replaces three separate briefs</p></td><td class="cadence">Daily</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-      </table>
-    </div>
-
-    <div class="day-part">
-      <h3>Market Hours · 09:00 – 16:45</h3>
-      <table>
-        <tr><th style="width:110px">Time (IST)</th><th>Agent / Task</th><th style="width:110px">Cadence</th><th style="width:170px">Delivery</th><th style="width:80px">Status</th></tr>
-        <tr><td class="time">09:00</td><td class="agent"><b>Hong Kong Treasury Job Scout</b><p>VP/Director treasury roles in HK — career intelligence</p></td><td class="cadence">Mon &amp; Thu</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">09:00–16:45</td><td class="agent"><b>CCIL ASTROID MIBOR OIS Data Dump</b><p>Intraday OIS curve snapshots every 15 min — feeds the curve table below (script)</p></td><td class="cadence">Every 15 min</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">10:00</td><td class="agent"><b>Indian Money Market Liquidity Pulse</b><p>Repo, CRR, G-Sec, CD, CP rates; systemic liquidity assessment</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">11:30</td><td class="agent"><b>Mid-Day Markets Wrap</b><p>Consolidated intraday brief — indices, FX, rates, credit</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">12:15</td><td class="agent"><b>Midday Credit &amp; Auction Monitor</b><p>T-Bill auction coverage + NBFC credit market monitor</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-      </table>
-    </div>
-
-    <div class="day-part">
-      <h3>Close &amp; Evening · 17:00 – 22:00</h3>
-      <table>
-        <tr><th style="width:110px">Time (IST)</th><th>Agent / Task</th><th style="width:110px">Cadence</th><th style="width:170px">Delivery</th><th style="width:80px">Status</th></tr>
-        <tr><td class="time">17:00</td><td class="agent"><b>Trendlyne Conference Call &amp; Transcript Tracker</b><p>Earnings-call transcripts for NBFCs &amp; counterparties</p></td><td class="cadence">Daily</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">17:15</td><td class="agent"><b>CCIL OIS EOD Fetch</b><p>Official ASTROID closing table (script)</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">17:15</td><td class="agent"><b>Penny Stock Intelligence Scan</b><p>Sub-₹50, mcap &lt; ₹500 Cr momentum scan</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">17:20</td><td class="agent"><b>CCIL OIS Day-End Summary</b><p>Official EOD OHLC + intraday volatility + curve interpretation (script)</p></td><td class="cadence">Mon–Fri</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="fix"><span class="dot"></span>FIXED</span></td></tr>
-        <tr><td class="time">18:00</td><td class="agent"><b>Master Treasurer RBI Press Release Deep Dive</b><p>Every RBI press release parsed with NBFC-ML impact notes</p></td><td class="cadence">Daily</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">18:00</td><td class="agent"><b>AI Daily Intelligence</b><p>Daily AI/tech news digest</p></td><td class="cadence">Daily</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">20:30</td><td class="agent"><b>Geopolitics &amp; Energy Brief</b><p>Oil, geopolitics, macro risk — silent unless material</p></td><td class="cadence">Daily</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">21:00</td><td class="agent"><b>Overnight Risk Scan — Asian Market Open</b><p>Pre-sleep risk assessment: geopolitics, oil shocks, position risk before Asia opens</p></td><td class="cadence">Daily</td><td class="deliv"><span class="grp">Bolt Group</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-        <tr><td class="time">22:00</td><td class="agent"><b>Treasury Build-Ideas Engine</b><p>10 product/tool ideas for the desk — the stack keeps building itself</p></td><td class="cadence">Daily</td><td class="deliv"><span class="dm">Personal DM</span></td><td class="status"><span class="ok"><span class="dot"></span>OK</span></td></tr>
-      </table>
-    </div>
-
-    <p class="footnote">▲ 17:20 CCIL OIS Day-End Summary: failed 7 Aug due to an openpyxl version mismatch in the scheduler environment (3.1.2 vs required 3.1.5). Dependency upgraded 8 Aug — next scheduled run Mon 17:20 IST will confirm. Intraday OIS snapshots and EOD fetch were unaffected.</p>
+<div class="grid">
+  <div class="kpi"><div class="v">19</div><div class="l">Active Jobs</div></div>
+  <div class="kpi"><div class="v">4</div><div class="l">Runs Today</div></div>
+  <div class="kpi"><div class="v">4</div><div class="l">OK Today</div></div>
+  <div class="kpi"><div class="v" style="color:var(--dim)">0</div><div class="l">Failed Today</div></div>
+  <div class="kpi"><div class="v">111</div><div class="l">Runs in 7 Days</div></div>
+  <div class="kpi"><div class="v">28</div><div class="l">Jobs Tracked</div></div>
+</div>
+<h2 style="margin:26px 0 4px" class="gold">TREASURY</h2><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Credit</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/12-15-pm-ist-mon-fri-midday-credit-auction-m-ae92/index.html" style="font-weight:700;font-size:16px">12:15 PM IST (Mon-Fri) — Midday Credit &amp; Auction Monitor (T-Bill + NBFC credit)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">15 12 * * 1-5 · telegram:-1003932209418</span>
   </div>
-</section>
-
-<section id="live" style="background:var(--bg2)">
-  <div class="wrap">
-    <div class="section-label">Live Market Data</div>
-    <h2>What the desk is watching right now.</h2>
-    <p class="lead">Real numbers from the production pipeline — no mockups. The OIS curve is the CCIL ASTROID EOD close; the intraday table refreshes every 15 minutes on trading days.</p>
-    <div class="live-grid">
-      <div class="live-card">
-        <h3>📈 INR OIS Curve — CCIL ASTROID EOD <span style="color:var(--gold);font-size:.75rem">Fri 7 Aug 2026</span></h3>
-        <p class="sub">Weighted average rates, official closing table</p>
-        <table>
-          <tr><th>Tenor</th><th>WAR (%)</th><th>Tenor</th><th>WAR (%)</th></tr>
-          <tr><td>1M</td><td class="rate">5.2700</td><td>2Y</td><td class="rate">5.9626</td></tr>
-          <tr><td>3M</td><td class="rate">5.3525</td><td>3Y</td><td class="rate">6.0691</td></tr>
-          <tr><td>6M</td><td class="rate">5.4876</td><td>5Y</td><td class="rate">6.2805</td></tr>
-          <tr><td>1Y</td><td class="rate">5.7724</td><td>10Y</td><td class="rate">—</td></tr>
-        </table>
-        <p class="curve-note">Curve shape: <b style="color:var(--green)">upward-sloping</b> 1M→5Y (+101 bp). 1Y–5Y spread ≈ +51 bp. Source: <code style="color:var(--teal)">~/workspace/treasury-data/ccil-ois/ccil-ois-all.xlsx</code></p>
-        <p class="footnote">Intraday last snapshot (16:45 IST): 1Y 5.7728 · 2Y 5.963 · 5Y 6.282 · vol leaders: 5Y ₹11,600 Cr, 1Y ₹2,855 Cr.</p>
-      </div>
-      <div class="live-card">
-        <h3>🏛️ RBI Policy Rates</h3>
-        <p class="sub">Verified baselines — per latest MPC (May 2026); always re-verify at rbi.org.in</p>
-        <table>
-          <tr><th>Rate</th><th>Level</th></tr>
-          <tr><td>Repo</td><td class="rate">5.25%</td></tr>
-          <tr><td>SDF (operative reverse repo)</td><td class="rate">5.00%</td></tr>
-          <tr><td>MSF</td><td class="rate">5.50%</td></tr>
-          <tr><td>CRR</td><td class="rate">3.00%</td></tr>
-          <tr><td>SLR</td><td class="rate">18.00%</td></tr>
-        </table>
-        <p class="footnote">Legacy "fixed reverse repo" 3.35% shown on RBI homepage is NOT operative since Apr 2022 — the SDF is the floor of the LAF corridor.</p>
-      </div>
-    </div>
+  <div class="dim small" style="margin-top:6px">Last run: 07 Aug 2026, 12:17:23 IST · 7 all-time (5 OK / 2 failed) · <a href="runs/12-15-pm-ist-mon-fri-midday-credit-auction-m-ae92/index.html">all runs (2 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Data</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/05-15-pm-ist-ccil-ois-eod-fetch-official-ast-7526/index.html" style="font-weight:700;font-size:16px">05:15 PM IST — CCIL OIS EOD Fetch (official ASTROID closing table, script)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">15 17 * * 1-5 · telegram:-1003932209418</span>
   </div>
-</section>
+  <div class="dim small" style="margin-top:6px">Last run: 07 Aug 2026, 17:15:35 IST · 15 all-time (14 OK / 1 failed) · <a href="runs/05-15-pm-ist-ccil-ois-eod-fetch-official-ast-7526/index.html">all runs (5 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">**Job ID:** 75268dc5ebe4
+**Run Time:** 2026-08-07 17:15:33
+**Mode:** no_agent (script)
 
-<section id="products">
-  <div class="wrap">
-    <div class="section-label">The Stack</div>
-    <h2>Six modules. One desk. Zero missed inputs.</h2>
-    <p class="lead">Every scheduled agent above belongs to one of these modules. Each is built with the funding and ALM reality of an NBFC-ML lender in mind — 15–20 bp of avoidable funding cost compounds into crores of P&amp;L drag over a year.</p>
-    <div class="solution-grid">
-      <div class="sol">
-        <h3>🌅 Morning Open</h3>
-        <p>Pre-market intelligence by 07:45 IST.</p>
-        <ul>
-          <li>Indices, FII/DII flows, USD/INR</li>
-          <li>Global overnight: US, Europe, Asia, oil</li>
-          <li>Verified RBI rates &amp; liquidity ops</li>
-          <li>G-Sec yields, OIS curve, CP/NCD levels</li>
-        </ul>
-      </div>
-      <div class="sol">
-        <h3>🚨 RBI Intelligence</h3>
-        <p>Every press release and circular — parsed, deduped, delivered with NBFC impact notes.</p>
-        <ul>
-          <li>Flash alerts on release</li>
-          <li>Master Directions, SBR, FEMA</li>
-          <li>Impact notes for a secured retail/MSME book</li>
-          <li>PAST → PRESENT → FUTURE framing</li>
-        </ul>
-      </div>
-      <div class="sol">
-        <h3>💰 Funding Optimization</h3>
-        <p>Borrowing mix vs live market prices, daily.</p>
-        <ul>
-          <li>Bank TL vs NCD vs CP vs ECB cost comparison</li>
-          <li>CP calendar &amp; rollover alerts</li>
-          <li>Concentration &amp; tenor mismatch flags</li>
-          <li>ECB all-in cost vs domestic arbitrage</li>
-        </ul>
-      </div>
-      <div class="sol">
-        <h3>💧 Liquidity Pulse</h3>
-        <p>Systemic + structural liquidity, monitored continuously.</p>
-        <ul>
-          <li>LAF/VRR results &amp; system surplus</li>
-          <li>Call money &amp; repo rates</li>
-          <li>30-day liquidity buffer tracking</li>
-          <li>ALM gap alerts (0–1M, 1–3M buckets)</li>
-        </ul>
-      </div>
-      <div class="sol">
-        <h3>📊 T-Bill &amp; G-Sec Monitor</h3>
-        <p>Auction intelligence with cut-off yield tracking.</p>
-        <ul>
-          <li>91/182/364-day T-bill cut-offs</li>
-          <li>G-Sec auction calendar &amp; cut-offs</li>
-          <li>OIS curve &amp; spread monitoring</li>
-          <li>Sovereign yield signals for pricing</li>
-        </ul>
-      </div>
-      <div class="sol">
-        <h3>🌙 EOD &amp; Overnight Risk</h3>
-        <p>Close-of-day recap + pre-sleep risk scan.</p>
-        <ul>
-          <li>Full day recap: rates, FX, credit, oil</li>
-          <li>Overnight risk flags before Asia opens</li>
-          <li>Position risk assessment</li>
-          <li>Next-day calendar &amp; auction preview</li>
-        </ul>
-      </div>
-    </div>
+---
+
+✅ CCIL OIS EOD saved for 07 Aug 2026
+   File: /home/homepc/workspace/treasury-data/ccil-ois/ccil-ois-all.xl</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/05-20-pm-ist-ccil-ois-day-end-summary-offici-3483/index.html" style="font-weight:700;font-size:16px">05:20 PM IST — CCIL OIS Day-End Summary (official EOD OHLC + intraday vol, script)</a>
+    <span class="st FAIL">FAIL</span>
+    <span class="dim small">20 17 * * 1-5 · telegram:-1003932209418</span>
   </div>
-</section>
-
-<section id="demos" style="background:var(--bg2)">
-  <div class="wrap">
-    <div class="section-label">Deliverables</div>
-    <h2>Actual desk output — generated from live market data.</h2>
-    <p class="lead">Not mockups. Each sample was produced from real market data (Nifty, USD/INR, OIS curve, RBI rates) on the date shown. Click through to see exactly what lands on the desk.</p>
-    <div class="demo-grid">
-      <div class="demo-card">
-        <h3>Morning Brief — sample</h3>
-        <p>Full pre-market brief: India markets, global overnight, RBI rates &amp; liquidity, credit markets, risk flags, action items.</p>
-        <div class="meta">Delivered to: <b>Bolt Group · 07:45 IST</b></div>
-        <a href="demos/morning-brief.html">Open sample →</a>
-      </div>
-      <div class="demo-card">
-        <h3>Funding Optimization — sample</h3>
-        <p>Borrowing mix vs live rates: CP vs NCD vs bank lines vs ECB. Rule-based recommendations with quantified savings.</p>
-        <div class="meta">Delivered to: <b>Bolt Group · 07:45 IST</b></div>
-        <a href="demos/funding-optimization.html">Open sample →</a>
-      </div>
-      <div class="demo-card">
-        <h3>Liquidity Pulse — sample</h3>
-        <p>Systemic liquidity (LAF/VRR), call money, repo rates — plus 30-day buffer and ALM gap tracking.</p>
-        <div class="meta">Delivered to: <b>Bolt Group · 10:00 IST</b></div>
-        <a href="demos/liquidity-pulse.html">Open sample →</a>
-      </div>
-      <div class="demo-card">
-        <h3>T-Bill Auction Monitor — sample</h3>
-        <p>91/182/364-day cut-off yields with trend, spread analysis vs OIS, funding signals.</p>
-        <div class="meta">Delivered to: <b>Bolt Group · 12:15 IST</b></div>
-        <a href="demos/tbill-monitor.html">Open sample →</a>
-      </div>
-      <div class="demo-card">
-        <h3>EOD Markets Wrap — sample</h3>
-        <p>Close-of-day recap across rates, FX, credit, oil — with tomorrow's calendar and overnight risk flags.</p>
-        <div class="meta">Delivered to: <b>Bolt Group · 21:00 IST</b></div>
-        <a href="demos/eod-wrap.html">Open sample →</a>
-      </div>
-      <div class="demo-card">
-        <h3>RBI Circular Alert — sample</h3>
-        <p>How a real RBI circular reaches the desk: raw release → parsed → NBFC-ML impact note — in 30 minutes.</p>
-        <div class="meta">Delivered to: <b>Bolt Group · Flash 24/7</b></div>
-        <a href="demos/rbi-alerts.html">Open sample →</a>
-      </div>
-    </div>
+  <div class="dim small" style="margin-top:6px">Last run: 07 Aug 2026, 17:20:29 IST · 15 all-time (13 OK / 2 failed) · <a href="runs/05-20-pm-ist-ccil-ois-day-end-summary-offici-3483/index.html">all runs (5 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Script exited with code 1
+stderr:
+Traceback (most recent call last):
+  File &quot;/home/homepc/.hermes/scripts/ccil_ois_5pm_summary.py&quot;, line 14, in &lt;module&gt;
+    import pandas as pd
+ModuleN</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html" style="font-weight:700;font-size:16px">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (script)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">*/15 9-16 * * 1-5 · telegram:-1003932209418</span>
   </div>
-</section>
-
-<section id="impact">
-  <div class="wrap">
-    <div class="section-label">Desk Impact</div>
-    <h2>What this means for the Hero FinCorp balance sheet.</h2>
-    <p class="lead">The stack is not a dashboard — it is the desk. Every module maps to a line item the treasury owns.</p>
-    <div class="impact-grid">
-      <div class="imp"><b>Funding cost</b><p>Daily CP vs NCD vs bank-line repricing catches 15–20 bp of drift before it compounds. On a ₹30,000 Cr borrow book, 10 bp ≈ ₹30 Cr/year of interest cost.</p></div>
-      <div class="imp"><b>ALM &amp; liquidity</b><p>Liquidity pulse + buffer tracking surfaces 0–1M and 1–3M gaps before they hit the ALM statement. Regulatory liquidity coverage is a moat, not an afterthought.</p></div>
-      <div class="imp"><b>Regulatory radar</b><p>RBI Master Directions, scale-based regulations, and FEMA changes reach the desk within 30 minutes — not a week after the comment deadline.</p></div>
-      <div class="imp"><b>IPO-readiness</b><p>With a ₹3,408 Cr IPO in the pipeline (dates TBA), the desk runs on the same discipline a listed treasury will face: mark-to-market, disclosure-grade data, zero missed events.</p></div>
-    </div>
+  <div class="dim small" style="margin-top:6px">Last run: 07 Aug 2026, 16:45:33 IST · 429 all-time (428 OK / 1 failed) · <a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">all runs (50 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Ideas</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/10-00-pm-ist-10-treasury-build-ideas-daily-d-2c7a/index.html" style="font-weight:700;font-size:16px">10:00 PM IST — 10 Treasury Build-Ideas (daily, deduped)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">0 22 * * * · telegram:8422240974</span>
   </div>
-</section>
-
-<footer>
-  <div class="wrap foot-inner">
-    <span>Hero FinCorp Treasury Desk — internal command center. Sample outputs, not investment advice.</span>
-    <span>Data: CCIL ASTROID · rbi.org.in · Yahoo Finance · built with Hermes Agent · Updated 8 Aug 2026</span>
+  <div class="dim small" style="margin-top:6px">Last run: 08 Aug 2026, 22:02:49 IST · 4 all-time (4 OK / 0 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Liquidity</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/10-00-am-ist-indian-money-market-liquidity-p-ffd2/index.html" style="font-weight:700;font-size:16px">10:00 AM IST — Indian Money Market Liquidity Pulse (Repo, CRR, G-Sec, CD, CP rates)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">0 10 * * 1-5 · telegram:-1003932209418</span>
   </div>
-</footer>
+  <div class="dim small" style="margin-top:6px">Last run: 07 Aug 2026, 10:04:16 IST · 16 all-time (12 OK / 4 failed) · <a href="runs/10-00-am-ist-indian-money-market-liquidity-p-ffd2/index.html">all runs (2 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 10:00 AM IST — Indian Money Market Liquidity Pulse (Repo, CRR, G-Sec, CD, CP rates)
+(job_id: ffd21ee2e418)
+-------------
 
-</body>
-</html>
+All data collected. Compiling the liquidity pulse.
+
+**Liquid</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Markets</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/11-30-am-ist-mon-fri-mid-day-markets-wrap-co-1f6f/index.html" style="font-weight:700;font-size:16px">11:30 AM IST (Mon-Fri) — Mid-Day Markets Wrap (concise, deduped)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">30 11 * * 1-5 · telegram:-1003932209418</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 07 Aug 2026, 11:36:47 IST · 15 all-time (12 OK / 3 failed) · <a href="runs/11-30-am-ist-mon-fri-mid-day-markets-wrap-co-1f6f/index.html">all runs (4 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 11:30 AM IST (Mon-Fri) — Mid-Day Markets Wrap (concise, deduped)
+(job_id: 1f6fb6affcec)
+-------------
+
+All data gathered. Compiling the mid-day wrap now.
+
+```
+═══════════════════════</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Morning Brief</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/07-45-am-ist-treasury-open-brief-market-puls-ac71/index.html" style="font-weight:700;font-size:16px">07:45 AM IST — Treasury Open Brief (market pulse + rates + funding opt)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">45 7 * * * · telegram:-1003932209418</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 09 Aug 2026, 07:48:40 IST · 11 all-time (11 OK / 0 failed) · <a href="runs/07-45-am-ist-treasury-open-brief-market-puls-ac71/index.html">all runs (7 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Other</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/08-00-am-ist-consolidated-treasury-morning-b-7cda/index.html" style="font-weight:700;font-size:16px">08:00 AM IST — Consolidated Treasury Morning Brief (RBI, FX, G-Sec, liquidity, credit)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">? · ?</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 29 Jul 2026, 08:05:03 IST · 12 all-time (5 OK / 7 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/08-10-am-ist-daily-nbfc-funding-optimization-bea8/index.html" style="font-weight:700;font-size:16px">08:10 AM IST — Daily NBFC Funding Optimization Brief (CP, NCD, bank lines, ALM)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">? · ?</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 29 Jul 2026, 08:12:51 IST · 12 all-time (6 OK / 6 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 08:10 AM IST — Daily NBFC Funding Optimization Brief (CP, NCD, bank lines, ALM)
+(job_id: bea87c9271c8)
+-------------
+
+Verified data:
+- **MMO Jul 27, 2026**: SDF 5.00%, MSF 5.50% → Re</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/10-10-am-06-10-pm-ist-active-treasury-playbo-a8bc/index.html" style="font-weight:700;font-size:16px">10:10 AM &amp; 06:10 PM IST — Active Treasury Playbook Execution (RBI/FEMA/market news → action items)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">? · ?</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 19 Jul 2026, 18:16:24 IST · 4 all-time (4 OK / 0 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/12-00-pm-ist-mon-fri-rbi-t-bill-auction-deep-3d83/index.html" style="font-weight:700;font-size:16px">12:00 PM IST (Mon-Fri) — RBI T-Bill Auction Deep Monitor (cut-off, yield, devolvement risk)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">? · ?</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 29 Jul 2026, 12:11:02 IST · 8 all-time (6 OK / 2 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/12-30-pm-ist-nbfc-credit-market-monitor-ncd-e817/index.html" style="font-weight:700;font-size:16px">12:30 PM IST — NBFC Credit Market Monitor (NCD spreads, CP issuance, rating actions)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">? · ?</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 29 Jul 2026, 12:38:37 IST · 8 all-time (6 OK / 2 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 12:30 PM IST — NBFC Credit Market Monitor (NCD spreads, CP issuance, rating actions)
+(job_id: e81709c292b1)
+-------------
+
+Cache updated successfully (194 → 206 lines, 12 new URLs ap</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/daily-market-pulse-f80e/index.html" style="font-weight:700;font-size:16px">daily-market-pulse</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">? · ?</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 29 Jul 2026, 07:42:44 IST · 12 all-time (10 OK / 2 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: daily-market-pulse
+(job_id: f80edbb0278f)
+-------------
+
+Now I have all data. Let me compose the final brief.
+
+🌅 Market Pulse — 29 Jul 2026, 07:30 IST
+
+🔥 **Lead Driver: FOMC rate dec</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/unknown-job-55238ef87966-5523/index.html" style="font-weight:700;font-size:16px">Unknown job (55238ef87966)</a>
+    <span class="st FAIL">FAIL</span>
+    <span class="dim small">? · ?</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 27 Jul 2026, 09:06:32 IST · 2 all-time (0 OK / 2 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">RuntimeError: HTTP 403: {&quot;code&quot;:&quot;permission-denied&quot;,&quot;error&quot;:&quot;Your team c325b077-37db-43c1-b3aa-cb93522dc5b6 has either used all available credits or reached its mont</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/unknown-job-760b31fe042c-760b/index.html" style="font-weight:700;font-size:16px">Unknown job (760b31fe042c)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">? · ?</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 20 Jul 2026, 10:54:23 IST · 1 all-time (1 OK / 0 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/unknown-job-a9819f4c520d-a981/index.html" style="font-weight:700;font-size:16px">Unknown job (a9819f4c520d)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">? · ?</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 20 Jul 2026, 15:05:41 IST · 12 all-time (12 OK / 0 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Regulatory</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/index.html" style="font-weight:700;font-size:16px">06:00 PM IST — Master Treasurer RBI Press Release Deep Dive</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">0 18 * * * · telegram:-1003932209418</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 08 Aug 2026, 18:03:08 IST · 22 all-time (19 OK / 3 failed) · <a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/index.html">all runs (6 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 06:00 PM IST — Master Treasurer RBI Press Release Deep Dive
+(job_id: 88e5f78b2784)
+-------------
+
+State written. Now composing the daily digest with tiered analysis.
+
+## Master Treas</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Research</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/05-00-pm-ist-trendlyne-conference-call-trans-e5c4/index.html" style="font-weight:700;font-size:16px">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">0 17 * * * · telegram:-1003932209418</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 08 Aug 2026, 17:04:04 IST · 22 all-time (18 OK / 4 failed) · <a href="runs/05-00-pm-ist-trendlyne-conference-call-trans-e5c4/index.html">all runs (4 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)
+(job_id: e5c41a08d114)
+-------------
+
+Both new transcripts verified and state updated (1,462 seen IDs). Deli</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Risk</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/08-30-pm-ist-geopolitics-energy-brief-daily-a145/index.html" style="font-weight:700;font-size:16px">08:30 PM IST — Geopolitics &amp; Energy Brief (daily, silent unless material)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">30 20 * * * · telegram:-1003932209418</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 08 Aug 2026, 20:32:13 IST · 35 all-time (23 OK / 12 failed) · <a href="runs/08-30-pm-ist-geopolitics-energy-brief-daily-a145/index.html">all runs (3 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 08:30 PM IST — Geopolitics &amp; Energy Brief (daily, silent unless material)
+(job_id: a1459b37f75f)
+-------------
+
+# Geopolitical &amp; Energy Monitor — NBFC Treasury | 8 Aug 2026 (</div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/09-00-pm-ist-overnight-risk-scan-for-asian-m-6276/index.html" style="font-weight:700;font-size:16px">09:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, deduped)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">0 21 * * * · telegram:-1003932209418</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 08 Aug 2026, 21:06:29 IST · 22 all-time (17 OK / 5 failed) · <a href="runs/09-00-pm-ist-overnight-risk-scan-for-asian-m-6276/index.html">all runs (4 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 09:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, deduped)
+(job_id: 6276789c1cea)
+-------------
+
+All data verified. Assembling the report now.
+
+---
+
+🚨 **CRISIS ALERT</div>
+</div><h2 style="margin:26px 0 4px" class="purple">PERSONAL</h2><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Career</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/mon-thu-09-00-am-ist-hong-kong-treasury-job-bc55/index.html" style="font-weight:700;font-size:16px">Mon &amp; Thu 09:00 AM IST — Hong Kong Treasury Job Scout (VP/Director roles)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">0 9 * * 1,4 · telegram:8422240974</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 06 Aug 2026, 09:06:58 IST · 16 all-time (10 OK / 6 failed) · <a href="runs/mon-thu-09-00-am-ist-hong-kong-treasury-job-bc55/index.html">all runs (1 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Health</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/12-00-am-ist-daily-fitness-protocol-reminder-7f6b/index.html" style="font-weight:700;font-size:16px">12:00 AM IST — Daily Fitness Protocol Reminder (workout plan based on calendar day, script)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">0 0 * * * · telegram:8422240974</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 09 Aug 2026, 00:00:58 IST · 23 all-time (23 OK / 0 failed) · <a href="runs/12-00-am-ist-daily-fitness-protocol-reminder-7f6b/index.html">all runs (8 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">**Job ID:** 7f6ba6cb694b
+**Run Time:** 2026-08-09 00:00:57
+**Mode:** no_agent (script)
+
+---
+
+=== FITNESS REMINDER ===
+Date: 09 Aug 2026 (Week 11 · A)
+Today&#x27;s lifts:
+  Squat: 4x5
+  Romanian Deadli</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Ideas</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/mon-wed-fri-06-30-am-ist-alpha-ideas-for-ind-080b/index.html" style="font-weight:700;font-size:16px">Mon/Wed/Fri 06:30 AM IST — Alpha Ideas for Indian Debt &amp; Equity (high-conviction only)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">30 6 * * 1,3,5 · telegram:8422240974</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 07 Aug 2026, 07:58:14 IST · 16 all-time (11 OK / 5 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Knowledge</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/ai-daily-intelligence-c29a/index.html" style="font-weight:700;font-size:16px">ai-daily-intelligence</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">0 18 * * * · origin</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 08 Aug 2026, 18:03:31 IST · 22 all-time (16 OK / 6 failed) · <a href="runs/ai-daily-intelligence-c29a/index.html">all runs (1 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Life</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/06-00-am-ist-life-experience-engine-daily-pl-ae25/index.html" style="font-weight:700;font-size:16px">06:00 AM IST — Life Experience Engine (daily plan + bucket-list tracker)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">0 6 * * * · origin</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 09 Aug 2026, 06:02:11 IST · 22 all-time (18 OK / 4 failed) · <a href="runs/06-00-am-ist-life-experience-engine-daily-pl-ae25/index.html">all runs (1 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Markets</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/05-15-pm-ist-mon-fri-indian-penny-stock-inte-a07c/index.html" style="font-weight:700;font-size:16px">05:15 PM IST (Mon-Fri) — Indian Penny Stock Intelligence Scan (sub-₹50, mcap &lt;₹500 Cr, momentum)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">15 17 * * 1-5 · telegram:8422240974</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 07 Aug 2026, 17:18:21 IST · 15 all-time (12 OK / 3 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">Media</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/04-35-am-ist-unified-youtube-daily-digest-ag-ffa8/index.html" style="font-weight:700;font-size:16px">04:35 AM IST — Unified YouTube Daily Digest (agent analysis)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">35 4 * * * · telegram:8422240974</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 09 Aug 2026, 04:37:48 IST · 25 all-time (22 OK / 3 failed) · <a href="runs/04-35-am-ist-unified-youtube-daily-digest-ag-ffa8/index.html">all runs (8 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">(no output artifact)</div>
+</div>
+<h2 style="margin:28px 0 8px">RECENT ACTIVITY (last 40 runs)</h2>
+<div class="card" style="padding:8px"><table><tr><th>St</th><th>Time (IST)</th><th>Job</th><th>Area</th><th>Title</th><th></th></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-09 07:48:40</td><td><a href="runs/07-45-am-ist-treasury-open-brief-market-puls-ac71/index.html">07:45 AM IST — Treasury Open Brief (market pulse + rates + funding opt</a></td><td>TREASURY/Morning Brief</td><td>Cronjob Response: 07:45 AM IST — Treasury Open Brief (market</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/ac71433dc8b5/20260809_074840_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-09 06:02:11</td><td><a href="runs/06-00-am-ist-life-experience-engine-daily-pl-ae25/index.html">06:00 AM IST — Life Experience Engine (daily plan + bucket-list tracke</a></td><td>PERSONAL/Life</td><td>Cronjob Response: 06:00 AM IST — Life Experience Engine (dai</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/ae2597722da3/20260809_060211_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-09 04:37:48</td><td><a href="runs/04-35-am-ist-unified-youtube-daily-digest-ag-ffa8/index.html">04:35 AM IST — Unified YouTube Daily Digest (agent analysis)</a></td><td>PERSONAL/Media</td><td>Cronjob Response: 04:35 AM IST — Unified YouTube Daily Diges</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/ffa8dbb12f76/20260809_043748_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-09 00:00:58</td><td><a href="runs/12-00-am-ist-daily-fitness-protocol-reminder-7f6b/index.html">12:00 AM IST — Daily Fitness Protocol Reminder (workout plan based on </a></td><td>PERSONAL/Health</td><td>12:00 AM IST — Daily Fitness Protocol Reminder (workout plan</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/7f6ba6cb694b/20260809_000058_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 22:02:49</td><td><a href="runs/10-00-pm-ist-10-treasury-build-ideas-daily-d-2c7a/index.html">10:00 PM IST — 10 Treasury Build-Ideas (daily, deduped)</a></td><td>TREASURY/Ideas</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 21:06:29</td><td><a href="runs/09-00-pm-ist-overnight-risk-scan-for-asian-m-6276/index.html">09:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, ded</a></td><td>TREASURY/Risk</td><td>Cronjob Response: 09:00 PM IST — Overnight Risk Scan for Asi</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/6276789c1cea/20260808_210629_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 20:32:13</td><td><a href="runs/08-30-pm-ist-geopolitics-energy-brief-daily-a145/index.html">08:30 PM IST — Geopolitics &amp; Energy Brief (daily, silent unless ma</a></td><td>TREASURY/Risk</td><td>Cronjob Response: 08:30 PM IST — Geopolitics &amp; Energy Br</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/a1459b37f75f/20260808_203213_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 18:03:31</td><td><a href="runs/ai-daily-intelligence-c29a/index.html">ai-daily-intelligence</a></td><td>PERSONAL/Knowledge</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 18:03:08</td><td><a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/index.html">06:00 PM IST — Master Treasurer RBI Press Release Deep Dive</a></td><td>TREASURY/Regulatory</td><td>Cronjob Response: 06:00 PM IST — Master Treasurer RBI Press </td><td> <a href="/home/homepc/workspace/treasury-disk/archive/88e5f78b2784/20260808_180308_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 17:04:04</td><td><a href="runs/05-00-pm-ist-trendlyne-conference-call-trans-e5c4/index.html">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (dai</a></td><td>TREASURY/Research</td><td>Cronjob Response: 05:00 PM IST — Trendlyne Conference Call &</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/e5c41a08d114/20260808_170404_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 13:10:58</td><td><a href="runs/06-00-am-ist-life-experience-engine-daily-pl-ae25/index.html">06:00 AM IST — Life Experience Engine (daily plan + bucket-list tracke</a></td><td>PERSONAL/Life</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 13:10:38</td><td><a href="runs/07-45-am-ist-treasury-open-brief-market-puls-ac71/index.html">07:45 AM IST — Treasury Open Brief (market pulse + rates + funding opt</a></td><td>TREASURY/Morning Brief</td><td>Cronjob Response: 07:45 AM IST — Treasury Open Brief (market</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/ac71433dc8b5/20260808_131038_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 13:08:35</td><td><a href="runs/04-35-am-ist-unified-youtube-daily-digest-ag-ffa8/index.html">04:35 AM IST — Unified YouTube Daily Digest (agent analysis)</a></td><td>PERSONAL/Media</td><td>Cronjob Response: 04:35 AM IST — Unified YouTube Daily Diges</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/ffa8dbb12f76/20260808_130835_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 02:18:05</td><td><a href="runs/10-00-pm-ist-10-treasury-build-ideas-daily-d-2c7a/index.html">10:00 PM IST — 10 Treasury Build-Ideas (daily, deduped)</a></td><td>TREASURY/Ideas</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 01:55:36</td><td><a href="runs/10-00-pm-ist-10-treasury-build-ideas-daily-d-2c7a/index.html">10:00 PM IST — 10 Treasury Build-Ideas (daily, deduped)</a></td><td>TREASURY/Ideas</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 01:11:49</td><td><a href="runs/10-00-pm-ist-10-treasury-build-ideas-daily-d-2c7a/index.html">10:00 PM IST — 10 Treasury Build-Ideas (daily, deduped)</a></td><td>TREASURY/Ideas</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-08 00:00:35</td><td><a href="runs/12-00-am-ist-daily-fitness-protocol-reminder-7f6b/index.html">12:00 AM IST — Daily Fitness Protocol Reminder (workout plan based on </a></td><td>PERSONAL/Health</td><td>12:00 AM IST — Daily Fitness Protocol Reminder (workout plan</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/7f6ba6cb694b/20260808_000035_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 21:06:10</td><td><a href="runs/09-00-pm-ist-overnight-risk-scan-for-asian-m-6276/index.html">09:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, ded</a></td><td>TREASURY/Risk</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 20:32:23</td><td><a href="runs/08-30-pm-ist-geopolitics-energy-brief-daily-a145/index.html">08:30 PM IST — Geopolitics &amp; Energy Brief (daily, silent unless ma</a></td><td>TREASURY/Risk</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 18:05:20</td><td><a href="runs/ai-daily-intelligence-c29a/index.html">ai-daily-intelligence</a></td><td>PERSONAL/Knowledge</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 18:02:55</td><td><a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/index.html">06:00 PM IST — Master Treasurer RBI Press Release Deep Dive</a></td><td>TREASURY/Regulatory</td><td>Cronjob Response: 06:00 PM IST — Master Treasurer RBI Press </td><td> <a href="/home/homepc/workspace/treasury-disk/archive/88e5f78b2784/20260807_180255_OK.txt">output →</a></td></tr><tr><td><span class='st FAIL'>FAIL</span></td><td>2026-08-07 17:20:29</td><td><a href="runs/05-20-pm-ist-ccil-ois-day-end-summary-offici-3483/index.html">05:20 PM IST — CCIL OIS Day-End Summary (official EOD OHLC + intraday </a></td><td>TREASURY/Data</td><td>05:20 PM IST — CCIL OIS Day-End Summary (official EOD OHLC +</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/3483940ec7b2/20260807_172029_FAIL.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 17:18:21</td><td><a href="runs/05-15-pm-ist-mon-fri-indian-penny-stock-inte-a07c/index.html">05:15 PM IST (Mon-Fri) — Indian Penny Stock Intelligence Scan (sub-₹50</a></td><td>PERSONAL/Markets</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 17:15:35</td><td><a href="runs/05-15-pm-ist-ccil-ois-eod-fetch-official-ast-7526/index.html">05:15 PM IST — CCIL OIS EOD Fetch (official ASTROID closing table, scr</a></td><td>TREASURY/Data</td><td>05:15 PM IST — CCIL OIS EOD Fetch (official ASTROID closing </td><td> <a href="/home/homepc/workspace/treasury-disk/archive/75268dc5ebe4/20260807_171535_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 17:02:49</td><td><a href="runs/05-00-pm-ist-trendlyne-conference-call-trans-e5c4/index.html">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (dai</a></td><td>TREASURY/Research</td><td>Cronjob Response: 05:00 PM IST — Trendlyne Conference Call &</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/e5c41a08d114/20260807_170249_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 16:45:33</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_164533_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 16:30:34</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_163034_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 16:15:32</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_161532_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 16:00:33</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_160033_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 15:45:31</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_154531_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 15:30:32</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_153032_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 15:15:30</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_151530_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 15:00:32</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_150032_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 14:45:31</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_144531_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 14:30:30</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_143030_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 14:15:29</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_141529_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 14:00:30</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_140030_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 13:45:29</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_134529_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 13:30:29</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_133029_OK.txt">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-08-07 13:15:28</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-astroid-mibo-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate Data Dump (</a></td><td>TREASURY/Data</td><td>Every 15 min (9 AM-4 PM IST) — CCIL ASTROID MIBOR OIS Rate D</td><td> <a href="/home/homepc/workspace/treasury-disk/archive/04e4b8633b74/20260807_131528_OK.txt">output →</a></td></tr></table></div>
+<div class="dim small" style="margin-top:16px">Every run of every scheduled job (agent + script, active + retired) is archived with its timestamped output. Click a job heading for the full 7-day run history, click <b>output →</b> for the complete delivered text. Full permanent history lives on the local treasury disk (~/workspace/treasury-disk/archive).</div>
+</div></body></html>
