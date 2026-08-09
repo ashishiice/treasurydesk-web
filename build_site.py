@@ -158,6 +158,41 @@ def job_archive_page(job, jid, slug, runs, page_map):
     return page_shell(f"{job['name']} — runs", body_html)
 
 
+def group_page(cat, grp, jobs_in_group, runs, page_map):
+    """Topic page: ALL runs across every job in a group, newest first, timestamped."""
+    rows = ""
+    ok = sum(1 for r in runs if r["status"] == "OK")
+    fail = sum(1 for r in runs if r["status"] == "FAIL")
+    for r in runs:
+        st = r["status"]
+        jslug = r["slug"]
+        rel = page_map.get(r["jid"], {}).get(r["ts"])
+        job_link = f'<a href="../../runs/{esc(jslug)}/index.html">{esc(r["job_name"])}</a>'
+        if rel:
+            cell = f"<a href='../../{esc(rel)}'>open output →</a>"
+        else:
+            cell = "<span class='dim small'>no stored output (Telegram)</span>"
+        rows += f"<tr><td><span class='st {st}'>{st}</span></td><td>{fmt_ts(r['ts'])}</td><td>{job_link}</td><td>{esc(r.get('title','')[:80])}</td><td>{cell}</td></tr>"
+    job_links = " · ".join(
+        f'<a href="../../runs/{esc(slugify(j["name"], jid))}/index.html">{esc(j["name"])}</a>'
+        for jid, j in sorted(jobs_in_group.items(), key=lambda x: x[1]["name"].lower())
+    )
+    cls = "gold" if cat == "TREASURY" else "purple"
+    body_html = f"""
+<a class="back" href="../../index.html">← Treasury Desk home</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px" class="{cls}">{esc(cat)} / {esc(grp)}</h1></div>
+  <div class="dim small" style="margin-top:6px">{len(jobs_in_group)} job(s) · {len(runs)} runs in last 7 days ({ok} OK / {fail} failed) · newest first</div>
+  <div class="dim small" style="margin-top:8px">Jobs: {job_links}</div>
+</div>
+<div class="card">
+  <h2>ALL RUNS — {esc(grp)} (last 7 days)</h2>
+  <table><tr><th>Status</th><th>Timestamp (IST)</th><th>Job</th><th>Title</th><th></th></tr>{rows}</table>
+  <div class="dim small" style="margin-top:8px">Runs without a stored output were compact messages delivered straight to Telegram. Permanent full history lives on the local treasury disk.</div>
+</div>"""
+    return page_shell(f"{cat} / {grp} — runs", body_html)
+
+
 def load_ledger_runs(cutoff_date):
     """Read all daily/*.csv ledgers -> {jid: [ {ts, status, title}, ... ]} within window."""
     out = {}
@@ -231,7 +266,29 @@ def build():
         with open(os.path.join(jdir, "index.html"), "w") as fh:
             fh.write(page)
 
-    # 4. prune old run pages
+    # 4. topic (group) pages: all runs across every job in a group, newest first
+    topics_dir = os.path.join(REPO, "topics")
+    groups_meta = {}  # (cat, grp) -> {jobs: {jid: j}, runs: [...]}
+    for jid, j in jobs.items():
+        cat = j.get("category", "TREASURY")
+        grp = j.get("group", "Other")
+        key = (cat, grp)
+        gm = groups_meta.setdefault(key, {"jobs": {}, "runs": []})
+        gm["jobs"][jid] = j
+        for r in ledger_runs.get(jid, []):
+            gm["runs"].append({
+                "jid": jid, "slug": slugify(j["name"], jid), "job_name": j["name"],
+                "ts": r["ts"], "status": r["status"], "title": r.get("title", ""),
+            })
+    for (cat, grp), gm in groups_meta.items():
+        gm["runs"].sort(key=lambda r: r["ts"], reverse=True)
+        page = group_page(cat, grp, gm["jobs"], gm["runs"], page_map)
+        gdir = os.path.join(topics_dir, cat.lower(), slugify(grp, cat.lower()[:4]))
+        os.makedirs(gdir, exist_ok=True)
+        with open(os.path.join(gdir, "index.html"), "w") as fh:
+            fh.write(page)
+
+    # 5. prune old run pages
     for slug_dir in glob.glob(os.path.join(RUNS, "*")):
         if not os.path.isdir(slug_dir):
             continue
@@ -277,7 +334,8 @@ def build():
         cls = "gold" if cat == "TREASURY" else "purple"
         sections += f'<h2 style="margin:26px 0 4px" class="{cls}">{cat}</h2>'
         for grp in sorted(groups):
-            sections += f'<div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px">{esc(grp)}</div>'
+            gslug = slugify(grp, cat.lower()[:4])
+            sections += f'<div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/{cat.lower()}/{esc(gslug)}/index.html" style="color:var(--dim)">{esc(grp)} →</a></div>'
             for jid, j in sorted(groups[grp], key=lambda x: x[1]["name"].lower()):
                 slug = slugify(j["name"], jid)
                 st = j.get("last_status", "UNKNOWN")
