@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 """
-Treasury Desk Web — live cron tracker site generator.
+Treasury Desk Web — live cron tracker site generator (v2, ledger-based).
 
-Reads the treasury disk (~/workspace/treasury-disk/register.json + archive/)
+Reads the treasury disk (~/workspace/treasury-disk/register.json + archive/ + daily/*.csv)
 and regenerates the GitHub Pages site (~/workspace/treasurydesk-web/):
 
   index.html                        dashboard (job cards, status, recent activity)
-  runs/<job-slug>/index.html        per-job archive: all runs in the 7-day window
-  runs/<job-slug>/<ts>-<STATUS>.html  individual run page with full timestamped output
+  runs/<job-slug>/index.html        per-job archive: ALL runs in the 7-day window
+  runs/<job-slug>/<ts>-<STATUS>.html  individual run page (only where the gateway
+                                      stored a full output artifact; compact runs
+                                      are delivered via Telegram only and are shown
+                                      with an explicit "no stored output" note)
 
 Only commits + pushes when the generated content changed (new runs since last deploy).
 Prunes run pages older than KEEP_DAYS (full history stays in the local treasury disk).
 """
 import argparse
+import csv
 import datetime as dt
 import glob
 import html
@@ -28,6 +32,7 @@ IST = ZoneInfo("Asia/Kolkata")
 DISK = "/home/homepc/workspace/treasury-disk"
 REG = os.path.join(DISK, "register.json")
 ARCH = os.path.join(DISK, "archive")
+DAILY = os.path.join(DISK, "daily")
 REPO = "/home/homepc/workspace/treasurydesk-web"
 RUNS = os.path.join(REPO, "runs")
 KEEP_DAYS = 7
@@ -48,7 +53,6 @@ def slugify(name, jid):
 
 
 def fmt_ts(ts_str):
-    """'2026-08-09 07:48:40' -> '09 Aug 2026, 07:48:40 IST'"""
     try:
         d = dt.datetime.strptime(ts_str, "%Y-%m-%d %H:%M:%S")
         return d.strftime("%d %b %Y, %H:%M:%S") + " IST"
@@ -67,7 +71,7 @@ def parse_run_file(fname):
     return (d, ts, st)
 
 
-def page_shell(title, body, run_path=None):
+def page_shell(title, body):
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,7 +113,6 @@ def run_page(job, jid, slug, fname, arch_file):
     d, ts, st = p
     with open(arch_file, encoding="utf-8", errors="replace") as f:
         content = f.read()
-    # strip the leading header lines the archive adds
     body = re.sub(r"^# .*?\n(# job_id.*\n)?(# run.*\n)?(# status.*\n)?\n?", "", content, flags=re.M)
     title = f"{job['name']} — {ts}"
     body_html = f"""
@@ -125,13 +128,20 @@ def run_page(job, jid, slug, fname, arch_file):
   <h2>OUTPUT — {fmt_ts(ts)}</h2>
   <pre>{esc(body)}</pre>
 </div>"""
-    return page_shell(title, body_html), f"runs/{slug}/{os.path.splitext(os.path.basename(fname))[0]}.html"
+    return page_shell(title, body_html)
 
 
-def job_archive_page(job, jid, slug, runs):
+def job_archive_page(job, jid, slug, runs, page_map):
+    """runs: list of dicts {ts, status, title}; page_map: ts -> rel run-page url"""
     rows = ""
-    for d, ts, st, rel in runs:
-        rows += f"<tr><td><span class='st {st}'>{st}</span></td><td>{fmt_ts(ts)}</td><td><a href='{esc(rel)}'>open output →</a></td></tr>"
+    for r in runs:
+        st = r["status"]
+        rel = page_map.get(r["ts"])
+        if rel:
+            cell = f"<a href='{esc(rel)}'>open output →</a>"
+        else:
+            cell = "<span class='dim small'>no stored output (delivered via Telegram)</span>"
+        rows += f"<tr><td><span class='st {st}'>{st}</span></td><td>{fmt_ts(r['ts'])}</td><td>{esc(r.get('title','')[:80])}</td><td>{cell}</td></tr>"
     body_html = f"""
 <a class="back" href="../../index.html">← Treasury Desk home</a>
 <div class="card">
@@ -142,76 +152,99 @@ def job_archive_page(job, jid, slug, runs):
 </div>
 <div class="card">
   <h2>RUNS — last {KEEP_DAYS} days ({len(runs)})</h2>
-  <table><tr><th>Status</th><th>Timestamp (IST)</th><th></th></tr>{rows}</table>
+  <table><tr><th>Status</th><th>Timestamp (IST)</th><th>Title</th><th></th></tr>{rows}</table>
+  <div class="dim small" style="margin-top:8px">Runs without a stored output were compact messages delivered straight to Telegram — the gateway only persists full text for longer outputs. Permanent full history lives on the local treasury disk.</div>
 </div>"""
     return page_shell(f"{job['name']} — runs", body_html)
+
+
+def load_ledger_runs(cutoff_date):
+    """Read all daily/*.csv ledgers -> {jid: [ {ts, status, title}, ... ]} within window."""
+    out = {}
+    for fn in sorted(glob.glob(os.path.join(DAILY, "*.csv"))):
+        day = os.path.basename(fn)[:10]
+        if day < cutoff_date:
+            continue
+        with open(fn, newline="") as f:
+            for r in csv.DictReader(f):
+                ts = (r.get("timestamp") or "").strip()
+                jid = (r.get("job_id") or "").strip()
+                if not ts or not jid:
+                    continue
+                if ts[:10] < cutoff_date:
+                    continue
+                out.setdefault(jid, []).append({
+                    "ts": ts,
+                    "status": r.get("status", "UNKNOWN"),
+                    "title": r.get("title", ""),
+                })
+    for jid in out:
+        out[jid].sort(key=lambda r: r["ts"])
+    return out
 
 
 def build():
     reg = json.load(open(REG))
     jobs = reg["jobs"]
     now = dt.datetime.now(IST)
-    cutoff = (now - dt.timedelta(days=KEEP_DAYS)).strftime("%Y%m%d")
+    cutoff_d = (now - dt.timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d")
+    cutoff_n = cutoff_d.replace("-", "")
 
-    # --- 1. collect run files in window, prune old ones ---
-    all_runs = {}  # jid -> [(d, ts, st, fname, arch_file)]
-    os.makedirs(RUNS, exist_ok=True)
+    # 1. complete run list per job from daily ledgers (window)
+    ledger_runs = load_ledger_runs(cutoff_d)
+
+    # 2. run pages from archive files (full text where the gateway stored it)
+    page_map = {}  # jid -> {ts: rel url}
     for jid, j in jobs.items():
         arch_dir = os.path.join(ARCH, jid)
         if not os.path.isdir(arch_dir):
             continue
-        entries = []
+        slug = slugify(j["name"], jid)
+        jdir = os.path.join(RUNS, slug)
+        os.makedirs(jdir, exist_ok=True)
+        pm = {}
         for f in sorted(glob.glob(os.path.join(arch_dir, "*.txt"))):
             p = parse_run_file(f)
             if not p:
                 continue
             d, ts, st = p
-            if d >= cutoff:
-                entries.append((d, ts, st, f))
-        if entries:
-            all_runs[jid] = entries
+            if d < cutoff_n:
+                continue
+            out = run_page(j, jid, slug, os.path.basename(f), f)
+            if out is None:
+                continue
+            rel = f"runs/{slug}/{d}_{ts[11:].replace(':','')}_{st}.html"
+            with open(os.path.join(jdir, os.path.basename(rel)), "w") as fh:
+                fh.write(out)
+            pm[ts] = rel
+        page_map[jid] = pm
 
-    # prune repo runs/ files older than window
+    # 3. per-job archive pages (ledger list + page links)
+    for jid, j in jobs.items():
+        runs = ledger_runs.get(jid, [])
+        if not runs:
+            continue
+        slug = slugify(j["name"], jid)
+        page = job_archive_page(j, jid, slug, runs[::-1], page_map.get(jid, {}))
+        jdir = os.path.join(RUNS, slug)
+        os.makedirs(jdir, exist_ok=True)
+        with open(os.path.join(jdir, "index.html"), "w") as fh:
+            fh.write(page)
+
+    # 4. prune old run pages
     for slug_dir in glob.glob(os.path.join(RUNS, "*")):
         if not os.path.isdir(slug_dir):
             continue
         for f in glob.glob(os.path.join(slug_dir, "*.html")):
             base = os.path.basename(f)
-            m = re.match(r"(\d{8})_", base)
-            if m and m.group(1) < cutoff:
-                os.remove(f)
-        # drop empty job dirs (but keep the slug->job index regenerated below)
-
-    # --- 2. write run pages + job archive pages ---
-    job_meta = {}  # slug -> (jid, job)
-    written = []
-    for jid, j in jobs.items():
-        entries = all_runs.get(jid, [])
-        slug = slugify(j["name"], jid)
-        job_meta[slug] = (jid, j)
-        if not entries:
-            continue
-        jdir = os.path.join(RUNS, slug)
-        os.makedirs(jdir, exist_ok=True)
-        run_links = []
-        for d, ts, st, f in entries:
-            out, rel = run_page(j, jid, slug, os.path.basename(f), f)
-            if out is None:
+            if base == "index.html":
                 continue
-            with open(os.path.join(jdir, os.path.basename(rel)), "w") as fh:
-                fh.write(out)
-            run_links.append((d, ts, st, rel))
-        # archive index (newest first)
-        run_links_sorted = sorted(run_links, key=lambda r: r[1], reverse=True)
-        page = job_archive_page(j, jid, slug, run_links_sorted)
-        with open(os.path.join(jdir, "index.html"), "w") as fh:
-            fh.write(page)
-        written.append((jid, j, slug, run_links_sorted))
+            m = re.match(r"(\d{8})_", base)
+            if m and m.group(1) < cutoff_n:
+                os.remove(f)
 
-    # --- 3. index.html ---
-    runs_today = 0
-    ok_today = 0
-    fail_today = 0
+    # 5. index.html
+    runs_today = ok_today = fail_today = 0
     today = now.strftime("%Y-%m-%d")
     for a in reg.get("recent_activity", []):
         if (a.get("ts") or "").startswith(today):
@@ -220,7 +253,7 @@ def build():
                 ok_today += 1
             elif a.get("status") == "FAIL":
                 fail_today += 1
-    runs_7d = sum(len(v) for v in all_runs.values())
+    runs_7d = sum(len(v) for v in ledger_runs.values())
     active = sum(1 for j in jobs.values() if j.get("active", True))
 
     kpis = f"""
@@ -250,7 +283,9 @@ def build():
                 st = j.get("last_status", "UNKNOWN")
                 last = fmt_ts(j.get("last_run_at", "—"))
                 prev = esc(j.get("last_output_preview", ""))[:200]
-                n_runs = len(all_runs.get(jid, []))
+                if prev == "(no output artifact)":
+                    prev = ""
+                n_runs = len(ledger_runs.get(jid, []))
                 link = f'<a href="runs/{esc(slug)}/index.html">all runs ({n_runs} in {KEEP_DAYS}d) →</a>' if n_runs else "no runs in window"
                 sections += f"""
 <div class="card">
@@ -260,7 +295,7 @@ def build():
     <span class="dim small">{esc(j.get('schedule_display','?'))} · {esc(j.get('deliver','?'))}</span>
   </div>
   <div class="dim small" style="margin-top:6px">Last run: {last} · {j.get('runs_total',0)} all-time ({j.get('runs_ok',0)} OK / {j.get('runs_failed',0)} failed) · {link}</div>
-  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">{prev}</div>
+  {f'<div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">{prev}</div>' if prev else ''}
 </div>"""
 
     act = ""
@@ -271,12 +306,7 @@ def build():
         st = a.get("status", "UNKNOWN")
         ts_disp = a.get("ts", "")
         d_part, t_part = (ts_disp[:10], ts_disp[11:]) if len(ts_disp) > 10 else (ts_disp, "")
-        # find run page link for this exact ts
-        rp = ""
-        for d2, ts2, st2, rel in all_runs.get(jid, []):
-            if ts2 == ts_disp:
-                rp = rel
-                break
+        rp = page_map.get(jid, {}).get(ts_disp, "")
         link = f'<a href="runs/{esc(slug)}/index.html">{esc(j.get("name","?"))[:70]}</a>'
         rlink = f' <a href="{esc(rp)}">output →</a>' if rp else ""
         act += f"<tr><td><span class='st {st}'>{st}</span></td><td>{esc(d_part)} {esc(t_part)}</td><td>{link}</td><td>{esc(a.get('category',''))}/{esc(a.get('group',''))}</td><td>{esc(a.get('title',''))[:60]}</td><td>{rlink}</td></tr>"
@@ -290,15 +320,14 @@ def build():
 {sections}
 <h2 style="margin:28px 0 8px">RECENT ACTIVITY (last 40 runs)</h2>
 <div class="card" style="padding:8px"><table><tr><th>St</th><th>Time (IST)</th><th>Job</th><th>Area</th><th>Title</th><th></th></tr>{act}</table></div>
-<div class="dim small" style="margin-top:16px">Every run of every scheduled job (agent + script, active + retired) is archived with its timestamped output. Click a job heading for the full 7-day run history, click <b>output →</b> for the complete delivered text. Full permanent history lives on the local treasury disk (~/workspace/treasury-disk/archive).</div>"""
+<div class="dim small" style="margin-top:16px">Every run of every scheduled job (agent + script, active + retired) is archived with its timestamped output. Click a job heading for the full 7-day run history; runs with a stored artifact link to the complete delivered text (compact runs are delivered via Telegram only). Permanent full history lives on the local treasury disk (~/workspace/treasury-disk/archive).</div>"""
     with open(os.path.join(REPO, "index.html"), "w") as fh:
         fh.write(page_shell("Treasury Desk — Live Cron Tracker", body))
 
-    return written
+    return ledger_runs
 
 
 def git_sync():
-    """Commit + push only if the working tree changed."""
     r = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, cwd=REPO)
     if not r.stdout.strip():
         return False
@@ -317,9 +346,9 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
-    n = build()
+    lr = build()
     if not args.quiet:
-        print(f"site built: {len(n)} jobs with runs, index.html regenerated")
+        print(f"site built: {len(lr)} jobs with runs in window, index.html regenerated")
     if git_sync():
         if not args.quiet:
             print("deploy ok")
