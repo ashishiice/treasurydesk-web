@@ -12,6 +12,7 @@ and regenerates the GitHub Pages site (~/workspace/treasurydesk-web/):
 Only commits + pushes when the generated content changed (new runs since last deploy).
 Prunes run pages older than KEEP_DAYS (full history stays in the local treasury disk).
 """
+import argparse
 import datetime as dt
 import glob
 import html
@@ -313,9 +314,14 @@ def git_sync():
 
 
 if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--quiet", action="store_true")
+    args = ap.parse_args()
     n = build()
-    print(f"site built: {len(n)} jobs with runs, index.html regenerated")
+    if not args.quiet:
+        print(f"site built: {len(n)} jobs with runs, index.html regenerated")
     if git_sync():
-        print("deploy ok")
-    else:
+        if not args.quiet:
+            print("deploy ok")
+    elif not args.quiet:
         print("no changes — nothing to push")
