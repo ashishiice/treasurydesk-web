@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>08:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, deduped) — 2026-09-04 20:01:20 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of 08:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, deduped)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">08:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, deduped)</h1>
+  <span class="st FAIL">FAIL</span></div>
+  <div class="dim small" style="margin-top:6px">
+    04 Sep 2026, 20:01:20 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Risk &nbsp;·&nbsp; job 6276789c1cea
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 04 Sep 2026, 20:01:20 IST</h2>
+  <pre>**Job ID:** 6276789c1cea
+**Run Time:** 2026-09-04 20:01:09
+**Schedule:** 0 20 * * *
+
+## Prompt
+
+[IMPORTANT: The user has invoked the &quot;overnight-risk-scan&quot; skill, indicating they want you to follow its instructions. The full skill content is loaded below.]
+
+---
+name: overnight-risk-scan
+description: Pre-sleep overnight risk assessment for Asian market open for NBFC treasury. Scans US markets, Treasuries, commodities, Fed/macro, geopolitics, and Asian indicators. Outputs a compact glyph Telegram card &lt;=2,200 chars with % moves and currency symbols.
+category: treasury-automation
+---
+
+Pre-sleep risk assessment for NBFC treasury operations, ~9:00 PM IST.
+
+## Timing Awareness
+- 9:00 PM IST = 11:30 AM ET
+- **Weekdays (Mon-Fri)**: US markets are OPEN at 11:30 AM ET (close 4 PM ET = 1:30 AM IST). Label as &quot;Live&quot; with timestamp.
+- **Friday 9 PM IST**: US markets closed at 1:30 AM IST Saturday. Asian markets also closed. Data should be Friday closes.
+- **Weekend**: All markets closed. Report Friday closes for both US and Asia.
+- Asian markets: Note holiday closures (Easter, Qingming, Golden Week, Labour Day May 1, Diwali, etc.)
+- Always verify data timestamps via `meta.regularMarketTime` and convert to IST/ET before trusting the numbers.
+
+## Data Sources (use browser + browser_snapshot + Yahoo API)
+
+**Primary approach: Yahoo Finance v8 chart API via curl (most reliable, no bot detection)**
+
+Use `execute_code` with curl to fetch clean JSON from `https://query1.finance.yahoo.com/v8/finance/chart/{SYMBOL}?interval=1d&amp;range=2d`. Parse `meta.regularMarketPrice`, `meta.chartPreviousClose`, and `indicators.quote[0].close` for historical closes.
+
+Symbols:
+- **US Equities**: `^GSPC` (S&amp;P 500), `^IXIC` (Nasdaq), `^DJI` (Dow), `^VIX` (VIX)
+- **US Treasuries**: `^TNX` (10Y futures index), `^TYX` (30Y), `^FVX` (5Y), `2YY=F` (2Y yield futures), `^IRX` (13-week bill). For actual yield percentages, supplement with FRED DGS2 / CNBC US2Y.
+- **Commodities**: `BZ=F` (Brent), `CL=F` (WTI), `GC=F` (Gold), `HG=F` (Copper)
+- **Asian Indices**: `^N225` (Nikkei), `^HSI` (Hang Seng), `^KS11` (KOSPI)
+- **Asian Futures**: `NKD=F` (Nikkei futures). `HSI=F` and `KOSPI=F` do **not** resolve on Yahoo — fall back to spot closes from prior Asian session.
+
+**CNBC Treasury yields (actual %):**
+
+The regex approach that works reliably:
+1. Fetch `cnbc.com/quotes/US2Y`, `US10Y`, `US30Y`
+2. Search for &quot;Yield&quot; in the HTML
+3. Extract the first decimal number after &quot;Yield&quot; as the current yield
+4. Extract the next signed decimal as the change (in pp, convert to bps ×100)
+5. For Previous Close, search for &quot;Previous Close&quot; in the HTML and extract the first decimal number
+
+Use `execute_code` + curl with a standard desktop User-Agent. Avoid `browser_click` on CNBC — it times out. Use `browser_navigate` directly to quote pages if needed.
+
+Pitfall: `browser_click` on CNBC links frequently times out. Always use `browser_navigate` directly to the target URL instead.
+
+**Terminal `curl | python3` blocked:** The `terminal()` tool&#x27;s security scanner (`tirith:curl_pipe_shell`) blocks any command that pipes `curl` output directly into `python3` or other interpreters. Never use this pattern. Always fetch JSON inside `execute_code` using the `requests` library.
+
+**Tertiary / Fallbacks:**
+- `https://www.cnbc.com/world/` — live Asian cash-market levels in the markets banner and &quot;Trending Now&quot; geopolitical headlines.
+- `https://apnews.com/hub/russia-ukraine`, `https://apnews.com/hub/china`, `https://apnews.com/hub/economy` — reliable, bot-free geopolitical and macro news hubs.
+- `https://www.federalreserve.gov/feeds/press_all.xml` and `https://www.federalreserve.gov/feeds/speeches.xml` — RSS feeds for Fed statements and speeches; avoids the JS-heavy Fed calendar pages.
+- `tradingeconomics.com/united-states/government-bond-10y` — useful for 10Y meta description with exact yield
+- `cnbc.com/world-markets/` — &quot;Trending Now&quot; for geopolitics
+- `federalreserve.gov/newsevents/calendar.htm` — Fed speaker calendar (JS-heavy; prefer RSS feeds)
+
+**Recommended execution sequence:**
+1. Pull all numerical data via Yahoo API in 1-2 `execute_code` blocks (equities + treasuries + commodities)
+   - If `requests` is not available in the venv, use a two-step shell approach: (a) `terminal(curl -o /tmp/sym.json url)` to download, (b) `execute_code(open(&#x27;/tmp/sym.json&#x27;).read())` to parse. This avoids the `curl | python3` security block in `terminal()`.
+2. Pull CNBC Treasury yields via `browser_navigate` + `browser_snapshot` (US2Y, US10Y, US30Y) — or accept the 5–10bp slippage and use Yahoo `^TNX`/`^TYX` directly
+3. Pull RSS headlines via `terminal(curl https://...rss.xml &gt; /tmp/feed.xml)` then parse with regex in `execute_code` (BBC, CNBC, Al Jazeera, Yahoo Finance all have working RSS)
+4. Calculate changes and assemble report
+
+## Reference: Yahoo API Patterns
+See `references/yahoo-api-patterns.md` for tested, copy-pasteable `execute_code` blocks covering US equities, treasuries (futures), commodities, Asian indices, and CNBC yield extraction.
+
+See `references/session-2026-06-01-data-sources.md` for a verified, session-tested table of which tickers worked and which failed, plus the exact `execute_code` block used to pull them.
+
+See `references/session-2026-06-09-data-sources.md` for the latest session&#x27;s data, including the KOSPI/HSI `regularMarketPrice` anomaly (fake -11.7% KOSPI drop), the curl-to-file workaround for the `curl | python3` security block, and Reuters/Bloomberg RSS reliability notes.
+
+See `references/cnbc-yield-extraction.md` for the reliable `browser_navigate` + `browser_snapshot` sequence to pull live Treasury yields from CNBC quote pages.
+
+See `references/session-2026-06-18-data-sources.md` for the latest session-tested source set: AP News hubs for geopolitics/macro, the CNBC world markets banner for Asian spot levels, Federal Reserve RSS feeds for statements/speakers, and the `NKD=F` roll-distortion issue.
+
+## Pitfalls
+1. **Gold futures contract price confusion**: `GC=F` returns the COMEX gold futures **contract** price (~$4,600–4,800 for 100 troy oz), NOT the per-ounce spot price (~$2,300–2,500/oz). When reporting gold, always divide `GC=F` by 100 to express per-ounce spot, or explicitly label the raw figure as &quot;Gold futures contract&quot;. Never present the raw contract price as the spot price — it will be misread as a massive move.
+2. **bot_detection**: Yahoo Finance / Investing.com may block with bot detection. Use snapshots not raw curl. If blocked, try CNBC or DuckDuckGo HTML search as fallback.
+2. **vision_analyze failure**: On OpenRouter key limit exceeded (403), browser_vision will fail. Fall back to browser_snapshot.
+3. **Timing mismatch**: US markets close at 4 PM ET (1:30 AM IST). At 9 PM IST they&#x27;re still open ~2.5 hours. Label data correctly.
+4. **Asia holiday closures**: Check CNBC/HKEX/TSE calendars. Many Asia markets closed for Easter/Qingming/Golden Week. Always note which markets are closed.
+5. **Geopolitical events dominate**: If active US-Iran conflict or similar, this overrides ALL suppression rules. Always report escalation timelines, deadlines, and Oval Office press conferences.
+6. **Link timeouts on CNBC**: Clicking links on CNBC pages can timeout. If `browser_click` fails, use `browser_navigate` directly to the article URL instead.
+7. **Commodities table scrolling unreliable**: Yahoo Finance commodities page tables require multiple scrolls and may truncate. Direct quote pages (CL%3DF, BZ%3DF, etc.) load instantly with full data.
+8. **Treasury yields on Yahoo bonds page**: The bonds overview page lists futures prices, not yields. Use CNBC quote pages (US2Y, US10Y) for actual yield data with &quot;KEY STATS&quot; section.
+9. **Fast-moving geopolitical stories**: During active conflicts, check both Yahoo quote page news sections AND CNBC trending topics. Critical updates appear in both places.
+10. **Yield change calculation**: CNBC shows both current yield and previous close in KEY STATS. Calculate change as (Current - Previous Close). The page also shows change in the header but verify against KEY STATS for accuracy.
+11. **Yahoo API vs CNBC yield discrepancy**: Yahoo `^TNX`, `^TYX`, `^FVX`, `^IRX` return futures index prices, NOT actual Treasury yields in %. Always supplement with CNBC quote pages (US2Y, US10Y, US30Y) for true yield percentages. Convert CNBC yield change from percentage points to bps (×100).
+12. **KOSPI holiday gaps**: KOSPI closes can gap &gt;5% across holidays (May 1, Chuseok, Seollal). If you see an extreme single-day move, verify whether Korean markets were closed the prior trading day. Use `range=5d` on the Yahoo API to inspect multi-day closes for context.
+13. **delegate_task failure on market data**: `delegate_task` with web-search subagents frequently fails for real-time market data due to model tool-call loops (timeouts at 600s with stuck API calls). Use direct `execute_code` + Yahoo API or `browser_navigate` + `browser_snapshot` instead. **Also note: even parallel batches of 3 subagents timed out for this task** — the cron `max_concurrent_children` cap is 3, but for real-time market data a single subagent can easily exceed the 10-minute timeout. Skip `delegate_task` entirely for time-sensitive market scans.
+14. **Asian indices `regularMarketPrice` is after-hours futures, not last cash close**: For `^KS11`, `^HSI`, `^N225`, Yahoo&#x27;s `meta.regularMarketPrice` returned OUTSIDE Asian trading hours reflects overnight after-hours futures (e.g., KOSPI showed 7484.41 vs actual last cash close 8160.59 — a fake -11.7% move). **Always use the last entry in `indicators.quote[0].close` and compare to the prior entry, NOT `meta.regularMarketPrice` and `meta.chartPreviousClose`, for Asian indices.** See `references/market-data-verification.md` for the general verification pattern; treat Asian indices as a special case where `meta` fields are unreliable outside Asian session hours.
+15. **Yahoo `range=2d` returns 2 data points; for week-over-week context use `range=5d`**: When computing &quot;this week vs last week&quot; changes (e.g., &quot;10Y +9.7bp this week&quot;), 2-day data misses the trend. Use `range=5d` and compare the last close to a 5-day-ago close.
+16. **Delisted/missing Yahoo symbols return 108-byte error JSON**: A symbol like `TWV` or `HSI=F` returns `{&quot;chart&quot;:{&quot;result&quot;:null,&quot;error&quot;:{&quot;code&quot;:&quot;Not Found&quot;,&quot;description&quot;:&quot;No data found, symbol may be delisted&quot;}}}` with HTTP 200. Always check `len(response) &gt; 500` before parsing; if response is &lt;500 bytes, treat the symbol as failed and skip it (don&#x27;t crash the JSON parser).
+17. **`2YY=F` returns futures, with sparse history**: The `2YY=F` symbol returned only ~3 days of close data on `range=5d` queries while other Yahoo Treasury symbols return 5 days. Not a data error — the contract is near expiration. Use the most recent value as the &quot;current&quot; 2Y yield proxy and label clearly as &quot;CME 2Y yield futures&quot; not &quot;US 2Y Treasury yield.&quot;
+19. **Cron job timing: 9 PM IST is 11:30 AM ET — US markets are MID-SESSION**: When this cron fires on a weekday, the most recent US CLOSE was yesterday (1:30 AM IST), and US is currently in mid-session. Label data as &quot;Live [time] ET / [time] IST&quot; and footnote that the official close is at 1:30 AM IST. If the user&#x27;s template column says &quot;Close&quot;, populate it with the live snapshot and footnote the market status rather than waiting for a close that happens after Asian markets open.
+20. **`NKD=F` Nikkei futures can spike on contract roll**: This session returned 71,935 vs a prior 65,570 (+9.7%) while the Nikkei cash close was +1.65%. For Asian open indication, prefer `^N225` spot (verified against the CNBC world banner) over `NKD=F`.
+21. **AP News hubs are bot-resistant**: When Reuters/CNN/Bloomberg block or require CAPTCHA, AP News topic hubs (`/hub/russia-ukraine`, `/hub/china`, `/hub/economy`) load cleanly and provide headline-level geopolitical/macro coverage.
+22. **Federal Reserve calendar pages load via JS**: The official Fed speeches/press-release pages often show &quot;Loading data...&quot; in the browser snapshot. Use the RSS feeds (`/feeds/press_all.xml`, `/feeds/speeches.xml`) for reliable, parseable Fed statements and speaker schedules.
+
+## Output Format — COMPACT GLYPH TELEGRAM CARD (MANDATORY)
+
+Hard budget: **&lt;=2,200 characters total**. Glanceable card, not a report; full analysis lives in the treasury-disk archive.
+
+Fixed encoding (NEVER re-explain the key inside the message — it never changes):
+- Direction glyphs (CANONICAL): `↑` = up, `↓` = down, `◆` = flat/unchanged, always immediately followed by the signed magnitude (e.g. `↑1.17%`, `↓4.2bp`, `↓48p`). EVERY percentage move carries an explicit % sign. Yield changes in bp. USDINR change in paise.
+- ABSOLUTE LEVELS included: index points, yield %, commodity prices with currency symbol. $ for Brent/WTI/Gold/Cu, rupee-symbol for USDINR, euro-symbol only if an EURINR row appears.
+- `|` separates instruments on one line; one line per block, block order fixed.
+- Emoji block headers: warning = single most important event (always line 2, may be a full sentence), US-flag = US, bar-chart = US yields, oil-drum = commodities, EU-flag = EU close, globe = Asia close, India-flag = India, chart = India rates/liquidity, READ = one cross-asset read-through line (optional), RISK: ladder (HIGH/MED/LOW tokens only), footer = sources + timestamp, one line.
+
+Card skeleton (FILL it, never expand it; use the real glyphs in output) — the triple-backtick lines ARE part of the delivered message:
+````
+OVERNIGHT SCAN - 8:05 PM IST
+[warning] &lt;most important event: severity word + one-line detail + source&gt;
+[US] US LIVE 10:35 ET: S&amp;P 7,667 ↑0.45% | Nasdaq 26,218 ↑0.84% | Dow 53,062 ↑0.54% | VIX 14.95 ↓1.6%
+[bars] US 10Y 4.758% ↓3.6bp | 2Y 4.336% ↓5.0bp | 30Y 5.239% ↓2.8bp
+[oil] Brent $96.5 ↑0.9% | WTI $92.2 ↑1.3% | Gold $4,480 ↑2.9% | Cu $6.64 ↑2.2%
+[EU] FTSE 10,832 ↑0.7% | DAX 26,003 ↑0.6% | CAC 8,286 ↑0.1%
+[ASIA] Nikkei 64,326 ↓2.9% | HSI 25,311 ↓0.1% | KOSPI 6,563 ↓4.0%
+[IN] Nifty 23,873 ↓0.2% | Sensex 76,153 ↓0.5% | USDINR ₹94.47 ↓48p
+[rates] OIS 1Y 5.98% ↓6bp | 5Y 6.48% ↓8bp | 10Y 6.74% ◆ | VRRR tmw → surplus
+READ: &lt;ONE line — the single most decision-useful cross-asset read-through&gt;
+RISK: Hormuz/oil gap HIGH - NFP Fri 6pm IST MED - 10Y&gt;4.8 MED
+- Yahoo/CNBC/CNN 8:05 PM IST
+```
+
+Rules:
+- Crisis escalation stays in the warning line (CRITICAL/ALERT/WATCH + detail + source) — may be a full sentence, but ONE line.
+- CODE BOX (MANDATORY): the entire card is wrapped in a single fenced code block — a line containing exactly ``` immediately before the header line, and a line containing exactly ``` immediately after the footer line. Telegram then renders the card in a fixed-width monospace box. Nothing outside the fences.
+- EXACT SHAPE: the response is EXACTLY these 12 lines, in this order, and nothing else —
+  1 header `OVERNIGHT SCAN - &lt;time&gt; IST`
+  2 warning (most important event, one line)
+  3 US equities (live)   4 US yields   5 commodities   6 EU close   7 ASIA close
+  8 INDIA close + USDINR   9 India rates/liquidity   10 READ (one line)   11 RISK ladder
+  12 footer `- &lt;sources&gt; &lt;time&gt; IST`
+  Writing line 12 completes the card. No line before line 1, no line after line 12.
+- OIS DATA GUARD: in ccil-ois-all.xlsx the columns are OIS1M/…/OIS1Y/…/OIS5Y/…/OIS10Y (WAR). 1Y = OIS1Y_WAR (~5.9-6.0), 5Y = OIS5Y_WAR (~6.4-6.5), 10Y = OIS10Y_WAR. NEVER report OIS1M (~5.2-5.3) as &quot;1Y&quot;, OIS9M (~5.8) as &quot;5Y&quot;, or OIS5Y as &quot;10Y&quot;. Sanity band: 1Y 5.2-6.3, 5Y 6.2-7.2, 10Y 6.3-7.5 — a value outside its band means the wrong column was read; recheck. Staleness rule (HARD): a tenor with NO print in today&#x27;s session must be shown with its last-known value + the date it was printed, e.g. `10Y 6.785 ◆ (last Sep2)`, and must NEVER get a bp change or be quoted as if fresh. A stale value presented as fresh (e.g. &quot;10Y 6.74 ↓5bp&quot; when the last print was yesterday) is a data error. As of Sep 3, 2026: OIS 10Y has had no prints since Sep 2 (last 6.785); 1Y/5Y trade daily.
+- Every data row that can be a glyph line MUST be a glyph line.
+- If over 2,200 chars: drop commodity rows first, then READ, then merge RISK tokens; NEVER drop the warning line or RISK ladder.
+- Quiet session: still deliver the card (diamond/small moves) + &quot;RISK: none material&quot;.
+- NEVER `[SILENT]`.
+
+## Geopolitical Crisis Monitoring
+
+In addition to the standard overnight risk scan, monitor for active crisis escalation that triggers immediate treasury action regardless of market-move thresholds. This is run from the same cron window and may override/supersede standard suppression.
+
+### Severity Levels
+- **CRITICAL** — Active military engagement (airstrikes, naval action, declared war), Fed emergency inter-meeting rate action, major bank failure &gt;$10B institution
+- **ALERT** — Sustained military escalation, confirmed senior-target killings, explicit war threats from heads of state/government, oil move &gt;3% with confirmed supply disruption driver, India-specific security incident
+- **WATCH** — Diplomatic deadline approaching, troop build-ups, sanctions escalation, rhetoric hardening but no kinetic action
+
+### Crisis Categories to Monitor
+Use `browser_navigate` to `https://lite.cnn.com` for text-only breaking news, then keyword-scan the headline list in `browser_snapshot` output.
+
+| Category | Keywords |
+|----------|----------|
+| Middle East | israel, gaza, hamas, hezbollah, lebanon, syria, palestine, airstrike, killed, strike |
+| Iran | iran, tehran, nuclear, revolutionary guard, qods force, sanctions, war threat |
+| Ukraine/Russia | ukraine, russia, putin, zelensky, drone, missile, moscow, kremlin, invasion |
+| Taiwan/China | taiwan, china, xi, strait, pla, reunification, conflict, taipei, beijing |
+| India-Pakistan/LAC | india, pakistan, kashmir, loc, lac, border, tension, terror, attack, pulwama |
+| Fed/Emergency | fed emergency, inter-meeting rate, fed chair, warsh, rate cut/hike surprise, bank failure |
+| Oil/Energy | opec, supply disruption, pipeline, strait of hormuz, spare capacity, energy crisis |
+
+#### Proven Execution Pattern
+
+**Primary: Multi-source RSS + API pipeline (no browser required, fastest in cron)**
+
+For cron jobs where browser startup is slow or unreliable, use the RSS-first pipeline documented in `references/rss-news-monitoring-pipeline.md`. It pulls BBC, India Today, ToI, Google News (geopolitical/oil/macro), and Yahoo Finance oil prices in ~30–45 seconds. Full copy-pasteable commands, CDATA handling, oil trigger check, and keyword scan are in that reference.
+
+**Fallback: lite.cnn.com via browser**
+When RSS sources are blocked or stale:
+```python
+browser_navigate(url=&quot;https://lite.cnn.com&quot;)
+```
+
+**Why lite.cnn.com**: Loads ~100 headlines in a single compact snapshot (no images, no JS widgets), making keyword scanning fast and reliable. Bot detection is minimal compared to full CNN site.
+
+### Oil Trigger (&gt;3% with confirmed driver)
+Verify stored Brent data in `/tmp/brent.json` or pull current via Yahoo API. Trigger fires when:
+1. Brent or WTI single-day change ≥ |3.0%|
+2. AND at least one headline in lite.cnn.com or other source contains an oil/conflict driver (airstrike, Hormuz, OPEC, supply disruption, etc.)
+
+**Pitfall**: Do NOT trigger solely on price — a 3% oil move on inventory data alone is not a &quot;crisis signal&quot; for this monitor. The confirmed driver requirement separates crisis-driven vs data-driven moves.
+
+### India-Specific Risk Scan
+Check for: border tensions (LOC/LAC), election violence, terror attacks, major communal incidents, or any India-Pakistan kinetic event. Any India-specific security incident automatically triggers ALERT regardless of other thresholds.
+
+### Crisis Output Format (overrides standard format when triggered)
+```
+🚨 CRISIS ALERT — [Date] [Time] IST
+
+Severity: [WATCH / ALERT / CRITICAL]
+
+• **[Category]** — [Headline summary]. Source: [Name]
+• **[Category]** — [Headline summary]. Source: [Name]
+• **[Category]** — [Headline summary]. Source: [Name]
+
+[Oil / Macro / India check results]
+```
+
+**CRITICAL FORMAT RULE**: Provide only text summary. Strip all URLs, links, and hyperlinks from news content. Provide only source attribution (e.g., &quot;Source: CNN&quot;) without URLs.
+
+### Crisis Suppression Rule
+If no crisis triggers fire, return exactly:
+```
+No active crisis signals at [IST timestamp]
+```
+
+In cron context: if also the standard overnight scan is quiet, you may emit `[SILENT]` — but if crisis triggers fired, ALWAYS produce the crisis brief regardless of standard suppression.
+
+## Suppression Rule
+
+Before deciding to suppress, check ALL of these:
+- US indices: &lt;1% move in S&amp;P 500 AND Nasdaq AND Dow
+- US 10Y yield: &lt;5 bps change
+- Asian indices: &lt;1% move in Nikkei AND Hang Seng AND KOSPI
+- Commodities: oil (Brent/WTI) &lt;2% change AND gold &lt;1% change
+- Geopolitical: no active conflict headlines, no major diplomatic deadlines
+- Macro/Fed: no FOMC, no major data surprise, no Fed leadership change
+
+If AND ONLY IF all thresholds pass, send: &quot;Quiet session — no significant overnight risks.&quot;
+
+**NEVER suppress when** — any of these triggers:
+- Active military conflict, Fed emergency moves, major geopolitical deadlines
+- Oil price move &gt;2%
+- Gold move &gt;1%
+- Any Asian index &gt;1%
+- Fed Chair change / leadership transition
+- Treasury yield &gt;10 bps
+- Any &quot;BREAKING&quot; headline found on CNBC / Yahoo trending topics
+
+## Treasury-Specific Additions
+- Flag INR-USD exposure when oil &gt;$100 or geopolitical escalations
+- Note any Fed speaker comments on rate path (Kevin Warsh as Fed Chair from Mar 2026)
+- Highlight any RBI/FEMA relevant developments
+
+- Do not return `[SILENT]` under any circumstance (daily ritual job).
+- Follow the Output Format card exactly: glyph rows, no markdown tables, no interpretation bullets, no prose. The card IS the format.
+
+---
+
+- HARD CAP 2,200 characters. Before finishing, count. If over: drop commodity rows first, then the READ line, then merge RISK tokens; never drop the warning line or RISK ladder. Never append meta-commentary about the card itself.
+
+The user has provided the following instruction alongside the skill invocation: [IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more.]
+
+You are doing a pre-sleep risk assessment for Asian market open, delivered as a COMPACT GLYPH CARD for Telegram.
+
+## SILENT PROTOCOL
+Daily ritual at 9 PM IST — always deliver the card. NEVER [SILENT].
+
+## TASK (data collection unchanged)
+Use overnight-risk-scan skill (Yahoo API + CNBC yields + RSS pipeline):
+- US indices + VIX (live, ET time in header), US 2Y/10Y/30Y yields
+- Brent/WTI/Gold/Copper, Europe close, Asia close, India close + USDINR
+- India OIS 1Y/5Y/10Y, VRRR/VRR/OMO note, system liquidity
+- ONE most important geopolitical/macro event only
+- Tomorrow&#x27;s calendar: ONE biggest release only
+
+## OUTPUT — ONE FENCED CODE BLOCK, HARD CAP 2,200 CHARS (MANDATORY)
+The delivered message is a single fenced code block: a ``` line, the 12 card lines, a ``` line. Telegram renders it as a fixed-width box.
+Follow the skill&#x27;s Output Format skeleton exactly. Line patterns:
+- GLYPHS (canonical): `↑` up, `↓` down, `◆` flat — each immediately followed by the signed magnitude with explicit % on percentage moves; bp for yield changes, paise for USDINR.
+- ABSOLUTE LEVELS: index points and currency symbols ($ commodities, ₹ USDINR) alongside every glyph move.
+- Currency symbols: $ for US/commodity prices (Brent $96.5), rupee symbol for USDINR; include index point levels alongside the glyph % move.
+- ONE optional READ line: the single most decision-useful cross-asset read-through, one sentence.
+- RISK tokens HIGH/MED/LOW only.
+- EXACT SHAPE (12 lines, in order): header `OVERNIGHT SCAN - &lt;time&gt; IST` / warning / US equities / US yields / commodities / EU / ASIA / INDIA+USDINR / India rates / READ / RISK ladder / footer `- &lt;sources&gt; &lt;time&gt; IST`. The footer is line 12 and completes the card.
+- OIS sanity bands: 1Y 5.2-6.3, 5Y 6.2-7.2, 10Y 6.3-7.5 — if a value falls outside, the wrong xlsx column was read; recheck (1Y=OIS1Y_WAR, 5Y=OIS5Y_WAR, 10Y=OIS10Y_WAR; 1M/9M are different tenors).
+- OIS staleness: a tenor with no print today is shown as `&lt;value&gt; ◆ (last &lt;date&gt;)` and gets NO bp change — never present a stale value as fresh.
+- If over 2,200 chars: drop commodity rows first, then the READ line, then merge RISK tokens; NEVER drop the warning line or RISK ladder.
+- Quiet session: still deliver the card with diamond glyphs and &quot;RISK: none material&quot;.
+
+
+## Error
+
+```
+RuntimeError: HTTP 502: {&quot;error&quot;:&quot;Post \&quot;https://ollama.com:443/v1/chat/completions?ts=1788532263\&quot;: dial tcp: lookup ollama.com on 10.255.255.254:53: read udp 10.255.255.254:36879-\u003e10.255.255.254:53: i/o timeout&quot;}
+```
+</pre>
+</div>
+</div></body></html>

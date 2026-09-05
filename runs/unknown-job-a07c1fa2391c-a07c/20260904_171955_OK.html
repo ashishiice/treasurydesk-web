@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unknown job (a07c1fa2391c) — 2026-09-04 17:19:55 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of Unknown job (a07c1fa2391c)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">Unknown job (a07c1fa2391c)</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    04 Sep 2026, 17:19:55 IST &nbsp;·&nbsp; <span class="gold">PERSONAL</span>/Markets &nbsp;·&nbsp; job a07c1fa2391c
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 04 Sep 2026, 17:19:55 IST</h2>
+  <pre>**Job ID:** a07c1fa2391c
+**Run Time:** 2026-09-04 17:19:55
+**Schedule:** 15 17 * * 1-5
+
+## Prompt
+
+[IMPORTANT: The user has invoked the &quot;penny-stock-intelligence&quot; skill, indicating they want you to follow its instructions. The full skill content is loaded below.]
+
+---
+name: penny-stock-intelligence
+description: Scan Indian penny stocks (sub-₹50, mcap &lt;₹500 Cr) across 10+ online chatter sources to find unpriced catalysts before they hit mainstream price. Delivers top 3 daily picks with panic stops. Supports listed + unlisted. For Ashish Prakash.
+---
+
+## Purpose
+Constantly scan Indian penny stocks through blog posts, online chatter, volume anomalies, and smart money footprints to identify **unpriced catalysts** — information not yet reflected in share price. Covers **listed and unlisted** equities.
+
+## 10 Sources (Rotating Daily Scan)
+
+| # | Source | Signal Type | Frequency | Tool |
+|---|--------|-------------|-----------|------|
+| 1 | **TradingView India community** | Breakout ideas, volume spikes | Daily | browser_navigate |
+| 2 | **Screener.in (Bull Cartel, Piotroski, Price-Volume)** | Fundamental inflection | Daily | browser_navigate |
+| 3 | **Moneycontrol buzz + SME corner** | Retail chatter | Daily | browser_navigate |
+| 4 | **NSE block-deals API (JSON)** ⚡ | Smart money footprint (large-cap) | Daily | terminal (curl) |
+| 4b | **NSE bulk-deals** | NOT publicly available via API (404); falls back to per-ticker check | — | — |
+| 5 | **ValuePickr forum (microcap thread)** | Quality bottom-fishing | Weekly | browser_navigate |
+| 6 | **Telegram penny channels** | Tip circulation | Daily | Manual / API |
+| 7 | **Twitter/X cashtags ($BSE, $NSE)** | Sentiment/volume anomaly | Daily | browser / search |
+| 8 | **NSE corporate-announcements API (JSON)** ⚡ HIGH-SIGNAL | Material event catalyst + price-movement flags | Daily | terminal (curl) — primary |
+| 8b | **BSE announcements API (JSON)** | Backup when NSE blocked | Daily | terminal (curl) |
+| 9 | **Grey market / unlisted dealers** | Pre-IPO, ESOP, delisted | Ad-hoc | Manual network |
+| 10 | **RBI/SEBI sectoral circulars** | Regulatory re-rating trigger | Event-driven | browser + RSS |
+
+## Penny Stock Universe Filter
+
+**Hard Filters (must meet ALL):**
+- Price: &lt; ₹50 (listed) OR grey market &lt; ₹100 (unlisted)
+- Market cap: &lt; ₹500 Cr
+- Volume: &gt; 3x 20-day average (or &gt; ₹10 lakh daily value)
+- Chatter: Novel signal in last 48 hours
+
+**Soft Filters (score boosters):**
+- Quarterly profit growth &gt; 100% YoY
+- PE &lt; 25 (cheap valuation)
+- Technical: Above 20 DMA OR within 10% of 52-week high
+- Promoter holding stable or increasing
+- Sector tailwind (RBI circular, government scheme, commodity cycle)
+
+## Scoring Algorithm (10-point scale)
+
+```
+Score = (Volume_spike × 0.30) + (Chatter_novelty × 0.25) + (Earnings_catalyst × 0.20) + (Technical_setup × 0.15) + (Sector_tailwind × 0.10)
+
+Threshold: Score ≥ 6.0 to report
+Top 3: Highest scoring 3 tickers
+```
+
+**Concrete scoring recipe:** See `references/penny-scoring-recipe-2026-06-23.md` for the exact Python mapping used in live scans, including how each announcement type maps to pillar scores and when to apply the post-filing momentum downgrade. A runnable version is in `scripts/penny_full_score.py`.
+
+## Panic Stop Framework (Indian Market)
+
+**Trade Size:**
+- Max 2% portfolio per penny stock
+- Max 5 positions total (= 10% allocation)
+- Cash reserve: 50% minimum
+
+**Stop Levels:**
+
+| Type | Holding | Hard Stop | Time Stop | Trailing |
+|------|---------|-----------|-----------|----------|
+| Momentum | &lt; 1 week | -8% | 3 sessions | None |
+| Swing | 1-4 weeks | -12% | 4 weeks max | Lock 50% at +20% |
+| Discovery | 1-6 months | -20% | 6 months | Fundamental review |
+
+**Special Rules:**
+- Sub-₹1 stocks: -15% stop, max 0.5% allocation
+- T-group (5% circuit): -5% stop
+- Z-group (no circuit): -10% intraday stop
+- Unlisted: Grey market stall &gt; 2 weeks = exit
+
+## Daily Cron Schedule (IST)
+
+| Time | Action | Source |
+|------|--------|--------|
+| 08:45 AM | Scan penny screens | TradingView + Screener |
+| 09:15 AM | Check pre-open gaps | NSE/BSE |
+| 10:00 AM | Telegram chatter read | Penny channels |
+| 11:30 AM | Smart money scan | SEBI bulk deals |
+| 01:00 PM | Sentiment scan | Twitter/X |
+| 02:30 PM | Community ideas | TradingView new posts |
+| 03:30 PM | EOD volume confirm | Volume scan |
+| 04:00 PM | Score + rank | Internal algorithm |
+| 04:15 PM | **Deliver Top 3** | Telegram DM |
+
+**Dedup Rule:** Same ticker not reported within 72 hours unless new catalyst emerges.
+
+## Output Format (Daily Delivery)
+
+```
+🪙 PENNY STOCK INTELLIGENCE — [Date] IST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🥇 #1: [Name] ([Symbol])
+   Price: ₹X.XX | Mcap: ₹X Cr | PE: X.X
+   Signal: [What was detected]
+   Trigger: [Why unpriced]
+   Catalyst: [When expected]
+   🛑 Panic Stop: -X% at ₹X.XX (Type: [A/B/C])
+   💰 Position: Max 2% portfolio
+   ⚠️ Risk: [Key risk]
+
+🥈 #2: [Same format]
+
+🥉 #3: [Same format]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Score cutoff: X.X/10 | Sources scanned: N | New signals: N
+Next scan: Tomorrow 04:15 PM IST
+```
+
+## [SILENT] Rule
+- **Default skill rule:** If no ticker scores ≥ 6.0 after full scan → return `[SILENT]` and do not deliver.
+- **Override by job-level instruction (verbose):** Some cron jobs explicitly ask for verbose status even on quiet days. When the job&#x27;s own prompt says &quot;Never stay silent&quot; or &quot;Do not return `[SILENT]` under any circumstance,&quot; obey the job instruction and produce a brief status update instead. In all other cases, use `[SILENT]`.
+- **Override by job-level instruction (silent):** If a job-level prompt explicitly says &quot;If there is genuinely nothing new to report, respond with exactly `[SILENT]`&quot; or otherwise mandates `[SILENT]` on quiet days, that instruction takes precedence over this skill&#x27;s &quot;Do not return `[SILENT]` under any circumstance&quot; formatting rule. Apply the job-level instruction.
+- **Resolution hierarchy:** job-level explicit silent rule → job-level explicit verbose rule → skill default `[SILENT]` on no-pick days.
+- **Partial-output rule still applies:** If 1 or 2 names clear the cutoff, deliver them and explicitly mark the empty slot(s); do not pad.
+
+**Note on contradictory formatting standards:** Earlier sections of this skill repeat &quot;Never stay silent&quot; / &quot;Do not return `[SILENT]` under any circumstance.&quot; That phrasing is a fallback for jobs that do **not** provide an explicit silence instruction. When a job-level instruction or system-level cron directive explicitly demands `[SILENT]` on no-pick days, apply it. The resolution hierarchy above governs.
+
+## State Files
+- `~/.hermes/cron/penny_seen_tickers.txt` — Dedup cache (`index|rank|ticker|YYYY-MM-DD|score`). Existing files may use either `YYYY-MM-DD` or `DD-MM-YYYY`; parse both before enforcing the 72-hour dedup rule. The file may also contain a trailing `index|` line with no ticker; ignore those. Robust parse: use the last valid date field and the ticker field immediately before it.
+- `~/.hermes/cron/penny_portfolio_log.txt` — Tracked positions + stops
+
+## Fallback Data Sources (When Browser Bot Detection Blocks Primary Sites)
+- **TradingView mobile pages:** `https://www.tradingview.com/markets/stocks-india/market-movers-gainers/` — less aggressively blocked than BSE/NSE
+- **Google Finance ticker pages:** `https://www.google.com/finance/quote/&lt;TICKER&gt;:NSE` or `:BSE` — good for price, mcap, news
+- **Tinkertape / TickerTape microcap pages:** `https://www.tickertape.in/stocks/&lt;slug&gt;`
+- **Screener.in screen scraping:** Works for screen tables; company detail pages often require exact slug
+- **BSE API (corporate filings):** `https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w?strCat=-1&amp;strPrevDate=YYYYMMDD&amp;strScrip=&amp;strSearch=&amp;strToDate=YYYYMMDD&amp;strType=C` — intended JSON path; may return `301`/redirect to `showinterest.aspx` or an empty SPA shell, and browser pages may show `Access Denied`. If BSE filing verification fails, **do not claim “no filings”**; label BSE-side catalyst status as unverified and include that in risk.
+- **NSE corporate-announcements API (PRIMARY for catalysts):** `https://www.nseindia.com/api/corporate-announcements?index=equities&amp;from_date=DD-MM-YYYY&amp;to_date=DD-MM-YYYY` — returns JSON array of ~3,400 announcements over 7 days. Requires NSE session cookie (hit `https://www.nseindia.com/` first). In practice, the API works from a bare GET with a modern User-Agent; if it returns `{&quot;data&quot;:[],&quot;msg&quot;:&quot;no data found&quot;}` retry with an explicit cookie jar and `Referer: https://www.nseindia.com/companies-listing/corporate-filings`.
+- **NSE block-deals API (PRIMARY for smart money):** `https://www.nseindia.com/api/block-deal?from_date=DD-MM-YYYY&amp;to_date=DD-MM-YYYY` — returns JSON. Block deals only; bulk-deal endpoint is 404.
+- **NSE bulk-deal endpoint** `/api/bulk-deal` — NOT publicly available (returns 404). Skip this; use BSE bulk-deal fallback below.
+- **BSE bulk-deal/block-deal CSV downloads** (`https://www.bseindia.com/download/BulkDeals/BulkDeals_DD_MM_YYYY.csv`) — return SPA HTML shell, not actual CSV. Browser is the only path here.
+
+## Cron-Mode Execution Constraint (Added 2026-06-16)
+When running as a scheduled cron job, `execute_code` may be blocked because it runs arbitrary local Python without user approval. **Do not rely on `execute_code` for scan orchestration in cron mode.** Instead:
+1. Write deterministic scan scripts to disk with `write_file`.
+2. Run them via `terminal` with `python3 /path/to/script.py`.
+3. Keep network-fetched data in temp files (e.g. `/tmp/nse_announcements.json`) and parse them with on-disk scripts rather than piping downloaded JSON directly into an interpreter.
+
+This preserves reproducibility and avoids the `tirith:pipe_to_interpreter` approval block that occurs when cron runs unattended.
+
+## Cron-Mode Data Pipeline (Added 2026-07-03)
+A working end-to-end run in cron mode uses:
+1. `python3 /home/homepc/.hermes/skills/research/penny-stock-intelligence/scripts/tv_unusual_volume_extract.py`
+2. `python3 /home/homepc/.hermes/skills/research/penny-stock-intelligence/scripts/nse_announcements_pull.py --tickers-file /tmp/penny_scan/tickers.txt --window-days 7 &gt; /tmp/penny_scan/nse_announcements.json`
+   - Note: `--tickers-file` expects one plain ticker per line. The wrapper output can be passed straight to `penny_full_score.py`.
+3. `python3 /home/homepc/.hermes/skills/research/penny-stock-intelligence/scripts/penny_full_score.py`
+
+**Scorer timeout (added 2026-07-08):** `penny_full_score.py` makes one Yahoo Finance v8 call (2s sleep) + optionally one Screener.in call (2s sleep) per candidate. With 30+ penny-filtered candidates, the total runtime is 120-240s. The default `terminal` timeout of 120s is insufficient — **always set `timeout=300`** when invoking the scorer in cron mode. A 34-candidate run on 2026-07-08 timed out at 120s and succeeded only at 300s.
+
+**Data-format notes:**
+- `tv_penny.json` now carries `mcapRaw` as numeric ₹Cr, not a string. `penny_full_score.py` accepts both.
+- `nse_announcements.json` can be either a bare array or the wrapper dict from `nse_announcements_pull.py`. Do not strip it manually; the scorer handles both.
+- Build the tickers file from `tv_penny.json` before running `nse_announcements_pull.py` so the API only matches relevant symbols.
+
+## Announcement Interpretation Rules (Critical — Added 2026-06-09)
+When scanning the NSE announcements feed, **filter description text for the following keywords and treat them per the rules below — these distinguish real catalysts from noise/negative flags:**
+
+| Description (exact) | Interpretation | Action |
+|---|---|---|
+| &quot;Outcome of Board Meeting&quot; | Real catalyst (results, dividend, fundraising, M&amp;A) | HIGH score (Earnings_catalyst = 9-10) |
+| &quot;Change in Management&quot; | Neutral-to-positive (new leadership) — but verify direction | MEDIUM, only if new appointment, not director death |
+| &quot;Change in Management - Demise of …&quot; | **NEGATIVE** | EXCLUDE (downgrade Earnings_catalyst to 0; this is a sympathy bounce, not a catalyst) |
+| &quot;Price movement&quot; | **WARNING FLAG** — NSE asked company to clarify; &quot;response is awaited&quot; means no positive catalyst disclosed | EXCLUDE or treat as 0; the NSE flag itself is bearish/cautionary, not a buy signal |
+| &quot;Spurt in Volume&quot; | Volume anomaly, not a fundamental catalyst | Use to **augment Volume_spike** score; do NOT count as Earnings_catalyst |
+| &quot;Disclosure under SEBI Takeover Regulations&quot; | **Conditional HIGH** — only if it is a fresh open offer / Regulation 29 stake change or other material acquisition/disposal. Routine annual promoter holding declarations under Regulation 31(4) are neutral. | HIGH only after verification; otherwise LOW/0 |
+| &quot;Voluntary Delisting&quot; | EXCLUDE — imminent exit, not a buy | EXCLUDE |
+| &quot;Analysts/Institutional Investor Meet/Con. Call Updates&quot; | Often routine, not material | LOW unless specific company name on the call list |
+| &quot;ESOP/ESOS/ESPS&quot; | Employee scheme — neutral-to-mildly-bullish (alignment) | LOW (use only if company is small and ESOP is material %) |
+| &quot;Defaults on Payment of Interest/Principal&quot; | **NEGATIVE** — company defaulted on debt | EXCLUDE (Earnings_catalyst = 0; this is a credit event, not a buy signal). Added 2026-06-17 after RKEC scan. |
+| &quot;Stock split&quot; | NEUTRAL-to-CAUTION — corporate action, not a fundamental catalyst | LOW; stock splits in microcaps can be dilutive or signal retail-appeal manipulation. Do NOT score as Earnings_catalyst. |
+| &quot;Credit Rating- Others&quot; | NEUTRAL — rating action, verify direction | LOW unless upgrade; downgrade = NEGATIVE |
+| &quot;General Updates&quot; / &quot;Updates&quot; | Usually boilerplate | LOW — read attachment text before scoring; sometimes hides material info (e.g. warrant conversion, project updates) |
+| &quot;Bagging/Receiving of orders/contracts&quot; | **MEDIUM-HIGH** — order win, material for microcap revenue | MEDIUM (score_boost = 6); read attachment for order size. Added 2026-07-08. |
+| &quot;Change in Company Secretary/Compliance Officer&quot; | Routine compliance | EXCLUDE (score_boost = 0). Added 2026-07-08. |
+| &quot;Structural Digital Database&quot; | SDD compliance certificate | EXCLUDE (score_boost = 0). Added 2026-07-08. |
+| &quot;Certificate under SEBI (Depositories and Participants) Regulations, 2018&quot; | Reg 74(5) compliance | EXCLUDE (score_boost = 0). Added 2026-07-08. |
+| &quot;Corporate Insolvency Resolution Process&quot; | **NEGATIVE** — company is in bankruptcy/insolvency proceedings under IBC | EXCLUDE (Earnings_catalyst = 0; score_boost = 0). This is a credit/distress event, not a buy signal. Added 2026-07-13 after ANSALAPI and SABEVENTS filings. |
+| &quot;Cessation&quot; | **NEGATIVE-to-NEUTRAL** — director resignation/departure | LOW/EXCLUDE (score_boost = 0-1). Cessation of a director is usually routine resignation but can signal internal turmoil in microcaps. Do NOT score as catalyst. Added 2026-07-13 after WINSOME filing. |
+
+**Updates/General Updates material-content pitfall (added after 2026-06-22 scan):** NSE filings labeled merely &quot;Updates&quot; or &quot;General Updates&quot; frequently contain **material substance** in the `attchmntText` field even though the `desc` field is boilerplate. Example: MSP Steel &amp; Power (MSPL) filed &quot;Updates&quot; on 20-Jun-2026 with `attchmntText`: *&quot;Open Market Purchase of Equity Shares by Promoter Entity&quot;* — a clear smart-money/promoter-confidence signal. **Rule:** Always inspect `attchmntText` (or download the PDF) for any &quot;Updates&quot; / &quot;General Updates&quot; filing before assigning a LOW score. If the attachment reveals promoter buying, capacity expansion, or new orders, upgrade appropriately.
+
+**Updates-with-board-outcome rule (added after 2026-06-23 scan):** If an &quot;Updates&quot; filing&#x27;s `attchmntText` references audited quarterly/annual financial results, an &quot;Outcome of Board Meeting,&quot; or a board meeting that approved results/dividend/fundraising, treat it exactly as an &quot;Outcome of Board Meeting&quot; HIGH catalyst. Example: MOHITIND (19-Jun-2026) filed under &quot;Updates&quot; but the attachment said *&quot;Submission of Machine-Readable Form and Legible copies of the Audited Standalone and Consolidated Financial Results for the quarter and financial year ended March 31, 2026, approved at the Board Meeting ... held on May 29, 2026.&quot;* This is a real earnings catalyst, not boilerplate.
+
+**Takeover-disclosure verification pitfall (added after 2026-06-19 scan):** `Disclosure under SEBI Takeover Regulations` is **not automatically a fresh catalyst**. Many filings are annual promoter/promoter-group declarations under Regulation 31(4), e.g. “as on March 31, 2026, we collectively hold …” with no new acquisition/disposal. Treat those as neutral (`Earnings_catalyst = 0` or LOW) unless the text/PDF shows a fresh `Regulation 29`, `open offer`, `acquired`, `disposed`, `change in shareholding`, or similar stake/voting-right event.
+
+**Price-movement flag pitfall (added after 2026-06-09 scan):** NSE filing &quot;Price movement / Significant movement in price has been observed in X. The Exchange has written to the company. The response is awaited.&quot; is **NOT** an unpriced positive catalyst. It is the regulator asking the company to explain unusual price action. Most often this flags potential price manipulation, a pre-result build-up, or insider trading. Treat as `Earnings_catalyst = 0`. Do not let the +20% intraday move fool you — that&#x27;s the move the flag is warning about.
+
+## NSE Bulk-Block-Deal Reality (Added 2026-06-09)
+- **NSE bulk-deal endpoint** (`/api/bulk-deal`) returns 404 — not in production access. Cannot pull via API.
+- **NSE block-deal endpoint** (`/api/block-deal`) works; all current entries are large/mid caps (ADANIGREEN, AJANTPHARM, EMCURE, CAPITALSFB on 2026-06-09) — not useful for penny universe.
+- **BSE bulk-deal HTML page** is a SPA; curl returns shell. No public CSV download worked as of 2026-06-09.
+- **Practical impact:** Smart-money signal for penny universe is currently unavailable via API. TradingView unusual-volume + NSE corporate announcements are the best proxies. Document this gap; do not fake a bulk-deal signal.
+
+## Price Data Source Hierarchy (Updated 2026-06-11)
+After live testing, the following order of reliability for Indian stock prices was established:
+
+| Priority | Source | Endpoint / Method | Status |
+|----------|--------|-------------------|--------|
+| 1 | **Yahoo Finance v8 Chart API** | `https://query1.finance.yahoo.com/v8/finance/chart/{SYMBOL}.NS?interval=1d&amp;range=5d` | ✅ WORKS — returns price, volume, 5-day close history | Try `{SYMBOL}.BO` when Yahoo `.NS` returns 404 and TradingView indicates BSE listing. |
+| 2 | **Google Finance** | `https://www.google.com/finance/quote/{SYMBOL}:NSE` | ✅ WORKS for price only; mcap unreliable; use for status check (suspended/delisted) |
+| 3 | **Yahoo Finance v7 Quote API** | `https://query1.finance.yahoo.com/v7/finance/quote?symbols={SYMBOL}.NS` | ❌ RETURNS 401 — auth required; do not use |
+| 4 | **NSE Quote API** | `https://www.nseindia.com/api/quote-equity?symbol={SYMBOL}` | ❌ 403 Access Denied — bot detection blocks curl |
+| 5 | **NSE Equity Master CSV** | `https://archives.nseindia.com/content/equities/EQUITY_L.csv` | ❌ 403 — blocked |
+
+**Key insight:** Yahoo v8 is the single reliable programmatic price source for Indian equities as of June 2026. Use it for bulk price checks, volume reads, and 5-day momentum calculations. Google Finance is a useful fallback for price validation and corporate-action status (suspension, delisting).
+
+## Fundamental-Data Fallback — Screener.in Company Pages (Added 2026-06-15)
+Yahoo v8 gives price, volume and 5-day closes but **not market cap or PE**. For penny-stock filtering (mcap &lt; ₹500 Cr, PE &lt; 25), use Screener.in company pages as a curl-parsable fallback.
+
+- URL pattern: `https://www.screener.in/company/{SYMBOL}/` (e.g. `https://www.screener.in/company/KELLTONTEC/`).
+- The page returns 200 for valid NSE symbols and contains `Current Price`, `Market Cap`, `Stock P/E` in a predictable HTML structure.
+- Some values are split, e.g. Current Price shows `₹ 33.2 / 13.0` (current/consolidated). Always take the **first number** after the label.
+- Parsing regex (tested 2026-06-15):
+  ```python
+  import re
+  def screener_value(label, html):
+      pat = re.compile(
+          r&#x27;\b&#x27; + re.escape(label) + r&#x27;\b.*?&lt;span class=&quot;nowrap value&quot;&gt;(?:\s*₹\s*)?(?:&lt;span class=&quot;number&quot;&gt;)?([0-9,.\-]+)&#x27;,
+          re.S
+      )
+      m = pat.search(html)
+      return float(m.group(1).replace(&#x27;,&#x27;, &#x27;&#x27;)) if m else None
+  price = screener_value(&quot;Current Price&quot;, text)
+  mcap  = screener_value(&quot;Market Cap&quot;, text)
+  pe    = screener_value(&quot;Stock P/E&quot;, text)
+  ```
+- Limitations: Screener.in blocks detailed ratio pages for unregistered users (`/user/quick_ratios/` redirects to register). So debt-equity, profit growth, promoter holding are usually unavailable via curl. Use the fields above plus Yahoo volume for scoring; do not fake missing ratios.
+- Reference: `references/screener-fundamental-parsing-recipe.md`
+
+## TradingView Unusual-Volume Tab — Primary Volume Signal (Added 2026-06-17)
+The **&quot;Unusual volume&quot;** tab on TradingView&#x27;s India stocks page is the highest-signal free source for volume anomalies. It sorts by relative volume (Rel Vol) and includes price, change %, volume, market cap, and P/E for each stock.
+
+- **URL:** `https://www.tradingview.com/markets/stocks-india/market-movers-unusual-volume/` (navigate via browser, then click the &quot;Unusual volume&quot; tab — ref ID varies by session)
+- **Extraction method:** Use `browser_console` with JS to extract table data as JSON. **Important:** pull the symbol from the first `&lt;a&gt;` inside the first cell, not by regexing the full cell text — TradingView appends company-name fragments that look like additional ticker characters (e.g. `PRIMIND` becomes `PRIMINDPrime Industries Limited`).
+  ```javascript
+  (function() {
+    const results = [];
+    document.querySelectorAll(&#x27;table tbody tr&#x27;).forEach(row =&gt; {
+      const cells = row.querySelectorAll(&#x27;td&#x27;);
+      if (cells.length &lt; 7) return;
+      const symbolA = cells[0].querySelector(&#x27;a&#x27;);
+      const symbol = symbolA ? symbolA.textContent.trim() : &#x27;&#x27;;
+      const relVol = parseFloat(cells[1]?.textContent?.trim() || &#x27;&#x27;);
+      const priceText = cells[2]?.textContent?.replace(&#x27;INR&#x27;,&#x27;&#x27;).replace(/\u202f/g,&#x27;&#x27;).trim() || &#x27;&#x27;;
+      const price = parseFloat(priceText);
+      if (!symbol || isNaN(price)) return;
+      const chg = cells[3]?.textContent?.trim();
+      const vol = cells[4]?.textContent?.trim();
+      const mcap = cells[5]?.textContent?.trim();
+      const pe = cells[6]?.textContent?.trim();
+      results.push({symbol, relVol: isNaN(relVol)?null:relVol, price, chg, vol, mcapRaw: mcap, peRaw: pe});
+    });
+    return JSON.stringify(results, null, 2);
+  })();
+  ```
+  **Note:** Column order varies by tab. The &quot;Unusual volume&quot; tab puts **Rel Vol first**, while &quot;Top gainers&quot; puts **Chg% first**. Inspect the table header row to confirm column order before extracting.
+
+- **Browser DOM extraction pitfall (added 2026-07-01):** In headless browser sessions the table body may not be reachable via `document.querySelectorAll(&#x27;table tbody tr&#x27;)`, returning an empty list even though the page visually loads. When this happens, fall back to the HTML-JSON extraction recipe in `references/tv-unusual-volume-extraction-2026-07-01.md`. It parses the embedded column-major data directly and gives the same 100 rows as the UI table.
+
+- **Cross-reference workflow (KEY INSIGHT):** The strongest unpriced-catalyst signal is a stock that appears on TradingView&#x27;s unusual-volume list with **zero NSE corporate announcements in the last 7 days**. This means the volume is driven by information not yet publicly disclosed. In the 2026-06-17 scan, TFL (12.44x rel vol), MADHUCON (8.01x), and HYBRIDFIN (5.45x) all had no NSE filings — these were the top 3 picks.
+
+- **Penny stocks tab:** The &quot;Penny stocks&quot; tab on TradingView is less useful — it&#x27;s dominated by sub-₹1 stocks (excluded per anti-pattern #3). Check it but expect most entries to fail the sub-₹1 filter.
+
+## Cron-Mode Dedup Cache Update (Added 2026-06-17)
+The `tirith:dotfile_overwrite` security scanner blocks `echo &gt;&gt; ~/.hermes/cron/penny_seen_tickers.txt` in cron mode because it treats dotfile appends as potential config overwrites. **Use `write_file` to update the dedup cache** instead of shell append:
+1. Read the current file contents (via `terminal` `cat` or `read_file`).
+2. Write the full updated file with `write_file(path=&#x27;~/.hermes/cron/penny_seen_tickers.txt&#x27;, content=...)`.
+This avoids the approval block entirely.
+
+## Yahoo Finance v8 Rate Limiting (Added 2026-06-17)
+Yahoo Finance v8 can return **HTTP 429 (Too Many Requests)** when making rapid sequential calls. Mitigation:
+- Insert `time.sleep(2)` between each ticker price check in Python scripts.
+- If 429 is hit, wait 5 seconds and retry that ticker.
+- The 429 is transient — it does not mean the API is permanently blocked (unlike the 401 on v7 Quote API which is permanent).
+
+## NSE Announcements API — JSON Format Note (Added 2026-06-17)
+The NSE corporate-announcements endpoint returns a **bare JSON array** (`[ {...}, {...} ]`), not `{&quot;data&quot;: [...]}`. Scripts that call `data.get(&#x27;data&#x27;, [])` will fail with `AttributeError: &#x27;list&#x27; object has no attribute &#x27;get&#x27;`. Parse with `json.loads()` and check `isinstance(data, list)` directly.
+
+**Cron scanner candidate-universe pitfall (added after 2026-06-19 scan):** Do not expand the Yahoo/Screener fetch universe to every high-signal NSE announcement symbol before price/volume filtering. That can time out because the announcement feed has thousands of records. Use TradingView unusual-volume as the primary candidate universe, then cross-reference NSE announcements for catalyst/negative flags; add announcement-only names only after a cheap prefilter proves they also have volume/liquidity.
+
+**Board-meeting catalyst already priced-in pitfall (added after 2026-06-22 scan):** A stock with &quot;Outcome of Board Meeting&quot; NSE filing BUT already up &gt;+20% in the preceding 5 days is often a **priced-in catalyst**, not an unpriced one. Example: HILTON (+21.4% in 5 days before filing) and CALSOFT (+21.4%) both cleared fundamental filters but the move had already happened. For scoring, downgrade `Earnings_catalyst` from 9-10 to 5-6 when 5-day momentum exceeds +15%, and downgrade `Technical_setup` to 0 (anti-pattern #5). The ideal signal is a board outcome with +5% to +15% 5-day momentum, implying awareness but not exhaustion.
+
+**Post-announcement volume-spike timing pitfall (added after 2026-06-22 scan):** A board-meeting outcome filed on Friday (e.g., 19-Jun) followed by a volume spike on Monday (22-Jun) may look like &quot;unpriced volume,&quot; but the 5-day momentum window captures the Friday close → Monday close move. Example: GVPTECH filed board outcome Friday 19-Jun, then spiked 10.4x relVol Monday 22-Jun; 5-day momentum was +13.6%, already capturing the catalyst. Score collapses because the &quot;unpriced&quot; window closed over the weekend. **Rule:** For filings on Fri/Sat, shift the &quot;priced-in&quot; check to compare Friday close vs. the close on the filing day itself. If the filing-day move was &gt;+10%, the catalyst is already reflected even if Monday volume is anomalous.
+
+**Intraday-filing end-of-day pricing pitfall (added after 2026-06-23 scan):** A filing released during market hours (e.g., MOHITIND at 13:32 IST on 19-Jun-2026) may not be reflected in the same-day close if the market does not immediately react. MOHITIND&#x27;s 19-Jun close was ₹22.63, essentially flat; the revaluation happened on the next trading Tuesday (23-Jun) to ₹26.52. Therefore, when a filing is intraday and the same-day close moved &lt; +5%, treat the catalyst as still largely unpriced regardless of where the 5-day momentum print lands. Only downgrade the catalyst as &quot;priced-in&quot; if the same-day close moved &gt; +10% from the pre-filing price or opening print.
+
+**BSE-only ticker Screener.in 404 pitfall (added after 2026-06-22 scan):** Many penny stocks trade only on BSE (not NSE). Screener.in company pages for these tickers return HTTP 404 because the slug matches the NSE symbol, which may not exist. Examples from 2026-06-22 scan: GUJCRED, VISVEN, JAIPAN, PROCLB, SHRINIWAS, DRL, RFSL, VENLONENT, YUNIKM, NATPLY — all 404&#x27;d on Screener.in. **Rule:** When Screener.in returns 404, try the `.BO` suffix on Yahoo Finance v8 instead of `.NS`. If the stock validates via Yahoo `.BO`, note &quot;BSE-listed; Screener verification unavailable&quot; and do not fake mcap/PE data. Do not exclude BSE-only candidates automatically, but downgrade `Chatter_novelty` because BSE announcements are harder to verify via API.
+
+**Market-cap parsing pitfall (added after 2026-06-19 scan):** When parsing TradingView market caps like `1.36 B INR`, require the unit before `INR` (or parse a robust unit-aware pattern). A loose optional-unit regex can parse `1.36 B INR` as `1.36e-7 Cr` and falsely pass the mcap filter.
+
+## Bot Detection Mitigation
+1. **Add delays:** Insert `sleep(2-4s)` between rapid browser or curl calls
+2. **Rotate User-Agent:** Use a recent Chrome desktop string for curl scripts
+3. **Avoid sorting/filtering on Screener.in** — these actions frequently redirect to login/register; use pre-built screen URLs instead
+4. **If a site blocks the browser stack entirely** (e.g., BSE / NSE &quot;Access Denied&quot;), immediately fall back to TradingView or Google Finance rather than retrying the same URL. For BSE-only candidates, if BSE filings are blocked, keep the name only if volume/fundamental filters still pass and explicitly disclose &quot;BSE filing verification blocked&quot; as a risk.
+
+## Screener.in Slug Resolution
+- Screener uses exact company-name slugs (not ticker symbols). Example: `https://www.screener.in/company/AVIPOLY/` may fail because the actual slug is `avi-polymers` or similar.
+- **Workaround:** Use the screen table pages (`/explore/`) and extract data directly from table DOM rather than navigating to company pages.
+
+## Scoring Reality Check — Missing Chatter
+- If `Chatter_novelty` cannot be measured (DDG/news returns zero results), assign a flat 2.0/10 for that component rather than inflating other pillars to compensate.
+- **Implication:** A stock with only volume and no catalyst/earnings tailwind will rarely clear the 6.0 threshold. This is intentional — it keeps [SILENT] honest.
+
+## Momentum Scoring — 5-Day Close History (Added 2026-06-11)
+When using Yahoo Finance v8 API, extract the full 5-day close array:
+```python
+closes = result[&quot;indicators&quot;][&quot;quote&quot;][0].get(&quot;close&quot;, [])
+closes = [c for c in closes if c]  # filter None values
+```
+Use the 5-day momentum (not just today&#x27;s change) for the Technical_setup pillar:
+- &gt;+20% in 5 days: +2.0 (but check anti-pattern #5 — skip if &gt;50%)
+- +10% to +20%: +1.5
+- +5% to +10%: +1.0
+- &lt;-5% in 5 days: -0.5 (distribution warning)
+
+**Warning:** Do not use Google Finance `change_pct` for momentum scoring. The first `%` match in the HTML is often a generic page element (e.g. `0.5` for &quot;heartbeatRate&quot;) rather than the stock&#x27;s actual change. Use Yahoo v8 closes for all momentum calculations.
+
+## Anti-Patterns (Explicitly Forbidden)
+1. ❌ Never recommend the same ticker 2 days in a row
+2. ❌ Never report without a hard panic stop level
+3. ❌ Never report sub-₹1 stocks as &quot;top 3&quot; (lottery only, not signal)
+4. ❌ Never ignore volume — a stock with no volume spike is just noise
+5. ❌ Never report a stock already up &gt; 50% in last 5 days (you missed it)
+6. ❌ Never downgrade or inflate scores to avoid [SILENT] — if no ticker clears 6.0, deliver [SILENT]
+7. ❌ Never treat an NSE &quot;Price movement&quot; flag as a positive catalyst — it&#x27;s a regulator warning, not a buy signal (see Announcement Interpretation Rules)
+
+## Partial-Output Rule (Added 2026-06-15)
+The skill asks for &quot;top 3 daily picks,&quot; but the **6.0/10 score cutoff is hard**. If only 1 or 2 tickers clear the threshold, deliver only those and explicitly mark the missing slot(s). Do **not** lower the cutoff, do **not** pad with a lower-scoring name, and do **not** deliver a third placeholder that pretends to be a pick. Example footer line:
+```
+🥉 #3: [NO THIRD CANDIDATE CLEARED CUTOFF]
+Score cutoff: 6.0/10 | Sources scanned: N | New signals: N
+```
+This keeps the signal honest and avoids the worse failure mode of recommending a non-catalyst stock just to fill a slot.
+
+## Scorer Bugs Fixed (2026-07-20)
+- **attachment_text field mismatch:** `nse_announcements_pull.py` outputs `attachment_text` but `penny_full_score.py` was reading `attchmntText` (raw NSE field name). This caused board-outcome filings to never match the `FINANCIAL RESULTS` / `BOARD MEETING` / `OUTCOME` check in `classify_announcements`, silently downgrading real catalysts from HIGH to LOW (earnings_score 9.5 → 1.0). Fixed: scorer now reads `a.get(&#x27;attchmntText&#x27;) or a.get(&#x27;attachment_text&#x27;)`.
+- **Weekend-filing priced-in downgrade:** The priced-in rule (`if ann[&#x27;high&#x27;] and mom &gt; 15: earnings_score = 5.5`) incorrectly applied to Fri/Sat filings, where the 5-day momentum window captures the Monday post-catalyst revaluation — which IS the unpriced window opening, not closing. Fixed: scorer now checks `high_filing_dates` for Friday/Saturday weekdays and skips the downgrade. `classify_announcements` now returns `high_filing_dates` in its dict. This recovered ASHIMASYN from 4.22 → 6.67 on 2026-07-20 (Q1 FY27 results filed Sat 18-Jul, Monday +19.9% on 25x rel vol).
+
+## Skill Paths &amp; Cron Invocation
+This skill is categorized under `research/`, so its absolute filesystem path is:
+`~/.hermes/skills/research/penny-stock-intelligence/`
+
+In cron mode run the deterministic scorer via `terminal` like this:
+```
+python3 /home/homepc/.hermes/skills/research/penny-stock-intelligence/scripts/penny_full_score.py
+```
+Do **not** rely on `execute_code` for scan orchestration in unattended cron mode.
+
+## Scripts
+- `scripts/penny_scanner.py` — Daily scan scaffold (stubs; cron agent does browser work)
+- `scripts/nse_announcements_pull.py` — Pull NSE corporate-announcements JSON, match against candidate tickers, classify by description, return scored catalyst candidates. Re-runnable, no browser needed.
+- `scripts/tv_unusual_volume_extract.py` — Deterministic browser-less extraction of TradingView India unusual-volume table; writes `/tmp/penny_scan/tv_penny.json`.
+- `scripts/penny_full_score.py` — Deterministic scorer that reads `/tmp/penny_scan/tv_penny.json` + `/tmp/penny_scan/nse_announcements.json`, applies the scoring recipe in `references/penny-scoring-recipe-2026-06-23.md`, and writes `/tmp/penny_scan/scored.json`.
+
+**Important scorer robustness fixes (2026-07-03):** `penny_full_score.py` now accepts either a bare JSON array or the wrapper dict produced by `nse_announcements_pull.py`, and parses numeric `mcapRaw` values as well as string ones.
+
+  - **2026-07-01 fix:** Date math bug when computing IST window was corrected to use `utcnow + timedelta(hours=5, minutes=30)` and then `.date()`.
+- `scripts/penny_full_score.py` — Deterministic scorer that reads `/tmp/penny_scan/tv_penny.json` + `/tmp/penny_scan/nse_announcements.json`, applies the scoring recipe in `references/penny-scoring-recipe-2026-06-23.md`, and writes `/tmp/penny_scan/scored.json`.
+
+**Do not write a new ad-hoc scorer in `/tmp/penny_scan/` during a live scan.** The recipe has subtle rules (no-filing chatter boost, priced-in downgrades, micro-cap risk discount) that are easy to miss when re-implementing under time pressure. Use `penny_full_score.py` directly; if it is missing a feature, patch the skill script instead. See `references/penny-scoring-recipe-2026-06-23.md` for the exact mapping and `references/penny-scoring-deviation-pitfall-2026-06-25.md` for the live-session lesson.
+
+## References
+- `references/session-data-extraction-patterns.md` — Real-world source patterns, bot-detection mitigations, and extraction recipes from live scans (updated 2026-06-09)
+- `references/price-source-hierarchy-and-scan-recipe.md` — Consolidated price/volume source hierarchy and Yahoo v8 usage
+- `references/announcement-interpretation-playbook.md` — NSE corporate-announcements description-keyword rules, real ticker examples, and the price-movement-flag pitfall (added 2026-06-09)
+- `references/screener-fundamental-parsing-recipe.md` — How to curl-parse Screener.in company pages for mcap and PE when Yahoo/Google only give price (added 2026-06-15)
+- `references/bse-filing-verification-quirk-2026-06-19.md` — BSE filings API/browser behavior and reporting rule for BSE-only candidates
+- `references/penny-scoring-recipe-2026-06-23.md` — Exact scoring mapping, pillar weights, and priced-in/downgrade rules used in live scans (added 2026-06-23)
+- `references/penny-scoring-deviation-pitfall-2026-06-25.md` — Why re-implementing the scorer in `/tmp/penny_scan/` is dangerous; includes Unicode-minus parsing pitfall (added 2026-06-25)
+- `references/silent-run-example-2026-06-29.md` — Worked example of a no-pick day where strong volume without NSE catalysts produced scores below 6.0 and a `[SILENT]` result (added 2026-06-29)
+- `references/no-pick-run-2026-06-30.md` — Another no-pick session: 47 candidates scored, top score 5.25, silent rule applied; includes TradingView extraction fix (added 2026-06-30)
+- `references/tv-unusual-volume-extraction-2026-07-01.md` — HTML-JSON fallback for TradingView unusual-volume extraction when browser DOM extraction returns empty (added 2026-07-01)
+- `references/no-pick-run-2026-07-06.md` — 2026-07-06 cron run: 31 candidates scored, top 5.40, zero NSE catalysts, `[SILENT]` applied (added 2026-07-06)
+- `references/no-pick-run-2026-07-08.md` — 2026-07-08 cron run: 34 candidates scored, top 5.40, 4th consecutive silent day; new announcement types discovered (order wins, compliance certs); scorer timeout fix documented (added 2026-07-08)
+- `references/no-pick-run-2026-07-13.md` — 2026-07-13 cron run: 31 candidates scored, top 5.55, 5th consecutive silent day; new announcement types: &quot;Corporate Insolvency Resolution Process&quot; (NEGATIVE) and &quot;Cessation&quot; (NEGATIVE-NEUTRAL); both added to SKILL.md table + nse_announcements_pull.py DESC_RULES (added 2026-07-13)
+
+## Formatting Standard (Applies to All Runs)
+
+- Use bullet points (• or -) for nearly everything: facts, data points, sources, implications, and action items. Avoid dense paragraphs whenever a list is possible.
+- Prefer this structure for every item: **Bullet + bold label + explanation.**
+- For numeric data, always include a markdown table AND follow it with bullet-point interpretation.
+- **Silence rule for this skill:** see the `[SILENT] Rule` section above. The default is `[SILENT]` on no-pick days unless the job-level prompt explicitly requires a verbose status update.
+
+---
+
+## Output Quality Standard (Applies to All Runs of This Skill)
+
+- Produce a concise, analytical briefing note. Do not compress into bullet-only shorthand, but avoid encyclopedic length.
+- Analyze the data/content, do not just list it. Explain why it matters and what action it implies for Ashish&#x27;s goals.
+- Use compact tables (≤6–8 rows) for numeric comparisons. Follow each table with 1-2 bullets explaining why it matters.
+- Cite sources by name/domain only (e.g., RBI, Yahoo Finance, Economic Times, YouTube, LinkedIn). Do not include raw URLs unless the specific task requires them.
+- Always include per-item framing: (1) what changed, (2) why it matters, (3) what to watch next, (4) one action implication.
+- State all times in IST (UTC+5:30).
+- Do not self-censor or suppress the message unless the task has an explicit deduplication rule and nothing is genuinely new. Even on quiet days, summarize the status quo rather than sending [SILENT].
+- Do not impose arbitrary word counts. Length should match substance, but keep the report Telegram-friendly (under ~4,000 characters).
+
+## Telegram Delivery Guardrail (Applies to All Runs of This Skill)
+
+- The final message must fit in a single Telegram message: under 3,500 characters (≈500 words) including headers, tables, and bullets.
+- Before finishing, mentally count the response. If it exceeds 3,500 characters, trim in this priority order:
+  1. Drop minor/secondary rows from tables.
+  2. Shorten interpretation bullets to one sentence each.
+  3. Remove &quot;What was checked and not new&quot; details; keep only the names/queries checked.
+  4. Shorten &quot;Watchlist&quot; / &quot;Action items&quot; to 2 bullets.
+  5. Keep regulatory/India-specific items and Hero FinCorp action implications intact.
+- Do not add verbose preamble, sign-off, or a separate &quot;Sources&quot; paragraph. A one-line source list at the end is enough.
+- Never split the report into multiple messages.
+
+The user has provided the following instruction alongside the skill invocation: [IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more.]
+
+You are the Penny Stock Intelligence Agent. Every day at 4:15 PM IST, scan Indian penny stocks (sub-₹50, mcap &lt;₹500 Cr) for momentum, volume surge, and breakout setups.
+
+## SILENT PROTOCOL (MANDATORY)
+If after scanning you find NO stocks meeting your criteria (no volume surge &gt;2x average, no breakout, no momentum signal, no actionable setup), respond with exactly and only:
+SILENT
+Do NOT post &quot;no good setups today&quot; messages. Better silent than noise.
+
+## TASK
+Use penny-stock-intelligence skill. Scan NSE/BSE penny stocks. Filter for:
+- Price &lt; ₹50
+- Mcap &lt; ₹500 Cr
+- Volume surge &gt;2x 20-day average
+- Price momentum (5-day move &gt;5%)
+- Breakout from consolidation
+- News catalyst if any
+
+If setups exist, deliver: stock name, price, volume, 5-day/20-day move, catalyst, entry/exit, risk levels, position sizing. Table format. Max 5 ideas. Include risk warning.
+
+## Response
+
+SILENT
+</pre>
+</div>
+</div></body></html>

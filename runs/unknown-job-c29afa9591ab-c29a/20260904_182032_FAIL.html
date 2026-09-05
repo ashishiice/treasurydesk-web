@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unknown job (c29afa9591ab) — 2026-09-04 18:20:32 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of Unknown job (c29afa9591ab)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">Unknown job (c29afa9591ab)</h1>
+  <span class="st FAIL">FAIL</span></div>
+  <div class="dim small" style="margin-top:6px">
+    04 Sep 2026, 18:20:32 IST &nbsp;·&nbsp; <span class="gold">PERSONAL</span>/Knowledge &nbsp;·&nbsp; job c29afa9591ab
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 04 Sep 2026, 18:20:32 IST</h2>
+  <pre>**Job ID:** c29afa9591ab
+**Run Time:** 2026-09-04 18:20:21
+**Schedule:** 0 18 * * *
+
+## Prompt
+
+[IMPORTANT: The user has invoked the &quot;ai-daily-intelligence&quot; skill, indicating they want you to follow its instructions. The full skill content is loaded below.]
+
+---
+name: ai-daily-intelligence
+description: Daily AI news curator. Scrapes Reddit, Hacker News, tech RSS feeds, YouTube channels, and X/Twitter for new models, use cases, and token-cost optimizations. Enforces deduplication, relevance scoring, and a strict ≤200-word output contract.
+version: 1.0.0
+author: Ashish Prakash
+metadata:
+  hermes:
+    tags: [ai, news, monitoring, cron, reddit, youtube, x, rss]
+---
+
+Curated daily digest of what is new in AI — model releases, use cases, and ways to cut token/inference costs.
+
+## When to Use
+
+- Daily 6 PM cron job for AI intelligence.
+- Ad-hoc scans when you want a fast, filtered snapshot.
+
+## Output Contract
+
+- **Verbose and crisp**: comprehensive but scannable. Use sections, tables, and bullet hierarchy.
+- Markdown format: date header, grouped topic sections.
+- Per item: source, headline, 2–3 line summary, why it matters, and IST publish date.
+- No URLs; cite source name only.
+- Show only items published in the **last 24 hours**. Apply the dedup cache *first*, then the 24h cutoff.
+- If nothing genuinely new after dedup + 24h filter: reply `[SILENT]`.
+
+## Iteration History
+
+This skill evolved from a 200-word limit to a richer, sectioned digest based on user feedback. When a user asks for &quot;more verbose&quot; or &quot;more informative,&quot; expand with topic sections, per-item summaries, publish dates, and actionable takeaways rather than longer bullet text.
+
+## Deduplication
+
+Cache file: `~/.hermes/cron/ai_daily_seen.txt`
+Store normalized titles or URL IDs. Skip anything already in cache; append new items after reporting.
+
+## Collection Sources
+
+### Reddit RSS (no auth, reliable)
+```
+https://www.reddit.com/r/LocalLLaMA/new/.rss?sort=new
+https://www.reddit.com/r/MachineLearning/new/.rss?sort=new
+https://www.reddit.com/r/artificial/new/.rss?sort=new
+```
+Use `curl -A &quot;Mozilla/5.0&quot; -s --max-time 15` and parse XML.
+
+### Hacker News (general tech + AI filter)
+```
+https://news.ycombinator.com/rss
+```
+
+### Tech / AI Blog RSS
+```
+https://techcrunch.com/category/artificial-intelligence/feed/
+https://www.theverge.com/ai-artificial-intelligence/rss/index.xml
+https://arstechnica.com/tag/ai/feed/
+https://blog.google/technology/ai/rss/
+https://openai.com/blog/rss.xml
+https://www.anthropic.com/rss.xml
+```
+Test each feed before relying on it; remove failures.
+
+### YouTube Channels
+Use `yt-dlp` to pull recent video titles/descriptions from:
+```
+https://www.youtube.com/@AIExplainedOfficial/videos
+https://www.youtube.com/@matthewberman/videos
+https://www.youtube.com/@Fireship/videos
+https://www.youtube.com/@TheAIGRID/videos
+```
+Fallback if `yt-dlp` unavailable: skip YouTube for that run.
+
+### X / Twitter
+If `x-cli` is installed and credentials are present:
+```bash
+x-cli -j tweet search &quot;new AI model released today&quot; --max 10
+x-cli -j tweet search &quot;LLM token cost reduce&quot; --max 10
+```
+
+## Relevance Keywords
+
+High weight: `new model`, `model release`, `LLM`, `open source`, `multimodal`, `agent`, `reasoning`, `token cost`, `inference cost`, `price cut`, `distilled`, `quantization`, `MoE`, `fine-tune`, `RAG`, `use case`, `production`.
+
+Noise exclusion: `gaming`, `crypto`, `NFT`, `dating`, `celebrity`, `sports`.
+
+## Cron Workflow
+
+1. Load this skill.
+2. Run `scripts/collect_ai_news.py` (collects and scores items, handles dedup and 24h filtering).
+3. Run targeted `web_search` for gaps: `new AI model released today`, `LLM token cost reduction`.
+4. Merge, dedupe, apply 24h cutoff, score again.
+5. Format to verbose, sectioned markdown.
+6. Append new item keys to cache.
+7. Deliver to `origin` (personal Telegram DM).
+
+## Pitfalls
+
+- Reddit may rate-limit; retry once with a different user-agent.
+- YouTube transcript fetch often fails in cron; rely on titles/metadata, not transcripts.
+- X requires paid API access; do not fail the run if X is unavailable.
+- Never report stale items — the dedup cache is the gate, then the 24h filter.
+- Keep keyword lists focused; massive lists cause false positives.
+- When a user asks to make output &quot;more informative,&quot; add sections, per-item summaries, publish dates, and takeaways rather than simply lengthening bullets.
+
+---
+
+## Output Quality Standard (Applies to All Runs of This Skill)
+
+- Produce a concise, analytical briefing note. Do not compress into bullet-only shorthand, but avoid encyclopedic length.
+- Analyze the data/content, do not just list it. Explain why it matters and what action it implies for Ashish&#x27;s goals.
+- Use compact tables (≤6–8 rows) for numeric comparisons. Follow each table with 1-2 bullets explaining why it matters.
+- Cite sources by name/domain only (e.g., RBI, Yahoo Finance, Economic Times, YouTube, LinkedIn). Do not include raw URLs unless the specific task requires them.
+- Always include per-item framing: (1) what changed, (2) why it matters, (3) what to watch next, (4) one action implication.
+- State all times in IST (UTC+5:30).
+- Do not self-censor or suppress the message unless the task has an explicit deduplication rule and nothing is genuinely new. Even on quiet days, summarize the status quo rather than sending [SILENT].
+- Do not impose arbitrary word counts. Length should match substance, but keep the report Telegram-friendly (under ~4,000 characters).
+
+## Telegram Delivery Guardrail (Applies to All Runs of This Skill)
+
+- The final message must fit in a single Telegram message: under 3,500 characters (≈500 words) including headers, tables, and bullets.
+- Before finishing, mentally count the response. If it exceeds 3,500 characters, trim in this priority order:
+  1. Drop minor/secondary rows from tables.
+  2. Shorten interpretation bullets to one sentence each.
+  3. Remove &quot;What was checked and not new&quot; details; keep only the names/queries checked.
+  4. Shorten &quot;Watchlist&quot; / &quot;Action items&quot; to 2 bullets.
+  5. Keep regulatory/India-specific items and Hero FinCorp action implications intact.
+- Do not add verbose preamble, sign-off, or a separate &quot;Sources&quot; paragraph. A one-line source list at the end is enough.
+- Never split the report into multiple messages.
+
+## Formatting Standard
+
+- Use bullet points (• or -) for facts, data points, sources, implications, and action items. Avoid dense paragraphs whenever a list is possible.
+- Prefer this structure: bullet + bold label + explanation.
+- For numeric data, include a markdown table AND follow it with bullet-point interpretation.
+- Never stay silent. If there is genuinely nothing new, still output a brief status update with bullets covering: (a) what was checked, (b) what is unchanged, (c) what to monitor next.
+- Do not return [SILENT] under any circumstance.
+
+The user has provided the following instruction alongside the skill invocation: [IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more.]
+
+Run the AI Daily Intelligence digest.
+
+## SILENT PROTOCOL (MANDATORY)
+This is a daily AI news digest. Deliver it every day with the day&#x27;s AI developments. DO NOT silence this job; deliver the daily AI intelligence snapshot regardless.
+
+1. Make sure yt-dlp and curl are available. If not, still run web_search based collection.
+2. Collect AI news from: Hacker News, Reddit r/MachineLearning, arxiv, major AI labs (OpenAI, Anthropic, Google, Meta, Mistral, xAI), tech news.
+3. Score, dedupe, format.
+4. Deliver: top AI developments of the day with links and brief analysis.
+
+Use ai-daily-intelligence skill. Table format preferred.
+
+## Error
+
+```
+RuntimeError: HTTP 502: {&quot;error&quot;:&quot;Post \&quot;https://ollama.com:443/v1/chat/completions?ts=1788526211\&quot;: dial tcp: lookup ollama.com on 10.255.255.254:53: read udp 10.255.255.254:49005-\u003e10.255.255.254:53: i/o timeout&quot;}
+```
+</pre>
+</div>
+</div></body></html>
