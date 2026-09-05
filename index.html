@@ -31,16 +31,16 @@ th{color:var(--dim);font-weight:600;background:var(--panel)}
 
 <div class="bar">
   <div class="logo">🏛️ TREASURY DESK <small>— live cron tracker</small></div>
-  <div class="meta">Last updated 06 Sep 2026, 00:52:57 IST · regenerates automatically after every cron run · <a href="https://github.com/ashishiice/treasurydesk-web">source</a></div>
+  <div class="meta">Last updated 06 Sep 2026, 00:53:18 IST · regenerates automatically after every cron run · <a href="https://github.com/ashishiice/treasurydesk-web">source</a></div>
 </div>
 
 <div class="grid">
-  <div class="kpi"><div class="v">21</div><div class="l">Active Jobs</div></div>
-  <div class="kpi"><div class="v">0</div><div class="l">Runs Today</div></div>
+  <div class="kpi"><div class="v">15</div><div class="l">Active Jobs</div></div>
+  <div class="kpi"><div class="v">1</div><div class="l">Runs Today</div></div>
   <div class="kpi"><div class="v">0</div><div class="l">OK Today</div></div>
-  <div class="kpi"><div class="v" style="color:var(--dim)">0</div><div class="l">Failed Today</div></div>
-  <div class="kpi"><div class="v">131</div><div class="l">Runs in 7 Days</div></div>
-  <div class="kpi"><div class="v">30</div><div class="l">Jobs Tracked</div></div>
+  <div class="kpi"><div class="v" style="color:#f87171">1</div><div class="l">Failed Today</div></div>
+  <div class="kpi"><div class="v">168</div><div class="l">Runs in 7 Days</div></div>
+  <div class="kpi"><div class="v">32</div><div class="l">Jobs Tracked</div></div>
 </div>
 <h2 style="margin:26px 0 4px" class="gold">TREASURY</h2><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/treasury/credit-trea/index.html" style="color:var(--dim)">Credit →</a></div>
 <div class="card">
@@ -55,38 +55,47 @@ th{color:var(--dim);font-weight:600;background:var(--panel)}
 <div class="card">
   <div class="job-h">
     <a href="runs/05-15-pm-ist-ccil-ois-eod-data-quality-gatek-7526/index.html" style="font-weight:700;font-size:16px">05:15 PM IST — CCIL OIS EOD Data-Quality Gatekeeper (agent: verifies fetch, silent when clean)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <span class="st OK">OK</span>
     <span class="dim small">15 17 * * 1-5 · telegram:-1003932209418</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 03 Sep 2026, 17:15:51 IST · 22 all-time (14 OK / 8 failed) · <a href="runs/05-15-pm-ist-ccil-ois-eod-data-quality-gatek-7526/index.html">all runs (2 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:6px">Last run: 04 Sep 2026, 17:17:01 IST · 23 all-time (15 OK / 8 failed) · <a href="runs/05-15-pm-ist-ccil-ois-eod-data-quality-gatek-7526/index.html">all runs (3 in 7d) →</a></div>
   
 </div>
 <div class="card">
   <div class="job-h">
     <a href="runs/05-20-pm-ist-ccil-ois-day-end-summary-offici-3483/index.html" style="font-weight:700;font-size:16px">05:20 PM IST — CCIL OIS Day-End Summary (official EOD OHLC + intraday vol, script)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <span class="st FAIL">FAIL</span>
     <span class="dim small">20 17 * * 1-5 · telegram:-1003932209418</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 02 Sep 2026, 17:20:11 IST · 34 all-time (13 OK / 21 failed) · <a href="runs/05-20-pm-ist-ccil-ois-day-end-summary-offici-3483/index.html">all runs (2 in 7d) →</a></div>
-  
+  <div class="dim small" style="margin-top:6px">Last run: 06 Sep 2026, 00:48:34 IST · 36 all-time (14 OK / 22 failed) · <a href="runs/05-20-pm-ist-ccil-ois-day-end-summary-offici-3483/index.html">all runs (4 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Interrupted by shutdown before terminal completion.</div>
 </div>
 <div class="card">
   <div class="job-h">
     <a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html" style="font-weight:700;font-size:16px">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (monitor: alerts only on &gt;=1.5bp moves)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <span class="st OK">OK</span>
     <span class="dim small">*/15 9-16 * * 1-5 · telegram:-1003932209418</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 04 Sep 2026, 14:30:01 IST · 704 all-time (428 OK / 276 failed) · <a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">all runs (53 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:6px">Last run: 04 Sep 2026, 16:45:43 IST · 714 all-time (438 OK / 276 failed) · <a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">all runs (63 in 7d) →</a></div>
+  
+</div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/treasury/funding-trea/index.html" style="color:var(--dim)">Funding →</a></div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/nbfc-funding-monitor-8b3f/index.html" style="font-weight:700;font-size:16px">NBFC Funding Monitor</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">*/30 9-18 * * 1-5 · telegram:-1003932209418</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 04 Sep 2026, 18:58:26 IST · 7 all-time (7 OK / 0 failed) · <a href="runs/nbfc-funding-monitor-8b3f/index.html">all runs (7 in 7d) →</a></div>
   
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/treasury/ideas-trea/index.html" style="color:var(--dim)">Ideas →</a></div>
 <div class="card">
   <div class="job-h">
-    <a href="runs/07-00-pm-ist-10-treasury-build-ideas-daily-d-2c7a/index.html" style="font-weight:700;font-size:16px">07:00 PM IST — 10 Treasury Build-Ideas (daily, deduped)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <a href="runs/unknown-job-2c7ae47fc2d8-2c7a/index.html" style="font-weight:700;font-size:16px">Unknown job (2c7ae47fc2d8)</a>
+    <span class="st FAIL">FAIL</span>
     <span class="dim small">0 19 * * * · telegram:8422240974</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 03 Sep 2026, 19:00:36 IST · 29 all-time (4 OK / 25 failed) · <a href="runs/07-00-pm-ist-10-treasury-build-ideas-daily-d-2c7a/index.html">all runs (5 in 7d) →</a></div>
-  
+  <div class="dim small" style="margin-top:6px">Last run: 04 Sep 2026, 19:01:15 IST · 30 all-time (4 OK / 26 failed) · <a href="runs/unknown-job-2c7ae47fc2d8-2c7a/index.html">all runs (6 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">RuntimeError: HTTP 502: {&quot;error&quot;:&quot;Post \&quot;https://ollama.com:443/v1/chat/completions?ts=1788528654\&quot;: dial tcp: lookup ollama.com on 10.255.255.254:53: read udp 10.255.255.254:</div>
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/treasury/liquidity-trea/index.html" style="color:var(--dim)">Liquidity →</a></div>
 <div class="card">
   <div class="job-h">
@@ -109,21 +118,17 @@ th{color:var(--dim);font-weight:600;background:var(--panel)}
 <div class="card">
   <div class="job-h">
     <a href="runs/08-00-am-ist-treasury-open-brief-market-puls-ac71/index.html" style="font-weight:700;font-size:16px">08:00 AM IST — Treasury Open Brief (market pulse + rates + funding opt)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <span class="st OK">OK</span>
     <span class="dim small">0 8 * * * · telegram:-1003932209418</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 04 Sep 2026, 08:00:18 IST · 34 all-time (11 OK / 23 failed) · <a href="runs/08-00-am-ist-treasury-open-brief-market-puls-ac71/index.html">all runs (6 in 7d) →</a></div>
-  
+  <div class="dim small" style="margin-top:6px">Last run: 05 Sep 2026, 09:58:52 IST · 35 all-time (12 OK / 23 failed) · <a href="runs/08-00-am-ist-treasury-open-brief-market-puls-ac71/index.html">all runs (7 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 08:00 AM IST — Treasury Open Brief (market pulse + rates + funding opt)
+(job_id: ac71433dc8b5)
+-------------
+
+🌅 Treasury Open — Sat 05 Sep 2026, 07:45 IST
+(Covers Fri 04 Sep India cl</div>
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/treasury/other-trea/index.html" style="color:var(--dim)">Other →</a></div>
-<div class="card">
-  <div class="job-h">
-    <a href="runs/06-45-pm-ist-mon-fri-top-3-borrowing-cost-re-1867/index.html" style="font-weight:700;font-size:16px">06:45 PM IST (Mon-Fri) — Top 3 Borrowing-Cost Reduction Ideas (deep market scan + hidden signals)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
-    <span class="dim small">45 18 * * 1-5 · telegram:8422240974</span>
-  </div>
-  <div class="dim small" style="margin-top:6px">Last run: 03 Sep 2026, 18:45:31 IST · 10 all-time (0 OK / 10 failed) · <a href="runs/06-45-pm-ist-mon-fri-top-3-borrowing-cost-re-1867/index.html">all runs (4 in 7d) →</a></div>
-  
-</div>
 <div class="card">
   <div class="job-h">
     <a href="runs/08-00-am-ist-consolidated-treasury-morning-b-7cda/index.html" style="font-weight:700;font-size:16px">08:00 AM IST — Consolidated Treasury Morning Brief (RBI, FX, G-Sec, liquidity, credit)</a>
@@ -206,6 +211,28 @@ Now I have all data. Let me compose the final brief.
 </div>
 <div class="card">
   <div class="job-h">
+    <a href="runs/unknown-job-02259f221f65-0225/index.html" style="font-weight:700;font-size:16px">Unknown job (02259f221f65)</a>
+    <span class="st OK">OK</span>
+    <span class="dim small">? · ?</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 05 Sep 2026, 09:56:49 IST · 1 all-time (1 OK / 0 failed) · <a href="runs/unknown-job-02259f221f65-0225/index.html">all runs (1 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: Sat 08:00 AM IST — Battery Founder Intelligence (VOLT weekly brief + 3 actions)
+(job_id: 02259f221f65)
+-------------
+
+⚡ **VOLT Weekly — Battery Founder Intel · Sun 30 Aug–Sat 05 Sep </div>
+</div>
+<div class="card">
+  <div class="job-h">
+    <a href="runs/unknown-job-1867d013ae35-1867/index.html" style="font-weight:700;font-size:16px">Unknown job (1867d013ae35)</a>
+    <span class="st FAIL">FAIL</span>
+    <span class="dim small">45 18 * * 1-5 · telegram:8422240974</span>
+  </div>
+  <div class="dim small" style="margin-top:6px">Last run: 04 Sep 2026, 18:46:14 IST · 11 all-time (0 OK / 11 failed) · <a href="runs/unknown-job-1867d013ae35-1867/index.html">all runs (5 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">RuntimeError: HTTP 502: {&quot;error&quot;:&quot;Post \&quot;https://ollama.com:443/v1/chat/completions?ts=1788527750\&quot;: dial tcp: lookup ollama.com on 10.255.255.254:53: read udp 10.255.255.254:</div>
+</div>
+<div class="card">
+  <div class="job-h">
     <a href="runs/unknown-job-55238ef87966-5523/index.html" style="font-weight:700;font-size:16px">Unknown job (55238ef87966)</a>
     <span class="st FAIL">FAIL</span>
     <span class="dim small">? · ?</span>
@@ -234,37 +261,47 @@ Now I have all data. Let me compose the final brief.
 <div class="card">
   <div class="job-h">
     <a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/index.html" style="font-weight:700;font-size:16px">06:00 PM IST — Master Treasurer RBI Press Release Deep Dive</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <span class="st OK">OK</span>
     <span class="dim small">0 18 * * * · telegram:-1003932209418</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 03 Sep 2026, 18:00:16 IST · 46 all-time (19 OK / 27 failed) · <a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/index.html">all runs (5 in 7d) →</a></div>
-  
+  <div class="dim small" style="margin-top:6px">Last run: 05 Sep 2026, 18:03:57 IST · 48 all-time (20 OK / 28 failed) · <a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/index.html">all runs (7 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 06:00 PM IST — Master Treasurer RBI Press Release Deep Dive
+(job_id: 88e5f78b2784)
+-------------
+
+## Master Treasurer — RBI PR Daily
+**As of:** 2026-09-05 18:07 IST (Saturday) | **Co</div>
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/treasury/research-trea/index.html" style="color:var(--dim)">Research →</a></div>
 <div class="card">
   <div class="job-h">
     <a href="runs/05-00-pm-ist-trendlyne-conference-call-trans-e5c4/index.html" style="font-weight:700;font-size:16px">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <span class="st OK">OK</span>
     <span class="dim small">0 17 * * * · telegram:-1003932209418</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 03 Sep 2026, 17:00:47 IST · 45 all-time (18 OK / 27 failed) · <a href="runs/05-00-pm-ist-trendlyne-conference-call-trans-e5c4/index.html">all runs (4 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:6px">Last run: 05 Sep 2026, 17:02:32 IST · 47 all-time (20 OK / 27 failed) · <a href="runs/05-00-pm-ist-trendlyne-conference-call-trans-e5c4/index.html">all runs (6 in 7d) →</a></div>
   
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/treasury/risk-trea/index.html" style="color:var(--dim)">Risk →</a></div>
 <div class="card">
   <div class="job-h">
     <a href="runs/07-30-pm-ist-geopolitics-energy-brief-daily-a145/index.html" style="font-weight:700;font-size:16px">07:30 PM IST — Geopolitics &amp; Energy Brief (daily, silent unless material)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <span class="st OK">OK</span>
     <span class="dim small">30 19 * * * · telegram:-1003932209418</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 03 Sep 2026, 19:30:43 IST · 58 all-time (23 OK / 35 failed) · <a href="runs/07-30-pm-ist-geopolitics-energy-brief-daily-a145/index.html">all runs (4 in 7d) →</a></div>
-  
+  <div class="dim small" style="margin-top:6px">Last run: 05 Sep 2026, 19:35:29 IST · 60 all-time (24 OK / 36 failed) · <a href="runs/07-30-pm-ist-geopolitics-energy-brief-daily-a145/index.html">all runs (6 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">Cronjob Response: 07:30 PM IST — Geopolitics &amp; Energy Brief (daily, silent unless material)
+(job_id: a1459b37f75f)
+-------------
+
+**🌍 GEOPOLITICS &amp; ENERGY BRIEF — Sat 05 Sep 2026, 19:30 IST**
+</div>
 </div>
 <div class="card">
   <div class="job-h">
     <a href="runs/08-00-pm-ist-overnight-risk-scan-for-asian-m-6276/index.html" style="font-weight:700;font-size:16px">08:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, deduped)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <span class="st OK">OK</span>
     <span class="dim small">0 20 * * * · telegram:-1003932209418</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 03 Sep 2026, 20:00:53 IST · 47 all-time (17 OK / 30 failed) · <a href="runs/08-00-pm-ist-overnight-risk-scan-for-asian-m-6276/index.html">all runs (5 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:6px">Last run: 05 Sep 2026, 20:08:15 IST · 49 all-time (18 OK / 31 failed) · <a href="runs/08-00-pm-ist-overnight-risk-scan-for-asian-m-6276/index.html">all runs (7 in 7d) →</a></div>
   
 </div><h2 style="margin:26px 0 4px" class="purple">PERSONAL</h2><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/personal/career-pers/index.html" style="color:var(--dim)">Career →</a></div>
 <div class="card">
@@ -278,11 +315,11 @@ Now I have all data. Let me compose the final brief.
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/personal/health-pers/index.html" style="color:var(--dim)">Health →</a></div>
 <div class="card">
   <div class="job-h">
-    <a href="runs/09-30-am-ist-adaptive-fitness-coach-agent-sc-7f6b/index.html" style="font-weight:700;font-size:16px">09:30 AM IST — Adaptive Fitness Coach (agent: schedule + dashboard-aware guidance)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <a href="runs/unknown-job-7f6ba6cb694b-7f6b/index.html" style="font-weight:700;font-size:16px">Unknown job (7f6ba6cb694b)</a>
+    <span class="st OK">OK</span>
     <span class="dim small">30 9 * * * · telegram:8422240974</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 03 Sep 2026, 09:30:49 IST · 41 all-time (23 OK / 18 failed) · <a href="runs/09-30-am-ist-adaptive-fitness-coach-agent-sc-7f6b/index.html">all runs (4 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:6px">Last run: 05 Sep 2026, 09:54:49 IST · 42 all-time (24 OK / 18 failed) · <a href="runs/unknown-job-7f6ba6cb694b-7f6b/index.html">all runs (5 in 7d) →</a></div>
   
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/personal/ideas-pers/index.html" style="color:var(--dim)">Ideas →</a></div>
 <div class="card">
@@ -296,41 +333,41 @@ Now I have all data. Let me compose the final brief.
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/personal/knowledge-pers/index.html" style="color:var(--dim)">Knowledge →</a></div>
 <div class="card">
   <div class="job-h">
-    <a href="runs/ai-daily-intelligence-c29a/index.html" style="font-weight:700;font-size:16px">ai-daily-intelligence</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <a href="runs/unknown-job-c29afa9591ab-c29a/index.html" style="font-weight:700;font-size:16px">Unknown job (c29afa9591ab)</a>
+    <span class="st FAIL">FAIL</span>
     <span class="dim small">0 18 * * * · origin</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 03 Sep 2026, 18:00:16 IST · 47 all-time (16 OK / 31 failed) · <a href="runs/ai-daily-intelligence-c29a/index.html">all runs (5 in 7d) →</a></div>
-  
+  <div class="dim small" style="margin-top:6px">Last run: 04 Sep 2026, 18:20:32 IST · 48 all-time (16 OK / 32 failed) · <a href="runs/unknown-job-c29afa9591ab-c29a/index.html">all runs (6 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px">RuntimeError: HTTP 502: {&quot;error&quot;:&quot;Post \&quot;https://ollama.com:443/v1/chat/completions?ts=1788526211\&quot;: dial tcp: lookup ollama.com on 10.255.255.254:53: read udp 10.255.255.254:</div>
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/personal/life-pers/index.html" style="color:var(--dim)">Life →</a></div>
 <div class="card">
   <div class="job-h">
-    <a href="runs/08-45-am-ist-life-experience-engine-daily-pl-ae25/index.html" style="font-weight:700;font-size:16px">08:45 AM IST — Life Experience Engine (daily plan + bucket-list tracker)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <a href="runs/unknown-job-ae2597722da3-ae25/index.html" style="font-weight:700;font-size:16px">Unknown job (ae2597722da3)</a>
+    <span class="st OK">OK</span>
     <span class="dim small">45 8 * * * · origin</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 04 Sep 2026, 08:45:31 IST · 41 all-time (18 OK / 23 failed) · <a href="runs/08-45-am-ist-life-experience-engine-daily-pl-ae25/index.html">all runs (6 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:6px">Last run: 05 Sep 2026, 09:59:28 IST · 42 all-time (19 OK / 23 failed) · <a href="runs/unknown-job-ae2597722da3-ae25/index.html">all runs (7 in 7d) →</a></div>
   
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/personal/markets-pers/index.html" style="color:var(--dim)">Markets →</a></div>
 <div class="card">
   <div class="job-h">
-    <a href="runs/05-15-pm-ist-mon-fri-indian-penny-stock-inte-a07c/index.html" style="font-weight:700;font-size:16px">05:15 PM IST (Mon-Fri) — Indian Penny Stock Intelligence Scan (sub-₹50, mcap &lt;₹500 Cr, momentum)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <a href="runs/unknown-job-a07c1fa2391c-a07c/index.html" style="font-weight:700;font-size:16px">Unknown job (a07c1fa2391c)</a>
+    <span class="st OK">OK</span>
     <span class="dim small">15 17 * * 1-5 · telegram:8422240974</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 03 Sep 2026, 17:15:51 IST · 34 all-time (12 OK / 22 failed) · <a href="runs/05-15-pm-ist-mon-fri-indian-penny-stock-inte-a07c/index.html">all runs (4 in 7d) →</a></div>
+  <div class="dim small" style="margin-top:6px">Last run: 04 Sep 2026, 17:19:55 IST · 35 all-time (13 OK / 22 failed) · <a href="runs/unknown-job-a07c1fa2391c-a07c/index.html">all runs (5 in 7d) →</a></div>
   
 </div><div class="dim small" style="text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px"><a href="topics/personal/media-pers/index.html" style="color:var(--dim)">Media →</a></div>
 <div class="card">
   <div class="job-h">
-    <a href="runs/09-15-am-ist-unified-youtube-daily-digest-ag-ffa8/index.html" style="font-weight:700;font-size:16px">09:15 AM IST — Unified YouTube Daily Digest (agent analysis)</a>
-    <span class="st UNKNOWN">UNKNOWN</span>
+    <a href="runs/unknown-job-ffa8dbb12f76-ffa8/index.html" style="font-weight:700;font-size:16px">Unknown job (ffa8dbb12f76)</a>
+    <span class="st OK">OK</span>
     <span class="dim small">15 9 * * * · telegram:8422240974</span>
   </div>
-  <div class="dim small" style="margin-top:6px">Last run: 29 Aug 2026, 10:30:36 IST · 27 all-time (22 OK / 5 failed) · no runs in window</div>
+  <div class="dim small" style="margin-top:6px">Last run: 05 Sep 2026, 09:54:39 IST · 28 all-time (23 OK / 5 failed) · <a href="runs/unknown-job-ffa8dbb12f76-ffa8/index.html">all runs (1 in 7d) →</a></div>
   
 </div>
 <h2 style="margin:28px 0 8px">RECENT ACTIVITY (last 40 runs)</h2>
-<div class="card" style="padding:8px"><table><tr><th>St</th><th>Time (IST)</th><th>Job</th><th>Area</th><th>Title</th><th></th></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 14:30:01</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 14:00:57</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 13:00:33</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 12:15:20</td><td><a href="runs/12-15-pm-ist-mon-fri-midday-credit-auction-m-ae92/index.html">12:15 PM IST (Mon-Fri) — Midday Credit &amp; Auction Monitor (T-Bill +</a></td><td>TREASURY/Credit</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 12:00:17</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 11:45:12</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 11:30:10</td><td><a href="runs/11-30-am-ist-mon-fri-mid-day-markets-wrap-co-1f6f/index.html">11:30 AM IST (Mon-Fri) — Mid-Day Markets Wrap (concise, deduped)</a></td><td>TREASURY/Markets</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 10:30:58</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 10:00:54</td><td><a href="runs/10-00-am-ist-indian-money-market-liquidity-p-ffd2/index.html">10:00 AM IST — Indian Money Market Liquidity Pulse (Repo, CRR, G-Sec, </a></td><td>TREASURY/Liquidity</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 09:45:48</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 09:00:35</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 08:45:31</td><td><a href="runs/08-45-am-ist-life-experience-engine-daily-pl-ae25/index.html">08:45 AM IST — Life Experience Engine (daily plan + bucket-list tracke</a></td><td>PERSONAL/Life</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 08:30:27</td><td><a href="runs/mon-wed-fri-08-30-am-ist-alpha-ideas-for-ind-080b/index.html">Mon/Wed/Fri 08:30 AM IST — Alpha Ideas for Indian Debt &amp; Equity (h</a></td><td>PERSONAL/Ideas</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 08:15:22</td><td><a href="runs/08-15-am-ist-mon-fri-borrowing-verdict-fixed-bc78/index.html">08:15 AM IST (Mon-Fri) — Borrowing Verdict: Fixed vs Floating (curve +</a></td><td>TREASURY/Other</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 08:00:18</td><td><a href="runs/08-00-am-ist-treasury-open-brief-market-puls-ac71/index.html">08:00 AM IST — Treasury Open Brief (market pulse + rates + funding opt</a></td><td>TREASURY/Morning Brief</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 20:00:53</td><td><a href="runs/08-00-pm-ist-overnight-risk-scan-for-asian-m-6276/index.html">08:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, ded</a></td><td>TREASURY/Risk</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 19:30:43</td><td><a href="runs/07-30-pm-ist-geopolitics-energy-brief-daily-a145/index.html">07:30 PM IST — Geopolitics &amp; Energy Brief (daily, silent unless ma</a></td><td>TREASURY/Risk</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 19:00:36</td><td><a href="runs/07-00-pm-ist-10-treasury-build-ideas-daily-d-2c7a/index.html">07:00 PM IST — 10 Treasury Build-Ideas (daily, deduped)</a></td><td>TREASURY/Ideas</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 18:45:31</td><td><a href="runs/06-45-pm-ist-mon-fri-top-3-borrowing-cost-re-1867/index.html">06:45 PM IST (Mon-Fri) — Top 3 Borrowing-Cost Reduction Ideas (deep ma</a></td><td>TREASURY/Other</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 18:00:16</td><td><a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/index.html">06:00 PM IST — Master Treasurer RBI Press Release Deep Dive</a></td><td>TREASURY/Regulatory</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 18:00:16</td><td><a href="runs/ai-daily-intelligence-c29a/index.html">ai-daily-intelligence</a></td><td>PERSONAL/Knowledge</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 17:15:51</td><td><a href="runs/05-15-pm-ist-ccil-ois-eod-data-quality-gatek-7526/index.html">05:15 PM IST — CCIL OIS EOD Data-Quality Gatekeeper (agent: verifies f</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 17:15:51</td><td><a href="runs/05-15-pm-ist-mon-fri-indian-penny-stock-inte-a07c/index.html">05:15 PM IST (Mon-Fri) — Indian Penny Stock Intelligence Scan (sub-₹50</a></td><td>PERSONAL/Markets</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 17:00:47</td><td><a href="runs/05-00-pm-ist-trendlyne-conference-call-trans-e5c4/index.html">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (dai</a></td><td>TREASURY/Research</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 16:30:46</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 16:00:21</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 15:45:18</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 15:00:06</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 14:30:57</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 14:00:50</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 13:30:43</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 13:00:38</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 12:30:32</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 12:00:25</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 11:30:15</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 11:30:15</td><td><a href="runs/11-30-am-ist-mon-fri-mid-day-markets-wrap-co-1f6f/index.html">11:30 AM IST (Mon-Fri) — Mid-Day Markets Wrap (concise, deduped)</a></td><td>TREASURY/Markets</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 11:00:10</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 10:30:02</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 10:00:57</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-03 10:00:57</td><td><a href="runs/10-00-am-ist-indian-money-market-liquidity-p-ffd2/index.html">10:00 AM IST — Indian Money Market Liquidity Pulse (Repo, CRR, G-Sec, </a></td><td>TREASURY/Liquidity</td><td></td><td></td></tr></table></div>
+<div class="card" style="padding:8px"><table><tr><th>St</th><th>Time (IST)</th><th>Job</th><th>Area</th><th>Title</th><th></th></tr><tr><td><span class='st FAIL'>FAIL</span></td><td>2026-09-06 00:48:34</td><td><a href="runs/05-20-pm-ist-ccil-ois-day-end-summary-offici-3483/index.html">05:20 PM IST — CCIL OIS Day-End Summary (official EOD OHLC + intraday </a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-05 20:08:15</td><td><a href="runs/08-00-pm-ist-overnight-risk-scan-for-asian-m-6276/index.html">08:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, ded</a></td><td>TREASURY/Risk</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-05 19:35:29</td><td><a href="runs/07-30-pm-ist-geopolitics-energy-brief-daily-a145/index.html">07:30 PM IST — Geopolitics &amp; Energy Brief (daily, silent unless ma</a></td><td>TREASURY/Risk</td><td>Cronjob Response: 07:30 PM IST — Geopolitics &amp; Energy Br</td><td> <a href="runs/07-30-pm-ist-geopolitics-energy-brief-daily-a145/20260905_193529_OK.html">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-05 18:03:57</td><td><a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/index.html">06:00 PM IST — Master Treasurer RBI Press Release Deep Dive</a></td><td>TREASURY/Regulatory</td><td>Cronjob Response: 06:00 PM IST — Master Treasurer RBI Press </td><td> <a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/20260905_180357_OK.html">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-05 17:02:32</td><td><a href="runs/05-00-pm-ist-trendlyne-conference-call-trans-e5c4/index.html">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (dai</a></td><td>TREASURY/Research</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-05 09:59:28</td><td><a href="runs/unknown-job-ae2597722da3-ae25/index.html">Unknown job (ae2597722da3)</a></td><td>PERSONAL/Life</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-05 09:58:52</td><td><a href="runs/08-00-am-ist-treasury-open-brief-market-puls-ac71/index.html">08:00 AM IST — Treasury Open Brief (market pulse + rates + funding opt</a></td><td>TREASURY/Morning Brief</td><td>Cronjob Response: 08:00 AM IST — Treasury Open Brief (market</td><td> <a href="runs/08-00-am-ist-treasury-open-brief-market-puls-ac71/20260905_095852_OK.html">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-05 09:56:49</td><td><a href="runs/unknown-job-02259f221f65-0225/index.html">Unknown job (02259f221f65)</a></td><td>TREASURY/Other</td><td>Cronjob Response: Sat 08:00 AM IST — Battery Founder Intelli</td><td> <a href="runs/unknown-job-02259f221f65-0225/20260905_095649_OK.html">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-05 09:54:49</td><td><a href="runs/unknown-job-7f6ba6cb694b-7f6b/index.html">Unknown job (7f6ba6cb694b)</a></td><td>PERSONAL/Health</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-05 09:54:39</td><td><a href="runs/unknown-job-ffa8dbb12f76-ffa8/index.html">Unknown job (ffa8dbb12f76)</a></td><td>PERSONAL/Media</td><td></td><td></td></tr><tr><td><span class='st FAIL'>FAIL</span></td><td>2026-09-04 20:01:20</td><td><a href="runs/08-00-pm-ist-overnight-risk-scan-for-asian-m-6276/index.html">08:00 PM IST — Overnight Risk Scan for Asian Market Open (concise, ded</a></td><td>TREASURY/Risk</td><td></td><td></td></tr><tr><td><span class='st FAIL'>FAIL</span></td><td>2026-09-04 19:31:10</td><td><a href="runs/07-30-pm-ist-geopolitics-energy-brief-daily-a145/index.html">07:30 PM IST — Geopolitics &amp; Energy Brief (daily, silent unless ma</a></td><td>TREASURY/Risk</td><td></td><td></td></tr><tr><td><span class='st FAIL'>FAIL</span></td><td>2026-09-04 19:01:15</td><td><a href="runs/unknown-job-2c7ae47fc2d8-2c7a/index.html">Unknown job (2c7ae47fc2d8)</a></td><td>TREASURY/Ideas</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 18:58:26</td><td><a href="runs/nbfc-funding-monitor-8b3f/index.html">NBFC Funding Monitor</a></td><td>TREASURY/Funding</td><td>NBFC Funding Monitor — [silent, no output]</td><td> <a href="runs/nbfc-funding-monitor-8b3f/20260904_185826_OK.html">output →</a></td></tr><tr><td><span class='st FAIL'>FAIL</span></td><td>2026-09-04 18:46:14</td><td><a href="runs/unknown-job-1867d013ae35-1867/index.html">Unknown job (1867d013ae35)</a></td><td>TREASURY/Other</td><td></td><td></td></tr><tr><td><span class='st FAIL'>FAIL</span></td><td>2026-09-04 18:20:32</td><td><a href="runs/06-00-pm-ist-master-treasurer-rbi-press-rele-88e5/index.html">06:00 PM IST — Master Treasurer RBI Press Release Deep Dive</a></td><td>TREASURY/Regulatory</td><td></td><td></td></tr><tr><td><span class='st FAIL'>FAIL</span></td><td>2026-09-04 18:20:32</td><td><a href="runs/unknown-job-c29afa9591ab-c29a/index.html">Unknown job (c29afa9591ab)</a></td><td>PERSONAL/Knowledge</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 18:00:36</td><td><a href="runs/nbfc-funding-monitor-8b3f/index.html">NBFC Funding Monitor</a></td><td>TREASURY/Funding</td><td>NBFC Funding Monitor — [silent, no output]</td><td> <a href="runs/nbfc-funding-monitor-8b3f/20260904_180036_OK.html">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 17:30:35</td><td><a href="runs/nbfc-funding-monitor-8b3f/index.html">NBFC Funding Monitor</a></td><td>TREASURY/Funding</td><td>NBFC Funding Monitor — [silent, no output]</td><td> <a href="runs/nbfc-funding-monitor-8b3f/20260904_173035_OK.html">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 17:22:55</td><td><a href="runs/05-20-pm-ist-ccil-ois-day-end-summary-offici-3483/index.html">05:20 PM IST — CCIL OIS Day-End Summary (official EOD OHLC + intraday </a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 17:19:55</td><td><a href="runs/unknown-job-a07c1fa2391c-a07c/index.html">Unknown job (a07c1fa2391c)</a></td><td>PERSONAL/Markets</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 17:17:01</td><td><a href="runs/05-15-pm-ist-ccil-ois-eod-data-quality-gatek-7526/index.html">05:15 PM IST — CCIL OIS EOD Data-Quality Gatekeeper (agent: verifies f</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 17:01:56</td><td><a href="runs/nbfc-funding-monitor-8b3f/index.html">NBFC Funding Monitor</a></td><td>TREASURY/Funding</td><td>NBFC Funding Monitor</td><td> <a href="runs/nbfc-funding-monitor-8b3f/20260904_170156_OK.html">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 17:01:54</td><td><a href="runs/05-00-pm-ist-trendlyne-conference-call-trans-e5c4/index.html">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (dai</a></td><td>TREASURY/Research</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 16:45:43</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 16:31:40</td><td><a href="runs/nbfc-funding-monitor-8b3f/index.html">NBFC Funding Monitor</a></td><td>TREASURY/Funding</td><td>NBFC Funding Monitor</td><td> <a href="runs/nbfc-funding-monitor-8b3f/20260904_163140_OK.html">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 16:30:42</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 16:15:37</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 16:01:32</td><td><a href="runs/nbfc-funding-monitor-8b3f/index.html">NBFC Funding Monitor</a></td><td>TREASURY/Funding</td><td>NBFC Funding Monitor — [silent, no output]</td><td> <a href="runs/nbfc-funding-monitor-8b3f/20260904_160132_OK.html">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 16:00:36</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 15:45:25</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 15:41:02</td><td><a href="runs/nbfc-funding-monitor-8b3f/index.html">NBFC Funding Monitor</a></td><td>TREASURY/Funding</td><td>NBFC Funding Monitor — [silent, no output]</td><td> <a href="runs/nbfc-funding-monitor-8b3f/20260904_154102_OK.html">output →</a></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 15:30:40</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 15:15:18</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 15:00:41</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 14:45:18</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st OK'>OK</span></td><td>2026-09-04 14:30:20</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 14:30:01</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 14:00:57</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>2026-09-04 13:00:33</td><td><a href="runs/every-15-min-9-am-4-pm-ist-ccil-ois-intraday-04e4/index.html">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (mon</a></td><td>TREASURY/Data</td><td></td><td></td></tr></table></div>
 <div class="dim small" style="margin-top:16px">Every run of every scheduled job (agent + script, active + retired) is archived with its timestamped output. Click a job heading for the full 7-day run history; runs with a stored artifact link to the complete delivered text (compact runs are delivered via Telegram only). Permanent full history lives on the local treasury disk (~/workspace/treasury-disk/archive).</div>
 </div></body></html>
