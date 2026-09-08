@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (monitor: alerts only on &gt;=1.5bp moves) — 2026-09-08 09:15:11 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (monitor: alerts only on &gt;=1.5bp moves)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">Every 15 min (9 AM-4 PM IST) — CCIL OIS Intraday Curve-Move Radar (monitor: alerts only on &gt;=1.5bp moves)</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    08 Sep 2026, 09:15:11 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Data &nbsp;·&nbsp; job 04e4b8633b74
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 08 Sep 2026, 09:15:11 IST</h2>
+  <pre>**Job ID:** 04e4b8633b74
+**Run Time:** 2026-09-08 09:15:11
+**Schedule:** */15 9-16 * * 1-5
+
+## Prompt
+
+[IMPORTANT: The user has invoked the &quot;ccil-ois-data-dump&quot; skill, indicating they want you to follow its instructions. The full skill content is loaded below.]
+
+---
+name: ccil-ois-data-dump
+category: treasury-automation
+description: &gt;
+  Fetches the CCIL ASTROID Rupee Derivatives Dealing System MIBOR OIS page
+  every 15 minutes during market hours, appends the full WAR + volume table
+  to a single persistent Excel workbook and sheet with a timestamp, and saves it under
+  ~/workspace/treasury-data/ccil-ois/.
+url: https://www.ccilindia.com/rupee-derivatives-dealing-system-astroid-
+---
+
+## Saved URL
+https://www.ccilindia.com/rupee-derivatives-dealing-system-astroid-
+
+## What It Does
+- Polls the CCIL ASTROID MIBOR OIS table every **15 minutes**.
+- Records each fetch as one timestamped row in a single Excel workbook.
+- One persistent worksheet only: `CCIL_OIS`.
+- Each row contains the **Weighted Average Rate (WAR %)** and **Traded Notional Amount (₹ Cr)** for every tenor.
+
+## Master Workbook Policy
+Use `ccil-ois-all.xlsx` for all days. Do not create date-wise workbooks or date-wise sheets unless the user explicitly asks for a new export layout. If the same timestamp is fetched again, replace that row instead of duplicating it.
+
+See `references/ccil-ois-master-workbook.md` for the exact workbook path, sheet, column contract, cron/script ownership, and verification checklist.
+
+## Output Location
+```
+~/workspace/treasury-data/ccil-ois/
+└── ccil-ois-all.xlsx
+    ├── Sheet: CCIL_OIS      (15-min intraday snapshots — WAR + Vol only)
+    └── Sheet: CCIL_OIS_EOD  (official daily EOD — full CCIL table, all columns)
+```
+
+## Intraday Sheet (CCIL_OIS)
+| Timestamp | OIS1M_WAR | OIS1M_Vol | OIS2M_WAR | OIS2M_Vol | ... | OIS10Y_WAR | OIS10Y_Vol |
+
+If a tenor has no trade in a given fetch, the cell is left blank rather than carrying stale data.
+
+## EOD Sheet (CCIL_OIS_EOD)
+One row per trading day. Captures the full CCIL ASTROID &quot;Market Session Closed&quot; table with all official columns per tenor:
+| Date | OIS1M_PrevClose | OIS1M_Open | OIS1M_High | OIS1M_Low | OIS1M_LTR | OIS1M_LTA | OIS1M_LTT | OIS1M_WAR | OIS1M_NoOfTrades | OIS1M_TradedNotional | ... (repeated for all 12 tenors) |
+
+EOD fetch runs at 17:15 IST after market close. The 5PM summary at 17:20 IST uses this sheet for official OHLC/WAR/close and the intraday sheet for volatility (max-min snapshot spread).
+
+## CCIL Page Reference
+See `references/ccil-astroid-page.md` for the saved URL, table columns, and sample data layout.
+
+## Reusable Template
+`templates/fetch_market_data.py` is a generic Playwright-to-Excel dumper for any public market-data table. Copy it, change `URL`, `TENORS`, and the parse logic, and you have a new 15-minute dump in minutes.
+
+## Scripts
+- Shared direct-API client (portlet-id scraping + POST): `~/workspace/treasury-data/ccil-ois/scripts/ccil_api.py`
+- Intraday fetch + append: `~/workspace/treasury-data/ccil-ois/scripts/fetch_ccil_ois.py`
+- EOD fetch (official close): `~/workspace/treasury-data/ccil-ois/scripts/fetch_ccil_ois_eod.py`
+- Monitor state line: `~/workspace/treasury-data/ccil-ois/scripts/ois_state_line.py`
+- 5PM summary (reads both sheets): `~/.hermes/scripts/ccil_ois_5pm_summary.py`
+- Can be run manually or from cron jobs.
+
+## Data Path (since 2026-09-04 — direct API, no browser)
+The CCIL page loads its market-watch table via a Liferay AJAX POST; Playwright
+`networkidle` now times out and is retired. Both fetchers use
+`scripts/ccil_api.py`: GET page → scrape `p_p_id=AstroidMarketWatch_..._INSTANCE_xxxx`
+(self-heals on republish) → POST resource-phase endpoint → parse `result1` JSON.
+If fetching fails, first check whether the portlet id regex still matches the page.
+
+A 200/valid-JSON response with `result1: []` can also mean the ASTROID session table
+is not initialized yet right at 09:00 open (seen Mon 2026-09-07 09:00, self-recovered
+by 09:07) — that is transient init lag, not a page restructure. The 15-min watch
+script (`~/.hermes/scripts/ccil_ois_15min_watch.sh`) retries once after 45s on any
+fetch failure; real breaks still fail twice and alert.
+
+## Prompt rendering contract (5PM summary job)
+glm-5.3-flash compresses the MPC Meeting Pricing table into a one-line pipe summary (&quot;08Oct26 +21.1bp 84% | 10Dec26 …&quot;) unless the job prompt states an explicit rendering contract. The job prompt for job 3483940ec7b2 must keep: (1) both tables as multi-row markdown with the exact column shape, (2) the forbidden one-liner format named explicitly, (3) a final self-check bullet, (4) trim priority = PART 2 bullets before table rows. Verify after ANY prompt edit with a manual cronjob run before the next scheduled fire.
+
+## Cron
+Two Hermes cron jobs:
+1. `ccil-ois-15min-dump` — every 15 min, weekdays, 09:00–16:45 IST. Writes to `CCIL_OIS` sheet.
+2. `ccil-ois-eod-fetch` — 17:15 IST weekdays. Fetches the official CCIL &quot;Market Session Closed&quot; table. Writes to `CCIL_OIS_EOD` sheet.
+3. `ccil-ois-5pm-summary` — 17:20 IST weekdays. Reads both sheets, outputs formatted day-end summary with official OHLC/WAR + intraday volatility.
+
+## Ask for the Link
+Just ask: &quot;Give me the CCIL OIS master file&quot;. The assistant will return the absolute path to the master workbook.
+
+## Manual Run
+```bash
+cd ~/workspace/treasury-data/ccil-ois
+source ../../browser-use-repo/.venv/bin/activate
+python scripts/fetch_ccil_ois.py
+```
+(Only stdlib + requests + pandas + openpyxl now — no Playwright needed.)
+
+## Data Source
+CCIL — Rupee Derivatives Dealing System (ASTROID), powered by Clearcorp.
+
+The user has provided the following instruction alongside the skill invocation: [IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more.]
+
+## Your previous run&#x27;s output
+The following is this job&#x27;s most recent output from its previous run. Use it for continuity: avoid repeating what was already reported, and continue where the last run left off.
+
+```
+**Job ID:** 04e4b8633b74
+**Run Time:** 2026-09-08 09:06:43
+**Schedule:** */15 9-16 * * 1-5
+
+## Prompt
+
+[IMPORTANT: The user has invoked the &quot;ccil-ois-data-dump&quot; skill, indicating they want you to follow its instructions. The full skill content is loaded below.]
+
+---
+name: ccil-ois-data-dump
+category: treasury-automation
+description: &gt;
+  Fetches the CCIL ASTROID Rupee Derivatives Dealing System MIBOR OIS page
+  every 15 minutes during market hours, appends the full WAR + volume table
+  to a single persistent Excel workbook and sheet with a timestamp, and saves it under
+  ~/workspace/treasury-data/ccil-ois/.
+url: https://www.ccilindia.com/rupee-derivatives-dealing-system-astroid-
+---
+
+## Saved URL
+https://www.ccilindia.com/rupee-derivatives-dealing-system-astroid-
+
+## What It Does
+- Polls the CCIL ASTROID MIBOR OIS table every **15 minutes**.
+- Records each fetch as one timestamped row in a single Excel workbook.
+- One persistent worksheet only: `CCIL_OIS`.
+- Each row contains the **Weighted Average Rate (WAR %)** and **Traded Notional Amount (₹ Cr)** for every tenor.
+
+## Master Workbook Policy
+Use `ccil-ois-all.xlsx` for all days. Do not create date-wise workbooks or date-wise sheets unless the user explicitly asks for a new export layout. If the same timestamp is fetched again, replace that row instead of duplicating it.
+
+See `references/ccil-ois-master-workbook.md` for the exact workbook path, sheet, column contract, cron/script ownership, and verification checklist.
+
+## Output Location
+```
+~/workspace/treasury-data/ccil-ois/
+└── ccil-ois-all.xlsx
+    ├── Sheet: CCIL_OIS      (15-min intraday snapshots — WAR + Vol only)
+    └── Sheet: CCIL_OIS_EOD  (official daily EOD — full CCIL table, all columns)
+```
+
+## Intraday Sheet (CCIL_OIS)
+| Timestamp | OIS1M_WAR | OIS1M_Vol | OIS2M_WAR | OIS2M_Vol | ... | OIS10Y_WAR | OIS10Y_Vol |
+
+If a tenor has no trade in a given fetch, the cell is left blank rather than carrying stale data.
+
+## EOD Sheet (CCIL_OIS_EOD)
+One row per trading day. Captures the full CCIL ASTROID &quot;Market Session Closed&quot; table with all official columns per tenor:
+| Date | OIS1M_PrevClose | OIS1M_Open | OIS1M_High | OIS1M_Low | OIS1M_LTR | OIS1M_LTA | OIS1M_LTT | OIS1M_WAR | OIS1M_NoOfTrades | OIS1M_TradedNotional | ... (repeated for all 12 tenors) |
+
+EOD fetch runs at 17:15 IST after market close. The 5PM summary at 17:20 IST uses this sheet for official OHLC/WAR/close and the intraday sheet for volatility (max-min snapshot spread).
+
+## CCIL Page Reference
+See `references/ccil-astroid-page.md` for the saved URL, table columns, and sample data layout.
+
+## Reusable Template
+`templates/fetch_market_data.py` is a generic Playwright-to-Excel dumper for any public market-data table. Copy it, change `URL`, `TENORS`, and the parse logic, and you have a new 15-minute dump in minutes.
+
+## Scripts
+- Shared direct-API client (portlet-id scraping + POST): `~/workspace/treasury-data/ccil-ois/scripts/ccil_api.py`
+- Intraday fetch + append: `~/workspace/treasury-data/ccil-ois/scripts/fetch_ccil_ois.py`
+- EOD fetch (official close): `~/workspace/treasury-data/ccil-ois/scripts/fetch_ccil_ois_eod.py`
+- Monitor state line: `~/workspace/treasury-data/ccil-ois/scripts/ois_state_line.py`
+- 5PM summary (reads both sheets): `~/.hermes/scripts/ccil_ois_5pm_summary.py`
+- Can be run manually or from cron jobs.
+
+## Data Path (since 2026-09-04 — direct API, no browser)
+The CCIL page loads its market-watch table via a Liferay AJAX POST; Playwright
+`networkidle` now times out and is retired. Both fetchers use
+`scripts/ccil_api.py`: GET page → scrape `p_p_id=AstroidMarketWatch_..._INSTANCE_xxxx`
+(self-heals on republish) → POST resource-phase endpoint → parse `result1` JSON.
+If fetching fails, first check whether the portlet id regex still matches the page.
+
+A 200/valid-JSON response with `result1: []` can also mean the ASTROID session table
+is not initialized yet right at 09:00 open (seen Mon 2026-09-07 09:00, self-recovered
+by 09:07) — that is transient init lag, not a page restructure. The 15-min watch
+script (`~/.hermes/scripts/ccil_ois_15min_watch.sh`) retries once after 45s on any
+fetch failure; real breaks still fail twice and alert.
+
+## Prompt rendering contract (5PM summary job)
+glm-5.3-flash compresses the MPC Meeting Pricing table into a one-line pipe summary (&quot;08Oct26 +21.1bp 84% | 10Dec26 …&quot;) unless the job prompt states an explicit rendering contract. The job prompt for job 3483940ec7b2 must keep: (1) both tables as multi-row markdown with the exact column shape, (2) the forbidden one-liner format named explicitly, (3) a final self-check bullet, (4) trim priority = PART 2 bullets before table rows. Verify after ANY prompt edit with a manual cronjob run before the next scheduled fire.
+
+## Cron
+Two Hermes cron jobs:
+1. `ccil-ois-15min-dump` — every 15 min, weekdays, 09:00–16:45 IST. Writes to `CCIL_OIS` sheet.
+2. `ccil-ois-eod-fetch` — 17:15 IST weekdays. Fetches the official CCIL &quot;Market Session Closed&quot; table. Writes to `CCIL_OIS_EOD` sheet.
+3. `ccil-ois-5pm-summary` — 17:20 IST weekdays. Reads both sheets, outputs formatted day-end summary with official OHLC/WAR + intraday volatility.
+
+## Ask for the Link
+Just ask: &quot;Give me the CCIL OIS master file&quot;. The assistant will return the absolute path to the master workbook.
+
+## Manual Run
+```bash
+cd ~/workspace/treasury-data/ccil-ois
+source ../../browser-use-repo/.venv/bin/activate
+python scripts/fetch_ccil_ois.py
+```
+(Only stdlib + requests + pandas + openpyxl now — no Playwright needed.)
+
+## Data Source
+CCIL — Rupee Derivatives Dealing System (ASTROID), powered by Clearcorp.
+
+The user has provided the following instruction alongside the skill invocation: [IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more.]
+
+## Your previous run&#x27;s output
+The following is this job&#x27;s most recent output from its previous run. Use it for continuity: avoid repeating what was already reported, and continue where the last run left off.
+
+```
+**Job ID:** 04e4b8633b74
+**Run Time:** 2026-09-07 16:46:04
+**Mode:** monitor
+**Status:** no_change (agent run suppressed)
+```
+
+You are the CCIL OIS Intraday Curve-Move Radar. A monitor script fetches CCIL ASTROID OIS rates every 15 min during market hours; its output is injected above as a MONITOR CHANGE DETECTED block (STABLE / MOVE: ... / FETCH_FAILED).
+
+## DECISION RULES
+- If the monitor output is STABLE → respond exactly: [SILENT]
+- If MOVE: evaluate materiality:
+  - &gt;=2.0bp move on ANY tenor → POST an alert.
+  - &gt;=1.5bp on OIS1Y, OIS5Y, or OIS10Y → POST an alert.
+  - Otherwise → [SILENT]
+- DEDUPE (continuity): your previous output is injected above. If the current MOVE is the same tenor, same direction, and within 1bp of what you already alerted, respond [SILENT] — do not re-alert. Alert again only if the move grew by &gt;=1bp more or reversed direction.
+- If FETCH_FAILED → POST a brief alert: &quot;CCIL OIS 15-min fetch failing — check logs/network.&quot; If your previous output was also a FETCH_FAILED alert, respond [SILENT] (already reported).
+
+## ALERT FORMAT (max 800 chars)
+⚡ OIS MOVE — &lt;time&gt; IST
+- Tenor(s) moved with bp and levels (from the MOVE line)
+- One line: what it implies for the curve (steepening/flattening, policy repricing)
+- One line: likely driver IF you can tie it to 
+
+[... output truncated ...]
+```
+
+You are the CCIL OIS Intraday Curve-Move Radar. A monitor script fetches CCIL ASTROID OIS rates every 15 min during market hours; its output is injected above as a MONITOR CHANGE DETECTED block (STABLE / MOVE: ... / FETCH_FAILED).
+
+## DECISION RULES
+- If the monitor output is STABLE → respond exactly: [SILENT]
+- If MOVE: evaluate materiality:
+  - &gt;=2.0bp move on ANY tenor → POST an alert.
+  - &gt;=1.5bp on OIS1Y, OIS5Y, or OIS10Y → POST an alert.
+  - Otherwise → [SILENT]
+- DEDUPE (continuity): your previous output is injected above. If the current MOVE is the same tenor, same direction, and within 1bp of what you already alerted, respond [SILENT] — do not re-alert. Alert again only if the move grew by &gt;=1bp more or reversed direction.
+- If FETCH_FAILED → POST a brief alert: &quot;CCIL OIS 15-min fetch failing — check logs/network.&quot; If your previous output was also a FETCH_FAILED alert, respond [SILENT] (already reported).
+
+## ALERT FORMAT (max 800 chars)
+⚡ OIS MOVE — &lt;time&gt; IST
+- Tenor(s) moved with bp and levels (from the MOVE line)
+- One line: what it implies for the curve (steepening/flattening, policy repricing)
+- One line: likely driver IF you can tie it to a source (RBI ops, G-Sec move, USD/INR, global rates) — else omit. NEVER fabricate.
+- Watch: the 1 thing that decides the next move.
+
+## Run Context
+## MONITOR CHANGE DETECTED
+
+The monitored source&#x27;s output changed since the last run.
+
+### Diff (previous → current)
+
+```diff
+--- previous
++++ current
+@@ -1 +1 @@
+-FETCH_FAILED
++STABLE
+```
+
+### Current output
+
+```
+STABLE
+```
+
+## Response
+
+[SILENT]
+</pre>
+</div>
+</div></body></html>
