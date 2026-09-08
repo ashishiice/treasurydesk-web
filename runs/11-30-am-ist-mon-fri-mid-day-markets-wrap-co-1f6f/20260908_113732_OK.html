@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11:30 AM IST (Mon-Fri) — Mid-Day Markets Wrap (concise, deduped) — 2026-09-08 11:37:32 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of 11:30 AM IST (Mon-Fri) — Mid-Day Markets Wrap (concise, deduped)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">11:30 AM IST (Mon-Fri) — Mid-Day Markets Wrap (concise, deduped)</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    08 Sep 2026, 11:37:32 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Markets &nbsp;·&nbsp; job 1f6fb6affcec
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 08 Sep 2026, 11:37:32 IST</h2>
+  <pre>**Job ID:** 1f6fb6affcec
+**Run Time:** 2026-09-08 11:36:45
+**Schedule:** 30 11 * * 1-5
+
+## Prompt
+
+[IMPORTANT: The user has invoked the &quot;treasury-eod-markets-wrap&quot; skill, indicating they want you to follow its instructions. The full skill content is loaded below.]
+
+---
+title: Treasury EOD Markets Wrap
+name: treasury-eod-markets-wrap
+version: 1.2
+description: |
+  Generate comprehensive End-of-Day (EOD) markets wrap for Indian treasury professionals.
+  Covers India markets (Nifty, G-Sec, USD/INR, money markets), global markets (US futures, 
+  Europe, commodities), FII/DII flows, RBI operations, key market drivers, and overnight watch.
+  Designed for NBFC treasury teams needing consolidated EOD reporting.
+triggers:
+  - eod markets wrap
+  - end of day markets summary
+  - treasury eod report
+  - daily markets wrap for the user
+  - the NBFC treasury desk eod report
+---
+
+Generate a comprehensive End-of-Day markets wrap for NBFC Treasury professionals covering the full trading day and overnight setup.
+
+## Absolute Output Rules (Non-Negotiable)
+
+1. **NO URLs, links, or hyperlinks anywhere in the final output.** Strip all links from news or data. Provide only text summaries and data. This is a hard requirement for every EOD wrap.
+2. **If RBI rates cannot be verified from rbi.org.in, mark them explicitly** (e.g., &quot;RBI ref verification pending; market spot ~X.XXXX&quot;). Do not silently substitute market estimates as verified RBI data.
+3. **When multiple data points are unavailable** (10Y G-Sec yield, call money, OIS, RBI ref rate), compile the report with all available data and list the gaps explicitly. Never delay delivery because one or two data points are missing.
+
+## Differences from Morning Brief
+
+| Aspect | Morning Brief | EOD Wrap |
+|--------|---------------|----------|
+| Timing | Pre-market/open | After market close |
+| Focus | What&#x27;s ahead | What happened + overnight setup |
+| Global Data | Asia closes, Europe opening | US futures, Europe during India hours |
+| RBI | Overnight press releases (post-5PM) | Full day operations + auction calendars |
+| Flows | Preliminary/provisional | Final FII/DII for the day |
+| Structure | Today&#x27;s Calendar | Overnight Watch |
+
+## Data Gathering Strategy
+
+### 1. INDIA MARKETS — Multi-Source Strategy
+
+**Nifty 50 / Indices — NSE `allIndices` API (Primary, Official NSE Data)**
+- Endpoint: `https://www.nseindia.com/api/allIndices`
+- Returns: Official NSE OHLC + `previousClose` + `percentChange` + `pe`/`pb`/`dy` + `advances`/`declines` for NIFTY 50 and all sector indices in one call.
+- **How to fetch**: `urllib.request` with `&quot;User-Agent&quot;: &quot;Mozilla/5.0&quot;` and `&quot;Accept&quot;: &quot;application/json&quot;`. No referer required.
+- **Verified**: Produces exact NSE closing figures (e.g., 02-Jun-2026: O=23,229.15 H=23,556.95 L=23,229.15 C=23,483.55 Chg=+0.43%).
+- **Why prefer over Yahoo**: Yahoo Finance v8 can have minor drift/cache lag vs official NSE close. Use NSE API for the India-equity anchor.
+
+**Nifty 50 / Indices — Yahoo Finance v8 API (Secondary / Global Cross-Check)**
+- Python endpoint: `https://query1.finance.yahoo.com/v8/finance/chart/^NSEI?interval=1d&amp;range=5d`
+- Returns: Open, High, Low, Close, Change, Change % reliably in JSON. Works via `execute_code` even when browser pages are blocked.
+- Batch symbols: `^NSEI`, `INR=X`, `^TNX`, `ES=F`, `YM=F`, `NQ=F`, `^GDAXI`, `^FTSE`, `BZ=F`, `GC=F`, `DX-Y.NYB`, `^VIX`.
+- Fallback: Economic Times `markets/indices/nifty-50` if API rate-limited.
+- Note: Check if market is CLOSED (holiday/weekend) and use last trading day.
+
+**Sector Performance — NSE `allIndices` API**
+- Endpoint: `https://www.nseindia.com/api/allIndices`
+- Returns all major sector indices with OHLC + change: NIFTY BANK, NIFTY AUTO, NIFTY FMCG, NIFTY IT, NIFTY METAL, NIFTY PHARMA, NIFTY REALTY, NIFTY ENERGY, NIFTY INFRA, NIFTY MEDIA.
+- Each entry includes: `last`, `open`, `high`, `low`, `previousClose`, `percentChange`, `pe`, `pb`, `dy`, `advances`, `declines`.
+- **How to fetch**: `urllib.request` with standard `User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)` header. Referer not required for this endpoint.
+- **Treasury signal**: Always compute Bank Nifty % change minus Nifty 50 % change. A gap ≥0.5% (Bank Nifty underperforming) is a credit/rate-fear signal for NBFC/Bank positioning commentary.
+
+**Bank Nifty — NBFC Treasury Sentiment Proxy**
+- Symbol: `^NSEBANK`
+- **Why include**: Bank Nifty often leads or trails broader financials and directly signals sentiment toward banks/NBFCs. For the NBFC treasury desk treasury, Bank Nifty divergence vs Nifty 50 is actionable (e.g., if Bank Nifty drops more than Nifty, credit/rate fears may be driving financials).
+- Endpoint: `https://query1.finance.yahoo.com/v8/finance/chart/^NSEBANK?interval=1d&amp;range=5d`
+- **Always fetch both `^NSEI` and `^NSEBANK`** and compute relative performance: `(Bank Nifty % change) – (Nifty 50 % change)`. A gap ≥0.5% is treasury-notable.
+
+**FII/DII Flows**
+- **PRIMARY: NSE `api/fiidiiTradeReact?section=equities`** — JSON endpoint, reliable in WSL cron jobs.
+  - Headers required: `&quot;User-Agent&quot;: &quot;Mozilla/5.0&quot;`, `&quot;Accept&quot;: &quot;application/json&quot;`, `&quot;Referer&quot;: &quot;https://www.nseindia.com/report-detail/eq_fiidii_cum&quot;`.
+  - Returns array with `category` (&quot;FII/FPI&quot; / &quot;DII&quot;), `date`, `buyValue`, `sellValue`, `netValue` in ₹ Crores.
+  - **Date lag**: Usually returns &quot;previous trading day&quot; data (e.g., on 05-May, data was for 04-May). Use latest available and explicitly label the data date.
+  - **Preferred over Economic Times FII/DII page**, which returned 404 in WSL environment.
+- **FALLBACK: Economic Times** `https://economictimes.indiatimes.com/markets/fii-dii-activity` (if accessible).
+  - Data: Today&#x27;s provisional, 7-day cumulative, 30-day cumulative.
+  - All values in ₹ Crores.
+  - Critical: Shows if domestic flows absorbing FII outflows.
+
+**USD/INR &amp; Forex**
+- **PRIMARY: RBI ReferenceRateArchive.aspx via Python POST (Verified Working, May 2026)** — `ReferenceRateArchive.aspx` bot-detects GET/curl requests but accepts a direct HTTP POST with ASP.NET form fields.
+  - Endpoint: `https://www.rbi.org.in/scripts/ReferenceRateArchive.aspx`
+  - Steps:
+    1. First GET the page to capture `__VIEWSTATE`, `__EVENTVALIDATION`, and other hidden ASP.NET inputs.
+    2. Build POST body: `txtFromDate=15-May-2026&amp;txtToDate=15-May-2026&amp;chkUSD=on&amp;btnSubmit=+GO+` (clear any default checkbox values first).
+    3. POST back to same URL with `Content-Type: application/x-www-form-urlencoded` and `Referer` header set.
+    4. Parse the resulting HTML tables — Table 2 (index 2 after form/table split) contains: Date | USD (INR / 1 USD) | GBP | EUR | JPY.
+  - See `references/session-notes-2026-05-15.md` for exact Python code pattern. This is the **recommended method for cron jobs** in WSL/cloud environments.
+- **SECONDARY: RBI homepage via browser_console** — see &quot;RBI Reference Rate Page Errors&quot; pitfall. Use only if POST method fails.
+- **TERTIARY: Yahoo Finance API for USD/INR spot**:
+  - Symbol: `USDINR=X` (not `INR=X`, which sometimes returns broken meta for currency pairs).
+  - Endpoint: `https://query1.finance.yahoo.com/v8/finance/chart/USDINR=X?interval=1d&amp;range=5d`
+  - Read from `meta[&#x27;regularMarketPrice&#x27;]` for the latest spot; `meta[&#x27;regularMarketDayHigh&#x27;]` and `meta[&#x27;regularMarketDayLow&#x27;]` for intraday range.
+  - ⚠️ Pitfall: For currency pairs, `meta[&#x27;previousClose&#x27;]` is often `null`. Compute change vs `chartPreviousClose` instead.
+- **FALLBACK: Economic Times Forex page** (`https://economictimes.indiatimes.com/markets/forex`) if RBI POST fails.
+
+**Commodities in INR Terms**
+- ET Commodities page: `https://economictimes.indiatimes.com/markets/commodities`
+- Data: Gold (₹/10g), Silver (₹/kg), Crude Oil (₹/barrel).
+- Also fetch USD-denominated Brent/Gold from Yahoo for dual reporting.
+
+**Bonds / G-Sec**
+- **PRIMARY: TradingEconomics India Government Bond Yield** (`https://tradingeconomics.com/india/government-bond-yield`) when available.
+  - Extract meta-description: `&lt;meta name=&quot;description&quot; content=&quot;...&quot;&gt;`.
+  - Example: `The yield on India 10Y Bond Yield rose to 7.05% on May 5, 2026, marking a 0.04 percentage points increase from the previous session.`
+  - **Provides exact yield, direction, and change in bps** — very useful when no real-time ticker exists.
+- **FALLBACK: ET Bonds page + CCIL `gsecTable`**.
+  - Use ET bonds articles for the prior close/movement of benchmark 6.94% GS 2036 (e.g., 18-Jun-2026 close 6.8387%).
+  - Use CCIL `gsecTable` for current-day last traded yield on the same benchmark (e.g., 19-Jun-2026 LTY 6.8505%).
+  - Compute movement as current LTY minus prior article close; label as an estimate if not from a single official benchmark endpoint.
+- **CAUTION**: No real-time public 10Y ticker is consistently available; avoid presenting approximate yield ranges as verified official close unless source is explicit.
+
+**Call Money / OIS — Multi-Source Strategy**
+- **PRIMARY: RBI Money Market Operations Press Release** (`https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx`).
+  - **Proven in cron jobs (May 2026): Direct `requests` + regex extraction is faster and more reliable than browser navigation.**
+  - Discovery: list all PR IDs with `re.finditer(r&#x27;prid=(\d+)[^&lt;]*&gt;\s*([^&lt;]{5,200})&#x27;, text)` then filter titles containing &quot;Money Market Operations&quot; or &quot;Variable Rate Repo&quot;.
+  - Individual PR extraction:
+    ```python
+    r = requests.get(url, headers={&quot;User-Agent&quot;:&quot;Mozilla/5.0&quot;}, timeout=15)
+    body = re.search(r&#x27;&lt;body[^&gt;]*&gt;(.*)&lt;/body&gt;&#x27;, r.text, re.DOTALL)
+    body_text = re.sub(r&#x27;&lt;[^&gt;]+&gt;&#x27;, &#x27; &#x27;, body.group(1))
+    # Then regex or line-filter for &quot;Call Money&quot;, &quot;Weighted Average Rate&quot;, &quot;SDF&quot;, &quot;MSF&quot;, etc.
+    ```
+  - Data available: Call Money (volume, WAR, range), Triparty Repo, Market Repo, Corporate Bond Repo (volume &amp; WAR), Notice Money, Term Money, MSF/SDF amounts and rates, cash reserves position, durable liquidity surplus, Government surplus cash balance.
+  - **Limitation**: Published next-day morning for prior business day. When the latest release shows zero overnight volumes (e.g. Sunday holiday), fall back to the most recent non-holiday release and explicitly label the date.
+- **SECONDARY: CCIL India** (`https://www.ccilindia.com/`) → &quot;Market Today&quot; tab or Liferay resource API.
+  - Provides: CALL, TREP, BASKET REPO, SPECIAL REPO with Open/High/Low/LTR/Volume/WAR.
+  - Proven resource IDs behind `https://www.ccilindia.com/home`:
+    - `moneyMarketTable` for CALL/TREP/Basket Repo/Special Repo.
+    - `derivativeTable` for OIS tenors.
+    - `gsecTable` for top traded G-Secs and last traded yield.
+    - `forexTable` for USD/INR spot/forwards.
+  - POST key: `_CCIL_HomeCombineGraphTable_CCIL_HomeCombineGraphTablePortlet_INSTANCE_uzwa_interval=day`.
+  - 19-Jun-2026 observed values: CALL 4.20–5.45%, WAR 5.4061%, LTR 5.40%; USD/INR SPOT LTR 94.4775, range 94.2025–94.5200; benchmark 6.94% GS 2036 LTY 6.8505%.
+  - ⚠️ **CCIL may return 403 in some WSL/cloud environments** — try RBI PR first.
+- **O/N OIS**: Public CCIL/FBIL data may not expose an O/N tenor. In the 19-Jun-2026 run, CCIL `derivativeTable` showed 9M/1Y/2Y/3Y/5Y only, and FBIL MIBOR-OIS data was stale as of 11-Jun-2026. Do not estimate O/N OIS from longer tenors; report it as unavailable and include available tenors only as context.
+
+- **RBI VRR / Auction Result Extraction** (Proven 20-May-2026):
+  - Same PR page as Money Market Operations: `https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=XXXXX`
+  - Filter PR list for titles containing &quot;Variable Rate Repo&quot;, &quot;T-Bill&quot;, &quot;G-Sec&quot;, &quot;Auction Result&quot;.
+  - Regex extraction from body text:
+    ```python
+    keywords = [&#x27;variable rate repo&#x27;, &#x27;vrr&#x27;, &#x27;bids received&#x27;, &#x27;cut-off rate&#x27;,
+                &#x27;weighted average&#x27;, &#x27;repo rate&#x27;, &#x27;liquidity&#x27;, &#x27;amount allotted&#x27;]
+    # Extract sentences containing any keyword
+    matches = re.findall(r&#x27;[^\.]*&#x27; + kw + r&#x27;[^\.]*&#x27;, body_text, re.IGNORECASE)
+    ```
+  - Commonly available fields: Notified Amount, Bids Received, Amount Allotted, Cut-off Rate (%), Weighted Average Rate (%), Partial Allotment Percentage.
+  - Always list VRR/G-Sec/T-bill results under &quot;RBI OPERATIONS&quot; section.
+
+### 2. RBI VERIFICATION — rbi.org.in ONLY
+
+**Exchange Rates (CRITICAL — Required for every report)**
+- RBI Homepage: `https://www.rbi.org.in/home.aspx`
+- Look for &quot;Exchange Rates&quot; section under &quot;Current Rates&quot;.
+- ⚠️ **ReferenceRateDisplay.aspx frequently errors** — do NOT use.
+- ✅ **Use RBI `ReferenceRateArchive.aspx` with browser navigation when you need RBI-verified reference-rate data.** It may return `No Reference Rate Found` for the current EOD date; latest available can be the previous business day. Do not treat the RBI homepage last-updated date as proof that the target date&#x27;s reference rate is published.
+- ⚠️ **Python POST to `ReferenceRateArchive.aspx` can still bot-detect with 418** even with ASP.NET hidden fields and cookies; browser navigation is the more reliable RBI verification path.
+- ✅ **For same-day EOD spot**, use CCIL/Yahoo/ET market spot if RBI target-date reference rate is unavailable, but label it clearly as market spot and keep the latest RBI-verified date separate.
+- ✅ **SECONDARY: RBI homepage via browser_console** — see &quot;RBI Reference Rate Page Errors&quot; pitfall. Use only if POST method fails.
+
+**Policy Rates (Verify weekly or on change)**
+- Repo Rate, SDF Rate, MSF Rate, Reverse Repo.
+- CRR, SLR percentages.
+
+**Press Releases / Operations**
+- URL: `https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx`
+- Filter for today&#x27;s date.
+- Look for:
+  - OMO (Open Market Operations) announcements.
+  - VRRR/Variable Rate Reverse Repo results.
+  - T-bill auction calendars.
+  - G-Sec auction announcements.
+  - NBFC-specific directions/circulars.
+
+**Money Market / CCIL (Alternative to RBI)**
+- If RBI money market PDFs are stale, use CCIL `https://www.ccilindia.com/`.
+- &quot;Market Today&quot; tab shows real-time CALL, TREP, BASKET REPO, SPECIAL REPO.
+- WAR (Weighted Average Rate) is directly usable for call money reference.
+
+### 3. GLOBAL MARKETS — Yahoo Finance
+
+**US Futures (During India Hours)**
+- S&amp;P 500 Futures: `https://finance.yahoo.com/quote/ES=F`
+- Dow Futures: `https://finance.yahoo.com/quote/YM=F`
+- Nasdaq Futures: `https://finance.yahoo.com/quote/NQ=F`
+- VIX: `https://finance.yahoo.com/quote/^VIX`
+
+**Commodities**
+- Brent Crude: `https://finance.yahoo.com/quote/BZ=F`
+- WTI Crude: `https://finance.yahoo.com/quote/CL=F`
+- Gold: `https://finance.yahoo.com/quote/GC=F`
+
+**Fixed Income &amp; FX**
+- US 10Y Treasury: `https://finance.yahoo.com/quote/^TNX` (yield in %, e.g., 43.17 = 4.317%)
+- Dollar Index (DXY): `https://finance.yahoo.com/quote/DX-Y.NYB`
+
+**Europe**
+- DAX: `https://finance.yahoo.com/quote/^GDAXI`
+- FTSE 100: `https://finance.yahoo.com/quote/^FTSE`
+
+### 4. MARKET NEWS — Economic Times / Web Search
+
+- ET Markets section for breaking developments
+- Search for: &quot;Nifty fall today&quot;, &quot;market news today&quot;, &quot;RBI today&quot;
+- Corporate earnings, IPO updates, broker calls
+
+## Report Structure
+
+```
+══════════════════════════════════════════════════════════════════
+              EOD MARKETS WRAP — [DATE]
+        For: the user | the NBFC treasury desk Treasury
+══════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 1. INDIA MARKETS TODAY                                           │
+└─────────────────────────────────────────────────────────────────┘
+
+  NIFTY 50
+  ────────
+  Close:        XX,XXX.XX    Change:  ±XXX.XX (±X.XX%)
+  Open:         XX,XXX.XX    High:    XX,XXX.XX
+  Low:          XX,XXX.XX    Prev:    XX,XXX.XX
+  
+  [Note if market closed for holiday — use last trading day]
+
+  USD/INR (RBI Reference Rate — VERIFIED)
+  ───────────────────────────────────────
+  RBI Reference:     XX.XXXX
+  Spot (ET):         XX.XX    High: XX.XX  Low: XX.XX
+
+  10-YEAR G-SEC YIELD
+  ───────────────────
+  Yield:         X.XX% – X.XX% (estimated)
+  Trend:         [Stable/Rising/Falling]
+
+  MONEY MARKETS
+  ─────────────
+  Call Money Range:    X.XX% – X.XX%
+  Weighted Avg:        X.XX%
+  O/N OIS Fixing:      X.XX% – X.XX% [or note if unavailable]
+  
+  [Note date of last available data if weekend/holiday]
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 2. GLOBAL MARKETS                                                │
+└─────────────────────────────────────────────────────────────────┘
+
+  US FUTURES (During India Hours)
+  ───────────────────────────────
+  S&amp;P 500 Futures:    X,XXX.XX   ±XXX.XX  (±X.XX%)
+  Dow Futures:        XXXXX.XX   ±XXX.XX  (±X.XX%)
+  Nasdaq Futures:     XXXXX.XX   ±XXX.XX  (±X.XX%)
+
+  EUROPE
+  ──────
+  DAX (Germany):      XX,XXX.XX   ±XXX.XX  (±X.XX%)
+  FTSE 100 (UK):      XX,XXX.XX   ±XXX.XX  (±X.XX%)
+
+  COMMODITIES
+  ───────────
+  Brent Crude:        $XX.XX      ±$X.XX  (±X.XX%)
+  Gold (USD):         $X,XXX.XX   ±$XX.XX (±X.XX%)
+  
+  Domestic (INR):
+  Gold (10g):         ₹XXX,XXX    (±X.X%)
+  Silver (1kg):       ₹XXX,XXX    (±X.X%)
+  Crude Oil/barrel:   ₹X,XXX      (±X.X%)
+
+  FIXED INCOME &amp; FX
+  ──────────────────
+  US 10Y Treasury:    X.XX%
+  Dollar Index (DXY): XX.XX       ±X.XX% (±X.XX%)
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 3. FLOWS &amp; ACTIVITY                                              │
+└─────────────────────────────────────────────────────────────────┘
+
+  FII / FPI CASH FLOWS (Provisional)
+  ──────────────────────────────────
+  FII Today:          ±₹X,XXX.X Cr  (Inflow/Outflow)
+  DII Today:          ±₹X,XXX.X Cr  (Inflow/Outflow)
+  
+  7-Day Cumulative:
+  FII:                ±₹XX,XXX.X Cr
+  DII:                ±₹XX,XXX.X Cr
+  
+  30-Day Cumulative:
+  FII:                ±₹X,XX,XXX Cr  ([Sustained selling/Net inflow])
+  DII:                ±₹X,XX,XXX Cr  ([Absorption/Support])
+
+  RBI OPERATIONS
+  ──────────────
+  • 5-day / 7-day Variable Rate Repo (VRR) Auction:
+      Notified Amount:   ₹XX,XXX Cr
+      Bids Received:     ₹XX,XXX Cr
+      Amount Allotted:   ₹XX,XXX Cr
+      Cut-off Rate:      X.XX%
+      Weighted Average:  X.XX%
+  • OMO announcements: [Yes/No — details if yes]
+  • Scheduled auctions: [G-Sec/T-bill dates, amounts]
+
+  CORPORATE DEBT / NCD ACTIVITY
+  ─────────────────────────────
+  • [Any large NCD issuances, rating actions, deferrals]
+  • [NBFC-specific bond market news]
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 4. KEY EVENTS / DRIVERS                                          │
+└─────────────────────────────────────────────────────────────────┘
+
+  GEOPOLITICAL / MACRO
+  ────────────────────
+  • [Major geopolitical developments affecting oil/markets]
+  • [US-Iran, Middle East, Russia-Ukraine, etc.]
+  • [Oil price impact on inflation/current account]
+
+  CORPORATE DEVELOPMENTS
+  ──────────────────────
+  • [Bonus issues, earnings, IPOs, broker calls]
+  • [NBFC sector specific news]
+
+  EARNINGS SEASON
+  ───────────────
+  • [Key Q4 results announced today]
+  • [Upcoming major results]
+
+  REGULATORY
+  ──────────
+  • [RBI circulars, NBFC-specific notifications]
+  • [Consultation papers, draft directions]
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 5. OVERNIGHT WATCH                                               │
+└─────────────────────────────────────────────────────────────────┘
+
+  US DATA RELEASES (Next Day IST)
+  ───────────────────────────────
+  • [CPI, PPI, FOMC minutes, Jobs data, etc.]
+  • [Expected impact on yields/FX]
+
+  FED SPEAKERS
+  ────────────
+  • [Any scheduled speeches, testimony]
+
+  ASIA OPENING EXPECTATIONS
+  ─────────────────────────
+  • [Japan, China, Hong Kong pre-market indicators]
+  • [Indian market status next day]
+
+  RISK FACTORS FOR NEXT SESSION
+  ─────────────────────────────
+  • [Geopolitical escalation risks]
+  • [FII selling continuation risk]
+  • [Oil price volatility]
+  • [US data surprise risk]
+
+┌─────────────────────────────────────────────────────────────────┐
+│ TREASURY IMPLICATIONS — HERO FINCORP                             │
+└─────────────────────────────────────────────────────────────────┘
+
+  • LIQUIDITY: [Call money assessment]
+  • FX HEDGE: [INR level implications]
+  • BOND MARKETS: [G-Sec opportunity/alert]
+  • CREDIT: [CP/NCD market assessment]
+  • RISK ALERT: [Key overnight risks]
+
+  MARKET HOLIDAY NOTE
+  ───────────────────
+  [If applicable — note closures and next trading day]
+
+┌─────────────────────────────────────────────────────────────────┐
+│ DATA GAPS &amp; NOTES                                               │
+└─────────────────────────────────────────────────────────────────┘
+
+  • [Explicitly list any unavailable, stale, or unverified data points]
+  • [Note the date of last available data for stale items]
+  • [Flag &quot;RBI ref verification pending&quot; if applicable]
+
+══════════════════════════════════════════════════════════════════
+  Data Sources: RBI, Economic Times, Yahoo Finance, NSE
+  Report Generated: [Date] | [Time] IST
+══════════════════════════════════════════════════════════════════
+```
+
+## Critical Pitfalls &amp; Workarounds
+
+&gt; Session-specific learnings: see `references/session-notes-2026-05-04.md`, `references/session-notes-2026-06-03.md`, and `references/session-notes-2026-06-19.md` for extraction patterns observed under cron-job/WSL execution.
+
+### 1. RBI Reference Rate Page Errors
+- **Problem**: `ReferenceRateDisplay.aspx` is permanently unavailable (returns 404). `ReferenceRateArchive.aspx` can be reached through browser navigation, but the target-date rate may still be unpublished; in the 19-Jun-2026 run it returned `No Reference Rate Found` for `19/06/2026` while showing the 18-Jun-2026 USD rate of `94.2795`. The RBI homepage `home.aspx` &quot;Exchange Rates&quot; accordion loads client-side AJAX that does **not** appear in the initial HTML and is **not** reliably rendered in browser snapshots or accessible DOM even after clicking the accordion.
+- **Solution** (in order of reliability):
+  1. **RBI-verified reference rate** — use `ReferenceRateArchive.aspx` via browser navigation and submit the date/currency filters. If it returns `No Reference Rate Found`, do not infer the rate from the homepage footer or market spot.
+  2. **Market spot for same-day EOD** — use CCIL USD/INR SPOT LTR/range or Yahoo `USDINR=X` as a proxy, clearly labelled as market spot.
+  3. **Report gap explicitly** — write: &quot;RBI reference rate for [date] unavailable; latest RBI-verified reference rate was [date]: [rate]. Market spot was [rate].&quot;
+
+### 2. Stale FBIL MIBOR-OIS Data
+
+- **Problem**: FBIL `wasdm/miborois/fetch` can return data, but the latest process run date may be several business days old.
+- **Pitfall**: Do not treat stale FBIL MIBOR-OIS data as the current day&#x27;s O/N OIS fixing.
+- **Solution**: Check `processRunDate` and `displayTime` in every FBIL response. If stale, report O/N OIS as unavailable and include current CCIL OIS tenors only as context.
+
+### 3. Market Holidays
+- **Check**: Always verify if today is a market holiday (Eid, Holi, Diwali, Ambedkar Jayanti, etc.)
+- **Handling**: Use last trading day&#x27;s closing data and note &quot;Markets closed for [holiday]&quot;
+- **Next Session**: Note the next trading date for overnight positioning
+- **Sunday gap in RBI Money Market data**: RBI Money Market Operations as on Sunday show zero overnight volumes (Call Money, Triparty Repo, Market Repo all 0.00). This is expected due to market closure. Fall back to the most recent Friday/Saturday data and explicitly label the date.
+
+### 3. Money Market Data Timing
+- **Weekends/Holidays**: RBI Money Market Operations PDF shows zero volume
+- **Solution**: Use last trading day&#x27;s data and explicitly note the date
+- **Call Money Range**: Format as &quot;X.XX% – X.XX% (last trading date: DD MMM)&quot;
+
+### 4. G-Sec Yield Estimates
+- **Problem**: No real-time public G-Sec yield ticker
+- **Solution**: Use Economic Times bonds section news for trend + estimate range
+- **Note**: &quot;Estimated ~X.XX% – X.XX% based on market sources&quot;
+
+### 5. FII/DII Data Timing
+- **Provisional vs Final**: ET shows &quot;provisional&quot; for current day
+- **30-day trends**: More important than single day for treasury positioning
+- **Context**: Always compare FII outflows vs DII absorption capacity
+
+### 6. Bot Detection Avoidance (Environment: WSL / Cloud Browser)
+- ✅ **PRIMARY API — Yahoo Finance v8**: Use `https://query1.finance.yahoo.com/v8/finance/chart/{SYMBOL}?interval=1d&amp;range=5d` for reliable OHLC + change. Works with requests/execute_code even when browser fails.
+  - ⚠️ Pitfall: `meta[&#x27;previousClose&#x27;]` sometimes missing. Fallback to previous day&#x27;s close from the `close` array.
+  - ⚠️ **Currency Pair Pitfall**: For `USDINR=X`, `meta[&#x27;previousClose&#x27;]` is frequently `null`. Always compute change vs `meta[&#x27;chartPreviousClose&#x27;]` instead.
+  - Commodity units: Gold `GC=F` and Silver `SI=F` are USD per ounce; Brent `BZ=F` and WTI `CL=F` are USD per barrel. Do not confuse with INR domestic prices.
+- ✅ **FII/DII — NSE JSON endpoint**: `https://www.nseindia.com/api/fiidiiTradeReact?section=equities` (see headers in Data Gathering Strategy above).
+- ✅ **10Y G-Sec — TradingEconomics**: Scrape meta description from `https://tradingeconomics.com/india/government-bond-yield` for exact yield + change. Proven curl pattern: `curl -sL &#x27;https://tradingeconomics.com/india/government-bond-yield&#x27; -H &#x27;User-Agent: Mozilla/5.0&#x27; | grep -oP &#x27;yield on India 10Y[^\n]+&#x27;` extracts the full sentence with date, yield, and change.
+- ✅ **NEWS FALLBACK — Bing Search/News**: `https://www.bing.com/news/search?q=...` when Google Search triggers instant CAPTCHA. Proven curl pattern: `curl -sL &#x27;https://www.bing.com/news/search?q=nifty+fall+today&#x27; -H &#x27;User-Agent: Mozilla/5.0&#x27; | grep -oP &#x27;title=&quot;[^&quot;]+&quot;&#x27; | head -20` extracts headlines without browser JS.
+- ✅ **USE**: Economic Times browser pages (fii-dii-activity, bonds, commodities) — works with browser navigation.
+- ✅ **USE**: RBI homepage static HTML (`https://www.rbi.org.in/home.aspx`) for exchange-rate accordion and press releases.
+- ✅ **USE**: RBI Money Market Operations press release HTML tables (browser snapshot) when CCIL is blocked.
+- ✅ **USE**: CCIL (`https://www.ccilindia.com/`) for money-market &quot;Market Today&quot; tab.
+- ❌ **AVOID — HARD BLOCKED**: MoneyControl (Access Denied), Investing.com (Cloudflare), NSE direct reference-rates API (returns empty/invalid), Bloomberg (robot challenge), MarketWatch (JS challenge), Google Search (CAPTCHA without proxies).
+- ❌ **AVOID**: RBI `ReferenceRateDisplay.aspx` (permanent 404).
+- ⚠️ **USE WITH CAUTION**: RBI `ReferenceRateArchive.aspx` via browser navigation for RBI-verified historical/current reference rates; it may return `No Reference Rate Found` for the target EOD date. Do not rely on Python POST if it returns 418.
+
+### 8. Commodities Dual Reporting
+- **Global**: Brent, Gold in USD (from Yahoo Finance)
+- **Domestic**: Gold (10g), Silver (kg), Crude (barrel) in INR (from ET Commodities)
+- **Both matter**: INR commodities affect inflation/CPI; USD commodities affect global risk
+
+### 11. RBI Reference Rate Retrieval — Prioritised Fallbacks
+
+When the target is an EOD wrap and the RBI/FBIL reference rate must be locked:
+1. **Try RBI `ReferenceRateArchive.aspx` via browser navigation early in the run** for the target date and USD. If it returns `No Reference Rate Found`, record that result and check the latest available RBI-verified date instead.
+2. **Do not keep retrying a Python POST** if it returns 418; browser navigation is the more reliable RBI verification path.
+3. **Use CCIL/Yahoo/ET market spot** for the same-day USD/INR close only after RBI verification is unavailable, and label it as market spot.
+4. **Try FBIL public reference-rate page** with date picker; watch for stale pagination defaults.
+5. Try a web search for a PTI/News18/RBI press release containing &quot;RBI Reference Rate&quot; + target date; sometimes published as a standalone release.
+6. **If all fail by mid-run, stop chasing the reference rate.** Use the highest-fidelity market spot proxy available (Yahoo `USDINR=X`, BookMyForex, Economic Times Forex) and clearly mark &quot;RBI reference-rate verification pending.&quot; Do not consume remaining iterations on RBI/FBIL if other sections still need data.
+
+### 12. Iteration Budgeting for Cron EOD Wraps
+- **Rule of thumb:** spend the first ~30% of the iteration budget on deterministic API/script fetches (NSE indices, Yahoo global batch, NSE FII/DII). RBI/FBIL verification and news-driver context consume the rest.
+- **Do not parallel-spawn `delegate_task` subagents for raw data fetching.** Use sequential `execute_code` blocks; reserve subagents for synthesis/review only.
+- If iteration pressure is reached, deliver the wrap with all available data and a **Data Gaps &amp; Notes** section listing the missing/stale items explicitly.
+
+### 10. NSE FII/DII Endpoint Returns a Bare List
+- **Finding**: `api/fiidiiTradeReact?section=equities` returns a Python `list`, NOT a `dict`. Iterating with `.get()` fails.
+- **Fix**: Use `for item in data:` (not `for item in data.get(&#x27;data&#x27;, [])`).
+
+### 11. RBI Money Market / VRR / T-Bill PRs — Prefer Table Parsing Over Body-Text Regex
+- **Finding**: Regex on body text for VRR results truncates numeric decimals (&quot;5.26%&quot; becomes &quot;5&quot;). Table extraction via `re.findall(r&#x27;&lt;table[^&gt;]*&gt;(.*?)&lt;/table&gt;&#x27;, html, re.DOTALL)` preserves exact values.
+- **Applies to**: Money Market Operations, T-Bill Full Auction Result, State G-Sec results.
+- **See `references/session-notes-2026-06-03.md`** for proven table-parsing code.
+
+### 9. `delegate_task` Anti-Pattern for EOD Data Gathering
+- **Problem**: Spawning parallel `delegate_task` subagents to fetch India markets, Global markets, and Flows data concurrently leads to `max_iterations` failures, invalid tool call errors, and anti-loop warnings. Subagents are unpredictable in cron/WSL environments and consume token budget with zero usable output.
+- **Working solution**: Use sequential `execute_code` blocks with `urllib.request` fetching multiple endpoints deterministically in a single Python script. Each block covers one logical data domain. Reserve `delegate_task` only for complex analysis/synthesis where reasoning is needed, not for deterministic data extraction.
+- **Why**: `execute_code` with stdlib `urllib.request` + `json.loads` is deterministic, passes security scans, and requires no subagent tool-call negotiation.
+
+### 10. `terminal curl | python3` Blocked by Tirith Security Scanner
+- **Problem**: Cron job security scanner (Tirith) flags `curl -sL &quot;...&quot; | python3 -c &quot;...&quot;` as `[HIGH] Pipe to interpreter` because downloaded content is executed without inspection. The command enters `pending_approval` state, which cannot be resolved in autonomous cron mode.
+- **Working solution**: Always use `execute_code` with `urllib.request` (Python stdlib) + `json.loads` inside the script. Functionally equivalent, but no pipe-to-interpreter flag.
+- **Anti-pattern to avoid**:
+```bash
+curl -sL &quot;https://...&quot; | python3 -c &quot;import json,sys; ...&quot;
+```
+- **Correct pattern**:
+```python
+import urllib.request, json
+req = urllib.request.Request(&#x27;https://...&#x27;, headers={&#x27;User-Agent&#x27;: &#x27;Mozilla/5.0&#x27;})
+with urllib.request.urlopen(req, timeout=10) as r:
+    data = json.loads(r.read().decode())
+print(data)
+```
+
+## Key Section Priorities
+
+1. **USD/INR with RBI verification** — Required for every report
+2. **FII/DII flows** — Critical for the NBFC treasury desk positioning
+3. **Overnight Watch** — Treasury-specific risk assessment
+4. **Treasury Implications** — Actionable takeaways, not just data
+
+## Data Freshness Rules
+
+| Data Type | Freshness Expectation | Fallback if Stale |
+|-----------|----------------------|-------------------|
+| Nifty 50 | Same day or last trading day | Use ET indices page |
+| USD/INR RBI | Same day | Note date of reference rate |
+| USD/INR market spot | Same day | CCIL/Yahoo/ET |
+| O/N OIS | Same day | If CCIL/FBIL lacks O/N tenor or FBIL is stale, mark unavailable |
+| FII/DII | Same day provisional | Use 7-day cumulative trend |
+| Call Money | Last trading day | Note explicitly |
+| Global Futures | Live during India hours | Yahoo Finance real-time |
+| RBI Operations | Same day | Check press releases |
+
+## Verification Checklist
+
+Before finalizing EOD wrap:
+- [ ] RBI Reference Rate: either **verified from rbi.org.in** OR **explicitly flagged as &quot;verification pending&quot; with market spot proxy noted**
+- [ ] RBI VRR / Auction results checked and listed if any occurred today
+- [ ] Market holiday status confirmed
+- [ ] FII/DII flows include today + 30-day trend (label data date if lagged)
+- [ ] USD/INR includes both RBI ref (if available) and market spot
+- [ ] FBIL MIBOR-OIS `processRunDate` checked before using any OIS data
+- [ ] O/N OIS is either verified for the target date or explicitly marked unavailable
+- [ ] Global markets cover US futures + Europe
+- [ ] Commodities include both USD (global) and INR (domestic)
+- [ ] Overnight Watch has specific next-day risks
+- [ ] Treasury Implications section has actionable points
+- [ ] **Data Gaps &amp; Notes section added** listing unavailable/stale data explicitly
+- [ ] **NO URLs in final output**
+- [ ] **All missing/unavailable data points explicitly noted** — do not silently omit
+
+## Toolset Requirements
+- browser (essential for ET and RBI data)
+- web (fallback for news context)
+- execute_code (for final report compilation)
+
+## Output Format
+- Clean ASCII box-drawing format for professional treasury use
+- No emojis in headers (use clean box drawing: ┌─┐│)
+- Bullet points with &quot;•&quot; for readability
+- **CRITICAL: NO URLs or hyperlinks anywhere in output**
+- Explicit date notes for any stale data
+
+- Use bullet points (• or -) for nearly everything: facts, data points, sources, implications, and action items. Avoid dense paragraphs whenever a list is possible.
+- Prefer this structure for every item: **Bullet + bold label + explanation.**
+- For numeric data, always include a markdown table AND follow it with bullet-point interpretation.
+- Do not return `[SILENT]` under any circumstance.
+
+The user has provided the following instruction alongside the skill invocation: [IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more.]
+
+You are doing a consolidated mid-day markets brief.
+
+## SILENT PROTOCOL (MANDATORY)
+This is a daily mid-day markets wrap. Deliver the full brief with current market levels, morning developments, and afternoon outlook. DO NOT silence this job; deliver the mid-day snapshot regardless.
+
+## TASK
+Pull fresh data and deliver:
+- RBI rates, liquidity
+- G-Sec yields (2Y/5Y/10Y) with morning movement
+- USD-INR spot + forwards
+- CD/CP/NCD market levels
+- Equity market (Nifty/Sensex)
+- Global markets (Asia opening levels)
+- Key events remaining today
+- NBFC treasury implications
+
+Use treasury-eod-markets-wrap skill. Concise, deduped, table-driven format.
+
+## SECTOR DEEP DIVE (MANDATORY)
+Go beyond headline levels. For each sector relevant to today&#x27;s tape, deliver DEEP analysis:
+- What moved and why (drivers: flows, data, policy, positioning, earnings)
+- Cross-asset read-through (equity sector ↔ rates ↔ FX ↔ credit ↔ liquidity)
+- Clear implications for: funding costs, spreads, INR, liquidity, ALM, credit conditions, NBFC sector
+- What to watch next (catalysts, levels, events)
+Sectors to cover (depth over breadth, 3-5 max): Banking &amp; Financials, NBFCs, G-Sec/bond market, Money market, FX (INR), Energy, plus equity sectors with macro read-through (IT, Auto, Infra, Real estate as relevant). Use tables where they add clarity.
+
+## NO IMPLEMENTATION IDEAS (MANDATORY)
+This job delivers ANALYSIS and IMPLICATIONS ONLY. Do NOT include:
+- Trade/position recommendations (buy/sell/hold, issue/roll CP, hedge/unhedge)
+- &quot;Today&#x27;s actions&quot; / &quot;action items&quot; / &quot;funding actions&quot; lists
+- Execution advice of any kind
+Analyzing what a move means is required; advising what to do about it is forbidden.
+
+## Response
+
+═══════════════════════════════════════════════════════════════════
+        MID-DAY MARKETS BRIEF — TUESDAY, 08 SEPTEMBER 2026
+              As of 11:31 IST | For: NBFC Treasury Desk
+═══════════════════════════════════════════════════════════════════
+
+**Tape in one line:** Oil re-breaks $98 after the Iran–Oman Hormuz deal failed to ease supply fears, the OIS curve stays steeply above repo pricing eventual re-tightening, INR firms on the FCNR dollar pipeline while RBI drains a record surplus, and equities rotate out of financials into defensives.
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 1. INDIA MARKETS — MID-DAY SNAPSHOT                              │
+└─────────────────────────────────────────────────────────────────┘
+
+| Instrument | Level | Change |
+|---|---|---|
+| Nifty 50 | 23,672.45 | −106.70 (−0.45%) |
+| Sensex (Yahoo live) | 75,736.54 | −396 pts (−0.52%) |
+| Bank Nifty | 56,896.95 | −0.34% |
+| Nifty Fin Services | 25,747.20 | −0.73% |
+| USD/INR (CCIL spot LTR) | 94.7050 | +0.1400 vs Mon close 94.5650 |
+| USD/INR (RBI homepage ref) | 94.4467 | latest displayed; Sep-8 ref publishes this evening |
+| 10Y G-Sec (6.94% GS 2036) | 6.9611% LTY | ~+1bp vs Mon 6.95% close |
+| Call money (WAR) | 5.0482% | +8bp |
+| TREP (WAR) | 4.6500% | +6bp |
+| OIS 1Y / 5Y | 5.975% / 6.475% | +½–1bp |
+| Brent / WTI | $98.33 / $93.68 | +2.8% / +2.9% |
+
+• Nifty opened 23,743, slid to 23,657 low by mid-morning; breadth negative (21 adv / 29 dec in Nifty 50).
+• INR is the outlier: **stronger on the day and on the week** (~94.96 early last week → 94.7050) despite Brent near $100 — the FCNR(B) dollar-conversion pipeline (~$127bn reported mobilisation) plus a softer DXY (98.80, −0.76%) are supplying dollars.
+• 10Y benchmark traded heavy volume — ₹8,032 Cr TTA across 657 trades by 11:31, cheapening ~1–2bp into Friday&#x27;s supply.
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 2. RBI — POLICY RATES (VERIFIED, rbi.org.in TODAY) &amp; OPERATIONS   │
+└─────────────────────────────────────────────────────────────────┘
+
+| Rate | Level |
+|---|---|
+| Policy Repo | 5.25% |
+| SDF | 5.00% |
+| MSF / Bank Rate | 5.50% |
+| Fixed Reverse Repo | 3.35% |
+| CRR / SLR | 3.00% / 18.00% |
+
+• **Overnight VRRR result (today, PR 63542):** notified ₹5,00,000 Cr; offers ₹4,17,609 Cr — accepted in full at **cut-off 5.24%** (1bp under repo). Banks are queuing to lend to RBI at the corridor floor: absorption demand is enormous.
+• **Drain stock:** plus a 30-day VRRR of ₹2,59,276 Cr @ 5.24% (yesterday) — total absorption ~₹6.8L Cr rolling. A 7-day VRRR of ₹6,00,000 Cr (auctioned Sep 1) **reverses today**, returning liquidity that RBI is immediately re-draining via daily ops.
+• **System surplus (MM ops, Sep 7 data):** net durable liquidity ~**₹8.06L Cr surplus**; bank cash balances ₹8.22L Cr vs CRR requirement ₹8.10L Cr; GoI surplus cash ₹0; MSF usage negligible (₹1,474 Cr @ 5.50%).
+• **Sep 7 money market:** overnight segment ₹6.85L Cr at 4.50% WAR — call ₹10,330 Cr @ 4.97%, TREP ₹4.91L Cr @ 4.59%, market repo ₹1.78L Cr @ 4.23%, CBLO/corp-bond repo ₹6,428 Cr @ 4.97%.
+• **Supply calendar:** Friday Sep 11 G-Sec auction, ₹32,000 Cr — 6.20% GS 2029 (₹11k Cr), 6.57% GS 2033 (₹11k Cr), **New GS 2056 (₹10k Cr, 30-year reissue)**; settlement Sep 15.
+• Regulatory/releases: RBI published **Sectoral Deployment of Credit by NBFC — July 2026** (y-o-y growth detail in attached statement), ECB/FCCB data for July, and directions under BR Act §35A/§56 for a small Nashik co-operative bank.
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 3. RATES &amp; FX STRUCTURE (CCIL LIVE, 11:31)                       │
+└─────────────────────────────────────────────────────────────────┘
+
+**OIS curve (WAR, change vs prev close):**
+
+| Tenor | 9M | 1Y | 2Y | 3Y | 5Y |
+|---|---|---|---|---|---|
+| Rate | 5.825% | 5.975% | 6.175% | 6.314% | 6.475% |
+| Chg | −¼bp | +½bp | +½bp | +1bp | +1bp |
+
+**USD/INR forwards (previous-close points; thin prints today):**
+
+| Tenor | Points | Forward | Ann. premium |
+|---|---|---|---|
+| 1M | 17.75 | 94.88 | 2.28% |
+| 3M | 66.00 | 95.37 | 2.80% |
+| 6M | 142.50 | 96.13 | 3.02% |
+| 12M | 289.75 | 97.60 | 3.06% |
+
+• The curve is **uniformly above the 5.25% repo** — 1Y OIS at ~6.0% (+72bp over repo) means the market has fully priced the bottom of the easing cycle and is carrying a tightening premium, driven by the oil shock and a hawkish-tilted Fed.
+• Curve shape is positively steep (5Y−2Y +31bp): term premium rebuilding at the long end, not an inverted short end.
+• Forwards: only Sep-26 (+1.5p to 10.65) and Jan-27 (+1.0p to 113.50) printed today — points marginally firmer; premia 2.3–3.1% annualized are moderate and consistent with an INR-side rate premium over USD (~3.5–3.75%).
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 4. FLOWS                                                         │
+└─────────────────────────────────────────────────────────────────┘
+
+| Category | Net (₹ Cr) — 07 Sep | Read |
+|---|---|---|
+| FII/FPI (cash) | +280 | Third mildly positive session |
+| DII (cash) | +567 | Steady absorption |
+
+• Equity FPI flows are small but no longer negative — context: reports of ~$3.1bn FPI equity inflows in August and the FCNR-led dollar surge; the bigger foreign flow story is **debt/FX (dollar deposits), not cash equities**.
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 5. GLOBAL MARKETS                                                │
+└─────────────────────────────────────────────────────────────────┘
+
+| Market | Level | Change |
+|---|---|---|
+| S&amp;P 500 futures | 7,707.5 | +0.40% |
+| Nasdaq futures | 29,624.25 | +1.50% |
+| Dow futures | 53,050 | −0.13% |
+| DAX (Mon close) | 26,006.53 | −0.96% |
+| FTSE (Mon close) | 10,822.13 | −0.02% |
+| US 10Y Treasury | 4.784% | +3bp |
+| Dollar Index | 98.80 | −0.76% |
+| VIX | 15.30 | −6.4% |
+| Gold / Silver | $4,467 / $67.34 (₹/oz basis) | +2.3% / +4.1% |
+
+• **US: tech-led relief (+1.5% Nasdaq futures) while yields rise** — a growth-composure trade into a Sept 15–16 FOMC that carries genuine hike risk (Fed held 3.50–3.75% five straight meetings; post-Jackson-Hole repricing put hike odds as high as ~60% on one tracker before cooling; Waller leaning hold). FOMC blackout is in effect — no speakers.
+• **Commodities are the day&#x27;s macro event:** Brent +2.8% back near $100 (touched ~$99.4 on Sep 3) after the Iran–Oman Hormuz arrangement failed to ease supply fears; gold/silver bid as inflation-hedge, not risk-off (VIX down).
+• DXY lower even as UST yields rise — oil-exporter/EM capital reallocation is absorbing dollar demand; a tailwind for INR.
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 6. SECTOR DEEP DIVE                                              │
+└─────────────────────────────────────────────────────────────────┘
+
+**A. Banking &amp; Financials (incl. NBFC read)**
+
+| Index | Change | Breadth (adv/dec) |
+|---|---|---|
+| Bank Nifty | −0.34% | 9/5 |
+| Nifty Fin Services | −0.73% | 5/15 |
+| Fin Services ex-Bank (NBFC-heavy) | −0.58% | 7/23 |
+
+• **What moved:** financials are the largest index drag; the NBFC-heavy ex-bank bucket underperforming banks (5/15 breadth in Fin Services) is the market pricing **NIM compression + asset-quality sensitivity** to a curve that prices hikes, not cuts.
+• **Cross-asset read:** banks enjoy the cheapest marginal funding in years (TREP 4.65%, call 5.05% — both at/near the corridor floor), but deposit repricing lag cuts the other way if OIS is right. NBFCs face the mirror image: **spot funding is cheap today; the 1Y forward cost of carry (~6.0% OIS + spread) is what the ALM book prices for term liabilities.**
+• **Cross-check with hard data:** RBI&#x27;s July NBFC sectoral credit release (Sep 7) is the fundamental anchor — credit growth remains the demand story; the compression risk is spread, not volume.
+• **Watch:** daily VRRR cut-offs (5.24% = the system&#x27;s marginal parking rate), Friday auction cut-offs as the policy-rate signal, CP/CD prints (gap — see notes).
+
+**B. G-Sec / Bond Market**
+
+| Security | Yield |
+|---|---|
+| 6.94% GS 2036 (benchmark) | 6.9611% LTY (+~1bp) |
+| 6.36% GS 2031 | 6.5138% |
+| GOI FRB 2033 | 6.0496% |
+
+• TradingEconomics: 10Y &quot;eased to 6.95%&quot; Monday (−2bp); +19bp over the past month, +49bp y/y. Today&#x27;s intraday drift is back up ~1–2bp — **cheapening into Friday&#x27;s ₹32k Cr auction**, which includes a ₹10k Cr reissue of the new 30-year (GS 2056).
+• **What&#x27;s driving:** three stacked headwinds — Brent near $100 (inflation pass-through), Fed hike risk spilling into EM term premia, and RBI&#x27;s gradual (not aggressive) liquidity drain keeping duration buyers cautious. Offsetting: the ₹8L Cr surplus gives banks vast deployable float, which is why the sell-off is measured (1–2bp/day, not 5–10bp).
+• **Watch:** auction cut-offs Friday; any VRRR tenor extension beyond overnight/30-day (a signal RBI wants the drain to stick); CPI print later in the month as the Hormuz pass-through lands.
+
+**C. Money Market &amp; Liquidity**
+
+| Segment (today, 11:31) | WAR | Range | Volume (₹ Cr) |
+|---|---|---|---|
+| Call money | 5.0482% (+8bp) | 4.65–5.15 | 4,970 |
+| TREP | 4.6500% (+6bp) | 4.55–4.75 | 3,16,707 |
+| Basket repo | 4.7547% (+12bp) | 4.59–4.91 | 92,880 |
+| Special repo | 3.6285% | 1.00–5.90 | 60,286 |
+
+• Rates firmed 6–12bp this morning **despite** the ₹6L Cr 7-day VRRR reversing today — RBI&#x27;s same-day overnight drain (₹4.18L Cr accepted) is keeping the recalibration tight-but-orderly. Call above the 5.00% SDF floor is normal-corridor behavior, not scarcity.
+• The special-repo range (1.00–5.90%) shows the market is still learning where the floor sits with this much surplus — wide dispersion, cheap tail liquidity for those positioned in it.
+• **Read-through:** short-term funding is abundantly available and cheap; the curve says this regime is transitional. The ₹8L Cr durable surplus is the largest ever recorded — RBI is clearly engineering a slow leak, not a shock.
+
+**D. FX (INR)**
+
+• Spot 94.7050 (+14p) with RBI&#x27;s displayed reference at 94.4467 — INR is one of the firmer EM currencies today **against a +2.8% oil move**, which is unusual and is the FCNR conversion story in action.
+• The 3.0–3.1% forward premia at 6–12M plus a ~6% 1Y OIS means fully-hedged foreign money earns a meaningful INR carry cushion — the mechanism that keeps dollar supply coming as long as DXY doesn&#x27;t snap back.
+• **Risk asymmetry:** if Hormuz escalation pushes Brent decisively through $100 while the FCNR conversion wave tapers, INR gives back the week&#x27;s gains quickly; the ₹8L Cr surplus and RBI&#x27;s conversion-driven dollars are the buffers.
+
+**E. Energy &amp; Inflation-Linked Equity Rotation**
+
+| Leading | Lagging |
+|---|---|
+| Media +1.57%, Pharma +0.78%, Metal +0.65%, FMCG +0.53% | Fin Services −0.73%, Bank −0.34%, IT −0.32%, Auto −0.32% |
+
+• Classic oil-shock rotation: **inflation beneficiaries (metals, pharma pricing power, FMCG passthrough) bid; rate- and fuel-sensitive sectors (auto, banks/NBFCs, IT on US rate uncertainty) offered.**
+• Auto&#x27;s weakness is the cleanest oil read — fuel inflation since the February Hormuz closure has been squeezing entry-level demand, the most NBFC-relevant credit segment (two-wheeler/vehicle loans).
+• **Watch:** $100 Brent — a psychological and policy trigger (excise duty math, OMC margins, and RBI&#x27;s next inflation forecast round).
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 7. EVENTS REMAINING TODAY / OVERNIGHT WATCH                      │
+└─────────────────────────────────────────────────────────────────┘
+
+• **Today (IST):** Europe opens 12:30 (DAX/FTSE after Monday&#x27;s flat-to-down); US cash open 19:00 with Nasdaq futures +1.5%; RBI reference rate publication this evening; no further RBI auctions today.
+• **Overnight:** FOMC blackout (meeting Sep 15–16) — no Fed speakers; weekly jobless claims Thursday; **oil headlines are the dominant variable** — any Hormuz follow-through (escalation or a deal revival) will set the global tone.
+• **This week:** Friday ₹32,000 Cr G-Sec auction (incl. 30Y reissue); India CPI/WPI later in the month.
+• **Risk factors:** Brent through $100; Fed hike delivery on Sep 16; FII flow reversal; a fast end to the FCNR conversion wave.
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 8. TREASURY IMPLICATIONS (ANALYSIS ONLY)                         │
+└─────────────────────────────────────────────────────────────────┘
+
+• **LIQUIDITY:** Call at 5.05% (1bp above SDF floor) and TREP 4.65% with a ₹8L Cr surplus — near-term rollover risk is minimal and short funding is at cycle-cheap levels; the OIS curve (1Y ~6.0%) is the market&#x27;s statement that this is transitional. The daily VRRR cut-off (5.24%) is the cleanest single read on how fast RBI is draining.
+• **FX HEDGE:** Spot firm at 94.71 despite oil; forward premia 2.3–3.1% annualized. The hedge math for USD payables is currently driven by the FCNR dollar pipeline — if that flow tapers while Brent holds $98+, the spot/forward mix shifts against unhedged positions quickly.
+• **BOND MARKET:** Benchmark 6.96% is cheapening into Friday&#x27;s ₹32k Cr supply with a ₹10k Cr 30-year reissue — long-end term premium is rebuilding (5Y−2Y OIS +31bp) on oil plus Fed hike risk. 30Y cut-off Friday will be the cleanest read of institutional duration appetite.
+• **CREDIT / CP-NCD:** No public CD/CP prints accessible today; the anchor is TREP 4.65% / call 5.05% for tenors out to ~1M, with the 1Y OIS ~6.0% implying term borrowing costs rise from here if the curve is right. NBFC credit growth (July sectoral data released Sep 7) remains the demand-side offset to spread compression.
+• **RISK ALERT:** Three-way squeeze — Brent $100, Sept Fed hike delivery, INR reversal on FCNR tapers — any two together reprice the whole funding curve; Friday&#x27;s auction is the first hard market test.
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 9. DATA GAPS &amp; NOTES                                             │
+└─────────────────────────────────────────────────────────────────┘
+
+• **O/N OIS fixing: unavailable** — CCIL derivative table&#x27;s shortest tenor is 9M; reported available tenors only (consistent with prior sessions; FBIL not used).
+• **CD/CP market prints: unavailable** — CCIL CD/CP resource endpoints returned empty; no public secondary print source accessible this run.
+• **RBI reference rate for Sep 8: verification pending** — not yet published as of 11:31; homepage-displayed 94.4467 (latest available) used alongside CCIL market spot 94.7050, clearly labelled.
+• **India VIX:** not pulled this run.
+• **NBFC July sectoral credit:** release noted; statement-level growth figures sit in a PDF attachment not parsed this run.
+• **US data calendar:** specifics for tonight unconfirmed from a live calendar; FOMC blackout (Sep 15–16 meeting) confirmed from Fed/tracker sources.
+• **Sensex change** computed off Yahoo&#x27;s prior close (76,132.81); NSE-verified figures used for Nifty/Bank Nifty wherever both exist.
+
+═══════════════════════════════════════════════════════════════════
+  Sources: RBI (policy rates, PRs 63536–63542, MM ops), CCIL (MM,
+  OIS, G-Sec, FX), NSE (allIndices, FII/DII), TradingEconomics,
+  Yahoo Finance, ET/NDTV live coverage. No URLs per format policy.
+  Report generated: 08 Sep 2026, 11:35 IST
+═══════════════════════════════════════════════════════════════════
+</pre>
+</div>
+</div></body></html>
