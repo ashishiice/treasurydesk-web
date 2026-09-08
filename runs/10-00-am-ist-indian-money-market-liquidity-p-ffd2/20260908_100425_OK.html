@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10:00 AM IST — Indian Money Market Liquidity Pulse (Repo, CRR, G-Sec, CD, CP rates) — 2026-09-08 10:04:25 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of 10:00 AM IST — Indian Money Market Liquidity Pulse (Repo, CRR, G-Sec, CD, CP rates)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">10:00 AM IST — Indian Money Market Liquidity Pulse (Repo, CRR, G-Sec, CD, CP rates)</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    08 Sep 2026, 10:04:25 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Liquidity &nbsp;·&nbsp; job ffd21ee2e418
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 08 Sep 2026, 10:04:25 IST</h2>
+  <pre>**Job ID:** ffd21ee2e418
+**Run Time:** 2026-09-08 10:04:01
+**Schedule:** 0 10 * * 1-5
+
+## Prompt
+
+[IMPORTANT: The user has invoked the &quot;india-money-market-liquidity&quot; skill, indicating they want you to follow its instructions. The full skill content is loaded below.]
+
+---
+name: india-money-market-liquidity
+description: Real-time Indian money market liquidity assessment for treasury operations. Fetch MIBOR, OIS, system liquidity, LAF/SDF operations, VRRR data from RBI and CCIL.
+tags: [india, liquidity, mibor, ois, rbi, ccil, money-market, treasury, laf, vrrr, call-money]
+category: treasury-automation
+---
+
+Daily real-time liquidity monitoring for NBFC treasury operations. Time-sensitive morning assessment (10:00 AM IST).
+
+## Data Sources &amp; Working Approaches
+
+### RBI (Primary and ONLY Reliable Source for Automated Extraction)
+**Primary URL**: `https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=&lt;ID&gt;` — **Daily Money Market Operations press release (preferred for cron jobs)**
+**Fallback URL**: `https://www.rbi.org.in/scripts/BS_ViewMMO.aspx` — Direct MMO page
+
+**Working approach — Press Release via curl (most reliable for automation, verified May 2026)**:
+1. Find the latest &quot;Money Market Operations as on [Date]&quot; press release:
+   - IDs are sequential but gaps vary (1-5 IDs per day; weekend/holiday gaps larger). Verified May 2026 mapping:
+     | Date | prid |
+     |------|------|
+     | May 14, 2026 | 62740 |
+     | May 15, 2026 | 62751 |
+     | May 16, 2026 | 62753 |
+     | May 17, 2026 | 62754 |
+     | May 18, 2026 | 62764 |
+     | May 19, 2026 | 62770 |
+     | May 20, 2026 | 62778 |
+   - **New in May 2026**: MMO prids skip weekends (May 16 had no MMO; May 17 is a holiday/exception).
+
+**⚠️ PITFALL (May 2026) — Holiday Numeric-Cell Drift:** On holidays, all market volumes show ₹0. The whitespace/empty cells between tables collapse differently, causing `extract_by_numeric_cells()` to return **nonsensical mappings** (e.g. `net_durable_liquidity` at index 3, `sdf_amount` at index 5, `slf_availed` at index 171042). The risk is publishing phantom data in a cron job. **Mitigation**: When holiday zeros are observed (all volumes zero), always validate numeric-cell results against `extract_mmo_tables()` (full-table regex) before reporting. See `references/session-2026-05-29-holiday-drift.md` for exact drift pattern on May 23–24 and May 28.
+
+- `references/session-prid-ranges-jun-2026.md` — Verified RBI MMO `prid` timeline and gap rules for June 2026 (use when brute-forcing IDs). **Corrected June 9, 2026**: the &quot;June 2026 reset&quot; claim was wrong — prid sequences continue monotonically across months; always verify via the listing page.
+
+### VRR / VRRR Auction Results — Discovery &amp; Extraction
+
+VRR (Variable Rate Repo = injection) and VRRR (Variable Rate Reverse Repo = absorption) results appear as **separate press releases**, not inside the daily MMO table.
+
+**Discovery: Listing-Page Extraction (recommended — May 2026)**
+Instead of brute-force `prid` range scanning, use one `browser_console` expression on `BS_PressReleaseDisplay.aspx` to extract all `(prid, title)` pairs, then filter for `Result` + `Variable Rate Repo` + target date. This is 5–10× faster. Full pattern in `references/vrr-result-listing-page-discovery.md`.
+
+```javascript
+(() =&gt; {
+  let items = [];
+  document.querySelectorAll(&#x27;a.link2&#x27;).forEach(a =&gt; {
+    let href = a.getAttribute(&#x27;href&#x27;) || &#x27;&#x27;;
+    let m = href.match(/prid=(\d+)/);
+    if (m) items.push({prid: parseInt(m[1]), title: a.innerText.trim()});
+  });
+  return items;
+})()
+```
+
+**Old brute-force fallback (slow, use only if listing page inaccessible):**
+```python
+import subprocess, re
+
+def find_auction_prids(start_id, end_id):
+    found = []
+    for pid in range(start_id, end_id):
+        url = f&quot;https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid={pid}&quot;
+        out = subprocess.run([&#x27;curl&#x27;,&#x27;-sL&#x27;,&#x27;--max-time&#x27;,&#x27;8&#x27;,&#x27;-A&#x27;,&#x27;Mozilla/5.0&#x27;,url], capture_output=True, text=True)
+        html = out.stdout
+        if &#x27;Variable Rate Reverse Repo&#x27; in html or &#x27;Variable Rate Repo&#x27; in html or &#x27;VRRR&#x27; in html or &#x27;VRR&#x27; in html:
+            title = re.search(r&#x27;&lt;title&gt;(.*?)&lt;/title&gt;&#x27;, html, re.I)
+            if title:
+                found.append((pid, title.group(1)))
+    return found
+```
+
+**MMO prid vs. date mismatch:** MMO press releases are titled `Money Market Operations as on [Date]` but the `prid` sequence does not always correlate perfectly with calendar date order (weekend/holiday gaps). Always verify the actual `as on` text in the fetched page. Pitfall documented in `references/mmo-prid-date-mismatch.md`.
+
+**Extraction** (after confirming PRID):
+Parse the HTML tables for:
+- &quot;Notified Amount (in ₹ crore)&quot;
+- &quot;Total amount of bids received (in ₹ crore)&quot;
+- &quot;Amount allotted (in ₹ crore)&quot;
+- &quot;Cut off Rate (%)&quot;
+- &quot;Weighted Average Rate (%)&quot;
+
+**Interpretation guide**:
+- Subscription % = (bids received / notified amount) × 100
+- &lt;30% = very weak demand (surplus)
+- 80–100% = strong demand (tightening)
+- Result typically published same morning (around 10:00–10:30 AM IST)
+
+**VRR vs VRRR**: Do NOT conflate them:
+- VRR = RBI **injects** liquidity (bank borrows from RBI)
+- VRRR = RBI **absorbs** liquidity (bank parks with RBI)
+
+**Outstanding VRR/VRRR** is already aggregated in the daily MMO table under &quot;II. Outstanding Operations&quot; → (a) Repo or (b) Reverse Repo. No manual summation of separate press releases is needed for the Liquidity Pulse table. Do NOT hardcode small 15-ID windows — gaps are unpredictable.
+   - **Fallback** (if brute-force ID range drifts): Start from a known recent ID (e.g. 62740) and expand range ±15.
+2. Fetch with curl:
+```bash
+curl -s &quot;https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=&lt;ID&gt;&quot; \
+  grep -iE &quot;(liquidity|surplus|deficit|absorption|call money|repo|WACR|VRRR|outstanding|MSF|SDF)&quot;
+```
+**Working approach — Full table regex extraction (primary, most reliable, verified May 21 2026):**
+
+The RBI MMO press release page contains **4 clean HTML tables** in a stable order. A regex-based extractor (see `references/session-2026-05-21-verified-snapshot.md` for exact row maps) is now the primary method for cron jobs because it is immune to index drift caused by empty/whitespace cells.
+
+Quick row map reference:
+- **Table 0** = Header (date, title)
+- **Table 1** = Money Markets (Call Money WAR at Row 2, Overnight total at Row 1, Term segment at Rows 6-11)
+- **Table 2** = RBI Operations (Today&#x27;s MSF/SDF/Repo at Rows 6-10, Outstanding at Rows 14-15, Net liquidity at Row 20)
+- **Table 3** = Reserve Position (Cash balances, CRR, durable liquidity surplus at Row 6)
+- **Table 4** = Footer (ignore)
+
+```python
+import urllib.request, re
+
+def extract_mmo_tables(prid: int):
+    url = f&quot;https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid={prid}&quot;
+    req = urllib.request.Request(url, headers={&#x27;User-Agent&#x27;:&#x27;Mozilla/5.0&#x27;})
+    html = urllib.request.urlopen(req, timeout=20).read().decode(&#x27;utf-8&#x27;,&#x27;replace&#x27;)
+    tables = re.findall(r&#x27;&lt;table[^&gt;]*&gt;(.*?)&lt;/table&gt;&#x27;, html, re.DOTALL)
+    result = []
+    for ti, tbl in enumerate(tables):
+        rows = re.findall(r&#x27;&lt;tr[^&gt;]*&gt;(.*?)&lt;/tr&gt;&#x27;, tbl, re.DOTALL)
+        parsed = []
+        for r in rows:
+            cells = re.findall(r&#x27;&lt;t[dth][^&gt;]*&gt;(.*?)&lt;/t[dth]&gt;&#x27;, r, re.DOTALL)
+            texts = [re.sub(r&#x27;&lt;[^&gt;]+&gt;&#x27;, &#x27;&#x27;, c).strip().replace(&#x27;\\n&#x27;,&#x27; &#x27;).replace(&#x27;  &#x27;,&#x27; &#x27;) for c in cells]
+            if any(texts):
+                parsed.append(texts)
+        if parsed:
+            result.append(parsed)
+    return result
+```
+
+**Proven method — numeric-cell regex (fastest but now FALLBACK ONLY):**
+The HTML tables in RBI MMO use `&lt;td align=&quot;right&quot;&gt;` for every data cell in a stable row order. However, **template changes after May 18, 2026 introduced empty/whitespace cells between tables**, making strict numeric indices unreliable without per-day verification. Use the full-table method above instead; numeric-cell regex should only be used when a specific index has been verified for that day&#x27;s template.
+
+| Index | Field | Description |
+|-------|-------|-------------|
+| 0 | Overnight Segment Volume | Market-wide (₹ Cr) |
+| 1 | Overnight Segment WAR | Weighted avg rate (%) |
+| 3 | *Call Money Volume* | (₹ Cr) |
+| 4 | *Call Money WAR* | = surrogate for MIBOR O/N |
+| 6 | Triparty Repo Volume | (₹ Cr) |
+| 7 | Triparty Repo WAR | (%) |
+| 9 | Market Repo Volume | (₹ Cr) |
+| 10 | Market Repo WAR | (%) |
+| 31 | MSF Amount (₹ Cr) | 0 or current borrowing |
+| 32 | MSF Rate | Current MSF rate (%) |
+| 34 | **SDF Amount (₹ Cr)** | Key surplus/absorption indicator |
+| 35 | SDF Rate | Current SDF rate (%) |
+| 36 | **Net liquidity injected today** | (+) injection / (‑) absorption |
+| 37 | SLF availed | Standing Liquidity Facility (₹ Cr) |
+| 39 | **Net liquidity (outstanding + today)** | Aggregate position |
+| 43 | **Net durable liquidity surplus** | Surplus/deficit (₹ Cr) |
+
+```python
+import urllib.request, re
+
+def get_mmo_cells(prid: int) -&gt; list:
+    url = f&quot;https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid={prid}&quot;
+    req = urllib.request.Request(url, headers={&#x27;User-Agent&#x27;:&#x27;Mozilla/5.0&#x27;})
+    html = urllib.request.urlopen(req, timeout=20).read().decode(&#x27;utf-8&#x27;,&#x27;replace&#x27;)
+    cells = re.findall(r&#x27;align=&quot;right&quot;[^&gt;]*&gt;([\d,\.\-]+)&lt;/&#x27;, html)
+    return cells
+```
+
+**When to use**: cron jobs that only need numeric values. **When NOT to use**: when you also need text labels or section context (use HTMLParser then).
+3. Extract table cell text from nested HTML tables.
+   - Call Money: Volume + Weighted Average Rate
+   - Triparty Repo (TREP): Volume + WAR
+   - Market Repo: Volume + WAR
+   - MSF: Amount + Rate (liquidity stress indicator)
+   - SDF: Amount + Rate (liquidity surplus indicator)
+   - Net liquidity injected/absorbed from today&#x27;s operations (negative = absorption)
+   - Net liquidity (outstanding + today)
+   - SLF availed from RBI
+   - Net durable liquidity surplus/deficit
+4. **No bot detection, no CAPTCHA, no JS dependency** — pure HTML table.
+
+**Working approach — Direct MMO page (best for same-day morning pulse when prid is unknown)**:
+1. `browser_navigate` to `https://www.rbi.org.in/scripts/BS_ViewMMO.aspx`
+2. Extract data via `browser_console` with `document.body.innerText` — returns the full page text including every table row without truncation.
+3. Reliable and avoids guessing `prid` for a just-published release.
+
+### CCIL (Working Sub-Pages as of June 2026)
+**Homepage**: `https://www.ccilindia.com/home` — Loads overnight rates table (CALL, TREP, BASKET REPO, SPECIAL REPO). Curl is blocked; use browser only.
+
+**Fastest live O/N call rate source for morning pulse**:
+- `https://www.ccilindia.com/home-page` — NDS-Call home page with timestamp, O/N trades, volume, open/high/low/LTR, WAR, and prev-day WAR.
+- Use this as the first source at 10:00 AM IST, then cross-check with RBI MMO.
+
+**Working sub-pages**:
+- `/money-market-rates-and-volumes-most-liquid-tenor-` — Daily Call/TREP/Basket Repo/Special Repo OHLC, WAR, Volume. No T&amp;C dialog.
+- `/tenor-wise-term-money` — Term money outstanding by tenor bucket (up to 30D through 271D+) with weighted avg rates. No T&amp;C dialog.
+- `/interbank-inr-interest-rate-swaps` — MIBOR OIS table. Requires T&amp;C ACCEPT dialog.
+- `/interbank-inr-interest-rate-swaps-real-time-trade-by-trade-dissemination` — Live IRS trades with exact fixed rates by tenor (365D = 1Y, 1826D = 5Y). **No T&amp;C dialog.** Useful as a fast fallback when the main swaps page T&amp;C blocks extraction. Shows actual trade rates, not WAR — use for verifying OIS levels when the main page is stuck.
+
+**If you must try CCIL (interactive sessions only)**:
+1. `browser_navigate` to `https://www.ccilindia.com/home` first for overnight rates
+2. For OIS, navigate directly to `https://www.ccilindia.com/interbank-inr-interest-rate-swaps`
+3. Click ACCEPT on T&amp;C dialog
+4. Use `browser_console` with `document.querySelectorAll(&#x27;table tbody tr&#x27;)` to extract the MIBOR OIS table (see Path 2 below)
+
+### RBI (Primary and ONLY Reliable Source for Automated Extraction — continued)
+
+**VRR / VRRR Auction Results** (also on Press Releases):
+- **VRR** (Variable Rate Repo) = RBI *injects* liquidity via repo. Search for &quot;Result of the X-day Variable Rate Repo (VRR) auction&quot;.
+- **VRRR** (Variable Rate Reverse Repo) = RBI *absorbs* liquidity via reverse repo. Search for &quot;Result of the X-day Variable Rate Reverse Repo (VRRR) auction&quot;.
+- Data shown inline: Notified Amount, Total offers, Amount accepted, Cut-off Rate, WAR
+- **Critical**: Do not conflate VRR (injection) with VRRR (absorption). The daily MMO net liquidity figure already accounts for whichever operation occurred.
+
+**VRR/VRRR Outstanding in MMO**: The daily MMO HTML page *does* show outstanding operations under &quot;II. Outstanding Operations → (b) Reverse Repo Operation&quot; (for VRRR) or under Repo Operation (for VRR). This table shows the auction date, tenor, maturity date, and outstanding amount. You do **not** need to sum separate press releases manually — the MMO aggregates it for you.
+
+**⚠️ AVOID**: Direct PDF downloads — they trigger CAPTCHA/bot detection
+
+## Data Points to Extract
+
+| Category | Metric | Source | Fallback if blocked |
+|----------|--------|--------|---------------------|
+| System Liquidity | SDF absorption (₹ Cr) | RBI MMO press release / direct MMO page | None needed |
+| System Liquidity | MSF borrowing (₹ Cr) | RBI MMO press release / direct MMO page | None needed |
+| Call Money | WAR, Volume, Range | RBI MMO press release / direct MMO page | CCIL home-page |
+| MIBOR O/N | Weighted Avg Rate | RBI MMO (Call Money WAR) | CCIL home-page |
+| MIBOR 1M | WAR | **Not reliably available publicly** | CCIL sub-pages blocked; FBIL requires JS render; report &quot;—&quot; |
+| OIS 1Y | Wt. Avg. Rate | CCIL Swaps (browser + T&amp;C accept) | FBIL if current; otherwise report gap |
+| OIS 5Y | Wt. Avg. Rate | CCIL Swaps (browser + T&amp;C accept) | FBIL if current; otherwise report gap |
+| VRRR | Outstanding amount | RBI MMO press release / direct MMO page | None needed |
+| LAF | Repo absorption | RBI MMO press release / direct MMO page | None needed |
+| CBLO Rates | — | **No reliable public source as of June 2026** | Report gap |
+
+## RBI Policy Rates Verification (CRR, SLR, Repo, SDF, MSF)
+
+**Primary Sources for Rate Verification:**
+
+### MPC Statements (Policy Rates: Repo, SDF, MSF, Stance)
+**URL**: `https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx`
+
+**Working approach**:
+1. Navigate to Press Releases page
+2. Search for &quot;Monetary Policy Statement&quot; or &quot;MPC&quot; 
+3. Look for latest meeting dates (e.g., April 6-8, 2026)
+4. Extract from HTML page (NOT PDF — CAPTCHA protected):
+   - Repo Rate (e.g., 5.25%)
+   - SDF Rate (e.g., 5.00% — 25bps below repo)
+   - MSF Rate (e.g., 5.50% — 25bps above repo)
+   - MPC Stance (e.g., Neutral/Accommodative/Hawkish)
+
+**Fast extraction from Governor&#x27;s Statement HTML (verified June 2026)**:
+After navigating to the Governor&#x27;s Statement press release, use `browser_console` with `document.body.innerText` and regex to extract rates without parsing tables:
+```javascript
+(()=&gt;{
+  let txt=document.body.innerText;
+  let repo=txt.match(/repo rate[^\n]{0,200}/i);
+  let stance=txt.match(/stance[^\n]{0,200}/i);
+  let sdf=txt.match(/SDF[^\n]{0,200}/i);
+  return {repo:(repo?repo[0]:null), stance:(stance?stance[0]:null), sdf:(sdf?sdf[0]:null)};
+})()
+```
+This returns the paragraph containing the rate decision and stance in one shot. Example output: `repo rate. After a detailed assessment... the MPC voted unanimously to keep the policy repo rate under the liquidity adjustment facility...` and `SDF) rate remains at 5.00 per cent... MPC also decided to continue with the neutral stance.`
+
+**Direct MPC links** (verified):
+- `https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=62514` (April 2026 MPC — Repo 5.25%, SDF 5.00%, MSF 5.50%, Stance: Neutral)
+- Search pattern: &quot;Monetary Policy Statement, 2026-27 Resolution of the Monetary Policy Committee&quot;
+
+**⚠️ AVOID**: Direct RBI rates pages like `/scripts/reference_rate.aspx`, `/scripts/FS_PolicyRates.aspx`, `/scripts/Notification.aspx` — these return 404/Error pages. Use the Press Releases section instead.
+
+**Homepage navigation**: The &quot;Policy Rates&quot; and &quot;Reserve Ratios&quot; links on the RBI homepage (`rbi.org.in/home.aspx`) use JavaScript that often times out. Navigate directly to the press release URLs above instead.
+
+### CRR/SLR Rates (Reserve Ratios)
+**URLs**:
+- **Commercial Banks** (Primary for the NBFC treasury desk): `https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=13160`
+- Rural Co-operative Banks: `https://www.rbi.org.in/scripts/NotificationUser.aspx?Mode=0&amp;Id=13005`
+- Regional Rural Banks: `https://www.rbi.org.in/scripts/NotificationUser.aspx?Mode=0&amp;Id=13056`
+- Urban Co-operative Banks: `https://www.rbi.org.in/scripts/NotificationUser.aspx?Mode=0&amp;Id=13031`
+
+**Working approach**:
+1. Navigate to Master Directions notification page
+2. Look for &quot;Updated as on [Date]&quot; (e.g., January 22, 2026)
+3. Click &quot;Chapter II - Cash Reserve Ratio (CRR)&quot; or &quot;Chapter III - Statutory Liquidity Ratio (SLR)&quot;
+4. Current rates (as of April 2026):
+   - CRR: 4.50% (applies to all scheduled commercial banks)
+   - SLR: 18.00% (applies to all scheduled commercial banks)
+
+**Note**: The Master Directions for Commercial Banks were last updated on January 22, 2026. These rates change infrequently and are NOT announced at every MPC meeting.
+
+**Note**: CRR and SLR rates are set through Master Directions and change infrequently (not at every MPC meeting). Last update was January 2026.
+
+## Data Reliability &amp; Staleness Patterns
+
+**FBIL Data Lag**:
+- **MIBOR OIS rates** on FBIL can lag significantly (observed 10+ days stale during April 2026 - showing April 10 data on April 20)
+- **Primary vs Fallback**: Use CCIL derivatives data as primary; FBIL as fallback only
+- **Timestamp check**: Always verify the &quot;Date&quot; column on FBIL tables - if it shows &gt;2-3 days old, data is stale
+
+**CCIL Homepage Real-time Data**:
+- The &quot;Indian Overnight Rates&quot; table on CCIL home is the **most reliable** source for current call money and TREP rates
+- Updates throughout the trading day; prev day WAR available even when current day shows 0.00
+- **Preferred source** over FBIL for overnight rates
+
+**RBI MMO Publication Timing**:
+- Daily MMO press releases and the direct MMO page are typically published between **10:00–11:00 AM IST** and reflect the previous business day&#x27;s operations.
+- At exactly 10:00 AM IST, the `prid` for the current day may not yet be known. Use the direct MMO page (`BS_ViewMMO.aspx`) via browser instead of brute-forcing `prid`.
+
+**RBI MMO Weekend/Holiday Patterns**:
+- **Market volumes** show ₹0 on weekends/holidays (Call, Triparty Repo, Market Repo all 0.00)
+- **SDF/MSF operations** still reported (banks access these facilities even on holidays)
+- **VRRR data** NOT in MMO table - check separate press releases for auction results
+- Interpretation: Zero volumes with high SDF = surplus; MSF &gt;₹1000 Cr = stress signal
+
+**Complex document extraction**: If the Master Directions HTML is too dense for text extraction (e.g., showing definitions but not the actual rate percentages), use `browser_vision` with a specific query like: &quot;Find the exact percentage values for CRR and SLR mentioned on this page. Look for Chapter II - CRR and Chapter III - SLR sections.&quot; This extracts rates when text parsing fails.
+
+### Reliable Data Extraction Methods
+
+#### Method 4: Numeric-cell Regex (fastest for cron jobs)
+The HTML tables in RBI MMO use `&lt;td align=&quot;right&quot;&gt;` for every data cell in a **stable row order**. Extracting numeric cells directly bypasses all label-noise and avoids HTMLParser overhead.
+
+```python
+import urllib.request, re
+
+def get_mmo_cells(prid: int) -&gt; list:
+    url = f&quot;https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid={prid}&quot;
+    req = urllib.request.Request(url, headers={&#x27;User-Agent&#x27;:&#x27;Mozilla/5.0&#x27;})
+    html = urllib.request.urlopen(req, timeout=20).read().decode(&#x27;utf-8&#x27;,&#x27;replace&#x27;)
+    cells = re.findall(r&#x27;align=&quot;right&quot;[^\u003e]*\u003e([\d,\.\-]+)\u003c/&#x27;, html)
+    return cells
+
+```
+See `references/session-2026-05-15-findings.md` for the complete verified cell index map.
+
+**When to use**: cron jobs that only need numeric values. **When NOT to use**: when you also need text labels or the exact section context (use HTMLParser then).
+
+#### Method 5: Python HTMLParser (most robust for full context)
+When `sed`/`grep` tag stripping produces noisy output with embedded CSS/JS, use Python&#x27;s built-in HTMLParser:
+```bash
+curl -sL &#x27;https://www.rbi.org.in/scripts/BS_ViewMMO.aspx&#x27; | python3 -c &quot;
+import sys
+from html.parser import HTMLParser
+
+class TextExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.text = []
+        self.skip = False
+    def handle_starttag(self, tag, attrs):
+        if tag in [&#x27;script&#x27;,&#x27;style&#x27;]:
+            self.skip = True
+    def handle_endtag(self, tag):
+        if tag in [&#x27;script&#x27;,&#x27;style&#x27;]:
+            self.skip = False
+    def handle_data(self, data):
+        if not self.skip:
+            t = data.strip()
+            if t:
+                self.text.append(t)
+
+parser = TextExtractor()
+parser.feed(sys.stdin.read())
+print(&#x27; &#x27;.join(parser.text))
+&quot;
+```
+This returns all RBI MMO text cleanly, including every table cell, with zero noise from CSS/JS. From the output, grep for liquidity keywords (`SDF`, `MSF`, `surplus`, `deficit`, `Net liquidity`, `outstanding`).
+
+#### Method 2: browser + document.body.innerText
+If browser navigation is needed (e.g., for visual confirmation):
+```javascript
+// In browser_console:
+document.body.innerText
+```
+This returns all text content including every table row without truncation.
+
+#### Method 3: browser snapshot (may truncate)
+`browser_snapshot(full=true)` may truncate after ~200 lines. Use only for quick spot-checks.
+
+### CCIL OIS Extraction via Browser Vision (Primary Working Method)
+When DOM text extraction (`browser_snapshot`, `browser_console`) fails due to lazy-loaded tables or shadow DOM, use **`browser_vision` with `annotate=true`**:
+1. Navigate to `https://www.ccilindia.com/interbank-inr-interest-rate-swaps`
+2. Click ACCEPT on the T&amp;C dialog (`ref=e63`)
+3. Run: `browser_vision(annotate=true, question=&quot;What are the values in the MIBOR OIS table for tenors 1M, 1Y, 5Y? Show me the current day last reported rates and Wt Avg Rate for these rows.&quot;)`
+4. Vision returns exact cell values from the rendered page, bypassing all JS/DOM issues.
+
+**Verified coordinates (May 2026 layout, 24px row height)**:
+- 1M row: y≈426, Last Reported Rate ~x=778
+- 1Y row: y≈546
+- 5Y row: y≈642
+
+### Verification Rules
+- **ONLY** accept rates from RBI press releases, MPC statements, or Master Directions on rbi.org.in
+- **NEVER** use news feeds, financial websites, or third-party sources for rate verification
+- If multiple sources show different rates, flag the discrepancy explicitly
+- Include the source URL and date for each rate
+- If a rate cannot be verified from RBI, mark it as UNVERIFIED
+- For Reverse Repo: Note that the fixed rate was discontinued in April 2022; use SDF rate (floor of corridor) minus 1.75% for non-LAF participants (3.25%)
+
+**Reverse Repo Rate Note**: The fixed Reverse Repo rate was discontinued in April 2022. The SDF (Standing Deposit Facility) rate at 5.00% now serves as the floor for the LAF corridor. For non-LAF participants, reverse repo is available at 3.25% (1.75% below SDF rate).
+
+## RBI Search Functionality
+The RBI website has a working search at `rbi.org.in` (accessible via the search box on any page):
+- **Use case**: Finding specific notifications like CRR/SLR updates
+- **Working pattern**: Search for &quot;cash reserve ratio&quot;, &quot;statutory liquidity ratio&quot;, or &quot;CRR SLR&quot;
+- **Results**: Shows Master Directions and Amendment notifications with direct links
+- **Limitation**: Results page can be truncated — follow the &quot;Master Directions&quot; or &quot;Notification&quot; links for full text
+
+## BLOCKED Approaches (Confirmed)
+- **Direct CCIL MIBOR page**: `https://www.ccilindia.com/mibor.aspx` — Access Denied (bot detection)
+- **CCIL API endpoints**: `/ccil/data/ratewatch/MIBOR.json` — 404
+- **CCIL sub-page navigation via headless browser** (May 2026): Clicking &quot;Market Today&quot; or &quot;Data &amp; Statistics&quot; from CCIL home leads to **empty pages** — the site appears to require JavaScript execution that headless browsers cannot complete. Direct navigation to `/market-today`, `/data-and-statistics`, `/web/CCIL/ois-mibor-term-rates` all return empty pages.
+- **CCIL MIBOR-OIS landing pages**: `/mibor-ois`, `/web/ccil/mibor-ois`, `/web/ccil/financial-market/mibor-ois` — Page Not Found / 404 (confirmed June 2026).
+- **CCIL CBLO page**: `/web/ccil/cblo` — empty page; no public CBLO rate table found (June 2026).
+- **Google search for MIBOR**: Rate-limited, returns obfuscated JS
+- **RBI Money Market PDFs**: CAPTCHA protected — cannot download directly
+- **RBI /scripts/MoneyMarket.asp**: Access Denied (bot detection)
+- **Direct RBI policy rates pages**: Many URLs like `/Scripts/PolicyRates.aspx` return errors — use press releases instead
+- **web_search for RBI rates**: May fail if Firecrawl/Tavily API keys are not configured — use browser navigation instead
+- **Clicking &quot;Policy Rates&quot; on RBI homepage**: JavaScript interaction often times out — navigate directly to press release URLs
+- **FBIL direct deep links**: URLs like `/web/ccil/home` return 404 — always navigate through FBIL homepage first
+- **FBIL MIBOR OIS data freshness**: Check date stamps — often 7-10 days stale; prefer CCIL for current OIS
+- **FBIL public OIS table**: The &quot;MIBOR - OIS&quot; tab on FBIL does not expose a public, directly extractable table as of June 2026; only placeholder text renders. Prefer CCIL swaps or report a gap.
+- **RBI `prid` brute-force for MMO** (deprecated): Starting from a known ID and expanding ±15 is slow and fragile. Preferred: navigate to `BS_PressReleaseDisplay.aspx`, extract all title/prid pairs from the listing page via `browser_console` JavaScript, then filter for &quot;Money Market Operations&quot; and &quot;Variable Rate Repo&quot; — see `references/vrr-result-listing-page-discovery.md`. **Pitfall**: RBI serves ANY valid prid with the page template, so brute-forcing wide ranges can return valid HTTP 200 responses for completely unrelated historical press releases (e.g. prid=57623 is a 2024 FRB 2028 notice, NOT a June 2026 MMO). Always verify the H1/H2 contains the expected title text.
+
+## RBI Homepage Language Popup
+**Issue**: When accessing `https://www.rbi.org.in/home.aspx`, a language selection popup may appear (Hindi/English options). This can block content extraction.
+
+**Workaround**: 
+- If popup appears, click the &quot;English&quot; button (ref=e126) to dismiss it
+- Or navigate directly to press release URLs to bypass the homepage
+
+## Session-Specific Reference Files
+- `references/session-2026-05-06-blockages.md` — CCIL/FBIL blockage patterns documented May 2026; what worked vs what failed
+- `references/session-2026-06-16-liquidity-pulse.md` — June 16, 2026 10 AM pulse: CCIL home-page live O/N rates, RBI direct MMO page extraction, VRR auction discovery, and public-source gaps (MIBOR 1M, OIS 1Y/5Y, CBLO).
+- `references/fbil-wasdm-endpoints.md` — FBIL public WASDM endpoints for Overnight MIBOR, Term MIBOR, and MIBOR-OIS, plus freshness checks.
+- `references/session-2026-06-05-mpc-day-extraction.md` — Governor&#x27;s Statement fast extraction pattern, CCIL no-T&amp;C fallback, and post-MPC OIS behavior.
+- `references/session-2026-06-09-liquidity-pulse.md` — Post-MPC (Jun 3-5) comfortable surplus snapshot, VRR-vs-VRRR clarification, OIS curve flattening ~5-10 bps, trend-baseline-as-last-full-business-day pattern.
+
+## Rate Verification Workflow (Baseline Comparison)
+For scheduled rate verification tasks (e.g., daily/weekly validation against known baselines):
+
+1. Fetch current rates from RBI MPC statement and Master Directions
+2. Compare against verified baselines:
+   - Repo Rate: Check MPC statement
+   - SDF/MSF: Derived from repo (±25bps)
+   - CRR/SLR: Check Master Directions (change infrequently)
+3. **Output Rules**:
+   - If ALL rates match baselines → Output exactly `[SILENT]` (suppresses delivery)
+   - If ANY rate differs → Output full verification report with discrepancy warnings
+   - If ANY rate cannot be verified → Mark as UNVERIFIED
+
+## Working Navigation Paths
+
+### Path 0: 10:00 AM Quick Pulse (recommended when time-sensitive)
+When the user needs a same-day 10:00 AM IST liquidity pulse and the RBI MMO `prid` is not yet known:
+```
+1. browser_navigate to https://www.ccilindia.com/home-page
+   - Extract: O/N Call WAR, volume, range, prev-day WAR
+2. browser_navigate to https://www.rbi.org.in/Scripts/BS_ViewMMO.aspx
+   - Use browser_console with document.body.innerText to extract:
+     SDF amount, MSF amount, net liquidity today, net liquidity outstanding+today,
+     Call Money WAR/volume/range, Triparty Repo, Market Repo
+3. web_search for &quot;RBI to conduct X-day Variable Rate Repo auction [today&#x27;s date]&quot;
+   - Confirm scheduled VRR/VRRR auctions and notified amount
+4. Try CCIL Swaps or FBIL for MIBOR 1M / OIS 1Y / OIS 5Y
+   - If blocked or stale, report the gap explicitly
+5. Do not fabricate CBLO rates; state &quot;no reliable public source&quot;
+```
+See `references/session-2026-06-16-liquidity-pulse.md` for a worked example.
+
+### Path 1: CCIL Home → Money Market Data
+```
+1. browser_navigate to https://www.ccilindia.com/home
+2. Look for &quot;Indian Overnight Rates&quot; table (displayed on homepage)
+3. Data includes: CALL, TREP, BASKET REPO, SPECIAL REPO
+```
+
+### Path 2: CCIL Swaps for OIS Rates
+```
+1. browser_navigate to https://www.ccilindia.com/interbank-inr-interest-rate-swaps
+2. ⚠️ A Terms &amp; Conditions dialog appears; click ACCEPT (ref=e63) before any data is accessible
+3. Use browser_console with JavaScript to extract the MIBOR OIS table:
+   ```javascript
+   (() =&gt; {
+     let rows = [];
+     document.querySelectorAll(&#x27;table tbody tr&#x27;).forEach(tr =&gt; {
+       let cells = [];
+       tr.querySelectorAll(&#x27;td&#x27;).forEach(td =&gt; cells.push(td.innerText.trim()));
+       if(cells.length &gt;= 5) rows.push(cells);
+     });
+     return rows;
+   })()
+   ```
+   The first 10 rows are the MIBOR OIS tenors (1M, 2M, 3M, 6M, 9M, 1Y, 2Y, 3Y, 4Y, 5Y).
+   Column indices: Tenor[0], Prev Day LRR[1], Open[2], High[3], Low[4], Wt.Avg.Rate[5], LRR Current[6], Timestamp[7], Volume[9], Trades[10].
+4. Note there are TWO tables on this page:
+   - First table (top): &quot;MIBOR OIS&quot; — standard overnight-indexed swaps (use this for 1M/1Y/5Y)
+   - Second table (bottom): &quot;MODIFIED MIFOR&quot; — different product with higher rates; IGNORE
+5. If the console query returns only T&amp;C dialog text, re-click ACCEPT; if cells are empty after accept, scroll the table into view or use browser_vision.
+```
+
+See `references/ccil-mibor-ois-extraction.md` for CCIL field-level extraction guidance and browser vision coordinates.
+See `references/rbi-mmo-extraction-patterns.md` for RBI Money Market Operations HTML extraction patterns when CCIL data is unavailable.
+See `scripts/fetch_rbi_mmo.py` for a reusable script to fetch and parse the latest RBI MMO press release.
+
+### VRRR Auction Data
+
+**Location**: Separate RBI press releases (NOT included in daily Money Market Operations table)
+
+**Search pattern**: &quot;Result of the 7-day Variable Rate Reverse Repo (VRRR) auction held on [Date]&quot;
+
+**Data points**:
+- Notified Amount (planned absorption)
+- Total offers received
+- Amount accepted
+- Cut-off Rate
+- Weighted Average Rate
+
+**Outstanding VRRR tracking**: To calculate total outstanding, you need to track multiple auctions. Each auction result page shows tenor (typically 7-day or 14-day) and maturity date. Sum all &quot;Amount accepted&quot; for auctions not yet matured.
+```
+1. browser_navigate to https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx
+2. Find link: &quot;Money Market Operations as on [Date]&quot;
+3. Click the HTML link (NOT the PDF link — CAPTCHA protected)
+4. Extract: SDF amount, MSF amount, Call Money data
+```
+
+### FBIL Benchmark Rates (OIS/MIBOR) — Preferred for OIS Rates
+**URL**: `https://www.fbil.org.in/#/home`
+
+**Working approach**:
+1. Navigate to home page
+2. Click &quot;MONEY MARKET/INTEREST RATES&quot; tab (primary tab, not DERIVATIVES)
+3. Sub-tabs available: Overnight MIBOR, Term MIBOR, Repo Benchmark Rate, T-bill, CP/CD, SORR
+4. **⚠️ Pitfall**: The &quot;DERIVATIVES → MIBOR OIS&quot; sub-tab on FBIL may show Forward Premia data instead of OIS rates — do NOT rely on this path for OIS
+5. For OIS 1Y/5Y, use CCIL Swaps page (Path 2 above) as primary; FBIL does NOT reliably publish MIBOR OIS swap rates in the DERIVATIVES section
+
+**FBIL public WASDM endpoints discovered Jun 2026**:
+- Base URL: `https://www.fbil.org.in/wasdm`
+- Latest public fetch endpoints:
+  - `GET /wasdm/termmibor/fetch?authenticated=false` — latest Term MIBOR rows (14D, 1M, 3M) with `processRunDate`, `displayTime`, `rate`.
+  - `GET /wasdm/ovnmibor/fetch?authenticated=false` — latest Overnight MIBOR rows.
+  - `GET /wasdm/miborois/fetch?authenticated=false` — latest MIBOR-OIS curve rows (1M, 2M, 3M, 6M, 9M, 1Y, 2Y, 3Y, 4Y, 5Y).
+- **Freshness pitfall**: FBIL WASDM may lag several business days. Always inspect `processRunDate` / `displayTime` before using the value. At 10:00 AM IST, Term MIBOR for the current day is normally **not published yet** because FBIL announces it at **01:45 PM IST**. Report &quot;N/P by 10:00; latest X (date)&quot; rather than treating stale Term MIBOR as current.
+- For current OIS 1Y/5Y, prefer CCIL Swaps live market-watch table; use FBIL only as a dated benchmark cross-check.
+- Reference file: `references/fbil-wasdm-endpoints.md`.
+
+**FBIL data that IS reliable**:
+- Overnight MIBOR (O/N): Under MONEY MARKET/INTEREST RATES → Overnight MIBOR
+- Term MIBOR (14D, 1M, 3M): Under MONEY MARKET/INTEREST RATES → Term MIBOR
+- Repo Benchmark Rate: Under MONEY MARKET/INTEREST RATES → Repo Benchmark Rate
+- T-bill rates, CP/CD rates
+
+**⚠️ Pitfall — Two tables on CCIL Swaps page**: The CCIL Swaps page contains TWO separate product tables:
+- Top table: &quot;MIBOR OIS&quot; — standard overnight-indexed swaps (use this for OIS 1M/1Y/5Y)
+- Bottom table: &quot;MODIFIED MIFOR&quot; — a different benchmark product with higher rates
+- **DO NOT confuse them**. Example: On May 4, 2026, 5Y MIBOR OIS was 6.67% while 5Y Modified MIFOR was 7.30%.
+- Visual cue: The MIBOR OIS table has columns: Tenor, Last Reported Rate Of Previous Day, Open, High, Low, Wt.Avg.Rate, Last Reported Rate Of Current Day, Last Reported Trade Time Stamp, Volume, No. Of Trades.
+
+## Output Format
+
+```
+**Liquidity Pulse — [Date] 10:00 AM IST**
+
+| Metric | Value | Trend (vs prev day) |
+|--------|-------|---------------------|
+| System Liquidity (₹ Cr) | +X,XX,XXX* | Surplus/Deficit |
+| MIBOR O/N (%) | X.XX | +/- bps |
+| MIBOR 1M (%) | X.XX | +/- bps |
+| OIS 1Y (%) | X.XX | +/- bps |
+| OIS 5Y (%) | X.XX | +/- bps |
+| LAF Repo Absorption (₹ Cr) | X,XX,XXX | — |
+| VRRR Outstanding (₹ Cr) | XX,XXX | — |
+
+**RBI Operations Today:**
+(list any VRRR/OMO auctions scheduled)
+
+**Assessment:**
+(surplus/deficit position, expected pressure points, funding implications)
+```
+
+## RBI Homepage Policy Rates Accordion Pitfall (June 2026)
+
+The RBI homepage (`rbi.org.in/home.aspx`) has a &quot;Policy Rates&quot; accordion
+section under &quot;1. Current Rates&quot;. Clicking the accordion button via
+`browser_click` (ref `@e73` in the June 2026 layout) does NOT reliably
+populate `document.body.innerText` with the rate values. The accordion
+expands visually but the text content remains inaccessible to
+`browser_console` extraction.
+
+**Fix**: Use the MMO press release as the primary source for confirming
+policy rates in cron/headless mode:
+
+1. Navigate to `rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx`
+2. Click the latest &quot;Money Market Operations as on [Date]&quot; link
+3. Extract via `browser_console` with `document.body.innerText`
+4. The MMO table directly shows:
+   - SDF rate (5.00%) and amount
+   - MSF rate (5.50%) and amount
+   - Call Money WAR, Triparty Repo WAR, Market Repo WAR
+5. Derive repo rate: repo = SDF + 25bp = 5.25%
+6. Derive reverse repo (if needed): SDF - 1.75% = 3.25%
+
+This method is more reliable than the homepage accordion and provides
+all liquidity data in a single page load.
+
+## RBI Rates Verification Output Format
+
+For scheduled verification tasks comparing against known baselines:
+
+```
+RBI RATES VERIFICATION (as of [timestamp IST])
+
+Repo Rate: X.XX% [Source: RBI MPC Statement DD-MMM-YYYY]
+SDF: X.XX% [Source: RBI]
+MSF: X.XX% [Source: RBI]
+Reverse Repo: X.XX% [Source: RBI]
+CRR: X.XX% [Source: RBI Master Directions DD-MMM-YYYY]
+SLR: X.XX% [Source: RBI Master Directions DD-MMM-YYYY]
+MPC Stance: [Neutral/Accommodative/Hawkish]
+
+⚠️ DISCREPANCIES DETECTED (if any):
+- [Source] shows repo at Y.YY% — differs from verified X.XX%
+
+[SILENT] if all rates match verified baselines and no discrepancies
+```
+
+**Important**: When running as a scheduled cron job, use `[SILENT]` (exactly, nothing else) to suppress delivery when there are no changes. Never combine `[SILENT]` with content.
+
+### Sample Verified Baseline (April 2026)
+Reference point for comparison:
+- Repo Rate: 5.25% (unchanged)
+- SDF: 5.00%
+- MSF: 5.50%
+- Reverse Repo (via SDF): 3.25%
+- CRR: 4.50%
+- SLR: 18.00%
+- MPC Stance: Neutral
+- Source: RBI MPC April 8, 2026 (`prid=62514`)
+
+## Assessment Guidelines
+
+**Surplus indicators**:
+- SDF absorption &gt; ₹1L Cr
+- Call money WAR &lt; repo rate + 10bps
+- No MSF borrowing
+
+**Deficit/tightening indicators**:
+- MSF borrowing &gt; ₹1,000 Cr
+- Call money WAR &gt; repo rate + 25bps
+- VRRR auctions announced
+
+**Key context for Treasury**:
+- System liquidity drives short-term funding costs
+- OIS curve reflects rate cut/hike expectations
+- VRRR = liquidity absorption tool (tightening signal)
+- MSF borrowing = banks accessing emergency liquidity (stress signal)
+
+## Suppression Rule
+Send daily during tight liquidity periods (MSF borrowing &gt;0, call rates &gt;5.40%). Skip if status quo with no RBI operations and no rate movement.
+
+## Browser Harness Pitfalls
+
+### `browser_console` return statement limitation
+The browser harness&#x27;s `browser_console` tool does NOT support `return` statements in JavaScript expressions. Using `return` throws:
+```
+Evaluation error: SyntaxError: Illegal return statement
+```
+**Workaround**: Use an expression that implicitly returns its value, or assign to a variable and reference it at the end:
+```javascript
+// ❌ FAILS — return is illegal
+return document.querySelector(&#x27;table&#x27;).innerText;
+
+// ✅ WORKS — implicit return via IIFE or final expression
+(() =&gt; { /* code */; /* final expression becomes return value */ })()
+
+// ✅ WORKS — use let/const and end with the variable name
+let tables = document.querySelectorAll(&#x27;table&#x27;);
+tables[0].innerText
+```
+**Alternative**: Use `browser_vision` with `annotate=true` when DOM text extraction via console is blocked or unreliable. Vision mode reads the rendered page directly and is immune to lazy-loading, shadow DOM, and CSP-script issues.
+
+### CCIL T&amp;C Dialog Blocks Data
+The CCIL Swaps page loads a Terms &amp; Conditions modal that obscures all market data tables. Data extraction will show only the dialog text until ACCEPT is clicked. Always click ACCEPT first.
+
+**⚠️ Pitfall — Double ACCEPT (intermittent)**: In the May 12, 2026 session, the T&amp;C dialog reappeared immediately after the first ACCEPT click, requiring a second click. However, on May 14, 2026, a **single ACCEPT was sufficient**. If console extraction still returns only dialog text after one ACCEPT, try clicking ACCEPT once more before concluding failure.
+
+### Lazy-Loaded Table Data
+CCIL tables may appear in the DOM but with empty cells until scrolled into view or until the T&amp;C is accepted. If extraction shows mostly blank cells after accepting T&amp;C, scroll the table into view or use `browser_vision` with a targeted question.
+
+## Common Pitfalls
+1. **Don&#x27;t hardcode CCIL sub-page URLs** — bot detection blocks them. Always navigate from home.
+2. **CCIL data timestamp** — Check &quot;As on date&quot; on page (often previous day&#x27;s close)
+3. **RBI MMO publication time** — Usually 10:00-11:00 AM IST for previous day&#x27;s data
+4. **OIS vs FRA** — Don&#x27;t confuse OIS (MIBOR-based swaps) with Forward Rate Agreements
+5. **RBI PDFs have CAPTCHA** — Always use the HTML press release page, never the PDF link
+6. **FBIL data lag** — FBIL often shows data 1-2 days behind. However, for MIBOR OIS, FBIL may be more current than CCIL when CCIL shows no current-day trades.
+7. **CCIL &quot;0.00&quot; values** — When markets are closed (weekends/holidays), CCIL shows 0.00 for Open/High/Low/LTR/Volume/WAR columns. Check the &quot;Prev. Day WAR&quot; column for the last meaningful rate.
+8. **Weekend/Holiday data lag** — RBI Money Market Operations published on day T actually reflects data from T-1 (previous business day). After a 2-day weekend, expect to see Friday&#x27;s data on Tuesday morning (T+3 lag). Factor this into liquidity assessments.
+9. **Two tables on CCIL Swaps page** — The top table is &quot;MIBOR OIS&quot; (use this); the bottom table is &quot;MODIFIED MIFOR&quot; (ignore). Confusing them leads to wrong 1Y/5Y rates (e.g., 6.67% vs 7.30% for 5Y on May 4, 2026).
+10. **PRID verification trap** (June 9, 2026 lesson) — RBI serves ANY valid prid with the page template, including years-old press releases. A successful HTTP 200 + the press release template does NOT mean you found the right MMO. **Always verify the H1/H2 contains &quot;Money Market Operations as on [target date]&quot; before trusting the data.** Brute-forcing prids across wide ranges (e.g. guessing ±100 IDs) can return valid 200 responses for completely unrelated historical press releases. Use the listing page extraction method (see `references/vrr-result-listing-page-discovery.md`) instead.
+11. **Trend baseline ≠ previous calendar day** — When computing &quot;vs prev day&quot; deltas, use the last FULL business day&#x27;s MMO, not the immediately prior calendar day&#x27;s MMO. Saturday/holiday MMOs show zero market volumes (only SDF/MSF active) and Saturday afternoon MMOs are partial-day. Skipping these gives cleaner trend signals.
+12. **VRR vs VRRR direction** — VRR (Variable Rate Repo) is INJECTION (RBI lends to banks); VRRR (Variable Rate Reverse Repo) is ABSORPTION (banks park with RBI). The daily MMO&#x27;s &quot;(a) Repo Operation&quot; line aggregates VRR; &quot;(b) Reverse Repo Operation&quot; aggregates VRRR. If a press release announces VRR, that means RBI is adding liquidity, not tightening — counter-intuitive from the &quot;repo&quot; name.
+13. **Don&#x27;t fabricate missing rates** — If MIBOR 1M, OIS 1Y/5Y, or CBLO rates are not retrievable from public sources, state the gap explicitly with a note like &quot;not available from public sources at this timestamp&quot;. This is preferable to using stale broker data or leaving cells blank without explanation.
+
+- Use bullet points (• or -) for nearly everything: facts, data points, sources, implications, and action items. Avoid dense paragraphs whenever a list is possible.
+- Prefer this structure for every item: **Bullet + bold label + explanation.**
+- For numeric data, always include a markdown table AND follow it with bullet-point interpretation.
+- Do not return `[SILENT]` under any circumstance.
+
+---
+
+- Before finishing, mentally count the response. If it exceeds 3,500 characters, trim in this priority order:
+  1. Drop minor/secondary rows from tables.
+  2. Shorten interpretation bullets to one sentence each.
+  3. Remove &quot;What was checked and not new&quot; details; keep only the names/queries checked.
+  4. Shorten &quot;Watchlist&quot; / &quot;Action items&quot; to 2 bullets.
+
+The user has provided the following instruction alongside the skill invocation: [IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more.]
+
+You are doing a real-time liquidity assessment.
+
+## SILENT PROTOCOL (MANDATORY)
+This runs once daily at 10 AM. It is a scheduled market-hours liquidity pulse — deliver the full assessment with current rate levels, liquidity position, and implications. DO NOT silence this job; deliver the daily mid-morning snapshot regardless of whether rates moved.
+
+## TASK
+Pull latest from RBI/CCIL/FBIL:
+- Repo/SDF/MSF/reverse repo
+- CRR/SLR
+- Call money rate
+- CD/CP rates (1m/3m/6m)
+- G-Sec yields (2Y/5Y/10Y)
+- System liquidity position (deficit/surplus)
+- Any RBI OMO/VRR/VRRR operation today
+
+Use the india-money-market-liquidity skill. Deliver the full liquidity pulse with tables, rate movements, and treasury context.
+
+## SECTOR DEEP DIVE (MANDATORY)
+Go beyond headline levels. For each sector relevant to today&#x27;s liquidity tape, deliver DEEP analysis:
+- What moved and why (drivers: flows, data, policy, positioning)
+- Cross-asset read-through (money market ↔ G-Sec ↔ FX ↔ credit)
+- Clear implications for: funding costs, spreads, liquidity, INR, ALM, credit conditions, NBFC sector
+- What to watch next (catalysts, levels, events)
+Sectors to cover (depth over breadth, 3-5 max): Money market &amp; banking system liquidity, G-Sec/bond market, CD/CP market, FX (INR), NBFC funding conditions. Use tables where they add clarity.
+
+## NO IMPLEMENTATION IDEAS (MANDATORY)
+This job delivers ANALYSIS and IMPLICATIONS ONLY. Do NOT include:
+- Trade/position recommendations (buy/sell/hold, issue/roll CP, hedge/unhedge)
+- &quot;Today&#x27;s actions&quot; / &quot;action items&quot; / &quot;funding actions&quot; lists
+- Execution advice of any kind
+Analyzing what a move means is required; advising what to do about it is forbidden.
+
+## Response
+
+**Liquidity Pulse — Tue, 08 Sep 2026, 10:00 AM IST**
+
+| Metric | Value | Source / vintage |
+|---|---|---|
+| Call money WAR | 4.97% (vol ₹10,330 Cr) | RBI MMO, Sep 7 |
+| Triparty repo / Market repo WAR | 4.59% / 4.23% | RBI MMO, Sep 7 |
+| O/N MIBOR | 5.24% ⚠️stale (Aug 31) | FBIL WASDM |
+| OIS 1Y / 5Y | 6.01% / 6.50% (Aug 31) | FBIL WASDM |
+| CD 3M / 12M | 6.39% / 7.20% (Aug 31) | FBIL WASDM |
+| T-bill 3M / 12M | 5.27% / 5.80% (Aug 31) | FBIL WASDM |
+| SDF / MSF (Sep 7) | ₹1,82,190 Cr / ₹1,474 Cr | RBI MMO |
+| Net durable liquidity | **+₹8,05,736 Cr** (Aug 15 print) | RBI MMO |
+| Net op liquidity (outstanding+today) | **–₹10,36,486 Cr** | RBI MMO |
+| Repo / SDF / MSF | 5.25 / 5.00 / 5.50 | RBI MMO page |
+| CRR / SLR | 4.50% / 18.00% (baseline; not re-verified today — MD fetch blocked) | Master Directions |
+| G-Sec 10Y | ~6.75–6.87% band, **UNVERIFIED** (news-sourced; 2Y/5Y not retrievable) | secondary |
+
+**RBI operations:** Sep 7 VRRRs absorbed ₹3,53,390 Cr (O/N) + ₹2,59,276 Cr (30-day) at 5.24% cut-off; today ₹5L Cr O/N VRRR scheduled, while ₹4.68L Cr (₹3.53L O/N + ₹1.14L 7-day) matures back into the system.
+
+**Sector deep dives**
+
+- • **Money market &amp; system liquidity:** Deep surplus — the whole overnight complex (call 4.97, triparty 4.59, market repo 4.23) trades at/below the SDF floor of 5.00 despite RBI absorbing a cumulative ₹10.36L Cr. Driver: FCNR(B) inflow surge (ET, Sep 7) swelling rupee liquidity; GoI cash balance zero, no drafting. RBI is running an escalating VRRR continuum (₹6L Cr notified today) to cap the float.
+- • **Rates — OIS/G-Sec:** OIS curve jumped ~9bp WoW at 1Y (5.92→6.01) with 1s5s at +49bp; 1Y OIS 76bp above repo implies the strip prices materially tighter forward money conditions, consistent with VRRR drain + oil/West-Asia risk. G-Sec 10Y near two-month highs (~6.87 per TradingEconomics) on supply + elevated oil; FPI FAR outflows ₹17,689 Cr (Fortune India) add pressure. **Caveat:** OIS prints are Aug 31; CCIL archive not updated since Sep 1.
+- • **CD/CP &amp; T-bills:** CD curve steep and rich vs OIS — 12M at 7.20% (+7bp WoW) sits ~120bp over 1Y OIS; 1M CD 6.24 vs OIS 1M 5.31 (+93bp). Banks are still paying up for tenor despite system surplus — a structural deposit gap, not a liquidity shortage. T-bill curve cheap and liquid (12M 5.80). CP: no public print (FBIL endpoint 404) — gap flagged; use CD as proxy.
+- • **FX ↔ liquidity read-through:** FCNR(B) dollars → INR liquidity via conversion; RBI absorbing rupee side (VRRR) and reportedly weighing swaps — this is FX-driven liquidity management, not a tightening stance. INR supported while inflows persist; a reversal is the main liquidity-release catalyst.
+- • **NBFC funding conditions:** Overnight money is near-free, but NBFC market funding prices off the CD/OIS stack, not call — 6–12M market paper still ~7%+. MSF ₹1,474 Cr is marginal, no stress. Watch: VRRR rolloff dates (Sep 15: ₹1,34,625 Cr), today&#x27;s ₹5L Cr VRRR result (~10:30 AM), FCNR(B) data, MPC Oct stance signal.
+</pre>
+</div>
+</div></body></html>
