@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05:20 PM IST — CCIL OIS Day-End Summary (official EOD OHLC + intraday vol, script) — 2026-09-09 17:24:44 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of 05:20 PM IST — CCIL OIS Day-End Summary (official EOD OHLC + intraday vol, script)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">05:20 PM IST — CCIL OIS Day-End Summary (official EOD OHLC + intraday vol, script)</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    09 Sep 2026, 17:24:44 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Data &nbsp;·&nbsp; job 3483940ec7b2
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 09 Sep 2026, 17:24:44 IST</h2>
+  <pre>**Job ID:** 3483940ec7b2
+**Run Time:** 2026-09-09 17:24:34
+**Schedule:** 20 17 * * 1-5
+
+## Prompt
+
+[IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more.]
+
+## Script Output
+The following data was collected by a pre-run script. Use it as context for your analysis.
+
+```
+📊 **CCIL OIS Day-End Summary — 09 Sep 2026**
+Close source: **CCIL ASTROID EOD (official close)**
+
+| Tenor | Prev Close | Open | High | Low | Close (WAR) | Intraday Vol (bp) | No. of Trades | Day Vol (₹ Cr) | LTT |
+|-------|-----------|------|------|-----|------------|------------------|--------------|---------------|-----|
+| OIS1M | 5.2300 | 5.2200 | 5.2200 | 5.2200 | 5.2200 (-1.0bp) | — | 1 | 100 | 12:03:28 |
+| OIS2M | 5.3300 | 5.3200 | 5.3200 | 5.3200 | 5.3200 (-1.0bp) | — | 1 | 100 | 13:56:17 |
+| OIS3M | 5.3800 | 5.4400 | 5.4400 | 5.4100 | 5.4192 (+3.9bp) | — | 5 | 600 | 16:28:06 |
+| OIS6M | 5.6300 | 5.6400 | 5.6550 | 5.6400 | 5.6463 (+1.6bp) | — | 17 | 4,000 | 15:47:08 |
+| OIS9M | 5.8300 | 5.8400 | 5.8450 | 5.8400 | 5.8414 (+1.1bp) | — | 5 | 350 | 15:14:00 |
+| OIS1Y | 5.9525 | 5.9700 | 6.0000 | 5.9700 | 5.9836 (+3.1bp) | — | 63 | 5,250 | 16:59:39 |
+| OIS2Y | 6.1375 | 6.1600 | 6.1900 | 6.1600 | 6.1739 (+3.6bp) | — | 89 | 2,370 | 16:46:54 |
+| OIS3Y | 6.2700 | 6.2850 | 6.3250 | 6.2850 | 6.2980 (+2.8bp) | — | 48 | 1,660 | 16:45:00 |
+| OIS4Y | 6.3600 | 6.3800 | 6.4100 | 6.3800 | 6.3950 (+3.5bp) | — | 25 | 535 | 16:56:33 |
+| OIS5Y | 6.4400 | 6.4800 | 6.4950 | 6.4525 | 6.4725 (+3.2bp) | — | 665 | 13,775 | 16:59:48 |
+| OIS10Y | 6.6400 | 6.7000 | 6.7000 | 6.7000 | 6.7000 (+6.0bp) | — | 1 | 70 | 15:24:44 |
+| _No trades: OIS7Y (prev closes shown in Prev Close col where quoted)_ ||||||||||
+
+**Total traded volume: ₹28,810 Cr across 11 tenors (920 trades)**
+
+**Curve spreads:** 1Y–5Y = +48.9 bp | 5Y–10Y = +22.8 bp | 1Y–10Y = +71.6 bp
+
+**MPC Meeting Pricing** (WP709 step-path — % of a 25bp move per meeting; true probability only if RBI&#x27;s choice set is exactly {25bp, 0}):
+_Repo 5.25% | wedge (MIBOR-repo) -4.5bp | fit RMSE 1.74bp | data: 2026-09-09 EOD close_
+===MPC-TABLE-BEGIN===
+Meeting  Step     Move  %25bp  Read
+08Oct26  +27.2bp  hike  109%   full+
+10Dec26  +33.3bp  hike  133%   full+
+06Feb27  +26.9bp  hike  107%   full+
+08Apr27  +19.9bp  hike  80%    strong
+09Jun27  +12.7bp  hike  51%    moderate
+07Aug27  +10.5bp  hike  42%    moderate
+08Oct27  +8.6bp   hike  34%    moderate
+09Dec27  +7.0bp   hold  28%    weak
+%25bp = share of a full 25bp move priced (expected bp change,
+not a literal probability; true % only if choice set is {25bp, 0})
+full+ = &gt;=100% — a bigger move or follow-through is priced
+===MPC-TABLE-END===
+
+_Source: CCIL ASTROID. Excel: `/home/homepc/workspace/treasury-data/ccil-ois/ccil-ois-all.xlsx`_
+```
+
+You are the CCIL OIS Day-End Analyst. The script `ccil_ois_5pm_summary.sh` has already computed today&#x27;s official CCIL ASTROID EOD summary — its stdout is injected above as context.
+
+YOUR JOB: deliver the script&#x27;s output (data tables + stats) as PART 1, then append a well-researched &quot;Why the curve moved today&quot; analysis as PART 2.
+
+## MANDATORY OUTPUT STRUCTURE
+
+**PART 1 — Script output:** Reproduce the script&#x27;s data content: header, snapshot counts, close source, the full tenors table with all rows, the MPC Meeting Pricing block (see rendering contract below), total volume line, and curve spreads. The generic &quot;Treasury interpretation&quot; boilerplate bullets may be dropped to save space (your analysis below replaces them).
+
+**PART 2 — 🔍 Why the curve moved (research-backed):**
+- 3–6 bullet drivers, ranked by evidence. EVERY bullet must follow: driver → evidence with actual numbers from today&#x27;s script output and/or researched sources → source attribution (e.g. &quot;RBI Money Market Operations PR&quot;, &quot;ET&quot;, &quot;Reuters&quot;).
+- Anchor each driver to TODAY&#x27;s numbers from the script output (e.g. &quot;OIS5Y +7.8bp to 6.3253% on ₹19,765 Cr / 855 trades — 3x other tenors&#x27; volume&quot;).
+- DRIVER DISCOVERY — find the REAL reason for today&#x27;s move, whatever it is:
+  1. FIRST scan RBI press releases from the last 48h (rbi.org.in press release list page): MPC minutes (released ~14 days after each policy meeting), governor/deputy governor speeches, MMO changes, auction results. If MPC minutes came out in the last 48h, they are usually a first-order driver — quote the vote split, members&#x27; inflation/growth language, any dissent or rate-path guidance, and tie it to the curve move.
+  2. THEN scan: benchmark G-Sec yield moves (10Y), USD/INR close vs previous close, crude oil, global rates (UST 10Y, Fed cut odds), any CPI/PPI/IP prints, auction results, FPI debt flows, banking system liquidity (call money).
+  3. RANK by what the evidence supports — lead with the strongest confirmed driver, domestic or global. Never force a narrative; if the real driver is global spillover, lead with that.
+- Sources to try in order: RBI press releases (https://rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx — Money Market Operations daily), web_search for &quot;OIS&quot;, &quot;g-sec yields&quot;, &quot;USD INR&quot;, &quot;10-year yield India&quot; today; web_extract on Reuters/ET/LiveMint/MoneyControl echo articles; CCIL ASTROID page for cross-check.
+- STRICT FACT DISCIPLINE: only state drivers you can tie to a source or to the script&#x27;s own numbers. If you cannot confirm a driver, write &quot;Not confirmed&quot; — NEVER fabricate numbers or events. If today&#x27;s move was small (&lt;2bp across the curve), say so plainly and name the 1–2 most plausible passive drivers (global rates drift, flows) instead of inventing drama.
+- End with one line: **Watch for:** — the 1–2 things that decide tomorrow&#x27;s direction (e.g. next T-bill/gilt auction, US data, RBI VRRR operations, FPI flows, MPC minutes release if due within 3 days).
+
+## MPC MEETING PRICING — RENDERING CONTRACT (non-negotiable)
+The script pre-renders the MPC pricing table as fixed-width text between the marker lines ===MPC-TABLE-BEGIN=== and ===MPC-TABLE-END===. Telegram CANNOT render markdown pipe tables — a monospace code block is the ONLY format that displays as an aligned table. Rules:
+- In PART 1, reproduce the ENTIRE block between the markers (table rows AND the legend lines after them) wrapped in triple-backtick code fences. EXCLUDE the two ===MPC-TABLE-…=== marker lines themselves from your output.
+- Copy VERBATIM: never reflow, re-pad, re-order, merge rows, drop rows, convert to a pipe table, or collapse into a one-line summary like &quot;08Oct26 +21.1bp 85% | 10Dec26 +36.5bp 146% | …&quot; — all of those are FAILED deliveries.
+- Pass the numbers through exactly — never recompute, round, or &quot;correct&quot; them.
+- The tenors table (OIS rows) remains a normal markdown pipe table as printed by the script.
+- FINAL SELF-CHECK before responding: PART 1 must contain (a) the tenors table and (b) the MPC block inside ``` fences with all meeting rows and both legend lines. If the MPC block is collapsed, reflowed, or rendered as pipes/prose, rewrite before delivering.
+- In PART 2, your first bullet MUST be the policy read: which meetings are priced to move, direction (hike/cut/hold), and day-over-day change in the front meetings&#x27; % — compare with yesterday&#x27;s run text (~/workspace/treasury-disk/archive/3483940ec7b2/, newest .txt) if readable; that change = the market&#x27;s repricing, the single most important number in the report. If yesterday&#x27;s text is not reachable, state today&#x27;s levels without inventing a comparison.
+- INTERPRETATION DISCIPLINE (mandatory phrasing rules):
+  - &quot;% of 25bp&quot; is expected bp change, NOT a literal probability. Call it &quot;X% of a 25bp move priced&quot;. Only say &quot;probability&quot; if you also state the binary assumption (RBI&#x27;s choice set is exactly {25bp move, nothing}).
+  - A meeting showing &gt;=100% = &quot;full move plus follow-through priced&quot; — never &quot;110% probability&quot;.
+  - If the wedge line in the table header is outside +/-5bp, flag it: front-meeting percentages are then contaminated by liquidity basis and the policy read must say so.
+- Keep the tenors table AND the MPC block intact when trimming for the character ceiling — trim PART 2 bullets or boilerplate first, never table rows.
+
+## HARD CONSTRAINTS
+- Total message ≤ 3,500 characters (Telegram ceiling). If tight, trim PART 1 boilerplate first, then PART 2 bullets — never trim table rows or stats.
+- All times in IST.
+- Do not add a preamble like &quot;Here is the summary&quot; — start directly with PART 1.
+- If the script output is missing/empty, say so and still deliver whatever analysis you can from live sources, flagged as not-from-CCIL.
+
+## Response
+
+**PART 1 — CCIL OIS Day-End Summary — 09 Sep 2026**
+Close source: **CCIL ASTROID EOD (official close)**
+
+| Tenor | Prev Close | Open | High | Low | Close (WAR) | Intraday Vol (bp) | No. of Trades | Day Vol (₹ Cr) | LTT |
+|-------|-----------|------|------|-----|------------|------------------|--------------|---------------|-----|
+| OIS1M | 5.2300 | 5.2200 | 5.2200 | 5.2200 | 5.2200 (-1.0bp) | — | 1 | 100 | 12:03:28 |
+| OIS2M | 5.3300 | 5.3200 | 5.3200 | 5.3200 | 5.3200 (-1.0bp) | — | 1 | 100 | 13:56:17 |
+| OIS3M | 5.3800 | 5.4400 | 5.4400 | 5.4100 | 5.4192 (+3.9bp) | — | 5 | 600 | 16:28:06 |
+| OIS6M | 5.6300 | 5.6400 | 5.6550 | 5.6400 | 5.6463 (+1.6bp) | — | 17 | 4,000 | 15:47:08 |
+| OIS9M | 5.8300 | 5.8400 | 5.8450 | 5.8400 | 5.8414 (+1.1bp) | — | 5 | 350 | 15:14:00 |
+| OIS1Y | 5.9525 | 5.9700 | 6.0000 | 5.9700 | 5.9836 (+3.1bp) | — | 63 | 5,250 | 16:59:39 |
+| OIS2Y | 6.1375 | 6.1600 | 6.1900 | 6.1600 | 6.1739 (+3.6bp) | — | 89 | 2,370 | 16:46:54 |
+| OIS3Y | 6.2700 | 6.2850 | 6.3250 | 6.2850 | 6.2980 (+2.8bp) | — | 48 | 1,660 | 16:45:00 |
+| OIS4Y | 6.3600 | 6.3800 | 6.4100 | 6.3800 | 6.3950 (+3.5bp) | — | 25 | 535 | 16:56:33 |
+| OIS5Y | 6.4400 | 6.4800 | 6.4950 | 6.4525 | 6.4725 (+3.2bp) | — | 665 | 13,775 | 16:59:48 |
+| OIS10Y | 6.6400 | 6.7000 | 6.7000 | 6.7000 | 6.7000 (+6.0bp) | — | 1 | 70 | 15:24:44 |
+
+_No trades: OIS7Y (prev close shown where quoted)_
+
+**Total traded volume: ₹28,810 Cr across 11 tenors (920 trades)** | **Spreads: 1Y–5Y +48.9bp | 5Y–10Y +22.8bp | 1Y–10Y +71.6bp**
+
+**MPC Meeting Pricing** (WP709 step-path; _Repo 5.25% | wedge (MIBOR-repo) -4.5bp | fit RMSE 1.74bp | data: 2026-09-09 EOD close_):
+```
+Meeting  Step     Move  %25bp  Read
+08Oct26  +27.2bp  hike  109%   full+
+10Dec26  +33.3bp  hike  133%   full+
+06Feb27  +26.9bp  hike  107%   full+
+08Apr27  +19.9bp  hike  80%    strong
+09Jun27  +12.7bp  hike  51%    moderate
+07Aug27  +10.5bp  hike  42%    moderate
+08Oct27  +8.6bp   hike  34%    moderate
+09Dec27  +7.0bp   hold  28%    weak
+%25bp = share of a full 25bp move priced (expected bp change,
+not a literal probability; true % only if choice set is {25bp, 0})
+full+ = &gt;=100% — a bigger move or follow-through is priced
+```
+
+**PART 2 — 🔍 Why the curve moved**
+
+- **Policy read — hike path firmed further.** 08Oct26 now prices 109% of a 25bp hike vs 103% y/day (+6pp); 10Dec26 133% vs 125% (+8pp) — the day&#x27;s key repricing. Expected bp change, not probabilities; Oct/Dec/Feb = full move + follow-through priced. Wedge −4.5bp, inside ±5bp → pricing clean. (Script EOD fit vs Sep 8 archive)
+- **RBI kept draining hard.** Today&#x27;s overnight VRRR accepted ₹4.62 lakh Cr of ₹5 tn notified at 5.24% WAR — bids 8% short, all absorbed (RBI PR 2026-27/1074). MMO Sep 8: call money WAR 4.98% vs repo 5.25% — surplus persists, but sustained absorption backs belly paying: OIS2Y +3.6bp, OIS5Y +3.2bp on ₹13,775 Cr / 665 trades.
+- **Near-date stays easy.** OIS1M −1bp to 5.22, OIS2M −1bp to 5.32; today&#x27;s 91D T-bill cut off 5.2089% (RBI PR /1076) — front cash rates anchor below repo.
+- **T-bill demand strong.** ₹85,754 Cr bids vs ₹24,000 Cr notified (~3.6x); 182D 5.6174%, 364D 5.9148% — full allotment, consistent with belly levels.
+- **Don&#x27;t over-read long end.** OIS10Y +6.0bp came on 1 trade / ₹70 Cr — illiquid print. Global rates/crude/INR: Not confirmed. Curve note: 1Y–5Y narrowed 50.2→48.9bp as 1Y caught up to the belly.
+
+**Watch for:** tomorrow&#x27;s RBI overnight VRRR notification; US CPI (Fed Sept hike chatter — investing.com).
+</pre>
+</div>
+</div></body></html>
