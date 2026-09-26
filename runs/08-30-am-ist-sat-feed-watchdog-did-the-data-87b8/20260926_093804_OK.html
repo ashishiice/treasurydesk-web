@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>08:30 AM IST (Sat) — Feed Watchdog: did the DATA arrive? (silent when healthy) — runs — Treasury Desk</title>
+<title>08:30 AM IST (Sat) — Feed Watchdog: did the DATA arrive? (silent when healthy) — 2026-09-26 09:38:04 — Treasury Desk</title>
 <style>
 :root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -29,16 +29,43 @@ th{color:var(--dim);font-weight:600;background:var(--panel)}
 .kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
 </style></head><body><div class="wrap">
 
-<a class="back" href="../../index.html">← Treasury Desk home</a>
+<a class="back" href="index.html">← All runs of 08:30 AM IST (Sat) — Feed Watchdog: did the DATA arrive? (silent when healthy)</a>
 <div class="card">
-  <div class="job-h"><h1 style="font-size:19px">08:30 AM IST (Sat) — Feed Watchdog: did the DATA arrive? (silent when healthy)</h1></div>
+  <div class="job-h"><h1 style="font-size:19px">08:30 AM IST (Sat) — Feed Watchdog: did the DATA arrive? (silent when healthy)</h1>
+  <span class="st OK">OK</span></div>
   <div class="dim small" style="margin-top:6px">
-    <span class="gold">TREASURY</span>/Other &nbsp;·&nbsp; schedule: 30 8 * * 6 &nbsp;·&nbsp; delivers to telegram:-1003932209418 &nbsp;·&nbsp; 3 runs all-time (2 OK / 1 failed)
+    26 Sep 2026, 09:38:04 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Other &nbsp;·&nbsp; job 87b8249a5021
   </div>
 </div>
 <div class="card">
-  <h2>RUNS — last 7 days (3)</h2>
-  <table><tr><th>Status</th><th>Timestamp (IST)</th><th>Title</th><th></th></tr><tr><td><span class='st OK'>OK</span></td><td>26 Sep 2026, 09:38:04 IST</td><td>08:30 AM IST (Sat) — Feed Watchdog: did the DATA arrive? (silent when healthy)</td><td><a href='runs/08-30-am-ist-sat-feed-watchdog-did-the-data-87b8/20260926_093804_OK.html'>open output →</a></td></tr><tr><td><span class='st UNKNOWN'>UNKNOWN</span></td><td>26 Sep 2026, 09:37:59 IST</td><td></td><td><span class='dim small'>no stored output (delivered via Telegram)</span></td></tr><tr><td><span class='st OK'>OK</span></td><td>19 Sep 2026, 22:42:08 IST</td><td>08:30 AM IST (Sat) — Feed Watchdog: did the DATA arrive? (silent when healthy)</td><td><a href='runs/08-30-am-ist-sat-feed-watchdog-did-the-data-87b8/20260919_224208_OK.html'>open output →</a></td></tr></table>
-  <div class="dim small" style="margin-top:8px">Runs without a stored output were compact messages delivered straight to Telegram — the gateway only persists full text for longer outputs. Permanent full history lives on the local treasury disk.</div>
+  <h2>OUTPUT — 26 Sep 2026, 09:38:04 IST</h2>
+  <pre>**Job ID:** 87b8249a5021
+**Run Time:** 2026-09-26 09:38:02
+**Mode:** no_agent (script)
+
+---
+
+```
+🛰 Feed Watchdog — Sat 26 Sep 09:38 IST
+🔴 CRITICAL (5)
+• *CCIL OIS intraday curve (15-min feed)* — CHECK_ERROR
+   openpyxl not available in this interpreter
+• *CCIL OIS official EOD closes* — CHECK_ERROR
+   openpyxl not available in this interpreter
+• *Treasury disk tracker (GitHub Pages rebuild)* — STALE
+   newest index.html written 26 Sep 07:36 IST (2h old, limit 1h)
+• *CCIL OIS Intraday Curve-Move Radar (15-min) [04e4b8633b74]* — JOB_ABSENT
+   not present in jobs.json — a missing job cannot report its own failure
+• *Treasury Disk Auto-Refresh (2-min) [16125eba4e9a]* — JOB_STALE
+   last run 26 Sep 07:36 IST (2h ago, cadence allows 2h)
+🟡 WARN (3)
+• *Geopolitics &amp; Energy brief* — STALE
+   newest brief-2026-09-24.md written 24 Sep 19:34 IST (1d old, limit 36h)
+• *Overnight risk scan artifact* — STALE
+   newest 2026-09-14.json written 14 Sep 20:02 IST (11d old, limit 48h)
+• *EOD wrap pack* — STALE
+   newest 2026-09-15 written 15 Sep 11:34 IST (10d old, limit 192h)
+```
+</pre>
 </div>
 </div></body></html>
