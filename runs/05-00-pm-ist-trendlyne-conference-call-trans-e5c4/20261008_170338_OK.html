@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily) — 2026-10-08 17:03:38 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of 05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    08 Oct 2026, 17:03:38 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Research &nbsp;·&nbsp; job e5c41a08d114
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 08 Oct 2026, 17:03:38 IST</h2>
+  <pre>**Job ID:** e5c41a08d114
+**Run Time:** 2026-10-08 17:03:36
+**Schedule:** 0 17 * * *
+
+**Prompt Characters:** 2980
+## Prompt
+
+[IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. [SILENT] is a literal ASCII control token — never translate or rephrase it, whatever language the rest of your answer uses. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more. FAILURE: If a delegated child fails and this cron run must be recorded as failed, put [CRON_FAILURE] on the first line by itself, then explain the child failure on following lines. RECURSION: This is a run of an EXISTING scheduled job — execute the task now. NEVER create or update a cron job because of recurring or future-schedule language in the task prompt below; treat phrasing like &quot;each Monday&quot; or &quot;every day at 9&quot; as context for this run, not as a request to schedule another job.]
+
+Trendlyne Conference Call Monitor .
+
+## SILENT PROTOCOL (MANDATORY)
+If after checking Trendlyne you find NO new conference calls or transcripts for tracked NBFC peers or relevant sectors since the last run, respond with exactly and only:
+SILENT
+Do NOT post &quot;no new calls today&quot; messages. Only post when there are genuinely new transcripts/calls.
+
+## TASK
+Check Trendlyne conference call/transcript section. Filter for:
+- the NBFC treasury desk earnings calls
+- Peer NBFC earnings calls
+- Any company in auto finance / 2W finance / EV finance / used vehicle finance / microfinance
+- Regulatory/sector calls relevant to NBFC treasury
+
+Use browser to navigate to Trendlyne. Check for new entries since last run. Deduplicate against previous output.
+
+If there ARE new calls, deliver: company name, call date, key points relevant to treasury (funding, spreads, asset quality, guidance).
+
+## OUTPUT DELIVERY ENVELOPE (MANDATORY — FORMAT ONLY, NO CONTENT CHANGE)
+- Wrap your ENTIRE final response in ONE fenced code block: line 1 of the message is exactly ``` (three backticks, nothing else on that line), then the existing card exactly as you would have delivered it today, then a final line with exactly ``` (three backticks, nothing else on that line).
+- This is a FORMAT-ONLY change. Do NOT rewrite, restructure, re-word, reorder, shorten, expand, add or remove ANY content. Analysis, tables, bullets, verdicts, section headings and [VERIFIED]/[APPROX] tags stay EXACTLY as today.
+- Your character/length ceiling is UNCHANGED. If the wrapped message would exceed ~3,300 characters, split it into consecutive messages (Part 1/2, Part 2/2 ...), EACH entirely inside its own fenced code block.
+- ONLY exception: when a SILENT PROTOCOL in this prompt fires, output the exact sentinel text (e.g. SILENT or [SILENT]) alone, with NO code block and no other text.
+
+
+**Response Characters:** 1781
+## Response
+
+```
+📊 FINANCIAL-SECTOR CALL — NEW (Oct 8
+run)
+
+**ARCIL — Asset Reconstruction Company
+(India) Ltd** [ARC category]
+Q1FY27 earnings call: Oct 7, 2026
+(audio-only intimation — transcript
+pending on arcil.co.in IR page)
+[APPROX] Financials resolved from
+same-day NSE press release + investor
+presentation (filed Oct 6-7), not the
+call transcript itself.
+
+Key metrics (standalone, Ind-AS):
+- AUM ₹19,574 Cr (+16% YoY);
+  acquisitions ₹352.7 Cr (−30% YoY,
+  seasonally light)
+- Recoveries ₹1,066 Cr (+151% YoY) —
+  corporate ₹671 Cr (3x YoY), retail
+  ₹351 Cr (+88%), SME ₹44 Cr (+47%)
+- Total income ₹276 Cr (+115%); PAT
+  ₹143.1 Cr (+107%), ~52% PAT margin
+- SR redemption ratio 52.5% (vs 50.8%
+  Mar-26)
+
+Treasury-relevant (funding/ALM):
+- Borrowings ₹1,100.3 Cr, DOWN from
+  ₹1,205.5 Cr Mar-26; D/E just 0.34x —
+  deleveraging post-listing
+- Net worth ₹3,222.3 Cr; net owned funds
+  ₹2,792 Cr; ROE 18.2% / ROA 12.8%
+  annualised
+- ~88-92% of BS invested in SRs; cash
+  ₹252.7 Cr (up from ₹98.8 Cr)
+- Listed NSE/BSE Sep 2026; SBI + Avenue
+  Capital remain backers
+
+Guidance/sector read-through:
+- MD Kakarla: expects stress across
+  lending segments to RISE —
+  constructive for ARC acquisition
+  pipelines
+- Flagged proposed RBI framework for
+  securitisation of stressed assets +
+  SEBI SSF regs as toolkit expansion
+- Plans: grow corporate book (mid-sized
+  creditworthy assets), raise retail/SME
+  share, expand collection-as-a-service,
+  explore MFI stressed assets
+- Read-through for your desk: rising
+  MFI/retail stress entering ARC
+  channels = watch your MFI peers&#x27;
+  slippage-to-sale flows (CreditAccess,
+  Spandana, Satin)
+
+Pipeline note: ARCIL was caught manually
+— &quot;asset reconstruction&quot; keyword now
+added to the parser TARGETS; state
+updated (5 posts marked seen).
+```
+</pre>
+</div>
+</div></body></html>
