@@ -1,0 +1,66 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Signing: CI injects DESK_KEYSTORE_* env vars from repository secrets when present;
+// otherwise the committed dev keystore is used so every build has the same signature
+// (updates install over the previous version and keep player progress).
+def ksFile = System.getenv('DESK_KEYSTORE_FILE') ?: '../keys/desk-dev.jks'
+def ksPass = System.getenv('DESK_KEYSTORE_PASSWORD') ?: 'thedesk-dev'
+def ksAlias = System.getenv('DESK_KEY_ALIAS') ?: 'thedesk'
+def ksKeyPass = System.getenv('DESK_KEY_PASSWORD') ?: ksPass
+def buildNo = (System.getenv('GITHUB_RUN_NUMBER') ?: '1') as Integer
+
+android {
+    namespace 'com.fincorp.thedesk'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.fincorp.thedesk'
+        minSdk 26
+        targetSdk 34
+        versionCode buildNo
+        versionName "0.1.${buildNo}"
+    }
+
+    signingConfigs {
+        desk {
+            storeFile file(ksFile)
+            storePassword ksPass
+            keyAlias ksAlias
+            keyPassword ksKeyPass
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.desk
+        }
+        debug {
+            signingConfig signingConfigs.desk
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.11.0'
+    implementation 'androidx.core:core:1.13.1'
+}
+
+// Bundle the web game into the APK assets at build time
+tasks.register('copyGame', Copy) {
+    from "${rootDir}/../game"
+    into "${projectDir}/src/main/assets/www"
+}
+preBuild.dependsOn copyGame

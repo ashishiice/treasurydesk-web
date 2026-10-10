@@ -1,0 +1,76 @@
+name: Build The Desk APK
+
+on:
+  push:
+    branches: [main, 'claude/financial-roles-game-apk-*']
+    paths: ['game/**', 'android/**', '.github/workflows/apk.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      # Optional: a private release key from repository secrets. If absent, the committed
+      # dev key is used (stable signature, but public — see android/keys/README.md).
+      - name: Use release keystore from secrets (if configured)
+        env:
+          KS_B64: ${{ secrets.DESK_KEYSTORE_B64 }}
+          KS_PASS: ${{ secrets.DESK_KEYSTORE_PASSWORD }}
+          KS_ALIAS: ${{ secrets.DESK_KEY_ALIAS }}
+        run: |
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+            echo "DESK_KEYSTORE_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+            echo "DESK_KEYSTORE_PASSWORD=$KS_PASS" >> "$GITHUB_ENV"
+            echo "DESK_KEY_ALIAS=$KS_ALIAS" >> "$GITHUB_ENV"
+            echo "Signing with release key from secrets"
+          else
+            echo "Signing with committed dev key"
+          fi
+
+      - name: Build release APK
+        run: gradle -p android assembleRelease --no-daemon --stacktrace
+
+      - name: Name artifact
+        id: name
+        run: |
+          V="0.1.${GITHUB_RUN_NUMBER}"
+          cp android/app/build/outputs/apk/release/app-release.apk "TheDesk-v${V}.apk"
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TheDesk-v${{ steps.name.outputs.version }}
+          path: TheDesk-v${{ steps.name.outputs.version }}.apk
+
+      - name: Publish pre-release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: desk-v${{ steps.name.outputs.version }}
+          name: The Desk v${{ steps.name.outputs.version }}
+          target_commitish: ${{ github.sha }}
+          prerelease: true
+          files: TheDesk-v${{ steps.name.outputs.version }}.apk
+          body: |
+            The Desk — Treasury Ascent (build ${{ steps.name.outputs.version }}, commit ${{ github.sha }}).
+            Install: download the APK on your Android phone → open → allow "Install unknown apps" for your browser/files app.
+            Updates install over the previous version and keep progress.

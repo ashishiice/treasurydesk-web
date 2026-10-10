@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="desk_bg">#FF060A13</color>
+    <style name="Desk" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/desk_bg</item>
+        <item name="android:statusBarColor">@color/desk_bg</item>
+        <item name="android:navigationBarColor">@color/desk_bg</item>
+        <item name="android:colorAccent">#FF22D3EE</item>
+    </style>
+</resources>
