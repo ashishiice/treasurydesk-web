@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily) — 2026-10-10 17:02:34 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of 05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    10 Oct 2026, 17:02:34 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Research &nbsp;·&nbsp; job e5c41a08d114
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 10 Oct 2026, 17:02:34 IST</h2>
+  <pre>**Job ID:** e5c41a08d114
+**Run Time:** 2026-10-10 17:02:29
+**Schedule:** 0 17 * * *
+
+**Prompt Characters:** 2980
+## Prompt
+
+[IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. [SILENT] is a literal ASCII control token — never translate or rephrase it, whatever language the rest of your answer uses. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more. FAILURE: If a delegated child fails and this cron run must be recorded as failed, put [CRON_FAILURE] on the first line by itself, then explain the child failure on following lines. RECURSION: This is a run of an EXISTING scheduled job — execute the task now. NEVER create or update a cron job because of recurring or future-schedule language in the task prompt below; treat phrasing like &quot;each Monday&quot; or &quot;every day at 9&quot; as context for this run, not as a request to schedule another job.]
+
+Trendlyne Conference Call Monitor .
+
+## SILENT PROTOCOL (MANDATORY)
+If after checking Trendlyne you find NO new conference calls or transcripts for tracked NBFC peers or relevant sectors since the last run, respond with exactly and only:
+SILENT
+Do NOT post &quot;no new calls today&quot; messages. Only post when there are genuinely new transcripts/calls.
+
+## TASK
+Check Trendlyne conference call/transcript section. Filter for:
+- the NBFC treasury desk earnings calls
+- Peer NBFC earnings calls
+- Any company in auto finance / 2W finance / EV finance / used vehicle finance / microfinance
+- Regulatory/sector calls relevant to NBFC treasury
+
+Use browser to navigate to Trendlyne. Check for new entries since last run. Deduplicate against previous output.
+
+If there ARE new calls, deliver: company name, call date, key points relevant to treasury (funding, spreads, asset quality, guidance).
+
+## OUTPUT DELIVERY ENVELOPE (MANDATORY — FORMAT ONLY, NO CONTENT CHANGE)
+- Wrap your ENTIRE final response in ONE fenced code block: line 1 of the message is exactly ``` (three backticks, nothing else on that line), then the existing card exactly as you would have delivered it today, then a final line with exactly ``` (three backticks, nothing else on that line).
+- This is a FORMAT-ONLY change. Do NOT rewrite, restructure, re-word, reorder, shorten, expand, add or remove ANY content. Analysis, tables, bullets, verdicts, section headings and [VERIFIED]/[APPROX] tags stay EXACTLY as today.
+- Your character/length ceiling is UNCHANGED. If the wrapped message would exceed ~3,300 characters, split it into consecutive messages (Part 1/2, Part 2/2 ...), EACH entirely inside its own fenced code block.
+- ONLY exception: when a SILENT PROTOCOL in this prompt fires, output the exact sentinel text (e.g. SILENT or [SILENT]) alone, with NO code block and no other text.
+
+
+**Response Characters:** 1995
+## Response
+
+```
+All verified: post in seen-state (no
+re-delivery), skill updated with the
+miss, PDFs extracted. Delivering the
+card:
+
+📊 TRENDLYNE CC MONITOR — Sat Oct 10,
+2026
+
+🎯 POONAWALLA FINCORP (NSE: POONAWALLA)
+— Q2FY27 earnings call held Fri Oct 9
+Label: Earnings Call — AUDIO FILED, full
+transcript pending on NSE
+(1-page audio intimation filed on BSE;
+audio at poonawallafincorp.com.
+All figures below from same-day press
+release + 42-page investor
+presentation, both filed Oct 9
+[VERIFIED].)
+
+RESULTS — Q2FY27:
+• AUM ₹74,008 Cr
+• PAT ₹375 Cr (+21.8% QoQ vs ₹308 Cr Q1)
+• NII ₹1,589 Cr (+12.3% QoQ; +75.6% YoY)
+• NIM (incl fees) 9.26% (+16bps QoQ)
+• RoA 2.18% (vs 1.98% Q1, 1.81% Q4FY26)
+• GNPA 1.20% (−17bps QoQ), NNPA 0.61%,
+  PCR 49.14%
+• Credit cost 2.19% (−21bps QoQ)
+• Stage-2 book just 0.94%;
+  secured:unsecured 52:48
+• CAR 18.68% (Tier-1 17.15%) — big
+  growth headroom
+
+FUNDING / TREASURY SPECIFICS:
+• Borrowings ₹58,865 Cr; liquidity
+  buffer ₹6,526 Cr (cash + undrawn TLs)
+• Cost of borrowing 7.76% (+4bps QoQ
+  from 7.72%) — first uptick after a
+  multi-quarter downtrend [APPROX:
+  chart-extracted series]
+• Raised ₹2,265 Cr NCDs (incl sub-debt)
+  during Q2; NCD+sub-debt ~31% of mix
+• ALM: cumulative inflows (₹78,860 Cr) &gt;
+  outflows (₹63,722 Cr) across buckets
+• Collection efficiency 99.1–99.6%;
+  early-vintage delinquency declining
+
+VERDICT (treasury lens): CoB +4bps is
+the first concrete read that Aaa-NBFC
+funding costs have troughed this cycle —
+matches the bid-weakening in recent
+bank/NCD prints. NCD window remains open
+(31% reliance maintained, fresh
+₹2,265 Cr raised). RoA inflection is
+credit-cost-led, not yield-led —
+quality of improvement high. Use its NCD
+pricing as co-benchmark with Bajaj
+Finance for your next print.
+
+OPS NOTE: Poonawalla was missing from
+the pipeline&#x27;s target keywords —
+3rd miss of this class (Piramal Jul,
+ARCIL Oct). Fixed in script. Full
+transcript will land as a separate
+Trendlyne post in coming days and will
+be delivered when filed.
+```
+</pre>
+</div>
+</div></body></html>
