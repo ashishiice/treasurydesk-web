@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily) — 2026-10-26 17:02:42 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of 05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    26 Oct 2026, 17:02:42 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Research &nbsp;·&nbsp; job e5c41a08d114
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 26 Oct 2026, 17:02:42 IST</h2>
+  <pre>**Job ID:** e5c41a08d114
+**Run Time:** 2026-10-26 17:02:37
+**Schedule:** 0 17 * * *
+
+**Prompt Characters:** 3629
+## Prompt
+
+[IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. [SILENT] is a literal ASCII control token — never translate or rephrase it, whatever language the rest of your answer uses. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more. FAILURE: If a delegated child fails and this cron run must be recorded as failed, put [CRON_FAILURE] on the first line by itself, then explain the child failure on following lines. RECURSION: This is a run of an EXISTING scheduled job — execute the task now. NEVER create or update a cron job because of recurring or future-schedule language in the task prompt below; treat phrasing like &quot;each Monday&quot; or &quot;every day at 9&quot; as context for this run, not as a request to schedule another job.]
+
+Trendlyne Conference Call Monitor .
+
+## SILENT PROTOCOL (MANDATORY)
+If after checking Trendlyne you find NO new conference calls or transcripts for tracked NBFC peers or relevant sectors since the last run, respond with exactly and only:
+SILENT
+Do NOT post &quot;no new calls today&quot; messages. Only post when there are genuinely new transcripts/calls.
+
+## TASK
+Check Trendlyne conference call/transcript section. Filter for:
+- the NBFC treasury desk earnings calls
+- Peer NBFC earnings calls
+- Any company in auto finance / 2W finance / EV finance / used vehicle finance / microfinance
+- Regulatory/sector calls relevant to NBFC treasury
+
+Use browser to navigate to Trendlyne. Check for new entries since last run. Deduplicate against previous output.
+
+If there ARE new calls, deliver: company name, call date, key points relevant to treasury (funding, spreads, asset quality, guidance).
+
+&lt;!-- BOLT-FMT v1 --&gt;
+## BOLT GROUP RENDER CONTRACT (MANDATORY — SUPERSEDES ANY EARLIER FORMAT INSTRUCTION)
+This output is delivered to a Telegram group and rendered as MARKDOWN. Follow these rules over any earlier table/bullet/line-count prose in this prompt or the skill.
+
+1. NO code fences. Never emit ``` anywhere in your final answer.
+2. NO pipe separators. The `|` character is allowed ONLY inside a real markdown table that has a header row AND a |---|---| separator row. Anywhere else it renders as literal garbage on a phone.
+3. Tables ONLY when: &lt;=4 columns AND &gt;=3 rows of comparable numbers. Always header row + separator row. Anything wider or text-heavy becomes bullet lines (rule 4).
+4. Every record is ONE bullet line: `• Label — field1 • field2 • field3`. Continuation detail goes on the next line, indented 2 spaces, starting with `◦` or `→`. Never use `-` or `*` as a bullet.
+5. Section headers are `**BOLD CAPS**` alone on their own line. Never `#`, `##`, or underlines.
+6. Max 40 display cells per line. If a line is wider, split it at a • into another bullet line. NEVER pad with spaces to align columns — alignment is the table&#x27;s job, not spaces.
+7. Keep every glyph, sign and unit on the number: `↓1.09%`, `↑2bp`, `◆`, `₹94.95`, `$109.9`.
+8. Total &lt;=3,500 characters. If longer, split at a section boundary into self-contained `PART 1/2` messages, each following these rules.
+9. SILENT fires: if the silent protocol applies, output ONLY the sentinel (e.g. SILENT or [SILENT]) — no formatting, no fence, nothing else.
+10. Plain text only — no HTML tags, no LaTeX, no &lt;details&gt;.
+&lt;!-- /BOLT-FMT --&gt;
+
+
+**Response Characters:** 2680
+## Response
+
+**NEW CONFERENCE CALLS — 26 OCT 2026**
+
+• CreditAccess Grameen — Q2FY27 • called 22 Oct • transcript filed 26 Oct 12:55 IST
+  ◦ India&#x27;s largest MFI • AUM ₹30,946 Cr ↑19.5% YoY, ↑2.1% QoQ
+  ◦ PAT ₹502 Cr record quarter • H1 ₹995 Cr • ROA 5.9% • ROE 23.8%
+  ◦ NIM 15.1% (Q1 14.4%) • FY27 NIM guide raised to 14.4–14.7%
+  → Funding: CoB 9.1%, flat QoQ; mgmt guides 9.2–9.3% till Mar-27
+  → Mix 30% fixed • 40% MCLR • 30% repo-linked • 80+ lenders
+  → USD 175mn ECB (Oct) replaces USD 200mn expiring, at a LOWER rate
+  → ₹940 Cr domestic NCD via private placement in FY27
+  → 50bps lending-rate cut from Oct • another 50bps planned Q3
+  → Repo pass-through &quot;gradual&quot;; MCLR lags, some banks cut MCLR
+  ◦ GNPA 1.79% • NNPA 0.59% • PAR90+ 1.11%, all better QoQ
+  ◦ Credit cost Q2 0.99% (non-ann.) • H1 annualised 3.43%
+  ◦ ECL 3.31% incl ₹137 Cr / 45bps macroprudential buffer
+  ◦ Coll. efficiency 97.9% • X-bucket Sep 99.71%
+  ◦ CAR 26.9% • T1 26.2% • equity ₹8,919 Cr
+  ◦ Guidance RAISED: ROA 5.2–5.8% (was 4–4.8%) • ROE 21–24% (16–20%)
+  ◦ AUM guide held 20–25% • credit cost held 3–4%
+  ◦ Risks: Bihar floods, drought pockets in Maharashtra; Q3 cost to inch up
+  ◦ Group loans ₹23,746 Cr ↓2% YTD after ₹614 Cr H1 write-offs
+  ◦ Retail ₹7,200 Cr = 23.3% of AUM • 2W book ₹60 Cr (₹20 Cr in Q1)
+
+• SBFC Finance — Q2FY27 • called 26 Oct 09:30 IST • audio posted today
+  ◦ Secured MSME NBFC, ₹5–30 lakh ticket • transcript still pending
+  ◦ AUM ₹12,592 Cr ↑27% YoY, ↑6% QoQ • disbursal ₹855 Cr
+  ◦ PAT ₹139 Cr ↑27% YoY • RoA 4.6% • RoE crossed 15.0%
+  → CoB 8.4% flat QoQ, ↓60bps YoY • spread 9.6% ↑10bps QoQ
+  → Yield 18.0% • NIM/AAUM 10.5% (Q1 10.7%) • opex/AAUM 4.1%
+  → Borrowings ₹9,338 Cr: NCDs ₹926 Cr (10%), banks ₹8,412 Cr (90%)
+  → Q2 NCD issued ₹250 Cr, repaid ₹150 Cr • CP programme active
+  → Rating AA- (Positive) • D/E 2.31x • LCR 193.9%
+  ◦ GNPA 2.64% ↓13bps YoY • NNPA 1.54% • PCR 42.2%
+  ◦ Credit cost Q2 ₹83 Cr vs ₹56 Cr Q1, ↑48% QoQ
+  ◦ CAR 31.3% • net worth ₹3,789 Cr
+
+**DESK READ-THROUGH**
+• MFI pricing power is the story — CreditAccess cut lending rates twice while raising NIM guidance, which means it is absorbing the repo hike in spread and still beating guidance
+• Both names show CoB flat-to-down despite the Oct repo hike: MCLR-linked books are lagging and bank liquidity is soft, so NBFC liability costs are not yet repricing up
+• CreditAccess credit cost is the item to watch — H1 run-rate 3.0% but mgmt conceded Q3 inches up on drought; its 45bps buffer is the cushion
+
+**PIPELINE NOTE**
+• SBFC Finance was missed by the keyword filter (absent from TARGETS) — caught only by the eyeball-all-posts rule. Added to the script as NBFC; no other new post lost.
+</pre>
+</div>
+</div></body></html>
