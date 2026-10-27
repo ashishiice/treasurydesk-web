@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TDSK Terminal — Treasury Desk</title>
+<style>
+:root{--bg:#000;--panel:#0a0a0a;--line:#2a2a2a;--amber:#ffa028;--ink:#e6e6e6;--dim:#8a8a8a;--up:#3ddc84;--dn:#ff5a5a;--blue:#4fa3ff;--hdr:#1a1a1a;--warn:#ffd23f}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:12px/1.4 'JetBrains Mono','IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;display:flex;flex-direction:column;overflow-x:hidden}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.top{display:flex;align-items:center;gap:10px;padding:6px 10px;background:var(--hdr);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.logo{color:var(--bg);background:var(--amber);font-weight:800;padding:2px 8px;letter-spacing:1px}
+.cmd{flex:1 1 260px;display:flex;align-items:center;background:#000;border:1px solid var(--amber);min-width:0}
+.cmd span{color:var(--amber);padding:0 6px;font-weight:700}
+.cmd input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--warn);font:inherit;font-size:13px;padding:5px 4px;text-transform:uppercase}
+.go{background:#0f5a1e;color:#fff;border:0;font:inherit;font-weight:700;padding:5px 10px;cursor:pointer}
+.badge{padding:2px 7px;font-weight:700;font-size:11px}
+.badge.sim{background:var(--dn);color:#000}.badge.snap{background:var(--blue);color:#000}
+.clock{color:var(--amber);white-space:nowrap}.sess{color:var(--dim);white-space:nowrap}
+.banner{background:#2a0000;color:#ffb3b3;padding:3px 10px;font-size:11px;border-bottom:1px solid #5a0000}
+.banner.snap{background:#001a33;color:#b3d4ff;border-color:#003366}
+.tape{overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--line);background:#050505;height:22px;position:relative}
+.tape-in{display:inline-block;padding:3px 0;animation:scroll 60s linear infinite}
+.tape-in b{color:var(--amber);font-weight:600;margin-left:18px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.grid{flex:1;display:grid;grid-template-columns:1.15fr 1fr 1fr;grid-template-rows:minmax(300px,1fr) minmax(300px,1fr);gap:4px;padding:4px;min-height:0}
+.p{background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;min-width:0;min-height:0}
+.p.focus{border-color:var(--amber)}
+.p.max{position:fixed;inset:60px 4px 4px 4px;z-index:20}
+.ph{display:flex;justify-content:space-between;align-items:center;background:var(--hdr);padding:3px 8px;cursor:pointer;user-select:none;gap:8px}
+.ph .t{color:var(--amber);font-weight:700}.ph .t i{color:var(--ink);font-style:normal;font-weight:400;margin-left:6px}
+.ph .h{color:var(--dim);font-size:10px;white-space:nowrap}
+.pb{flex:1;overflow:auto;padding:4px 6px;min-height:0;position:relative}
+table{border-collapse:collapse;width:100%}
+th{color:var(--dim);font-weight:400;text-align:right;padding:2px 5px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+th:first-child,td:first-child{text-align:left}
+td{padding:1px 5px;text-align:right;white-space:nowrap}
+tr.g td{color:var(--amber);padding-top:6px;font-weight:700;text-align:left}
+tr.r{cursor:pointer}tr.r:hover td{background:#141414}
+tr.sel td{background:#1d1608}
+.code{color:var(--ink)}.nm{color:var(--dim)}
+.up{color:var(--up)}.dn{color:var(--dn)}.fl{color:var(--dim)}
+.fu{animation:fu .6s}.fd{animation:fd .6s}
+@keyframes fu{from{background:#0e4d24}to{background:transparent}}
+@keyframes fd{from{background:#5a1414}to{background:transparent}}
+canvas{display:block;width:100%;height:100%}
+.legend{position:absolute;top:6px;right:10px;font-size:11px}
+.legend span{margin-left:10px}
+.tabs{display:flex;gap:2px;margin-bottom:6px}
+.tabs button{background:#151515;color:var(--dim);border:1px solid var(--line);font:inherit;padding:3px 8px;cursor:pointer}
+.tabs button.on{color:#000;background:var(--amber);border-color:var(--amber)}
+.form{display:grid;grid-template-columns:auto 1fr;gap:3px 8px;align-items:center;max-width:420px}
+.form label{color:var(--dim)}
+.form input,.form select{background:#000;color:var(--warn);border:1px solid var(--line);font:inherit;padding:2px 5px;width:100%}
+.out{margin-top:8px;border-top:1px solid var(--line);padding-top:6px;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;max-width:420px}
+.out div:nth-child(odd){color:var(--dim)}.out div:nth-child(even){color:var(--amber);text-align:right}
+.note{color:var(--dim);font-size:10px;margin-top:6px}
+.log div{padding:1px 0;border-bottom:1px dotted #1a1a1a}
+.log .ts{color:var(--dim);margin-right:6px}
+.log .err{color:var(--dn)}.log .ok{color:var(--up)}.log .al{color:var(--warn);font-weight:700}
+.feed a{display:block;padding:2px 0}
+.sec{color:var(--amber);margin:6px 0 2px;font-weight:700}
+.help td{text-align:left;white-space:normal}.help td:first-child{color:var(--warn);white-space:nowrap}
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-rows:minmax(320px,auto)}
+  .p.max{inset:4px}
+  .sess{display:none}
+}
+</style></head><body>
+
+<div class="top">
+  <div class="logo">TDSK</div>
+  <form class="cmd" id="cmdf" autocomplete="off">
+    <span>&gt;</span><input id="cmd" placeholder="TYPE COMMAND — HELP &lt;GO&gt;" spellcheck="false" aria-label="Command line">
+    <button class="go" type="submit">GO</button>
+  </form>
+  <span class="badge sim" id="mode">SIM</span>
+  <span class="sess" id="sess"></span>
+  <span class="clock" id="clock"></span>
+</div>
+<div class="banner" id="banner">SIMULATED DATA — random-walk prices from placeholder seeds. Not market levels. Not for dealing, valuation or ALCO use.</div>
+<div class="tape"><div class="tape-in" id="tape"></div></div>
+
+<div class="grid">
+  <section class="p" id="P-MON"><div class="ph"><div class="t">MON<i>Market Monitor</i></div><div class="h">click row → GP</div></div><div class="pb"><table id="mon"></table></div></section>
+  <section class="p" id="P-GC"><div class="ph"><div class="t">GC<i>INR Curves</i></div><div class="h">dbl-click to max</div></div><div class="pb"><canvas id="gc"></canvas><div class="legend"><span style="color:var(--amber)">━ G-Sec</span><span style="color:var(--blue)">━ OIS</span><span class="fl">┄ open</span></div></div></section>
+  <section class="p" id="P-GP"><div class="ph"><div class="t">GP<i id="gpt">USDINR</i></div><div class="h" id="gps"></div></div><div class="pb"><canvas id="gp"></canvas></div></section>
+  <section class="p" id="P-CALC"><div class="ph"><div class="t">CALC<i>Desk Calculators</i></div><div class="h">YAS · CP · FRD</div></div><div class="pb">
+    <div class="tabs"><button data-t="YAS" class="on">YAS Bond</button><button data-t="CP">CP / T-Bill</button><button data-t="FRD">FX Fwd / ECB</button></div>
+    <div id="c-YAS" class="calc">
+      <div class="form">
+        <label>Coupon %</label><input id="y-c" type="number" step="0.01" value="6.79">
+        <label>Years to mat.</label><input id="y-n" type="number" step="0.25" value="10">
+        <label>Freq / yr</label><select id="y-f"><option>2</option><option>1</option><option>4</option><option>12</option></select>
+        <label>Yield %</label><input id="y-y" type="number" step="0.01" value="6.45">
+        <label>Solve: price</label><input id="y-p" type="number" step="0.01" placeholder="enter price → YTM">
+      </div>
+      <div class="out" id="y-o"></div>
+    </div>
+    <div id="c-CP" class="calc" hidden>
+      <div class="form">
+        <label>Face (₹ Cr)</label><input id="p-f" type="number" step="1" value="100">
+        <label>Days</label><input id="p-d" type="number" step="1" value="91">
+        <label>Yield %</label><input id="p-y" type="number" step="0.01" value="6.40">
+        <label>Day basis</label><select id="p-b"><option value="365">365 (CP/CD)</option><option value="364">364 (T-Bill)</option></select>
+      </div>
+      <div class="out" id="p-o"></div>
+    </div>
+    <div id="c-FRD" class="calc" hidden>
+      <div class="form">
+        <label>Spot USDINR</label><input id="f-s" type="number" step="0.0025" value="88.50">
+        <label>INR rate %</label><input id="f-ri" type="number" step="0.01" value="5.80">
+        <label>USD rate %</label><input id="f-ru" type="number" step="0.01" value="3.90">
+        <label>Days</label><input id="f-d" type="number" step="1" value="365">
+        <label>ECB spread bps</label><input id="f-sp" type="number" step="5" value="150">
+      </div>
+      <div class="out" id="f-o"></div>
+    </div>
+  </div></section>
+  <section class="p" id="P-NEWS"><div class="ph"><div class="t">NEWS<i>Desk Feed</i></div><div class="h">internal reports</div></div><div class="pb feed" id="news"></div></section>
+  <section class="p" id="P-LOG"><div class="ph"><div class="t">LOG<i>Console · Alerts</i></div><div class="h" id="alc">0 alerts</div></div><div class="pb log" id="log"></div></section>
+</div>
+
+<script>
+"use strict";
+// ---------- instruments (SIM seeds are placeholders, NOT market levels) ----------
+const U = [
+ // code, name, group, kind (r=rate % | p=price | x=fx), seed, tick vol, dp, curve tenor (yrs)
+ ["REPO","RBI Policy Repo","POLICY","r",5.50,0,2],
+ ["SDF","Standing Deposit Facility","POLICY","r",5.25,0,2],
+ ["MSF","Marginal Standing Facility","POLICY","r",5.75,0,2],
+ ["TREPS","TREPS O/N","MONEY","r",5.40,0.4,2],
+ ["MIBOR","FBIL O/N MIBOR","MONEY","r",5.55,0.3,2],
+ ["TB91","T-Bill 91D","MONEY","r",5.45,0.3,2,0.25],
+ ["TB182","T-Bill 182D","MONEY","r",5.55,0.3,2,0.5],
+ ["TB364","T-Bill 364D","MONEY","r",5.60,0.3,2,1],
+ ["CD3M","Bank CD 3M","MONEY","r",6.00,0.4,2],
+ ["CP3M","NBFC CP 3M","MONEY","r",6.40,0.5,2],
+ ["GS2Y","G-Sec 2Y","G-SEC","r",5.70,0.35,4,2],
+ ["GS5Y","G-Sec 5Y","G-SEC","r",6.05,0.35,4,5],
+ ["GS10Y","G-Sec 10Y Bmk","G-SEC","r",6.45,0.3,4,10],
+ ["GS14Y","G-Sec 14Y","G-SEC","r",6.70,0.3,4,14],
+ ["GS30Y","G-Sec 30Y","G-SEC","r",7.05,0.25,4,30],
+ ["OIS1Y","MIBOR OIS 1Y","OIS","r",5.45,0.4,4,1],
+ ["OIS2Y","MIBOR OIS 2Y","OIS","r",5.50,0.45,4,2],
+ ["OIS3Y","MIBOR OIS 3Y","OIS","r",5.60,0.45,4,3],
+ ["OIS5Y","MIBOR OIS 5Y","OIS","r",5.80,0.45,4,5],
+ ["USDINR","USD/INR Spot","FX","x",88.50,0.012,4],
+ ["EURINR","EUR/INR","FX","x",102.80,0.02,4],
+ ["GBPINR","GBP/INR","FX","x",118.00,0.025,4],
+ ["JPYINR","JPY/INR (100)","FX","x",58.20,0.015,4],
+ ["DXY","Dollar Index","FX","x",99.00,0.015,3],
+ ["NIFTY","Nifty 50","EQUITY","p",25800,6,2],
+ ["SENSEX","BSE Sensex","EQUITY","p",84200,20,2],
+ ["BANKNIFTY","Nifty Bank","EQUITY","p",57500,15,2],
+ ["SOFR","USD SOFR","GLOBAL","r",3.90,0.1,2],
+ ["UST10Y","UST 10Y","GLOBAL","r",4.10,0.35,3],
+ ["BRENT","Brent Crude $/bbl","GLOBAL","p",66.00,0.05,2],
+ ["GOLD","Gold $/oz","GLOBAL","p",4000,1.5,1],
+];
+const I = {}; const ORDER = [];
+U.forEach(([code,name,group,kind,seed,vol,dp,ten])=>{
+  I[code]={code,name,group,kind,last:seed,open:seed,prev:seed,vol,dp,ten,hist:[seed],hi:seed,lo:seed};
+  ORDER.push(code);
+});
+const GSEC_CURVE=["TB91","TB182","TB364","GS2Y","GS5Y","GS10Y","GS14Y","GS30Y"];
+const OIS_CURVE=["OIS1Y","OIS2Y","OIS3Y","OIS5Y"];
+let MODE="SIM", sel="USDINR", focus="MON";
+const alerts=[];
+
+// ---------- helpers ----------
+const $=id=>document.getElementById(id);
+const fmt=(v,dp)=>Number(v).toLocaleString("en-IN",{minimumFractionDigits:dp,maximumFractionDigits:dp});
+const chg=i=>i.kind==="r"?(i.last-i.open)*100:(i.last-i.open);
+const pct=i=>i.open?(i.last/i.open-1)*100:0;
+const cls=v=>v>1e-9?"up":v<-1e-9?"dn":"fl";
+const sgn=v=>{const t=String(v);return /^-?[0.,]+$/.test(t)?t.replace("-",""):(+t.replace(/,/g,"")>0?"+":"")+t};
+const ist=()=>new Date(Date.now()+(330+new Date().getTimezoneOffset())*60000);
+function gauss(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+function log(msg,c=""){
+  const d=document.createElement("div");
+  d.innerHTML=`<span class="ts">${ist().toTimeString().slice(0,8)}</span><span class="${c}">${msg}</span>`;
+  const L=$("log"); L.prepend(d); while(L.children.length>200)L.lastChild.remove();
+}
+
+// ---------- monitor ----------
+function buildMon(){
+  let h="<tr><th>Ticker</th><th>Last</th><th>Chg</th><th>%/bp</th><th>Hi</th><th>Lo</th></tr>", g="";
+  for(const c of ORDER){const i=I[c];
+    if(i.group!==g){g=i.group;h+=`<tr class="g"><td colspan="6">${g}</td></tr>`}
+    h+=`<tr class="r" data-c="${c}" title="${i.name}"><td><span class="code">${c}</span></td><td id="l-${c}"></td><td id="c-${c}"></td><td id="q-${c}"></td><td id="h-${c}" class="nm"></td><td id="o-${c}" class="nm"></td></tr>`;
+  }
+  $("mon").innerHTML=h;
+  $("mon").addEventListener("click",e=>{const r=e.target.closest("tr.r");if(r)run("GP "+r.dataset.c)});
+}
+function paintRow(c,flash){
+  const i=I[c],ch=chg(i),dp=i.kind==="r"?2:i.dp;
+  const L=$("l-"+c); L.textContent=fmt(i.last,i.dp); L.className=cls(i.last-i.prev);
+  if(flash&&i.last!==i.prev){L.classList.add(i.last>i.prev?"fu":"fd")}
+  $("c-"+c).textContent=i.kind==="r"?sgn(ch.toFixed(1))+"bp":sgn(fmt(ch,dp));
+  $("c-"+c).className=cls(ch);
+  $("q-"+c).textContent=i.kind==="r"?"":sgn(pct(i).toFixed(2))+"%";
+  $("q-"+c).className=cls(ch);
+  $("h-"+c).textContent=fmt(i.hi,i.dp); $("o-"+c).textContent=fmt(i.lo,i.dp);
+}
+function markSel(){document.querySelectorAll("#mon tr.r").forEach(r=>r.classList.toggle("sel",r.dataset.c===sel))}
+function tape(){
+  const s=["NIFTY","SENSEX","USDINR","GS10Y","OIS5Y","TREPS","CP3M","BRENT","UST10Y","GOLD","EURINR","BANKNIFTY"].map(c=>{const i=I[c],ch=chg(i);
+    return `<b>${c}</b> ${fmt(i.last,i.dp)} <span class="${cls(ch)}">${i.kind==="r"?sgn(ch.toFixed(1))+"bp":sgn(pct(i).toFixed(2))+"%"}</span>`}).join("");
+  $("tape").innerHTML=s+s;
+}
+
+// ---------- canvas ----------
+function ctx2d(cv){
+  const r=cv.getBoundingClientRect(),d=window.devicePixelRatio||1;
+  if(cv.width!==Math.round(r.width*d)||cv.height!==Math.round(r.height*d)){cv.width=Math.round(r.width*d);cv.height=Math.round(r.height*d)}
+  const x=cv.getContext("2d");x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,r.width,r.height);
+  x.font="11px ui-monospace,Menlo,Consolas,monospace";return [x,r.width,r.height];
+}
+const CSS=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+function axes(x,W,H,lo,hi,pad,yfmt){
+  x.strokeStyle="#1e1e1e";x.fillStyle=CSS("--dim");x.lineWidth=1;
+  for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4,y=pad.t+(H-pad.t-pad.b)*(1-k/4);
+    x.beginPath();x.moveTo(pad.l,y);x.lineTo(W-pad.r,y);x.stroke();x.fillText(yfmt(v),4,y+4)}
+}
+function drawGC(){
+  const [x,W,H]=ctx2d($("gc")),pad={l:46,r:12,t:24,b:22};
+  const pts=[...GSEC_CURVE,...OIS_CURVE].map(c=>I[c]);
+  let lo=Math.min(...pts.map(i=>Math.min(i.last,i.open))),hi=Math.max(...pts.map(i=>Math.max(i.last,i.open)));
+  lo-=0.1;hi+=0.1;
+  const sx=t=>pad.l+(W-pad.l-pad.r)*Math.sqrt(t)/Math.sqrt(30), sy=v=>pad.t+(H-pad.t-pad.b)*(1-(v-lo)/(hi-lo));
+  axes(x,W,H,lo,hi,pad,v=>v.toFixed(2));
+  x.fillStyle=CSS("--dim");
+  [0.25,1,2,5,10,14,30].forEach(t=>{const lb=t<1?"3M":t+"Y";x.fillText(lb,sx(t)-x.measureText(lb).width/2,H-6)});
+  const line=(codes,key,col,dash)=>{x.strokeStyle=col;x.setLineDash(dash);x.lineWidth=dash.length?1:2;x.beginPath();
+    codes.forEach((c,k)=>{const i=I[c],X=sx(i.ten),Y=sy(i[key]);k?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke();x.setLineDash([]);
+    if(!dash.length){x.fillStyle=col;codes.forEach(c=>{const i=I[c];x.beginPath();x.arc(sx(i.ten),sy(i.last),2.5,0,7);x.fill()})}};
+  line(GSEC_CURVE,"open","#7a5a20",[4,3]);line(OIS_CURVE,"open","#24507a",[4,3]);
+  line(GSEC_CURVE,"last",CSS("--amber"),[]);line(OIS_CURVE,"last",CSS("--blue"),[]);
+  const s=(I.GS10Y.last-I.GS2Y.last)*100, o=(I.GS5Y.last-I.OIS5Y.last)*100;
+  x.fillStyle=CSS("--ink");x.fillText(`2s10s ${s.toFixed(1)}bp · 5Y G-Sec–OIS ${o.toFixed(1)}bp`,pad.l,14);
+}
+function drawGP(){
+  const i=I[sel],[x,W,H]=ctx2d($("gp")),pad={l:62,r:12,t:22,b:18},h=i.hist;
+  let lo=Math.min(...h,i.open),hi=Math.max(...h,i.open);if(hi-lo<1e-9){hi+=1e-3;lo-=1e-3}
+  const m=(hi-lo)*0.08;lo-=m;hi+=m;
+  const n=Math.max(h.length-1,1),sx=k=>pad.l+(W-pad.l-pad.r)*k/n,sy=v=>pad.t+(H-pad.t-pad.b)*(1-(v-lo)/(hi-lo));
+  axes(x,W,H,lo,hi,pad,v=>fmt(v,i.dp));
+  x.strokeStyle="#555";x.setLineDash([3,3]);x.beginPath();x.moveTo(pad.l,sy(i.open));x.lineTo(W-pad.r,sy(i.open));x.stroke();x.setLineDash([]);
+  const up=i.last>=i.open,col=up?CSS("--up"):CSS("--dn");
+  const gr=x.createLinearGradient(0,pad.t,0,H-pad.b);gr.addColorStop(0,up?"rgba(61,220,132,.25)":"rgba(255,90,90,.25)");gr.addColorStop(1,"rgba(0,0,0,0)");
+  x.beginPath();h.forEach((v,k)=>k?x.lineTo(sx(k),sy(v)):x.moveTo(sx(k),sy(v)));
+  x.lineTo(sx(h.length-1),H-pad.b);x.lineTo(sx(0),H-pad.b);x.closePath();x.fillStyle=gr;x.fill();
+  x.strokeStyle=col;x.lineWidth=1.5;x.beginPath();h.forEach((v,k)=>k?x.lineTo(sx(k),sy(v)):x.moveTo(sx(k),sy(v)));x.stroke();
+  x.fillStyle=CSS("--ink");x.fillText(`${i.name} · last ${fmt(i.last,i.dp)} · open ${fmt(i.open,i.dp)} · ${h.length} ticks`,pad.l,14);
+  $("gpt").textContent=sel;
+  const ch=chg(i);$("gps").innerHTML=`<span class="${cls(ch)}">${i.kind==="r"?sgn(ch.toFixed(1))+"bp":sgn(pct(i).toFixed(2))+"%"}</span>`;
+}
+
+// ---------- calculators ----------
+const num=id=>parseFloat($(id).value);
+function out(id,rows){$(id).innerHTML=rows.map(([k,v])=>`<div>${k}</div><div>${v}</div>`).join("")}
+function bond(c,n,f,y){
+  const N=Math.max(1,Math.round(n*f)),cp=c/f,r=y/100/f;let P=0,D=0,C=0;
+  for(let k=1;k<=N;k++){const cf=cp+(k===N?100:0),df=Math.pow(1+r,-k);P+=cf*df;D+=k/f*cf*df;C+=cf*df*k*(k+1)/(f*f)}
+  const mac=D/P,mod=mac/(1+r),cvx=C/(P*(1+r)*(1+r));return {P,mac,mod,cvx};
+}
+function calcYAS(){
+  const c=num("y-c"),n=num("y-n"),f=+$("y-f").value;let y=num("y-y");const pIn=num("y-p");
+  if([c,n,f].some(isNaN))return;
+  let solved="";
+  if(!isNaN(pIn)&&pIn>0){let a=-0.99*100,b=100;for(let k=0;k<200;k++){const m=(a+b)/2;bond(c,n,f,m).P>pIn?a=m:b=m}y=(a+b)/2;solved=" (solved)"}
+  if(isNaN(y))return;
+  const r=bond(c,n,f,y),pv01=r.mod*r.P/100*1e7*1e-4;
+  out("y-o",[["Yield"+solved,y.toFixed(4)+"%"],["Price (cpn date)",r.P.toFixed(4)],["Macaulay dur",r.mac.toFixed(3)+" y"],["Modified dur",r.mod.toFixed(3)],["Convexity",r.cvx.toFixed(2)],["PV01 / ₹1 Cr face","₹"+fmt(pv01,0)],["Price Δ +25bp / −25bp",`${((-r.mod*0.25+0.5*r.cvx*0.0625/100)*r.P/100).toFixed(3)} / +${((r.mod*0.25+0.5*r.cvx*0.0625/100)*r.P/100).toFixed(3)}`]]);
+}
+function calcCP(){
+  const F=num("p-f"),d=num("p-d"),y=num("p-y"),b=+$("p-b").value;if([F,d,y].some(isNaN)||d<=0)return;
+  const P=F/(1+y/100*d/b),disc=(F-P)/F*b/d*100,eff=(Math.pow(1+y/100*d/b,365/d)-1)*100;
+  out("p-o",[["Issue price / 100",(100*P/F).toFixed(4)],["Proceeds (₹ Cr)",fmt(P,4)],["Interest cost (₹ Cr)",fmt(F-P,4)],["Discount rate",disc.toFixed(4)+"%"],["Effective annual yield",eff.toFixed(4)+"%"]]);
+}
+function calcFRD(){
+  const S=num("f-s"),ri=num("f-ri"),ru=num("f-ru"),d=num("f-d"),sp=num("f-sp");if([S,ri,ru,d].some(isNaN)||d<=0)return;
+  const F=S*(1+ri/100*d/365)/(1+ru/100*d/360),prem=(F/S-1)*365/d*100,allin=ru+(sp||0)/100+prem;
+  out("f-o",[["Forward outright",F.toFixed(4)],["Fwd points (paise)",fmt((F-S)*100,1)],["Annualised premium",prem.toFixed(3)+"%"],["USD cost (rate+spread)",(ru+(sp||0)/100).toFixed(3)+"%"],["Hedged INR cost ≈",allin.toFixed(3)+"%"]]);
+}
+function calcAll(){calcYAS();calcCP();calcFRD()}
+function tab(t){document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));
+  document.querySelectorAll(".calc").forEach(c=>c.hidden=c.id!=="c-"+t)}
+
+// ---------- news (internal desk reports — real links in this site) ----------
+function buildNews(){
+  const T=[["markets-trea","Markets"],["liquidity-trea","Liquidity"],["funding-trea","Funding"],["regulatory-trea","Regulatory"],["risk-trea","Risk"],["credit-trea","Credit"],["research-trea","Research"],["morning-brief-trea","Morning Brief"],["data-trea","Data"],["ideas-trea","Ideas"]];
+  $("news").innerHTML=`<div class="sec">TREASURY TOPICS</div>`+T.map(([s,n])=>`<a href="../topics/treasury/${s}/index.html">▸ ${n}</a>`).join("")+
+   `<div class="sec">TRACKER</div><a href="../index.html">▸ Live cron tracker (all jobs)</a>`+
+   `<div class="note">Headlines are not synthesised here — this panel links only to the desk's own generated reports.</div>`;
+}
+
+// ---------- panels ----------
+const PANELS={MON:"P-MON",GC:"P-GC",GP:"P-GP",CALC:"P-CALC",NEWS:"P-NEWS",LOG:"P-LOG"};
+function setFocus(p){focus=p;Object.entries(PANELS).forEach(([k,id])=>$(id).classList.toggle("focus",k===p))}
+function toggleMax(p){const el=$(PANELS[p]);const on=!el.classList.contains("max");
+  document.querySelectorAll(".p.max").forEach(e=>e.classList.remove("max"));if(on)el.classList.add("max");setFocus(p);requestAnimationFrame(draw)}
+Object.entries(PANELS).forEach(([k,id])=>{const h=$(id).querySelector(".ph");h.addEventListener("click",()=>setFocus(k));h.addEventListener("dblclick",()=>toggleMax(k))});
+
+// ---------- commands ----------
+const HELP=[["&lt;TICKER&gt;","chart a ticker (e.g. GS10Y, USDINR)"],["GP &lt;TICKER&gt;","price graph"],["MON · GC · NEWS · LOG","focus panel"],["YAS · CP · FRD","open calculator"],["MAX [PANEL]","toggle full-screen (Esc to exit)"],["ALRT &lt;T&gt; &gt;|&lt; &lt;LVL&gt;","price alert, e.g. ALRT USDINR &gt; 88.60"],["ALRT LS · ALRT CLR","list / clear alerts"],["DES &lt;TICKER&gt;","describe instrument"],["LIST","all tickers"],["CLS","clear console"],["/  or any key","focus command line · ↑↓ history"]];
+const hist=[];let hp=0;
+function run(raw){
+  const s=raw.trim().toUpperCase().replace(/<GO>$/,"").trim();if(!s)return;
+  hist.push(s);hp=hist.length;
+  const [cmd,...a]=s.split(/\s+/);
+  if(cmd==="HELP"||cmd==="?"){$("log").insertAdjacentHTML("afterbegin",`<table class="help">${HELP.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join("")}</table>`);setFocus("LOG");return}
+  if(cmd==="CLS"){$("log").innerHTML="";return}
+  if(cmd==="LIST"){log(ORDER.join(" · "));setFocus("LOG");return}
+  if(cmd==="GP"||I[cmd]){const t=cmd==="GP"?a[0]:cmd;if(!I[t]){log(`Unknown ticker: ${t||"(none)"} — try LIST`,"err");return}
+    sel=t;setFocus("GP");drawGP();markSel();log(`GP ${t} — ${I[t].name}`,"ok");return}
+  if(cmd==="DES"){const i=I[a[0]];if(!i){log(`Unknown ticker: ${a[0]||"(none)"}`,"err");return}
+    log(`${i.code} · ${i.name} · ${i.group} · ${i.kind==="r"?"yield/rate %":"price"} · ${MODE==="SIM"?"SIMULATED":"SNAPSHOT"} · last ${fmt(i.last,i.dp)}`);setFocus("LOG");return}
+  if(["YAS","CP","FRD"].includes(cmd)){tab(cmd);setFocus("CALC");return}
+  if(PANELS[cmd]){setFocus(cmd);$(PANELS[cmd]).scrollIntoView({block:"nearest"});return}
+  if(cmd==="MAX"){toggleMax(PANELS[a[0]]?a[0]:focus);return}
+  if(cmd==="ALRT"){
+    if(a[0]==="CLR"){alerts.length=0;$("alc").textContent="0 alerts";log("Alerts cleared","ok");return}
+    if(a[0]==="LS"||!a.length){log(alerts.length?alerts.map(x=>`${x.t} ${x.op} ${x.v}${x.hit?" ✓":""}`).join(" · "):"No alerts");setFocus("LOG");return}
+    const m=a.join(" ").match(/^(\w+)\s*([<>])\s*(-?[\d.]+)$/);
+    if(!m||!I[m[1]]){log("Usage: ALRT USDINR > 88.60","err");return}
+    alerts.push({t:m[1],op:m[2],v:+m[3],hit:false});$("alc").textContent=alerts.filter(x=>!x.hit).length+" alerts";
+    log(`Alert armed: ${m[1]} ${m[2]} ${m[3]}`,"ok");return}
+  log(`Unknown command: ${s} — type HELP`,"err");
+}
+$("cmdf").addEventListener("submit",e=>{e.preventDefault();run($("cmd").value);$("cmd").value=""});
+$("cmd").addEventListener("keydown",e=>{
+  if(e.key==="ArrowUp"&&hp>0){$("cmd").value=hist[--hp];e.preventDefault()}
+  if(e.key==="ArrowDown"){hp=Math.min(hist.length,hp+1);$("cmd").value=hist[hp]||"";e.preventDefault()}
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){document.querySelectorAll(".p.max").forEach(x=>x.classList.remove("max"));requestAnimationFrame(draw);return}
+  const t=e.target.tagName;if(t==="INPUT"||t==="SELECT"||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.key==="/"){e.preventDefault();$("cmd").focus();return}
+  if(e.key.length===1){$("cmd").focus()}
+});
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.t)));
+document.querySelectorAll(".calc input,.calc select").forEach(el=>el.addEventListener("input",calcAll));
+$("y-y").addEventListener("input",()=>{$("y-p").value=""});
+
+// ---------- tick engine ----------
+function step(){
+  const f=gauss();  // common INR rates factor so the curve shifts together
+  for(const c of ORDER){const i=I[c];i.prev=i.last;if(!i.vol)continue;
+    if(Math.random()<0.45)continue;
+    let d=i.vol*gauss();
+    if(i.kind==="r"&&["G-SEC","OIS","MONEY"].includes(i.group))d=i.vol*(0.7*f+0.5*gauss());
+    if(i.kind==="r")d/=100;  // vol is in bp
+    i.last=+(i.last+d).toFixed(i.dp);i.hi=Math.max(i.hi,i.last);i.lo=Math.min(i.lo,i.last);
+    i.hist.push(i.last);if(i.hist.length>600)i.hist.shift();
+  }
+}
+function tick(){
+  step();
+  for(const al of alerts){if(al.hit)continue;const v=I[al.t].last;
+    if((al.op===">"&&v>al.v)||(al.op==="<"&&v<al.v)){al.hit=true;log(`⚠ ALERT ${al.t} ${al.op} ${al.v} — last ${fmt(v,I[al.t].dp)}`,"al");$("alc").textContent=alerts.filter(x=>!x.hit).length+" alerts"}}
+  ORDER.forEach(c=>paintRow(c,true));draw();
+}
+function draw(){drawGC();drawGP()}
+let tapeN=0;
+function clock(){
+  const t=ist(),d=t.getDay(),m=t.getHours()*60+t.getMinutes();
+  $("clock").textContent=t.toLocaleDateString("en-GB",{day:"2-digit",month:"short"})+" "+t.toTimeString().slice(0,8)+" IST";
+  $("sess").textContent="NSE "+((d>0&&d<6&&m>=555&&m<930)?"OPEN":"CLOSED")+" (hours only; holidays not checked)";
+  if(++tapeN%5===1)tape();
+}
+
+// ---------- optional real snapshot: terminal/data.json ----------
+// Shape: {"asof":"2026-10-27 17:30 IST","source":"FBIL/CCIL/RBI","instruments":{"GS10Y":{"last":6.45,"open":6.43},...}}
+async function boot(){
+  buildMon();buildNews();
+  try{
+    const r=await fetch("data.json",{cache:"no-store"});
+    if(r.ok){const j=await r.json();let n=0;
+      for(const [c,v] of Object.entries(j.instruments||{})){const i=I[c];if(!i||typeof v.last!=="number")continue;
+        i.last=i.prev=v.last;i.open=typeof v.open==="number"?v.open:v.last;i.hi=Math.max(i.last,i.open);i.lo=Math.min(i.last,i.open);i.hist=[i.open,i.last];n++}
+      if(n){MODE="SNAPSHOT";$("mode").textContent="SNAPSHOT";$("mode").className="badge snap";
+        $("banner").className="banner snap";$("banner").textContent=`SNAPSHOT — ${n} instruments as of ${j.asof||"?"} · source: ${j.source||"unspecified"}. Static; tickers not in snapshot keep placeholder seeds and are NOT market levels.`}}
+  }catch(e){/* no snapshot → SIM */}
+  if(MODE==="SIM")for(let k=0;k<240;k++)step();  // pre-roll SIM history so charts have shape
+  ORDER.forEach(c=>paintRow(c,false));markSel();tape();calcAll();setFocus("MON");draw();clock();
+  log(`TDSK ready · mode ${MODE} · type HELP &lt;GO&gt;`,"ok");
+  setInterval(clock,1000);
+  if(MODE==="SIM")setInterval(tick,1000);
+  new ResizeObserver(()=>draw()).observe(document.querySelector(".grid"));
+}
+boot();
+</script>
+</body></html>

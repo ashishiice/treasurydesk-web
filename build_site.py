@@ -372,7 +372,7 @@ def build():
     body = f"""
 <div class="bar">
   <div class="logo">🏛️ TREASURY DESK <small>— live cron tracker</small></div>
-  <div class="meta">Last updated {now.strftime('%d %b %Y, %H:%M:%S')} IST · regenerates automatically after every cron run · <a href="https://github.com/ashishiice/treasurydesk-web">source</a></div>
+  <div class="meta">Last updated {now.strftime('%d %b %Y, %H:%M:%S')} IST · regenerates automatically after every cron run · <a href="terminal/index.html">terminal</a> · <a href="https://github.com/ashishiice/treasurydesk-web">source</a></div>
 </div>
 {kpis}
 {sections}
