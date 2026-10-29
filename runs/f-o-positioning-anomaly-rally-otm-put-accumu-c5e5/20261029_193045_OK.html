@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F&amp;O positioning anomaly (rally + OTM put accumulation) — 2026-10-29 19:30:45 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of F&amp;O positioning anomaly (rally + OTM put accumulation)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">F&amp;O positioning anomaly (rally + OTM put accumulation)</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    29 Oct 2026, 19:30:45 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Other &nbsp;·&nbsp; job c5e5ac70674c
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 29 Oct 2026, 19:30:45 IST</h2>
+  <pre>**Job ID:** c5e5ac70674c
+**Run Time:** 2026-10-29 19:30:42
+**Mode:** no_agent (script)
+
+---
+
+**F&amp;O positioning anomaly — 20261029**  (38 flags)
+
+_Puts accumulated in OUT-OF-THE-MONEY strikes on a day the stock ROSE._
+
+• **ADANIPORTS**  spot 1866.1  (+5.95%)  expiry 2026-11-23
+    OTM put OI added **2,585 lots** (1,227,875 units) — 34.9% of existing put OI, 5.0x median
+    biggest single strike +674,025 units (55% of the build) · PCR 0.78→0.99 · premium traded ₹195,060,294 over 28,665 txns
+    deep-OTM (≤90% spot) also building: +2,375
+• **CUB**  spot 226.9  (+5.53%)  expiry 2026-11-23
+    OTM put OI added **331 lots** (769,575 units) — 124.9% of existing put OI, 1.9x median
+    biggest single strike +334,800 units (44% of the build) · PCR 0.2→0.42 · premium traded ₹13,884,505 over 1,385 txns
+    deep-OTM (≤90% spot) also building: +55,800
+• **UJJIVANSFB**  spot 56.1  (+3.01%)  expiry 2026-11-23
+    OTM put OI added **236 lots** (1,888,000 units) — 20.3% of existing put OI, 3.7x median
+    biggest single strike +2,000,000 units (100% of the build) · PCR 0.69→0.88 · premium traded ₹2,004,160 over 406 txns
+    deep-OTM (≤90% spot) also building: +1,888,000
+• **BLUESTARCO**  spot 1672.9  (+4.69%)  expiry 2026-11-23
+    OTM put OI added **1,054 lots** (368,875 units) — 78.9% of existing put OI, 5.0x median
+    biggest single strike +110,825 units (30% of the build) · PCR 0.99→1.1 · premium traded ₹52,091,410 over 4,647 txns
+    deep-OTM (≤90% spot) also building: +163,150
+• **PIDILITIND**  spot 1422.0  (+2.33%)  expiry 2026-11-23
+    OTM put OI added **1,381 lots** (690,500 units) — 50.8% of existing put OI, 2.7x median
+    biggest single strike +363,500 units (53% of the build) · PCR 1.07→1.27 · premium traded ₹73,167,625 over 20,164 txns
+    deep-OTM (≤90% spot) also building: +16,500
+• **KOTAKBANK**  spot 458.6  (+4.22%)  expiry 2026-11-23
+    OTM put OI added **2,759 lots** (5,518,000 units) — 27.9% of existing put OI, 4.7x median
+    biggest single strike +1,498,000 units (27% of the build) · PCR 0.78→0.92 · premium traded ₹74,733,300 over 10,491 txns
+    deep-OTM (≤90% spot) also building: +1,786,000
+
+_Composite score ≥ 4.0. Corroborating signal only — not a recommendation._
+</pre>
+</div>
+</div></body></html>
