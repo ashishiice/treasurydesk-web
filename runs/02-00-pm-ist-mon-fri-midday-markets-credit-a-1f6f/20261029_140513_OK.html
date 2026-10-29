@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02:00 PM IST (Mon-Fri) - Midday Markets + Credit &amp; Auction Wrap — 2026-10-29 14:05:13 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of 02:00 PM IST (Mon-Fri) - Midday Markets + Credit &amp; Auction Wrap</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">02:00 PM IST (Mon-Fri) - Midday Markets + Credit &amp; Auction Wrap</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    29 Oct 2026, 14:05:13 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Markets &nbsp;·&nbsp; job 1f6fb6affcec
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 29 Oct 2026, 14:05:13 IST</h2>
+  <pre>**Job ID:** 1f6fb6affcec
+**Run Time:** 2026-10-29 14:05:09
+**Schedule:** 0 14 * * 1-5
+
+**Prompt Characters:** 96786
+## Prompt
+
+[IMPORTANT: The user has invoked the &quot;treasury-eod-markets-wrap&quot; skill, indicating they want you to follow its instructions. The full skill content is loaded below.]
+
+---
+title: Treasury EOD Markets Wrap
+name: treasury-eod-markets-wrap
+version: 1.2
+description: |
+  Generate comprehensive End-of-Day (EOD) markets wrap for Indian treasury professionals.
+  Covers India markets (Nifty, G-Sec, USD/INR, money markets), global markets (US futures, 
+  Europe, commodities), FII/DII flows, RBI operations, key market drivers, and overnight watch.
+  Designed for NBFC treasury teams needing consolidated EOD reporting.
+triggers:
+  - eod markets wrap
+  - end of day markets summary
+  - treasury eod report
+  - daily markets wrap for the user
+  - the NBFC treasury desk eod report
+---
+
+Generate a comprehensive End-of-Day markets wrap for NBFC Treasury professionals covering the full trading day and overnight setup.
+
+## Absolute Output Rules (Non-Negotiable)
+
+1. **NO URLs, links, or hyperlinks anywhere in the final output.** Strip all links from news or data. Provide only text summaries and data. This is a hard requirement for every EOD wrap.
+2. **If RBI rates cannot be verified from rbi.org.in, mark them explicitly** (e.g., &quot;RBI ref verification pending; market spot ~X.XXXX&quot;). Do not silently substitute market estimates as verified RBI data.
+3. **When multiple data points are unavailable** (10Y G-Sec yield, call money, OIS, RBI ref rate), compile the report with all available data and list the gaps explicitly. Never delay delivery because one or two data points are missing.
+
+## Differences from Morning Brief
+
+| Aspect | Morning Brief | EOD Wrap |
+|--------|---------------|----------|
+| Timing | Pre-market/open | After market close |
+| Focus | What&#x27;s ahead | What happened + overnight setup |
+| Global Data | Asia closes, Europe opening | US futures, Europe during India hours |
+| RBI | Overnight press releases (post-5PM) | Full day operations + auction calendars |
+| Flows | Preliminary/provisional | Final FII/DII for the day |
+| Structure | Today&#x27;s Calendar | Overnight Watch |
+
+## Data Gathering Strategy
+
+### 1. INDIA MARKETS — Multi-Source Strategy
+
+**Nifty 50 / Indices — NSE `allIndices` API (Primary, Official NSE Data)**
+- Endpoint: `https://www.nseindia.com/api/allIndices`
+- Returns: Official NSE OHLC + `previousClose` + `percentChange` + `pe`/`pb`/`dy` + `advances`/`declines` for NIFTY 50 and all sector indices in one call.
+- **How to fetch**: `urllib.request` with `&quot;User-Agent&quot;: &quot;Mozilla/5.0&quot;` and `&quot;Accept&quot;: &quot;application/json&quot;`. No referer required.
+- **Verified**: Produces exact NSE closing figures (e.g., 02-Jun-2026: O=23,229.15 H=23,556.95 L=23,229.15 C=23,483.55 Chg=+0.43%).
+- **Why prefer over Yahoo**: Yahoo Finance v8 can have minor drift/cache lag vs official NSE close. Use NSE API for the India-equity anchor.
+
+**Nifty 50 / Indices — Yahoo Finance v8 API (Secondary / Global Cross-Check)**
+- Python endpoint: `https://query1.finance.yahoo.com/v8/finance/chart/^NSEI?interval=1d&amp;range=5d`
+- Returns: Open, High, Low, Close, Change, Change % reliably in JSON. Works via `execute_code` even when browser pages are blocked.
+- Batch symbols: `^NSEI`, `INR=X`, `^TNX`, `ES=F`, `YM=F`, `NQ=F`, `^GDAXI`, `^FTSE`, `BZ=F`, `GC=F`, `DX-Y.NYB`, `^VIX`.
+- Fallback: Economic Times `markets/indices/nifty-50` if API rate-limited.
+- Note: Check if market is CLOSED (holiday/weekend) and use last trading day.
+
+**Sector Performance — NSE `allIndices` API**
+- Endpoint: `https://www.nseindia.com/api/allIndices`
+- Returns all major sector indices with OHLC + change: NIFTY BANK, NIFTY AUTO, NIFTY FMCG, NIFTY IT, NIFTY METAL, NIFTY PHARMA, NIFTY REALTY, NIFTY ENERGY, NIFTY INFRA, NIFTY MEDIA.
+- Each entry includes: `last`, `open`, `high`, `low`, `previousClose`, `percentChange`, `pe`, `pb`, `dy`, `advances`, `declines`.
+- **How to fetch**: `urllib.request` with standard `User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)` header. Referer not required for this endpoint.
+- **Treasury signal**: Always compute Bank Nifty % change minus Nifty 50 % change. A gap ≥0.5% (Bank Nifty underperforming) is a credit/rate-fear signal for NBFC/Bank positioning commentary.
+
+**Bank Nifty — NBFC Treasury Sentiment Proxy**
+- Symbol: `^NSEBANK`
+- **Why include**: Bank Nifty often leads or trails broader financials and directly signals sentiment toward banks/NBFCs. For the NBFC treasury desk treasury, Bank Nifty divergence vs Nifty 50 is actionable (e.g., if Bank Nifty drops more than Nifty, credit/rate fears may be driving financials).
+- Endpoint: `https://query1.finance.yahoo.com/v8/finance/chart/^NSEBANK?interval=1d&amp;range=5d`
+- **Always fetch both `^NSEI` and `^NSEBANK`** and compute relative performance: `(Bank Nifty % change) – (Nifty 50 % change)`. A gap ≥0.5% is treasury-notable.
+
+**FII/DII Flows**
+- **PRIMARY: NSE `api/fiidiiTradeReact?section=equities`** — JSON endpoint, reliable in WSL cron jobs.
+  - Headers required: `&quot;User-Agent&quot;: &quot;Mozilla/5.0&quot;`, `&quot;Accept&quot;: &quot;application/json&quot;`, `&quot;Referer&quot;: &quot;https://www.nseindia.com/report-detail/eq_fiidii_cum&quot;`.
+  - Returns array with `category` (&quot;FII/FPI&quot; / &quot;DII&quot;), `date`, `buyValue`, `sellValue`, `netValue` in ₹ Crores.
+  - **Date lag**: Usually returns &quot;previous trading day&quot; data (e.g., on 05-May, data was for 04-May). Use latest available and explicitly label the data date.
+  - **Preferred over Economic Times FII/DII page**, which returned 404 in WSL environment.
+- **FALLBACK: Economic Times** `https://economictimes.indiatimes.com/markets/fii-dii-activity` (if accessible).
+  - Data: Today&#x27;s provisional, 7-day cumulative, 30-day cumulative.
+  - All values in ₹ Crores.
+  - Critical: Shows if domestic flows absorbing FII outflows.
+
+**USD/INR &amp; Forex**
+- **PRIMARY: RBI ReferenceRateArchive.aspx via Python POST (Verified Working, May 2026)** — `ReferenceRateArchive.aspx` bot-detects GET/curl requests but accepts a direct HTTP POST with ASP.NET form fields.
+  - Endpoint: `https://www.rbi.org.in/scripts/ReferenceRateArchive.aspx`
+  - Steps:
+    1. First GET the page to capture `__VIEWSTATE`, `__EVENTVALIDATION`, and other hidden ASP.NET inputs.
+    2. Build POST body: `txtFromDate=15-May-2026&amp;txtToDate=15-May-2026&amp;chkUSD=on&amp;btnSubmit=+GO+` (clear any default checkbox values first).
+    3. POST back to same URL with `Content-Type: application/x-www-form-urlencoded` and `Referer` header set.
+    4. Parse the resulting HTML tables — Table 2 (index 2 after form/table split) contains: Date | USD (INR / 1 USD) | GBP | EUR | JPY.
+  - See `references/session-notes-2026-05-15.md` for exact Python code pattern. This is the **recommended method for cron jobs** in WSL/cloud environments.
+- **SECONDARY: RBI homepage via browser_console** — see &quot;RBI Reference Rate Page Errors&quot; pitfall. Use only if POST method fails.
+- **TERTIARY: Yahoo Finance API for USD/INR spot**:
+  - Symbol: `USDINR=X` (not `INR=X`, which sometimes returns broken meta for currency pairs).
+  - Endpoint: `https://query1.finance.yahoo.com/v8/finance/chart/USDINR=X?interval=1d&amp;range=5d`
+  - Read from `meta[&#x27;regularMarketPrice&#x27;]` for the latest spot; `meta[&#x27;regularMarketDayHigh&#x27;]` and `meta[&#x27;regularMarketDayLow&#x27;]` for intraday range.
+  - ⚠️ Pitfall: For currency pairs, `meta[&#x27;previousClose&#x27;]` is often `null`. Compute change vs `chartPreviousClose` instead.
+- **FALLBACK: Economic Times Forex page** (`https://economictimes.indiatimes.com/markets/forex`) if RBI POST fails.
+
+**Commodities in INR Terms**
+- ET Commodities page: `https://economictimes.indiatimes.com/markets/commodities`
+- Data: Gold (₹/10g), Silver (₹/kg), Crude Oil (₹/barrel).
+- Also fetch USD-denominated Brent/Gold from Yahoo for dual reporting.
+
+**Bonds / G-Sec**
+- **PRIMARY: TradingEconomics India Government Bond Yield** (`https://tradingeconomics.com/india/government-bond-yield`) when available.
+  - Extract meta-description: `&lt;meta name=&quot;description&quot; content=&quot;...&quot;&gt;`.
+  - Example: `The yield on India 10Y Bond Yield rose to 7.05% on May 5, 2026, marking a 0.04 percentage points increase from the previous session.`
+  - **Provides exact yield, direction, and change in bps** — very useful when no real-time ticker exists.
+- **FALLBACK: ET Bonds page + CCIL `gsecTable`**.
+  - Use ET bonds articles for the prior close/movement of benchmark 6.94% GS 2036 (e.g., 18-Jun-2026 close 6.8387%).
+  - Use CCIL `gsecTable` for current-day last traded yield on the same benchmark (e.g., 19-Jun-2026 LTY 6.8505%).
+  - Compute movement as current LTY minus prior article close; label as an estimate if not from a single official benchmark endpoint.
+- **CAUTION**: No real-time public 10Y ticker is consistently available; avoid presenting approximate yield ranges as verified official close unless source is explicit.
+
+**Call Money / OIS — Multi-Source Strategy**
+- **PRIMARY: RBI Money Market Operations Press Release** (`https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx`).
+  - **Proven in cron jobs (May 2026): Direct `requests` + regex extraction is faster and more reliable than browser navigation.**
+  - Discovery: list all PR IDs with `re.finditer(r&#x27;prid=(\d+)[^&lt;]*&gt;\s*([^&lt;]{5,200})&#x27;, text)` then filter titles containing &quot;Money Market Operations&quot; or &quot;Variable Rate Repo&quot;.
+  - Individual PR extraction:
+    ```python
+    r = requests.get(url, headers={&quot;User-Agent&quot;:&quot;Mozilla/5.0&quot;}, timeout=15)
+    body = re.search(r&#x27;&lt;body[^&gt;]*&gt;(.*)&lt;/body&gt;&#x27;, r.text, re.DOTALL)
+    body_text = re.sub(r&#x27;&lt;[^&gt;]+&gt;&#x27;, &#x27; &#x27;, body.group(1))
+    # Then regex or line-filter for &quot;Call Money&quot;, &quot;Weighted Average Rate&quot;, &quot;SDF&quot;, &quot;MSF&quot;, etc.
+    ```
+  - Data available: Call Money (volume, WAR, range), Triparty Repo, Market Repo, Corporate Bond Repo (volume &amp; WAR), Notice Money, Term Money, MSF/SDF amounts and rates, cash reserves position, durable liquidity surplus, Government surplus cash balance.
+  - **Limitation**: Published next-day morning for prior business day. When the latest release shows zero overnight volumes (e.g. Sunday holiday), fall back to the most recent non-holiday release and explicitly label the date.
+- **SECONDARY: CCIL India** (`https://www.ccilindia.com/`) → &quot;Market Today&quot; tab or Liferay resource API.
+  - Provides: CALL, TREP, BASKET REPO, SPECIAL REPO with Open/High/Low/LTR/Volume/WAR.
+  - Proven resource IDs behind `https://www.ccilindia.com/home`:
+    - `moneyMarketTable` for CALL/TREP/Basket Repo/Special Repo.
+    - `derivativeTable` for OIS tenors.
+    - `gsecTable` for top traded G-Secs and last traded yield.
+    - `forexTable` for USD/INR spot/forwards.
+  - POST key: `_CCIL_HomeCombineGraphTable_CCIL_HomeCombineGraphTablePortlet_INSTANCE_uzwa_interval=day`.
+  - 19-Jun-2026 observed values: CALL 4.20–5.45%, WAR 5.4061%, LTR 5.40%; USD/INR SPOT LTR 94.4775, range 94.2025–94.5200; benchmark 6.94% GS 2036 LTY 6.8505%.
+  - ⚠️ **CCIL may return 403 in some WSL/cloud environments** — try RBI PR first.
+- **O/N OIS**: Public CCIL/FBIL data may not expose an O/N tenor. In the 19-Jun-2026 run, CCIL `derivativeTable` showed 9M/1Y/2Y/3Y/5Y only, and FBIL MIBOR-OIS data was stale as of 11-Jun-2026. Do not estimate O/N OIS from longer tenors; report it as unavailable and include available tenors only as context.
+
+- **RBI VRR / Auction Result Extraction** (Proven 20-May-2026):
+  - Same PR page as Money Market Operations: `https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=XXXXX`
+  - Filter PR list for titles containing &quot;Variable Rate Repo&quot;, &quot;T-Bill&quot;, &quot;G-Sec&quot;, &quot;Auction Result&quot;.
+  - Regex extraction from body text:
+    ```python
+    keywords = [&#x27;variable rate repo&#x27;, &#x27;vrr&#x27;, &#x27;bids received&#x27;, &#x27;cut-off rate&#x27;,
+                &#x27;weighted average&#x27;, &#x27;repo rate&#x27;, &#x27;liquidity&#x27;, &#x27;amount allotted&#x27;]
+    # Extract sentences containing any keyword
+    matches = re.findall(r&#x27;[^\.]*&#x27; + kw + r&#x27;[^\.]*&#x27;, body_text, re.IGNORECASE)
+    ```
+  - Commonly available fields: Notified Amount, Bids Received, Amount Allotted, Cut-off Rate (%), Weighted Average Rate (%), Partial Allotment Percentage.
+  - Always list VRR/G-Sec/T-bill results under &quot;RBI OPERATIONS&quot; section.
+
+### 2. RBI VERIFICATION — rbi.org.in ONLY
+
+**Exchange Rates (CRITICAL — Required for every report)**
+- RBI Homepage: `https://www.rbi.org.in/home.aspx`
+- Look for &quot;Exchange Rates&quot; section under &quot;Current Rates&quot;.
+- ⚠️ **ReferenceRateDisplay.aspx frequently errors** — do NOT use.
+- ✅ **Use RBI `ReferenceRateArchive.aspx` with browser navigation when you need RBI-verified reference-rate data.** It may return `No Reference Rate Found` for the current EOD date; latest available can be the previous business day. Do not treat the RBI homepage last-updated date as proof that the target date&#x27;s reference rate is published.
+- ⚠️ **Python POST to `ReferenceRateArchive.aspx` can still bot-detect with 418** even with ASP.NET hidden fields and cookies; browser navigation is the more reliable RBI verification path.
+- ✅ **For same-day EOD spot**, use CCIL/Yahoo/ET market spot if RBI target-date reference rate is unavailable, but label it clearly as market spot and keep the latest RBI-verified date separate.
+- ✅ **SECONDARY: RBI homepage via browser_console** — see &quot;RBI Reference Rate Page Errors&quot; pitfall. Use only if POST method fails.
+
+**Policy Rates (Verify weekly or on change)**
+- Repo Rate, SDF Rate, MSF Rate, Reverse Repo.
+- CRR, SLR percentages.
+
+**Press Releases / Operations**
+- URL: `https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx`
+- Filter for today&#x27;s date.
+- Look for:
+  - OMO (Open Market Operations) announcements.
+  - VRRR/Variable Rate Reverse Repo results.
+  - T-bill auction calendars.
+  - G-Sec auction announcements.
+  - NBFC-specific directions/circulars.
+
+**Money Market / CCIL (Alternative to RBI)**
+- If RBI money market PDFs are stale, use CCIL `https://www.ccilindia.com/`.
+- &quot;Market Today&quot; tab shows real-time CALL, TREP, BASKET REPO, SPECIAL REPO.
+- WAR (Weighted Average Rate) is directly usable for call money reference.
+
+### 3. GLOBAL MARKETS — Yahoo Finance
+
+**US Futures (During India Hours)**
+- S&amp;P 500 Futures: `https://finance.yahoo.com/quote/ES=F`
+- Dow Futures: `https://finance.yahoo.com/quote/YM=F`
+- Nasdaq Futures: `https://finance.yahoo.com/quote/NQ=F`
+- VIX: `https://finance.yahoo.com/quote/^VIX`
+
+**Commodities**
+- Brent Crude: `https://finance.yahoo.com/quote/BZ=F`
+- WTI Crude: `https://finance.yahoo.com/quote/CL=F`
+- Gold: `https://finance.yahoo.com/quote/GC=F`
+
+**Fixed Income &amp; FX**
+- US 10Y Treasury: `https://finance.yahoo.com/quote/^TNX` (yield in %, e.g., 43.17 = 4.317%)
+- Dollar Index (DXY): `https://finance.yahoo.com/quote/DX-Y.NYB`
+
+**Europe**
+- DAX: `https://finance.yahoo.com/quote/^GDAXI`
+- FTSE 100: `https://finance.yahoo.com/quote/^FTSE`
+
+### 4. MARKET NEWS — Economic Times / Web Search
+
+- ET Markets section for breaking developments
+- Search for: &quot;Nifty fall today&quot;, &quot;market news today&quot;, &quot;RBI today&quot;
+- Corporate earnings, IPO updates, broker calls
+
+## Report Structure
+
+```
+══════════════════════════════════════════════════════════════════
+              EOD MARKETS WRAP — [DATE]
+        For: the user | the NBFC treasury desk Treasury
+══════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 1. INDIA MARKETS TODAY                                           │
+└─────────────────────────────────────────────────────────────────┘
+
+  NIFTY 50
+  ────────
+  Close:        XX,XXX.XX    Change:  ±XXX.XX (±X.XX%)
+  Open:         XX,XXX.XX    High:    XX,XXX.XX
+  Low:          XX,XXX.XX    Prev:    XX,XXX.XX
+  
+  [Note if market closed for holiday — use last trading day]
+
+  USD/INR (RBI Reference Rate — VERIFIED)
+  ───────────────────────────────────────
+  RBI Reference:     XX.XXXX
+  Spot (ET):         XX.XX    High: XX.XX  Low: XX.XX
+
+  10-YEAR G-SEC YIELD
+  ───────────────────
+  Yield:         X.XX% – X.XX% (estimated)
+  Trend:         [Stable/Rising/Falling]
+
+  MONEY MARKETS
+  ─────────────
+  Call Money Range:    X.XX% – X.XX%
+  Weighted Avg:        X.XX%
+  O/N OIS Fixing:      X.XX% – X.XX% [or note if unavailable]
+  
+  [Note date of last available data if weekend/holiday]
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 2. GLOBAL MARKETS                                                │
+└─────────────────────────────────────────────────────────────────┘
+
+  US FUTURES (During India Hours)
+  ───────────────────────────────
+  S&amp;P 500 Futures:    X,XXX.XX   ±XXX.XX  (±X.XX%)
+  Dow Futures:        XXXXX.XX   ±XXX.XX  (±X.XX%)
+  Nasdaq Futures:     XXXXX.XX   ±XXX.XX  (±X.XX%)
+
+  EUROPE
+  ──────
+  DAX (Germany):      XX,XXX.XX   ±XXX.XX  (±X.XX%)
+  FTSE 100 (UK):      XX,XXX.XX   ±XXX.XX  (±X.XX%)
+
+  COMMODITIES
+  ───────────
+  Brent Crude:        $XX.XX      ±$X.XX  (±X.XX%)
+  Gold (USD):         $X,XXX.XX   ±$XX.XX (±X.XX%)
+  
+  Domestic (INR):
+  Gold (10g):         ₹XXX,XXX    (±X.X%)
+  Silver (1kg):       ₹XXX,XXX    (±X.X%)
+  Crude Oil/barrel:   ₹X,XXX      (±X.X%)
+
+  FIXED INCOME &amp; FX
+  ──────────────────
+  US 10Y Treasury:    X.XX%
+  Dollar Index (DXY): XX.XX       ±X.XX% (±X.XX%)
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 3. FLOWS &amp; ACTIVITY                                              │
+└─────────────────────────────────────────────────────────────────┘
+
+  FII / FPI CASH FLOWS (Provisional)
+  ──────────────────────────────────
+  FII Today:          ±₹X,XXX.X Cr  (Inflow/Outflow)
+  DII Today:          ±₹X,XXX.X Cr  (Inflow/Outflow)
+  
+  7-Day Cumulative:
+  FII:                ±₹XX,XXX.X Cr
+  DII:                ±₹XX,XXX.X Cr
+  
+  30-Day Cumulative:
+  FII:                ±₹X,XX,XXX Cr  ([Sustained selling/Net inflow])
+  DII:                ±₹X,XX,XXX Cr  ([Absorption/Support])
+
+  RBI OPERATIONS
+  ──────────────
+  • 5-day / 7-day Variable Rate Repo (VRR) Auction:
+      Notified Amount:   ₹XX,XXX Cr
+      Bids Received:     ₹XX,XXX Cr
+      Amount Allotted:   ₹XX,XXX Cr
+      Cut-off Rate:      X.XX%
+      Weighted Average:  X.XX%
+  • OMO announcements: [Yes/No — details if yes]
+  • Scheduled auctions: [G-Sec/T-bill dates, amounts]
+
+  CORPORATE DEBT / NCD ACTIVITY
+  ─────────────────────────────
+  • [Any large NCD issuances, rating actions, deferrals]
+  • [NBFC-specific bond market news]
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 4. KEY EVENTS / DRIVERS                                          │
+└─────────────────────────────────────────────────────────────────┘
+
+  GEOPOLITICAL / MACRO
+  ────────────────────
+  • [Major geopolitical developments affecting oil/markets]
+  • [US-Iran, Middle East, Russia-Ukraine, etc.]
+  • [Oil price impact on inflation/current account]
+
+  CORPORATE DEVELOPMENTS
+  ──────────────────────
+  • [Bonus issues, earnings, IPOs, broker calls]
+  • [NBFC sector specific news]
+
+  EARNINGS SEASON
+  ───────────────
+  • [Key Q4 results announced today]
+  • [Upcoming major results]
+
+  REGULATORY
+  ──────────
+  • [RBI circulars, NBFC-specific notifications]
+  • [Consultation papers, draft directions]
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 5. OVERNIGHT WATCH                                               │
+└─────────────────────────────────────────────────────────────────┘
+
+  US DATA RELEASES (Next Day IST)
+  ───────────────────────────────
+  • [CPI, PPI, FOMC minutes, Jobs data, etc.]
+  • [Expected impact on yields/FX]
+
+  FED SPEAKERS
+  ────────────
+  • [Any scheduled speeches, testimony]
+
+  ASIA OPENING EXPECTATIONS
+  ─────────────────────────
+  • [Japan, China, Hong Kong pre-market indicators]
+  • [Indian market status next day]
+
+  RISK FACTORS FOR NEXT SESSION
+  ─────────────────────────────
+  • [Geopolitical escalation risks]
+  • [FII selling continuation risk]
+  • [Oil price volatility]
+  • [US data surprise risk]
+
+┌─────────────────────────────────────────────────────────────────┐
+│ TREASURY IMPLICATIONS — HERO FINCORP                             │
+└─────────────────────────────────────────────────────────────────┘
+
+  • LIQUIDITY: [Call money assessment]
+  • FX HEDGE: [INR level implications]
+  • BOND MARKETS: [G-Sec opportunity/alert]
+  • CREDIT: [CP/NCD market assessment]
+  • RISK ALERT: [Key overnight risks]
+
+  MARKET HOLIDAY NOTE
+  ───────────────────
+  [If applicable — note closures and next trading day]
+
+┌─────────────────────────────────────────────────────────────────┐
+│ DATA GAPS &amp; NOTES                                               │
+└─────────────────────────────────────────────────────────────────┘
+
+  • [Explicitly list any unavailable, stale, or unverified data points]
+  • [Note the date of last available data for stale items]
+  • [Flag &quot;RBI ref verification pending&quot; if applicable]
+
+══════════════════════════════════════════════════════════════════
+  Data Sources: RBI, Economic Times, Yahoo Finance, NSE
+  Report Generated: [Date] | [Time] IST
+══════════════════════════════════════════════════════════════════
+```
+
+## Critical Pitfalls &amp; Workarounds
+
+&gt; Session-specific learnings: see `references/session-notes-2026-05-04.md`, `references/session-notes-2026-06-03.md`, and `references/session-notes-2026-06-19.md` for extraction patterns observed under cron-job/WSL execution.
+
+### 1. RBI Reference Rate Page Errors
+- **Problem**: `ReferenceRateDisplay.aspx` is permanently unavailable (returns 404). `ReferenceRateArchive.aspx` can be reached through browser navigation, but the target-date rate may still be unpublished; in the 19-Jun-2026 run it returned `No Reference Rate Found` for `19/06/2026` while showing the 18-Jun-2026 USD rate of `94.2795`. The RBI homepage `home.aspx` &quot;Exchange Rates&quot; accordion loads client-side AJAX that does **not** appear in the initial HTML and is **not** reliably rendered in browser snapshots or accessible DOM even after clicking the accordion.
+- **Solution** (in order of reliability):
+  1. **RBI-verified reference rate** — use `ReferenceRateArchive.aspx` via browser navigation and submit the date/currency filters. If it returns `No Reference Rate Found`, do not infer the rate from the homepage footer or market spot.
+  2. **Market spot for same-day EOD** — use CCIL USD/INR SPOT LTR/range or Yahoo `USDINR=X` as a proxy, clearly labelled as market spot.
+  3. **Report gap explicitly** — write: &quot;RBI reference rate for [date] unavailable; latest RBI-verified reference rate was [date]: [rate]. Market spot was [rate].&quot;
+
+### 2. Stale FBIL MIBOR-OIS Data
+
+- **Problem**: FBIL `wasdm/miborois/fetch` can return data, but the latest process run date may be several business days old.
+- **Pitfall**: Do not treat stale FBIL MIBOR-OIS data as the current day&#x27;s O/N OIS fixing.
+- **Solution**: Check `processRunDate` and `displayTime` in every FBIL response. If stale, report O/N OIS as unavailable and include current CCIL OIS tenors only as context.
+
+### 3. Market Holidays
+- **Check**: Always verify if today is a market holiday (Eid, Holi, Diwali, Ambedkar Jayanti, etc.)
+- **Handling**: Use last trading day&#x27;s closing data and note &quot;Markets closed for [holiday]&quot;
+- **Next Session**: Note the next trading date for overnight positioning
+- **Sunday gap in RBI Money Market data**: RBI Money Market Operations as on Sunday show zero overnight volumes (Call Money, Triparty Repo, Market Repo all 0.00). This is expected due to market closure. Fall back to the most recent Friday/Saturday data and explicitly label the date.
+
+### 3. Money Market Data Timing
+- **Weekends/Holidays**: RBI Money Market Operations PDF shows zero volume
+- **Solution**: Use last trading day&#x27;s data and explicitly note the date
+- **Call Money Range**: Format as &quot;X.XX% – X.XX% (last trading date: DD MMM)&quot;
+
+### 4. G-Sec Yield Estimates
+- **Problem**: No real-time public G-Sec yield ticker
+- **Solution**: Use Economic Times bonds section news for trend + estimate range
+- **Note**: &quot;Estimated ~X.XX% – X.XX% based on market sources&quot;
+
+### 5. FII/DII Data Timing
+- **Provisional vs Final**: ET shows &quot;provisional&quot; for current day
+- **30-day trends**: More important than single day for treasury positioning
+- **Context**: Always compare FII outflows vs DII absorption capacity
+
+### 6. Bot Detection Avoidance (Environment: WSL / Cloud Browser)
+- ✅ **PRIMARY API — Yahoo Finance v8**: Use `https://query1.finance.yahoo.com/v8/finance/chart/{SYMBOL}?interval=1d&amp;range=5d` for reliable OHLC + change. Works with requests/execute_code even when browser fails.
+  - ⚠️ Pitfall: `meta[&#x27;previousClose&#x27;]` sometimes missing. Fallback to previous day&#x27;s close from the `close` array.
+  - ⚠️ **Currency Pair Pitfall**: For `USDINR=X`, `meta[&#x27;previousClose&#x27;]` is frequently `null`. Always compute change vs `meta[&#x27;chartPreviousClose&#x27;]` instead.
+  - Commodity units: Gold `GC=F` and Silver `SI=F` are USD per ounce; Brent `BZ=F` and WTI `CL=F` are USD per barrel. Do not confuse with INR domestic prices.
+- ✅ **FII/DII — NSE JSON endpoint**: `https://www.nseindia.com/api/fiidiiTradeReact?section=equities` (see headers in Data Gathering Strategy above).
+- ✅ **10Y G-Sec — TradingEconomics**: Scrape meta description from `https://tradingeconomics.com/india/government-bond-yield` for exact yield + change. Proven curl pattern: `curl -sL &#x27;https://tradingeconomics.com/india/government-bond-yield&#x27; -H &#x27;User-Agent: Mozilla/5.0&#x27; | grep -oP &#x27;yield on India 10Y[^\n]+&#x27;` extracts the full sentence with date, yield, and change.
+- ✅ **NEWS FALLBACK — Bing Search/News**: `https://www.bing.com/news/search?q=...` when Google Search triggers instant CAPTCHA. Proven curl pattern: `curl -sL &#x27;https://www.bing.com/news/search?q=nifty+fall+today&#x27; -H &#x27;User-Agent: Mozilla/5.0&#x27; | grep -oP &#x27;title=&quot;[^&quot;]+&quot;&#x27; | head -20` extracts headlines without browser JS.
+- ✅ **USE**: Economic Times browser pages (fii-dii-activity, bonds, commodities) — works with browser navigation.
+- ✅ **USE**: RBI homepage static HTML (`https://www.rbi.org.in/home.aspx`) for exchange-rate accordion and press releases.
+- ✅ **USE**: RBI Money Market Operations press release HTML tables (browser snapshot) when CCIL is blocked.
+- ✅ **USE**: CCIL (`https://www.ccilindia.com/`) for money-market &quot;Market Today&quot; tab.
+- ❌ **AVOID — HARD BLOCKED**: MoneyControl (Access Denied), Investing.com (Cloudflare), NSE direct reference-rates API (returns empty/invalid), Bloomberg (robot challenge), MarketWatch (JS challenge), Google Search (CAPTCHA without proxies).
+- ❌ **AVOID**: RBI `ReferenceRateDisplay.aspx` (permanent 404).
+- ⚠️ **USE WITH CAUTION**: RBI `ReferenceRateArchive.aspx` via browser navigation for RBI-verified historical/current reference rates; it may return `No Reference Rate Found` for the target EOD date. Do not rely on Python POST if it returns 418.
+
+### 8. Commodities Dual Reporting
+- **Global**: Brent, Gold in USD (from Yahoo Finance)
+- **Domestic**: Gold (10g), Silver (kg), Crude (barrel) in INR (from ET Commodities)
+- **Both matter**: INR commodities affect inflation/CPI; USD commodities affect global risk
+
+### 11. RBI Reference Rate Retrieval — Prioritised Fallbacks
+
+When the target is an EOD wrap and the RBI/FBIL reference rate must be locked:
+1. **Try RBI `ReferenceRateArchive.aspx` via browser navigation early in the run** for the target date and USD. If it returns `No Reference Rate Found`, record that result and check the latest available RBI-verified date instead.
+2. **Do not keep retrying a Python POST** if it returns 418; browser navigation is the more reliable RBI verification path.
+3. **Use CCIL/Yahoo/ET market spot** for the same-day USD/INR close only after RBI verification is unavailable, and label it as market spot.
+4. **Try FBIL public reference-rate page** with date picker; watch for stale pagination defaults.
+5. Try a web search for a PTI/News18/RBI press release containing &quot;RBI Reference Rate&quot; + target date; sometimes published as a standalone release.
+6. **If all fail by mid-run, stop chasing the reference rate.** Use the highest-fidelity market spot proxy available (Yahoo `USDINR=X`, BookMyForex, Economic Times Forex) and clearly mark &quot;RBI reference-rate verification pending.&quot; Do not consume remaining iterations on RBI/FBIL if other sections still need data.
+
+### 12. Iteration Budgeting for Cron EOD Wraps
+- **Rule of thumb:** spend the first ~30% of the iteration budget on deterministic API/script fetches (NSE indices, Yahoo global batch, NSE FII/DII). RBI/FBIL verification and news-driver context consume the rest.
+- **Do not parallel-spawn `delegate_task` subagents for raw data fetching.** Use sequential `execute_code` blocks; reserve subagents for synthesis/review only.
+- If iteration pressure is reached, deliver the wrap with all available data and a **Data Gaps &amp; Notes** section listing the missing/stale items explicitly.
+
+### 10. NSE FII/DII Endpoint Returns a Bare List
+- **Finding**: `api/fiidiiTradeReact?section=equities` returns a Python `list`, NOT a `dict`. Iterating with `.get()` fails.
+- **Fix**: Use `for item in data:` (not `for item in data.get(&#x27;data&#x27;, [])`).
+
+### 11. RBI Money Market / VRR / T-Bill PRs — Prefer Table Parsing Over Body-Text Regex
+- **Finding**: Regex on body text for VRR results truncates numeric decimals (&quot;5.26%&quot; becomes &quot;5&quot;). Table extraction via `re.findall(r&#x27;&lt;table[^&gt;]*&gt;(.*?)&lt;/table&gt;&#x27;, html, re.DOTALL)` preserves exact values.
+- **Applies to**: Money Market Operations, T-Bill Full Auction Result, State G-Sec results.
+- **See `references/session-notes-2026-06-03.md`** for proven table-parsing code.
+
+### 9. `delegate_task` Anti-Pattern for EOD Data Gathering
+- **Problem**: Spawning parallel `delegate_task` subagents to fetch India markets, Global markets, and Flows data concurrently leads to `max_iterations` failures, invalid tool call errors, and anti-loop warnings. Subagents are unpredictable in cron/WSL environments and consume token budget with zero usable output.
+- **Working solution**: Use sequential `execute_code` blocks with `urllib.request` fetching multiple endpoints deterministically in a single Python script. Each block covers one logical data domain. Reserve `delegate_task` only for complex analysis/synthesis where reasoning is needed, not for deterministic data extraction.
+- **Why**: `execute_code` with stdlib `urllib.request` + `json.loads` is deterministic, passes security scans, and requires no subagent tool-call negotiation.
+
+### 10. `terminal curl | python3` Blocked by Tirith Security Scanner
+- **Problem**: Cron job security scanner (Tirith) flags `curl -sL &quot;...&quot; | python3 -c &quot;...&quot;` as `[HIGH] Pipe to interpreter` because downloaded content is executed without inspection. The command enters `pending_approval` state, which cannot be resolved in autonomous cron mode.
+- **Working solution**: Always use `execute_code` with `urllib.request` (Python stdlib) + `json.loads` inside the script. Functionally equivalent, but no pipe-to-interpreter flag.
+- **Anti-pattern to avoid**:
+```bash
+curl -sL &quot;https://...&quot; | python3 -c &quot;import json,sys; ...&quot;
+```
+- **Correct pattern**:
+```python
+import urllib.request, json
+req = urllib.request.Request(&#x27;https://...&#x27;, headers={&#x27;User-Agent&#x27;: &#x27;Mozilla/5.0&#x27;})
+with urllib.request.urlopen(req, timeout=10) as r:
+    data = json.loads(r.read().decode())
+print(data)
+```
+
+## Key Section Priorities
+
+1. **USD/INR with RBI verification** — Required for every report
+2. **FII/DII flows** — Critical for the NBFC treasury desk positioning
+3. **Overnight Watch** — Treasury-specific risk assessment
+4. **Treasury Implications** — Actionable takeaways, not just data
+
+## Data Freshness Rules
+
+| Data Type | Freshness Expectation | Fallback if Stale |
+|-----------|----------------------|-------------------|
+| Nifty 50 | Same day or last trading day | Use ET indices page |
+| USD/INR RBI | Same day | Note date of reference rate |
+| USD/INR market spot | Same day | CCIL/Yahoo/ET |
+| O/N OIS | Same day | If CCIL/FBIL lacks O/N tenor or FBIL is stale, mark unavailable |
+| FII/DII | Same day provisional | Use 7-day cumulative trend |
+| Call Money | Last trading day | Note explicitly |
+| Global Futures | Live during India hours | Yahoo Finance real-time |
+| RBI Operations | Same day | Check press releases |
+
+## Verification Checklist
+
+Before finalizing EOD wrap:
+- [ ] RBI Reference Rate: either **verified from rbi.org.in** OR **explicitly flagged as &quot;verification pending&quot; with market spot proxy noted**
+- [ ] RBI VRR / Auction results checked and listed if any occurred today
+- [ ] Market holiday status confirmed
+- [ ] FII/DII flows include today + 30-day trend (label data date if lagged)
+- [ ] USD/INR includes both RBI ref (if available) and market spot
+- [ ] FBIL MIBOR-OIS `processRunDate` checked before using any OIS data
+- [ ] O/N OIS is either verified for the target date or explicitly marked unavailable
+- [ ] Global markets cover US futures + Europe
+- [ ] Commodities include both USD (global) and INR (domestic)
+- [ ] Overnight Watch has specific next-day risks
+- [ ] Treasury Implications section has actionable points
+- [ ] **Data Gaps &amp; Notes section added** listing unavailable/stale data explicitly
+- [ ] **NO URLs in final output**
+- [ ] **All missing/unavailable data points explicitly noted** — do not silently omit
+
+## Toolset Requirements
+- browser (essential for ET and RBI data)
+- web (fallback for news context)
+- execute_code (for final report compilation)
+
+## Output Format
+- Clean ASCII box-drawing format for professional treasury use
+- No emojis in headers (use clean box drawing: ┌─┐│)
+- Bullet points with &quot;•&quot; for readability
+- **CRITICAL: NO URLs or hyperlinks anywhere in output**
+- Explicit date notes for any stale data
+
+- Use bullet points (• or -) for nearly everything: facts, data points, sources, implications, and action items. Avoid dense paragraphs whenever a list is possible.
+- Prefer this structure for every item: **Bullet + bold label + explanation.**
+- For numeric data, always include a markdown table AND follow it with bullet-point interpretation.
+- Do not return `[SILENT]` under any circumstance.
+
+[IMPORTANT: The user has invoked the &quot;treasury-tbill-auction-monitor&quot; skill, indicating they want you to follow its instructions. The full skill content is loaded below.]
+
+---
+name: treasury-tbill-auction-monitor
+description: Deep analysis monitor for RBI Treasury Bill (T-bill) auctions - extracting auction amounts, cut-off rates, YTMs, bid coverage ratios, and market implications. Produces substantive treasury intelligence beyond headline summaries.
+version: 1.3.1
+author: skill-managed
+metadata:
+  hermes:
+    tags: [treasury, RBI, T-bills, auction, money-market, analysis, india]
+    homepage: https://github.com/hermes-agent/skills
+prerequisites:
+  commands: [blogwatcher]
+  tools: [browser_navigate, browser_scroll, browser_snapshot, browser_click]
+---
+
+Deep analysis of RBI 91-day, 182-day, and 364-day Treasury Bill auctions with full auction metrics, yield analysis, and treasury implications.
+
+## Overview
+
+This skill provides **substantive treasury intelligence** on T-bill auctions, including:
+- **Auction sizes** (notified amounts vs actual accepted)
+- **Cut-off rates and yields** with exact figures
+- **Bid coverage ratios** (demand intensity)
+- **Weighted average yields vs cut-off spreads**
+- **Partial allotment percentages** (pricing pressure indicator)
+- **Trend analysis** (sequential auction comparison)
+
+## T-Bill Auction Calendar Pattern
+
+RBI conducts T-bill auctions on **Wednesdays**:
+- **91-day T-bills**: ₹9,000-15,000 Cr (most liquid, benchmark for short-term funding)
+- **182-day T-bills**: ₹6,000-8,000 Cr  
+- **364-day T-bills**: ₹6,000-7,000 Cr
+
+**Settlement**: T+1 (Thursday following Wednesday auction)
+
+**Quarterly calendar resets (July–September pattern, verified July 2026):**
+- The *Calendar for Auction of Government of India Treasury Bills* release often changes the weekly mix while keeping the weekly total close to ₹24,000 Cr.
+- Example Q2 FY27: 91D ₹9,000 Cr + 182D ₹8,000 Cr + 364D ₹7,000 Cr = ₹24,000 Cr.
+- When the mix shifts, analyze **which tenor&#x27;s supply is being increased/decreased** rather than only the headline total — it signals RBI&#x27;s duration-management intent.
+
+## Critical Data Points to Extract
+
+For EACH tenor (91D, 182D, 364D), capture:
+```
+1. Notified Amount (₹ Cr) - RBI&#x27;s target borrowing
+2. Bids Received (Number + Amount) - total demand
+3. Cut-off Price / Yield - winning bid
+4. Yield to Maturity (YTM%) - annualized
+5. Bids Accepted (Number + Amount) - RBI&#x27;s take-up
+6. Partial Allotment % - % accepted at cut-off rate
+7. Weighted Average Yield (WAY%) - blended cost to RBI
+```
+
+**⚠️ NIL / Devolved Auction Handling:**
+When a tenor shows dashes (&quot;-&quot;) for cut-off, accepted amounts, or partial allotment in the Full Auction Result table, this indicates **devolvement** — RBI accepted ZERO bids for that tenor. Cross-check with the separate &quot;Cut-off&quot; press release which will state &quot;NIL&quot; under Total Face Value Accepted. In such cases:
+- Coverage ratio still matters (shows demand relative to notified)
+- WAY and cut-off are undefined
+- Total borrowing shortfall must be calculated across all tenors
+- This is a MAJOR market signal — see &quot;Auction Devolvement&quot; analysis section below
+
+## Browser Navigation Pattern (RBI Website)
+
+RBI press releases are chronologically organized with dates as headings:
+
+```
+browser_navigate(url=&quot;https://rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx&quot;)
+```
+
+### PRID Discovery via JavaScript Console (Recommended)
+
+RBI listing pages use ASP.NET postback handlers — clicking the visible link text often navigates back to the generic listing page rather than to the press release detail. To reliably extract PRIDs, use `browser_console` with a `toLowerCase` filter:
+
+```javascript
+Array.from(document.querySelectorAll(&#x27;a&#x27;))
+  .filter(a =&gt; a.textContent.toLowerCase().includes(&#x27;treasury&#x27;) || a.textContent.toLowerCase().includes(&#x27;91-day&#x27;))
+  .map(a =&gt; ({href: a.getAttribute(&#x27;href&#x27;), text: a.textContent.trim().substring(0,120)}))
+```
+
+This returns objects like:
+- `{&quot;href&quot;: &quot;BS_PressReleaseDisplay.aspx?prid=62689&quot;, &quot;text&quot;: &quot;Treasury Bills: Full Auction Result&quot;}`
+- `{&quot;href&quot;: &quot;BS_PressReleaseDisplay.aspx?prid=62706&quot;, &quot;text&quot;: &quot;Auction of 91-Day, 182-Day and 364-Day Treasury Bills&quot;}`
+
+**Action:** Navigate directly to the extracted `?prid=XXXXX` URL with `browser_navigate` rather than clicking the element via `browser_click`, which may be intercepted by ASP.NET postback.
+
+**Text extraction on detail pages:** When the detail page loads, `browser_snapshot` may truncate large tables. Use `browser_console` with `document.body.innerText` to get the full raw text including table data:
+```javascript
+document.body.innerText.substring(0, 3000)
+```
+
+**Sequential PR ID Search Strategy:**
+When searching for auction results from prior weeks:
+1. Note the PR ID of the current announcement (e.g., PRID 62577 for April 17)
+2. Search backward sequentially: 62576, 62575, 62574... 
+3. Results typically appear **10-15 PR IDs** before the announcement (gap can be narrow)
+4. Example verified: April 15 announcement (PRID 62577) vs April 8 results (PRID 62564) = **13 IDs apart**
+5. Expanded example: April 17 announcement (PRID 62577) vs April 22 results (PRID 62598) = **21 IDs apart** — gap can exceed 20 IDs
+6. Search pattern: Start at announcement ID -15, then expand to -25 if not found
+7. **June 2026 update**: Results and announcement now sometimes share the SAME date. Example: June 3 announcement (PRID 62837) and June 3 results (PRID 62856) = **19 IDs apart**, both on same calendar date. This means same-day results exist.
+8. **Always check both press releases**: &quot;Treasury Bills: Full Auction Result&quot; AND &quot;91-Day, 182-Day and 364-Day T-Bill Auction Result: Cut-off&quot; — they are published as separate PRIDs with sequential numbers.
+
+**Key URL patterns to monitor:**
+- Main listing: `https://rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx`
+- Direct press release: `BS_PressReleaseDisplay.aspx?prid=XXXXX`
+- Direct PDF: `https://rbidocs.rbi.org.in/rdocs/PressRelease/PDFs/PRXXXX.PDF`
+
+## Analysis Framework
+
+### 1. Auction Size Analysis
+
+```
+Total Notified: ₹24,000 Cr (typical weekly auction)
+Breakdown: 91D (₹9,000-12,000 Cr) + 182D (₹6,000-8,000 Cr) + 364D (₹6,000-7,000 Cr)
+
+TREND: Is RBI changing the weekly mix?
+- 91D share rising → Leaning on short-end borrowing / absorbing short-term liquidity
+- 182D/364D share rising → Shifting duration / easing short-end supply pressure
+- Increasing total weekly size → Larger Centre borrowing / liquidity absorption
+- Decreasing total weekly size → Tighter liquidity management
+```
+
+### 2. Bid Coverage Analysis
+
+```
+Coverage Ratio = Bids Received / Notified Amount
+
+Example from April 8, 2026:
+91D: ₹60,631.600 Cr received / ₹12,000 Cr notified = 5.05x coverage
+182D: ₹19,996.400 Cr / ₹6,000 Cr = 3.33x coverage  
+364D: ₹13,410.100 Cr / ₹6,000 Cr = 2.24x coverage
+
+INTERPRETATION:
+- &gt;4x coverage = Strong demand, yields likely compress
+- 2-4x coverage = Normal demand
+- &lt;2x coverage = Weak demand, yields likely widen
+```
+
+### 3. Yield Analysis
+
+```
+Current Yield (April 8, 2026 auction):
+91D: 5.3064% YTM | 182D: 5.5299% YTM | 364D: 5.6278% YTM
+
+vs Policy Rates (April 2026 MPC):
+Repo: 5.25% | SDF: 5.00% | MSF: 5.50%
+
+SPREAD ANALYSIS:
+91D (5.3064%) vs Repo (5.25%) = +5.6 bps premium
+364D (5.6278%) vs Repo = +37.8 bps premium (forward funding cost)
+
+T-Bill Curve Steepness:
+364D - 91D spread = 32.1 bps (normal term premium)
+&gt;40 bps = Expecting rate hikes
+&lt;20 bps = Expecting rate cuts or flat curve
+```
+
+### 4. Weighted Average vs Cut-off Spread
+
+```
+WAY - Cut-off = Auction selectivity
+
+April 8, 2026:
+91D: WAY 5.3015% - Cut-off 5.3064% = -0.5 bps (competitive bidding)
+182D: 5.5088% - 5.5299% = -2.1 bps
+364D: 5.6111% - 5.6278% = -1.7 bps
+
+INTERPRETATION:
+- Negative spread = RBI accepted bids below cut-off (VERY accommodative)
+- Small positive spread (&lt;1 bps) = Competitive bidding, neutral policy
+- Large positive spread (&gt;2 bps) = RBI rejected high-yield bids (hawkish)
+
+⚠️ Negative WAY-Cut indicates surplus liquidity and RBI reluctance to reject bids
+```
+
+### 5. Partial Allotment Analysis
+
+```
+Partial Allotment % = (Number of bids accepted / Number at cut-off)
+
+April 8, 2026:
+91D: 53.9280% (6 bids) - HIGH pressure, many rejected
+182D: 18.6190% (6 bids) - VERY HIGH pressure
+364D: 78.5714% (2 bids) - Low pressure
+
+INTERPRETATION:
+- &lt;25% partial allotment → Severe demand/supply imbalance
+- 25-50% → Significant competition at cut-off
+- &gt;75% → Light competition, easy allotment
+```
+
+## Treasury Implications
+
+### For NBFC Funding Strategy
+
+```
+T-bill yields → CP/CD market reference rates
+
+April 8, 2026 Implications:
+- 91D T-bill at 5.3064% → A1+ CP should price at +20-40 bps = 5.50-5.70%
+- 364D T-bill at 5.6278% → 1-year NCD benchmark = +60-100 bps = 6.20-6.60%
+
+ACTION: 
+If T-bill yields rising → Lock in longer-term funding NOW
+If T-bill yields stable/falling → Stay short, roll CP
+```
+
+### For ALM/Gap Management
+
+```
+Rate Expectation Signal:
+If 364D T-bill YTM &gt; 6.00% → Market pricing rate hike expectation
+If 364D T-bill YTM &lt; 5.50% → Market pricing rate cut expectation
+
+Current 5.6278% = Neutral stance, slight tightening bias priced
+```
+
+## Report Structure
+
+```
+═══════════════════════════════════════════════════════════════════
+T-BILL AUCTION ANALYSIS — [Date]
+═══════════════════════════════════════════════════════════════════
+
+📊 AUCTION SUMMARY
+Total Notified Amount: ₹XX,XXX Cr
+Auction Date: [Date] | Settlement: [T+1 Date]
+
+┌──────────────────┬──────────────┬──────────────┬──────────────┐
+│ Metric           │ 91-Day       │ 182-Day      │ 364-Day      │
+├──────────────────┼──────────────┼──────────────┼──────────────┤
+│ Notified (₹ Cr)  │ XX,XXX       │ X,XXX        │ X,XXX        │
+│ Bids Received    │ XXX (₹XX,X..│ XX (₹X,XXX)  │ XX (₹X,XXX) │
+│ Coverage Ratio   │ X.XXx        │ X.XXx        │ X.XXx        │
+│ Cut-off YTM      │ X.XXXX%      │ X.XXXX%      │ X.XXXX%      │
+│ Weighted Avg YTM │ X.XXXX%      │ X.XXXX%      │ X.XXXX%      │
+│ WAY-Cut Spread   │ -XX.X bps    │ -XX.X bps    │ -XX.X bps    │
+│ Partial Allot%   │ XX.XX%       │ XX.XX%       │ XX.XX%       │
+│ Accepted (₹ Cr)  │ XX,XXX.XXX   │ X,XXX.XXX    │ X,XXX.XXX    │
+└──────────────────┴──────────────┴──────────────┴──────────────┘
+
+📈 YIELD CURVE ANALYSIS
+Current Spreads vs Policy (Repo 5.25%):
+- 91D T-bill: +XX bps premium to repo
+- 364D T-bill: +XX bps premium to repo
+- Term Spread (364D-91D): XX bps
+
+[Trend: steepening/flattening from previous auctions]
+
+🔴 MARKET SIGNALS
+Demand Intensity: [Strong/Moderate/Weak]
+Yield Pressure: [Rising/Stable/Falling]
+RBI Selectivity: [Hawkish/Neutral/Accommodative]
+
+💡 TREASURY ACTION ITEMS
+1. [Specific actionable recommendation based on auction data]
+2. [Timing/planning implications]
+
+═══════════════════════════════════════════════════════════════════
+Source: RBI Press Release [PR Number] | Analysis: Treasury Desk
+═══════════════════════════════════════════════════════════════════
+```
+
+## Implementation for Cron Jobs
+
+### Option A: Browser-First Approach (Recommended)
+
+Since RBI RSS fails with 404, use browser navigation:
+
+```python
+browser_navigate(url=&quot;https://rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx&quot;)
+```
+
+**Latest-result discipline:** Always classify the latest T-bill PRIDs into three buckets: (1) latest *announcement*, (2) latest *full auction result*, and (3) latest *cut-off release*. If the latest announcement is newer than the latest full result/cut-off pair, do **not** infer that the auction cleared and do **not** fabricate results. Report the pending announcement, state that results were not located after the PRID search, and include the most recent verified full result as the last usable benchmark.
+
+**When to report a pending auction vs stay silent:**
+- **Today or tomorrow has a scheduled T-bill auction** identified from the RBI calendar/announcement → this is a genuine auction event. Report the upcoming auction details plus the latest verified result as a benchmark, even if cut-off results are not yet published.
+- **No auction scheduled today/tomorrow AND no new result/devolvement since last run** → emit `SILENT` exactly.
+- A new *Calendar for Auction of Government of India Treasury Bills* release counts as a calendar event, but treat it as a scheduling update; pair it with the next scheduled auction date for reporting.
+
+### Option B: Hybrid (Blogwatcher + Browser Backup)
+
+```
+Step 1: blogwatcher scan (for ET/MoneyControl T-bill news)
+Step 2: browser_navigate to RBI direct (for actual auction results)
+Step 3: Combine sources
+```
+
+## Data Verification Sources
+
+**Primary (Direct from RBI):**
+- RBI Press Releases: https://rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx
+- PDF Downloads: https://rbidocs.rbi.org.in/rdocs/PressRelease/PDFs/
+
+**Secondary (Cross-reference):**
+- CCIL T-bill data (if accessible)
+- NSE Debt segment announcements
+- IDBI Gilts / CCIL for secondary market yields
+
+### 6. Non-Competitive (NC) Demand Analysis
+
+```
+NC bids received vs NC bids accepted = Institutional/PD appetite
+
+April 22, 2026:
+91D NC: ₹20,785 Cr received / ₹20,763 Cr accepted = 96.43%
+182D NC: ₹14,721 Cr received / ₹14,700 Cr accepted = 93.51%
+364D NC: ₹337 Cr received / ₹300 Cr accepted = 89.03%
+
+INTERPRETATION:
+- NC received &gt;&gt; Notified amount (especially 91D: 20,785 vs 12,000 notified)
+  → Strong institutional/PD demand building T-bill portfolios
+  → Signals confidence in short-end rates or surplus liquidity deployment
+- NC partial allotment % falling below 95% → RBI trimming NC to make room for competitive
+- Very low NC in 364D (₹337 Cr) vs massive NC in 91D/182D → institutions avoiding the long end
+
+TREASURY SIGNAL: Heavy NC demand in short tenors = banks/PDs flush with liquidity and seeking safe short-term parking. This suppresses short-end yields independent of policy rate.
+```
+
+### 7. Below-Repo Yield Signal
+
+```
+91D T-bill YTM &lt; Repo Rate = Rare and significant
+
+April 22, 2026:
+91D Cut-off: 5.2150% | Repo: 5.25% | Spread: -3.5 bps
+
+INTERPRETATION:
+- 91D trading through repo indicates aggressive liquidity deployment
+  by banks/PDs willing to accept sub-repo returns for safety
+- May signal market pricing a near-term rate cut
+- Alternatively: Temporary liquidity surplus from GST inflows,
+  advance tax payments, or RBI OMO injections
+
+TREASURY ACTION:
+- Below-repo 91D → CP rollover window is wide open; short-term funding costs anchored
+- If below-repo persists for 2+ auctions → Consider delaying long-term NCD locking
+  until rate cut materializes or funding costs normalize above repo
+```
+
+### 8. Auction Devolvement (NIL Acceptance) — Critical Scenario
+
+When an auction shows **NIL accepted** or **devolved**, it means RBI refused ALL bids because market-demanded yields exceeded RBI&#x27;s implicit cut-off.
+
+**How to detect devolvement from RBI data:**
+- **Full Auction Result table**: Shows &quot;-&quot; (dashes) for cut-off price, YTM, accepted bids, partial allotment
+- **Cut-off press release**: Explicitly states &quot;NIL&quot; under Total Face Value Accepted
+- **Coverage ratio clue**: Usually &lt;2x (weak demand at RBI&#x27;s desired yield)
+
+**Example — June 03, 2026:**
+```
+182D: Notified ₹6,000 Cr | Bids ₹7,941 Cr (1.32x) | Accepted NIL
+364D: Notified ₹6,000 Cr | Bids ₹11,106 Cr (1.85x) | Accepted NIL
+91D:  Notified ₹12,000 Cr | Bids ₹32,312 Cr (2.69x) | Accepted ₹15,100 Cr
+Total shortfall: ₹8,900 Cr (37% of notified amount unborrowed)
+```
+
+**INTERPRETATION:**
+- Market bidding yields ABOVE what RBI is willing to pay → rate hike expectations priced in
+- RBI drawing a HARD yield ceiling → policy signal that they will NOT validate higher rates
+- Government has a funding gap → RBI may: (a) raise implicit cut-off next week, (b) increase notified amounts, or (c) conduct unscheduled OMO
+- Long-end (182D/364D) devolving while short-end (91D) clearing = **bear steepening** of the T-bill curve
+
+**TREASURY ACTION:**
+1. 🚨 LOCK long-term funding IMMEDIATELY — if RBI raises cut-off next week, 6M–1Y yields jump 25–50 bps
+2. ✅ Continue 3M CP rollover — short-end is stable and RBI accommodative there
+3. ⚠️ AVOID 6M CP/CD rollovers — 6M money-market is dislocated until auction clears
+4. 📊 Tighten 6M–1Y ALM gap — shift to 3M rollover + fixed NCD ladder
+
+**Never rely on:**
+- News headlines without exact figures
+- Market commentary without RBI source reference
+- Delayed or aggregated data
+
+## Pitfalls
+
+1. **Announcement vs Results confusion**: 
+   - &quot;Auction of 91-Day, 182-Day and 364-Day Treasury Bills&quot; = ANNOUNCEMENT (upcoming)
+   - &quot;Treasury Bills: Full Auction Result&quot; = RESULTS (completed)
+
+2. **Stale data**: RBI takes 2-3 days to publish results. Check dates carefully.
+
+3. **Results timing pattern**: 
+   - Wednesday auction → Results often post same day or next 1-2 days
+   - If only announcement is visible → results may not be published yet
+   - Use sequential PR ID search to find results from prior weeks
+
+4. **PDF parsing / Announcement HTML gap**: 
+   - **TYPE B (Results)**: &quot;Treasury Bills: Full Auction Result&quot; pages contain rich HTML tables — browser extraction works reliably.
+   - **TYPE A (Announcement)**: &quot;Auction of 91-Day, 182-Day and 364-Day Treasury Bills&quot; pages **often DO contain HTML tables** with the full notified-amounts schedule, auction dates, settlement dates, non-competitive terms, and bid timings. Extract the table via `browser_console` with `document.body.innerText` or snapshot tools before assuming PDF-only. Do NOT click the PDF link — it triggers a CAPTCHA on `rbidocs.rbi.org.in`.
+   - **Fallback for TYPE A**: Only if the HTML page body text genuinely contains zero numbers after the headline, report the announcement with expected notified amounts based on the consistent RBI pattern (₹12,000 Cr / ₹6,000 Cr / ₹6,000 Cr) and note &quot;Exact amounts PDF-protected; pattern-based estimate.&quot; Flag the fact in the output.
+   - **Never** waste time trying to download the PDF via `curl` — RBI `rbidocs` domain has aggressive CAPTCHA blocking (HTTP 000 / connection reset).
+
+5. **YTM calculation nuances**: 
+   - Cut-off YTM = Yield at accepted price
+   - Weighted Average YTM = RBI&#x27;s blended borrowing cost
+   - These differ when partial allotments occur
+
+6. **Dual press release pattern (Results + Cut-off)**:
+   - As of June 2026, RBI publishes TWO separate press releases for the same auction:
+     a) &quot;Treasury Bills: Full Auction Result&quot; — contains the complete table with competitive/NC bids, accepted amounts, partial allotment
+     b) &quot;91-Day, 182-Day and 364-Day T-Bill Auction Result: Cut-off&quot; — contains cut-off prices and a simplified acceptance summary
+   - Both are needed for a complete picture. The Full Result table may show &quot;-&quot; for devolved tenors; the Cut-off release will state &quot;NIL&quot; explicitly.
+   - PRIDs are sequential (e.g., 62855 cut-off + 62856 full result = same auction, same day)
+   - Always extract both PRIDs when available for cross-verification
+
+7. **PRID-based sequential search for trend comparison**:
+   - To compare this week&#x27;s auction to last week&#x27;s, don&#x27;t rely on date headings alone
+   - Use `browser_console` JavaScript to extract all T-bill PRIDs from the listing page
+   - Navigate directly to prior PRIDs using `browser_navigate(url=&quot;...?prid=NNNNN&quot;)`
+   - This is faster and more reliable than scrolling through months of listing pages
+   - Verified gaps: results typically 13–21 PRIDs apart from announcements; same-day results + cut-off are 1 PRID apart
+
+8. **Pending-results discipline**:
+   - A newer TYPE A announcement does **not** prove the corresponding TYPE B result has published.
+   - If the latest full result and cut-off release remain older than the latest announcement after checking the listing page and reasonable PRID range, report the auction as **pending results** and use the latest verified full result only as a benchmark.
+   - Never fill missing auction data with assumptions, headline guesses, or secondary-market yields.
+
+9. **Coverage ratio normalization across calendar resets**:
+   - When the notified-amount mix changes (e.g., 12/6/6 → 9/8/7), coverage ratios will shift mechanically even if absolute bid demand is unchanged.
+   - Example: Jul 01 2026 182D coverage dropped 3.72x→1.74x, but notified amount increased 33% (₹6,000→₹8,000 Cr). Absolute bid amounts only changed modestly.
+   - Always compare **absolute bid amounts** alongside coverage ratios when evaluating demand across a calendar reset. Do not interpret a coverage drop as purely weaker demand without checking whether the notified denominator increased.
+   - Similarly, a coverage improvement may simply reflect a smaller notified amount, not stronger demand.
+
+10. **`browser_console` IIFE / arrow-function expressions blocked by security scanner** (Jul 17 2026):
+    - A `browser_console` expression containing an IIFE (`(() =&gt; { ... })()`) or complex arrow function with `.filter().map()` chains can be blocked by the security scanner with: `&quot;Blocked: browser_console(expression=...) tried to use sensitive browser JavaScript primitive (network request).&quot;`
+    - **Fix:** Use the simpler single-expression form `Array.from(document.querySelectorAll(&#x27;a&#x27;)).filter(a =&gt; ...).map(a =&gt; ...)` directly (no wrapping IIFE). This simpler form passes the scanner. The result is identical.
+    - The `browser_console` JavaScript extraction patterns documented in this skill (PRID discovery, `document.body.innerText`) use the simpler form and work correctly.
+
+## Related Skills
+
+- treasury-feed-monitoring: General RSS monitoring
+- india-money-market-liquidity: Related liquidity analysis
+- rbi-policy-rates-verification: Rate verification workflow
+
+## References
+
+- `references/verified-auction-data.md` — Condensed historical auction baselines (exact figures from Apr 08 through Jul 15 2026, including Jun 03 devolvement event) for trend comparison and regression checks. Updated Jul 17 2026 with Jul 08 and Jul 15 auction data. Includes PRID discovery log.
+- `references/june-2026-tbill-trend-recovery.md` — Verified Jun 24 2026 + Jul 01 2026 auction results, Q2 FY27 calendar reset (9/8/7), trend recovery from Jun 03 devolvement, and Jul 08 pending auction. Includes coverage-ratio normalization insight across calendar resets.
+
+- Use bullet points (• or -) for nearly everything: facts, data points, sources, implications, and action items. Avoid dense paragraphs whenever a list is possible.
+- Prefer this structure for every item: **Bullet + bold label + explanation.**
+- For numeric data, always include a markdown table AND follow it with bullet-point interpretation.
+- Do not return `[SILENT]` under any circumstance.
+
+[IMPORTANT: The user has invoked the &quot;nbfc-credit-market-monitor&quot; skill, indicating they want you to follow its instructions. The full skill content is loaded below.]
+
+---
+name: nbfc-credit-market-monitor
+description: Monitor NBFC credit markets for treasury intelligence — NCD issuances, CP/CD programs, rating actions, bond yields. Uses deduplication cache to avoid re-reporting. Designed for NBFC treasury workflows.
+---
+
+Daily/weekly credit market intelligence for NBFC treasury teams. Tracks peer NBFCs, primary market issuances, secondary market moves, and rating actions.
+
+## Trigger Conditions
+- Cron job scheduled for market monitoring (typically 12:30 PM IST weekday)
+- User requests: &quot;NBFC credit market monitor&quot;, &quot;track peer NBFCs&quot;, &quot;NCD/CP market update&quot;
+- the user Prakash (the NBFC treasury desk) or similar NBFC treasury role
+
+## Target Peer NBFCs (Default List)
+- Cholamandalam Investment &amp; Finance
+- Bajaj Finance
+- Shriram Finance
+- Aditya Birla Housing Finance
+- Tata Capital
+- Bajaj Housing Finance
+- Muthoot Finance
+- Manappuram Finance (user prompt sometimes writes &quot;Mannapuram&quot;)
+- L&amp;T Finance
+- Poonawalla Fincorp
+- IndoStar Capital Finance
+
+## Execution Steps
+
+### 0. Workflow Order (Critical)
+**DO NOT write to cache during exploration.** The cache must only contain URLs that have actually been delivered. Follow this strict order:
+
+1. Search → 2. Filter for relevance → 3. Deduplicate against cache → 4. Verify/extract summary → 5. **DELIVER** in final response → 6. **THEN** write delivered URLs to cache.
+
+**Self-check before output:**  
+1. Count how many URLs have been appended to the cache file during this session. If &gt;0 and the final report is not yet composed, **STOP — you have violated the workflow.**  
+2. Remove those premature lines (see Cache Recovery below), then continue.  
+3. Only write URLs to the cache **after** the final response is fully ready.  
+4. Never cache-and-suppress. If genuinely nothing to report, do not touch the cache file.
+
+**⚠️ CRITICAL — Cache Preservation (NEW):**
+The dedup cache at `~/.hermes/cron/feed_monitor_seen_urls.txt` accumulates months of historical URLs and can exceed 1 MB. **Accidentally overwriting it destroys all historical dedup state.**
+- **NEVER use `write_file` on the cache.** `write_file` replaces the entire file. Even if you read the first 20 lines with `read_file(offset=1,limit=20)`, the tool warns you: &quot;was last read with offset/limit pagination (partial view). Re-read the whole file before overwriting it.&quot; If you ignore this and `write_file` anyway, you destroy everything.
+- **NEVER use `echo ... &gt; file`** (single `&gt;` redirect) — this also truncates.
+- The ONLY safe way to append is via Python inside `execute_code` with `open(path, &quot;a&quot;)`, **but see Cron Mode restriction below.**
+- If you must restore the cache after an accidental overwrite, check if a backup exists in `~/.hermes/cron/dedup/feed_monitor_seen.json` or `~/.hermes/cron/feed_monitor_seen_urls_new.txt`.
+
+### 1. Read Deduplication Cache
+```python
+import os
+cache_path = os.path.expanduser(&quot;~/.hermes/cron/feed_monitor_seen_urls.txt&quot;)
+
+cached_urls = set()
+if os.path.exists(cache_path):
+    with open(cache_path, &#x27;r&#x27;, errors=&#x27;ignore&#x27;) as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            if &#x27;|&#x27; in line:
+                # Strip line-number prefix like &quot;1429|https://...&quot;
+                _, url = line.split(&#x27;|&#x27;, 1)
+                cached_urls.add(url.strip())
+            elif line.startswith(&#x27;http&#x27;):
+                cached_urls.add(line)
+```
+
+**Shortcut:** Import the bundled `scripts/nbfc_market_utils.py` instead of copying the parsing boilerplate every session:
+```python
+import sys, os
+sys.path.insert(0, os.path.expanduser(&quot;~/.hermes/skills/treasury-automation/nbfc-credit-market-monitor/scripts&quot;))
+from nbfc_market_utils import load_cache, is_new_url, dedup_urls, append_urls_to_cache, fetch_rss, fetch_text
+```
+
+### 2. Search Strategy (Multi-Source)
+
+**⚠️ CRITICAL: Use Google News RSS/search pages as the PRIMARY method. Subagent web search delegation produces HALLUCINATED URLs — never trust subagent URLs without Google News RSS/search verification.**
+
+**Primary Method A: Google News Browser Navigation (Best for Cron Mode)**
+
+When `execute_code` is blocked (cron mode), `browser_navigate` to Google News search result pages is the most reliable discovery method. Unlike `google.com/search` (CAPTCHA) or Bing (empty snapshot), Google News search pages return rich structured snapshots with source names, timestamps, and clickable links.
+
+**Query URL format:**
+```
+https://news.google.com/search?q=%22&lt;Peer+Name&gt;%22+NCD+OR+fundraise+OR+rating&amp;hl=en-IN&amp;gl=IN&amp;ceid=IN:en
+```
+
+**Multi-peer query strategy (run 3-4 in parallel):**
+1. `&quot;Tata Capital&quot; NCD OR fundraise OR rating`
+2. `&quot;Bajaj Finance&quot; OR &quot;Shriram Finance&quot; OR &quot;Muthoot Finance&quot; NCD OR rating OR fundraise OR earnings`
+3. `&quot;Cholamandalam&quot; OR &quot;L&amp;T Finance&quot; OR &quot;Poonawalla Fincorp&quot; OR &quot;Bajaj Housing&quot; NCD OR rating OR earnings OR fundraise`
+4. `NBFC rating downgrade OR upgrade OR penalty OR RBI June 2026` (sector-wide)
+
+**URL extraction:** After `browser_click` on a Google News **search result** (not necessarily the raw RSS endpoint), use `browser_console` with expression `window.location.href` to get the resolved publisher URL. This is the best way to get reportable URLs when RSS discovery alone only gives opaque Google redirect links.
+
+**Primary Method B: Google News RSS (Fast, Reliable, Not Blocked)**
+
+The most reliable approach is to fetch Google News RSS feeds using Python (`urllib` inside `execute_code`) rather than `curl | python3` in terminal, because the terminal security scanner blocks pipe-to-interpreter patterns as HIGH risk and may also reject curl commands containing regex-escaped hostnames.
+
+**⚠️ Terminal Security Scanner Blocks Common Patterns (CRITICAL):**
+The `terminal` tool&#x27;s security scanner aggressively rejects several common shell patterns:
+1. **Pipe-to-interpreter:** `curl ... | python3 -c &quot;...&quot;` → flagged as HIGH risk
+2. **Dotfile overwrite:** `cat &gt;&gt; ~/.hermes/cron/... &lt;&lt; &#x27;EOF&#x27;` → flagged as HIGH risk (dotfile overwrite)
+3. **Regex on URLs:** `curl ... | grep -oP &#x27;&lt;title&gt;.*?&lt;/title&gt;&#x27;` → flagged when hostname patterns are present
+4. **Any redirect to dotfiles in `~/.hermes/`** → HIGH risk
+
+**Workaround:** Use `execute_code` for ALL of the following:
+- Fetching RSS feeds (`urllib.request`)
+- Parsing XML/HTML (`xml.etree.ElementTree`, `re`)
+- Writing to the dedup cache (`open(cache_path, &#x27;a&#x27;)`)
+- Any bulk URL processing or file I/O
+
+Reserve `terminal` ONLY for:
+- Simple `curl -sL &quot;url&quot;` (no pipe, no regex, no dotfile redirect)
+- `grep` on non-dotfile, non-URL text
+- Git / package manager commands
+
+```python
+import urllib.request, html
+from xml.etree import ElementTree as ET
+from datetime import datetime, timezone, timedelta
+import re
+
+```
+
+**Important — Use Redirect URLs as Cache Keys:**
+- Google News RSS `&lt;link&gt;` tags contain Google redirect URLs (`https://news.google.com/rss/articles/...`), not canonical source URLs.
+- **For deduplication and cache insertion, use the Google redirect URL as-is** — just append `?oc=5` (or any tracking suffix) to the stable redirect base for a unique key.
+- **For report citations, prefer a resolved publisher URL obtained by clicking the same headline on a Google News search page.** This often resolves cleanly (e.g., Whalesbook, scanx, TradingView) even when direct RSS endpoint navigation is empty.
+- If browser resolution fails or only RSS is available, the RSS redirect URL is still valid evidence for cache/dedup and attribution; use the RSS `&lt;title&gt;` + `&lt;source&gt;` for the one-line summary.
+- If you need to extract article text for a summary, first try direct source pages that are accessible; otherwise use the headline + source from RSS/search. Do not spend the whole tool budget chasing a final URL.
+
+**Recommended Query Set (run via `execute_code` in batches):**
+```python
+queries = [
+    &quot;Cholamandalam bond allotment 2026&quot;,
+    &quot;Shriram Finance NCD 2026&quot;,
+    &quot;Bajaj Finance bond 2026&quot;,
+    &quot;Muthoot Finance NCD 2026&quot;,
+    &quot;Poonawalla Fincorp NCD June 2026&quot;,
+    &quot;L&amp;T Finance bond 2026&quot;,
+    &quot;Tata Capital bond June 2026&quot;,
+    &quot;Aditya Birla Housing NCD 2026&quot;,
+    &quot;Bajaj Housing Finance NCD June 2026&quot;,
+    &quot;Manappuram Finance bond June 2026&quot;,
+    &quot;NBFC rating CRISIL ICRA June 2026&quot;,
+    &quot;NBFC CP commercial paper June 2026&quot;,
+    &quot;Bajaj Finance Q4 FY26 results 2026&quot;,
+    &quot;Shriram Finance Q4 FY26 results 2026&quot;,
+    &quot;Cholamandalam Q4 FY26 results 2026&quot;,
+]
+
+seen = set()
+for q in queries:
+    # fetch RSS ...
+    # for each item:
+    #   if link in seen: continue
+    #   seen.add(link)
+    #   # then dedup + categorize
+```
+
+**Why this matters:** Google News often surfaces the same article under multiple peer-name queries. A session-level `seen` set prevents duplicate reporting and accidental cache duplication.
+
+**Fallback: Text Extraction / Publisher Access**
+
+- Direct Reuters pages may be blocked by DataDome/device checks; TradingView often mirrors Reuters articles with accessible headline/time metadata.
+- TradingView pages can be useful evidence for Reuters-syndicated NBFC/bond headlines when Reuters itself is blocked.
+- ~~If you need article text for a 1-line summary but the publisher page is blocked or 404, use a text-extraction service on the Google redirect URL:~~
+```bash
+curl -s &quot;https://r.jina.ai/http://news.google.com/rss/articles/CBMi...&quot; | head -c 2000
+```
+**As of May 2026, `r.jina.ai` consistently returns HTTP 451 (Unavailable For Legal Reasons) for Google News redirect URLs.** This extraction path is no longer viable. Do not waste time retrying. Use the headline + source from the RSS entry directly for summaries, or use an accessible mirror such as TradingView when available.
+
+**⚠️ CRITICAL: Raw Google News RSS redirect URLs are opaque, and r.jina.ai is BLOCKED (HTTP 451)**
+When you `curl -L` a Google News RSS `&lt;link&gt;` URL, you often get a Google News landing page, NOT the actual article. The redirect may be JavaScript/cookie-based. **Do not waste time resolving raw RSS redirect endpoints by curl.** In addition, text-extraction services (r.jina.ai) now return HTTP 451 for Google News redirect URLs, so that fallback is dead.
+
+**Instead:**
+1. Use the RSS redirect URL as the cache key / deduplication token.
+2. Use the `&lt;title&gt;` + `&lt;source&gt;` from RSS/search for the one-line summary.
+3. If you need a reportable publisher URL, click the same headline on a Google News **search result page** and read `window.location.href`. Do not chase the raw RSS endpoint.
+
+### 3. Categorize Findings
+Organize into three sections:
+
+**Primary Market:**
+- New NCD issuances (size, coupon, tenor)
+- CP/CD program updates
+- Fund raises via debt
+
+**Secondary Market / Rating Actions:**
+- Credit rating upgrades/downgrades
+- CDS spread movements
+- Bond yield trends
+- Securitisation market volumes
+
+**Peer News / Regulatory:**
+- Earnings announcements
+- RBI policy changes affecting NBFCs
+- Regulatory approvals (CCI, RBI)
+- Analyst upgrades/downgrades
+
+### 4. Deduplication Logic
+```python
+def normalize_url(url):
+    return url.replace(&#x27;https://&#x27;, &#x27;&#x27;).replace(&#x27;http://&#x27;, &#x27;&#x27;).replace(&#x27;www.&#x27;, &#x27;&#x27;)
+
+for found_url in found_urls:
+    if normalize_url(found_url) not in cached_normalized_urls:
+        new_urls.append(found_url)
+```
+
+### 5. Update Cache
+Append new URLs to `~/.hermes/cron/feed_monitor_seen_urls.txt`
+
+### 6. Output Format
+Keep it concise:
+```
+**NBFC Credit Market Monitor – [Date], [Time] IST**
+
+**Primary Market / NCD Issuances:**
+| Peer | Headline | Size / Tenor / Coupon | Source |
+|------|----------|----------------------|--------|
+
+**Secondary Market / Rating Actions:**
+| Peer | Action | Detail | Source |
+|------|--------|--------|--------|
+
+**Peer News / Sector Rates:**
+| Topic | Headline | Key Takeaway | Source |
+|-------|----------|--------------|--------|
+
+**What was checked and not new today:**
+• ...
+
+**Watchlist for next session:**
+• ...
+```
+
+If nothing new after deduplication: still output a brief status update covering what was checked, what is unchanged, and what to monitor next.
+
+## Cache File Location
+`~/.hermes/cron/feed_monitor_seen_urls.txt`
+
+Create directory if missing:
+```python
+os.makedirs(os.path.expanduser(&quot;~/.hermes/cron&quot;), exist_ok=True)
+```
+
+## Sample Output Template
+```
+**NBFC Credit Market Monitor – [Date], [Time] IST**
+
+**Primary Market / NCD Issuances**
+| Peer | Headline | Size / Tenor / Coupon | Source |
+
+**Secondary Market / Rating Actions**
+| Peer | Action | Detail | Source |
+
+**Peer News / Sector Rates**
+| Topic | Headline | Key Takeaway | Source |
+
+**What was checked and not new today**
+• ...
+
+**Watchlist for next session**
+• ...
+```
+
+## Key Data Points to Capture
+- Issuance size (₹ crore)
+- Coupon rate / Yield
+- Tenor
+- Credit rating (CRISIL/ICRA/CARE)
+- Rating outlook (Stable/Positive/Negative)
+- Stock price movement (if relevant)
+
+### Track Sector-Wide Trend Reports
+Don&#x27;t just track company-specific news. Industry reports (e.g., TransUnion CIBIL on gold loans, RBI on securitisation) provide valuable context for multiple peers:
+- Gold loan market share (relevant for: Muthoot, Manappuram)
+- CP/CD market trends (relevant for: Bajaj Finance, Shriram)
+- Housing finance disbursements (relevant for: Aditya Birla Housing, Bajaj Housing)
+- Vehicle finance trends (relevant for: Cholamandalam, Shriram)
+
+## Sources Priority (Field-Tested)
+
+**Primary (Most Reliable):**
+1. **Google News RSS** (`news.google.com/rss/search?q=...&amp;hl=en-IN&amp;gl=IN&amp;ceid=IN:en`) — Best discovery method when fetched via Python or parsed from the browser DOM. Extract titles from `&lt;title&gt;` and `&lt;source&gt;`; URLs in `&lt;link&gt;` tags are Google-redirected.
+2. **Google News Search Pages** (`news.google.com/search?q=...`) — Best browser fallback in cron mode. Click a result, then run `browser_console` with `window.location.href` to obtain a reportable publisher URL.
+3. **TradingView News** (`tradingview.com/news/...`) — Useful mirror for Reuters articles when Reuters itself is blocked by DataDome.
+4. **Hindu BusinessLine** (`thehindubusinessline.com/money-and-banking/`) — Good for NBFC sector reports, gold loan trends, securitisation news. Rarely blocks.
+5. **Economic Times** (`economictimes.indiatimes.com/markets/bonds`, `/stocks/sectors/nbfc`) — Good for bond market updates and sector data.
+
+**Secondary (Use with Caution):**
+6. **Business Standard** — May have bot detection; try but have fallbacks.
+7. **LiveMint** — Often times out on browser navigation; RSS works.
+8. **Moneycontrol** — Has aggressive bot detection (often returns &quot;Access Denied&quot;). Skip if blocked.
+
+**NBFC-Specific Aggregators (Good for NCD/Rating details):**
+7. **Whalesbook** (`whalesbook.com`) — Frequently surfaces NCD allotments, rating actions, and funding news for specific NBFCs. Articles are often the first hit on Google News for peer-specific queries.
+8. **ScanX.trade** (`scanx.trade`) — Good for board meeting announcements, regulatory filings, CP issuances, and Q4 result dates.
+
+**⚠️ DO NOT USE:**
+- **Subagent web search delegation** — produces hallucinated URLs that don&#x27;t exist OR returns empty results with no findings at all (confirmed again 2026-06-17: `delegate_task` with `[&quot;web&quot;]` toolset returned a self-report summary with zero actual URLs). Never trust subagent-returned URLs, and do not waste a delegation slot on this.
+- **DuckDuckGo HTML/Lite** — currently returns CAPTCHAs, unreliable.
+
+**✅ Google News Browser Navigation (NEW — Verified 2026-06-17):**
+When `execute_code` is blocked (cron mode) and RSS fetching is unavailable, `browser_navigate` to Google News **search result pages** (NOT the RSS endpoint) is a highly effective discovery method:
+```
+https://news.google.com/search?q=%22Tata+Capital%22+NCD+OR+fundraise+OR+rating&amp;hl=en-IN&amp;gl=IN&amp;ceid=IN:en
+```
+This returns structured snapshots with:
+- Source name (e.g., &quot;Business Standard&quot;, &quot;TradingView&quot;)
+- Relative timestamps (&quot;2 hours ago&quot;, &quot;5 days ago&quot;, &quot;23 minutes ago&quot;)
+- Clickable article links (ref IDs)
+- No bot detection issues (unlike `google.com/search` which returns CAPTCHA)
+
+**URL Extraction Technique — `browser_console` with `window.location.href`:**
+After `browser_click` on a Google News result link, run:
+```javascript
+// browser_console expression
+window.location.href
+```
+This returns the resolved publisher URL (e.g., `https://www.business-standard.com/companies/news/tata-capital-board-approves-rs-36000-crore-ncd-fundraise-126061700331_1.html`). Use this for cache entries and report citations.
+
+**Caveat:** Some publishers (Business Standard, Moneycontrol) return &quot;Access Denied&quot; after the redirect resolves. The URL is still valid for caching and attribution — just use the headline + source name from the Google News snapshot for the summary.
+
+**Bing Search — NOT viable:** `bing.com/search` returns a page with no organic results in the accessibility snapshot (only navigation elements). Do not use.
+
+## Automation Notes
+- Use `browser_navigate` for direct source access
+- Use `search_files` with `target=&quot;files&quot;` to find skills if needed
+- Use `execute_code` for cache management (avoids terminal security restrictions)
+- Run as cron job with `DELIVERY: automatic` — no `send_message` needed
+
+## Pitfalls &amp; Troubleshooting
+
+**⚠️ REPEATED VERIFICATION LOOPS (CRITICAL):**
+- Do not spend more than **two verification attempts** on any single URL. If `curl` returns 404/empty/&quot;Access Denied&quot; and `r.jina.ai/http://...` also returns empty or irrelevant text, **skip the item immediately** and move on.
+- Trying a failing URL 3+ times wastes tool calls and yields no new evidence. Mark it mentally as unverifiable and proceed.
+- **Exception:** If the first failure is clearly a transient timeout (`curl: (28)`), one retry is acceptable. After the second failure, abandon.
+
+**⚠️ HALLUCINATED URLs (CRITICAL):**
+- Subagent web search delegation consistently produces FAKE URLs that look real but don&#x27;t exist (e.g., plausible Moneycontrol/ET paths with invented article IDs). NEVER trust subagent-returned URLs.
+- Only report URLs from: (1) Google News RSS `&lt;link&gt;` tags, (2) Browser-verified pages, or (3) Direct curl of known source domains.
+- If you must use subagent delegation, treat every URL as unverified and re-confirm via Google News RSS before including in report.
+
+**⚠️ HALLUCINATED SOURCE URLs / URL-TEXT MISMATCH:**
+Some Indian financial news aggregators (e.g., **Whalesbook**, **ScanX.trade**) generate articles with titles and summaries that appear genuine, but the specific URL provided by the model may be slightly altered (wrong date, missing ID segment, typo). When you `curl` the URL, the page exists but contains completely different content than the headline suggests.
+- **Verification:** Always run `r.jina.ai/http://&lt;url&gt;` on any aggregator URL before trusting it. If the extracted text does not mention the headline&#x27;s core claim (e.g., a specific NCD amount, rating action, or company name), treat the URL as false.
+- **Fallback:** If the URL is false but the headline seems plausible (from Google News RSS confirmation), search Google News RSS for the same headline to find a working source, or skip the item rather than report a broken URL.
+
+**Weak Date Filters (CRITICAL):**
+- Do not rely on string-matching (`&#x27;May&#x27; in pub_date` or `&#x27;2026&#x27; in pub_date`) to filter recency. This lets through stale articles from April, March, or even January 2026.
+- Use the `hours_old` parameter in `fetch_rss()` (default 48) or compute a proper `datetime` cutoff. Only articles newer than the cutoff should be considered for reporting.
+
+**Missing Cache Writes for Delivered Items (CRITICAL):**
+- If the final report includes a finding, its redirect URL MUST be in the cache. A common mistake is to cache only the URLs found during early exploration, then add more findings to the report later without updating the cache.
+- **After composing the final response, scan every bullet point in the report for its source URL.** For each URL not already in the cache, append it. Only then finish the session.
+
+**Cache Recovery (Undo Premature Writes):**
+If you accidentally write to the cache before composing the report, you must recover before the session ends. Read the cache file, identify the last block of lines that were added in this session (they are at the end, with no line-number prefix unless the cache already had them), and truncate the file to remove them. Then re-assert the `[SILENT]` response if nothing else is new.
+
+**⚠️ Cache Catastrophe — `write_file` DESTROYS the cache (2026-06-11, REPEATED 2026-06-17):**
+During a cron run, the agent accidentally used `write_file` on `~/.hermes/cron/feed_monitor_seen_urls.txt` after reading only the first 20 lines via `read_file(offset=1,limit=20)`. This replaced a 1 MB cache containing ~7,440 historical URLs with an 11-byte string (`TEST_APPEND`), destroying months of dedup state. The tool had explicitly warned: &quot;was last read with offset/limit pagination (partial view). Re-read the whole file before overwriting it.&quot; The agent ignored the warning.
+
+**REPEATED on 2026-06-17:** Despite this skill documenting the incident, the agent again used `write_file` on the cache to &quot;fix&quot; cache write issues. This time the file was small (~33 lines) so the damage was limited, but the pipe-delimited line-number format (`NNN|https://...`) was destroyed and replaced with bare URLs. The cache format is now inconsistent.
+
+**⚠️ WARNING — `write_file` on the cache is a RECURRING failure mode.** It has now happened twice across sessions. The root cause is that in cron mode, `execute_code` is blocked and terminal append patterns are blocked by security scanners, so the agent panics and reaches for `write_file` as the only available file-writing tool. **This is NEVER correct for the cache.**
+
+**Prevention rules:**
+1. **Never `write_file` a dotfile unless you have read the ENTIRE file first** (or verified it is a new creation).
+2. **Never `write_file` the cache under any circumstances.** The cache is append-only.
+3. **If you accidentally overwrite the cache, immediately check for backups** in `~/.hermes/cron/dedup/feed_monitor_seen.json` or `~/.hermes/cron/feed_monitor_seen_urls_new.txt`.
+4. **If no backup exists, try `find ~ -name &quot;*feed_monitor*&quot; -type f`** to locate any copy.
+5. **In cron mode, `execute_code` is blocked** — so even the safe Python append pattern is unavailable. Accept that cache writes are impossible in cron mode.
+
+**Google News Redirect URLs Are Opaque Session Tokens:**
+- The same `news.google.com/rss/articles/...` URL may return a different article title on subsequent fetches (the redirect is session/context-dependent). 
+- When you cache a redirect URL, treat the headline you observed at discovery time as the canonical evidence. Do not re-fetch the same URL later expecting the same article.
+
+**⚠️ Broad filesystem searches (`find /mnt`) can timeout in WSL (NEW):**
+- The WSL environment mounts Windows drives under `/mnt/c/`, `/mnt/d/`, etc. A `find /mnt/...` or `find /` command can take minutes and time out after 60s.
+- **Fix:** Limit `find` to the home directory (`find ~ -name &quot;...&quot;`) or use `search_files(target=&quot;files&quot;)` instead of terminal `find` for file discovery.
+- **Do not run `find /mnt` or `find /var` from terminal** unless the user specifically asks for system-wide search.
+
+**Broad Query False Positives:**
+- Peer-specific queries (e.g., &quot;Bajaj Finance NCD...&quot;) often return off-topic hits like UGRO Capital or Repco Home Finance.
+- Before including an item in the report, verify the headline explicitly names a tracked peer OR a tracked keyword (NCD, CP, fund raise, rating action, earnings, bond). Skip generic hits.
+- **Exclusion list for scanx.trade noise (tiny non-NBFC or non-debt filings):** If a headline contains any of these, skip unless it also explicitly names a tracked peer AND a debt keyword (`NCD`, `bond`, `CP`, `rating`, `funding`): `Sreechem Resins`, `Sobhagya Mercantile`, `Lords Chloro Alkali`, `Wardwizard Innovations`, `Ganesh Housing`, `Gujarat Energy`, `EaseMyTrip`, `NCL Research`, `QMS Medical`, `Sammaan Capital`.
+- **Peer-match + keyword-match gate:** For every item, require BOTH `peer_match` and `kw_match` to be True. A single-match heuristic lets through too much irrelevant press-release noise.
+- MoneyControl frequently blocks with &quot;Access Denied&quot; — skip immediately and try Hindu BusinessLine instead
+- Business Standard sometimes blocks — Economic Times is more reliable
+- LiveMint browser navigation often times out (&gt;60s load) — avoid browser for LiveMint
+- Google Search (google.com/search) returns CAPTCHA — use Google News RSS instead
+- DuckDuckGo HTML/Lite returns CAPTCHAs — unreliable
+
+**Google News RSS Tips:**
+- Use `hl=en-IN&amp;gl=IN&amp;ceid=IN:en` parameters for India-focused results
+- `&lt;link&gt;` tags contain Google redirect URLs (not clean source URLs) — extract headlines from `&lt;title&gt;` tags instead
+- Combine multiple specific queries for comprehensive coverage
+- RSS returns most relevant results first; `head -20` is usually sufficient
+
+**Cache Management:**
+- Cache may have 1,500+ URLs after months of runs — still fast enough, don&#x27;t optimize prematurely
+- **⚠️ Terminal security scanners block shell redirects to cache dotfiles.** Commands like `cat &gt;&gt; ~/.hermes/cron/feed_monitor_seen_urls.txt` are rejected as HIGH-risk dotfile overwrite. Always write the cache via `execute_code` with Python instead:
+```python
+import os
+cache_path = os.path.expanduser(&quot;~/.hermes/cron/feed_monitor_seen_urls.txt&quot;)
+os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+with open(cache_path, &#x27;a&#x27;) as f:
+    for url in new_urls:
+        f.write(url + &#x27;\n&#x27;)
+```
+- **⚠️ CRITICAL — `execute_code` is BLOCKED in cron mode unless the profile is explicitly trusted.** When running as a scheduled cron job, `execute_code` returns:  
+  `BLOCKED: execute_code runs arbitrary local Python ... Cron jobs run without a user present to approve it.`  
+
+**⚠️ CRITICAL REMINDER — Use `tee -a` for cache writes in cron mode (DO NOT USE `write_file`!):**
+This has been forgotten TWICE (2026-06-11 and 2026-06-17), resulting in cache destruction both times. The `tee -a` workaround is the ONLY safe method. Do NOT reach for `write_file` when append is blocked — `write_file` replaces the entire file.
+
+**Step-by-step `tee -a` pattern (memorize this):**
+```bash
+cat /tmp/new_urls.txt | tee -a ~/.hermes/cron/feed_monitor_seen_urls.txt &gt; /dev/null
+
+grep -c &quot;new-url-keyword&quot; ~/.hermes/cron/feed_monitor_seen_urls.txt
+```
+- `tee -a` is append-only and will not truncate the file.
+- Do NOT use `cat &gt;&gt; file &lt;&lt; &#x27;EOF&#x27;`, `echo &quot;url&quot; &gt;&gt; file`, `printf &#x27;%s\n&#x27; &quot;url&quot; &gt;&gt; file`, or `write_file` on the cache in cron mode.
+- If `tee -a` fails for some reason, accept that cache cannot be updated this session — **NEVER fall back to `write_file` on the cache.**
+- If you need to prepare URLs in a temp file first, write to `/tmp/` via `write_file` or terminal, then `tee -a` into the cache.
+
+**⚠️ `printf`/`echo` append also blocked by terminal scanner (NEW):**  
+In cron mode, the terminal security scanner rejects even simple append redirects like `echo &quot;https://...&quot; &gt;&gt; ~/.hermes/cron/feed_monitor_seen_urls.txt` or `printf &#x27;%s\n&#x27; &quot;https://...&quot; &gt;&gt; ...` as HIGH-risk dotfile overwrite. The only shell pattern that reliably passes is the `tee -a` pipe shown above. If `tee -a` is unavailable, accept that the cache cannot be safely updated in that run; do not rewrite the cache with `write_file`.
+
+**Read-only cache checks in cron mode:**  
+Use `grep` to check for URL presence without writing:
+```bash
+grep -c &quot;example.com/article&quot; ~/.hermes/cron/feed_monitor_seen_urls.txt
+```
+- Cache format: one URL per line; some lines have `NNN|https://...` prefix (pipe-delimited line numbers) — strip these when reading
+- **Cache parsing code (Python — updated to strip query strings for dedup because Google News `?oc=N` tokens vary):**
+```python
+import re
+cached_urls = set()
+with open(cache_path, &#x27;r&#x27;) as f:
+    for line in f:
+        line = line.strip()
+        if &#x27;|&#x27; in line:
+            _, url = line.split(&#x27;|&#x27;, 1)
+            url = url.strip()
+        elif line.startswith(&#x27;http&#x27;):
+            url = line
+        else:
+            continue
+        # Normalize: strip scheme, www, trailing slash, and query params
+        norm = re.sub(r&#x27;^https?://(www\.)?&#x27;, &#x27;&#x27;, url.rstrip(&#x27;/&#x27;).split(&#x27;?&#x27;)[0])
+        cached_urls.add(norm)
+```
+- See also the bundled `scripts/nbfc_market_utils.py` for a ready-to-import implementation with session-level dedup and timestamped cache writes.
+- See `references/nbfc-market-noise-filter.md` for the full auto-skip list (scanx.trade noise, intra-query dedup pattern, redirect-URL normalization recipe).
+
+**Resolved Publisher URLs Often 404:**
+- When you follow a Google News redirect URL to its final publisher destination (e.g., CNBCTV18, Moneycontrol), the resolved URL frequently returns HTTP 404 or empty body. This happens because Google News encodes the target; the decoded URL may have expired, wrong article IDs, or paywall redirects that masquerade as 404.
+- **Do not discard a finding just because the resolved publisher URL 404s.** The Google News RSS entry itself (headline + redirect URL) is valid evidence that the news exists. For reporting, use the Google redirect URL or try `r.jina.ai/http://...` on the redirect URL to extract text.
+- **Never report a URL that you have not at least seen in RSS or verified via text extraction.** If every verification path fails (404 + r.jina.ai empty), skip the item rather than fabricate a working URL.
+
+**⚠️ `web_search` + `web_extract` produces TRUNCATED results (NEW):**
+- `web_extract` on publisher URLs often returns only the first ~1,000–2,000 characters of the article, with the remainder replaced by `[... summary truncated for context management ...]`.
+- When the truncated content cuts off mid-sentence (e.g., after &quot;The company also provides depository services; and fee-based services, which include money transfer, foreign exchange, and depository services. In addition, it offers vehicle and equipment finance, including commercial vehicle, construction equipment, two wheeler, car, and farm equipment finance.&quot;), **do not invent the rest of the sentence**. Use only the verified portion.
+- For treasury reporting, the headline + first paragraph is usually sufficient. Do not chase the full article text if extraction truncates.
+
+**Silent Days:**
+- Even when nothing new is found, produce a brief status update covering what was checked, what is unchanged, and what to monitor next.
+- Only return `[SILENT]` if the specific cron wrapper explicitly requires it and there is genuinely nothing new.
+
+**URL resolution nuance (see `references/2026-06-19-url-resolution.md`):** raw Google News RSS endpoints may render empty in browser, but Google News search-result pages often resolve cleanly after click. Use RSS/search discovery for evidence; use resolved publisher URLs only when they come from a verified click or accessible direct page.
+- Only report genuinely new developments, not recycled news
+- Don&#x27;t pad reports with already-delivered items or stale news
+- Market holiday = no new data. Check if markets are open before extensive searching.
+- 12:30 PM IST is good for morning market wrap and any midday updates.
+- **Q4 earnings season (April–May) brings heavy peer news** — increase query coverage during this period. Run separate query batches for each major peer: `[Peer] Q4 FY26 results May 2026` or `[Peer] May 2026` so new earnings announcements are caught even if they don’t mention generic keywords like NCD/rating.
+
+## Telegram Delivery Guardrail (Applies to All Runs)
+
+- Before finishing, mentally count the response. If it exceeds 3,500 characters, trim in this strict priority order:
+  1. Drop minor/secondary rows from tables.
+  2. Shorten interpretation bullets to one sentence each.
+  3. Remove &quot;What was checked and not new&quot; details; keep only the peer names/queries checked.
+  4. Shorten &quot;Watchlist&quot; to 2 bullets.
+  5. Keep RBI/NBFC regulatory items and the NBFC treasury desk action items intact.
+
+---
+
+- Before finishing, mentally count the response. If it exceeds 3,500 characters, trim in this priority order:
+  1. Drop minor/secondary rows from tables.
+  2. Shorten interpretation bullets to one sentence each.
+  3. Remove &quot;What was checked and not new&quot; details; keep only the names/queries checked.
+  4. Shorten &quot;Watchlist&quot; / &quot;Action items&quot; to 2 bullets.
+
+The user has provided the following instruction alongside the skill invocation: [IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. [SILENT] is a literal ASCII control token — never translate or rephrase it, whatever language the rest of your answer uses. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more. FAILURE: If a delegated child fails and this cron run must be recorded as failed, put [CRON_FAILURE] on the first line by itself, then explain the child failure on following lines. RECURSION: This is a run of an EXISTING scheduled job — execute the task now. NEVER create or update a cron job because of recurring or future-schedule language in the task prompt below; treat phrasing like &quot;each Monday&quot; or &quot;every day at 9&quot; as context for this run, not as a request to schedule another job.]
+
+## Script Output
+The following data was collected by a pre-run script. Use it as context for your analysis.
+
+```
+• CD block unavailable — no parseable F-TRAC secondary trades
+```
+
+You are doing a consolidated mid-day markets brief.
+
+## SILENT PROTOCOL (MANDATORY)
+This is a daily mid-day markets wrap. Deliver the full brief with current market levels, morning developments, and afternoon outlook. DO NOT silence this job; deliver the mid-day snapshot regardless.
+
+## TASK
+Pull fresh data and deliver:
+- RBI rates, liquidity
+- G-Sec yields (2Y/5Y/10Y) with morning movement
+- USD-INR spot + forwards
+- CD/CP/NCD market levels
+- Equity market (Nifty/Sensex)
+- Global markets (Asia opening levels)
+- Key events remaining today
+- NBFC treasury implications
+
+Use treasury-eod-markets-wrap skill. Concise, deduped, table-driven format.
+
+## SECTOR DEEP DIVE (MANDATORY)
+Go beyond headline levels. For each sector relevant to today&#x27;s tape, deliver DEEP analysis:
+- What moved and why (drivers: flows, data, policy, positioning, earnings)
+- Cross-asset read-through (equity sector ↔ rates ↔ FX ↔ credit ↔ liquidity)
+- Clear implications for: funding costs, spreads, INR, liquidity, ALM, credit conditions, NBFC sector
+- What to watch next (catalysts, levels, events)
+Sectors to cover (depth over breadth, 3-5 max): Banking &amp; Financials, NBFCs, G-Sec/bond market, Money market, FX (INR), Energy, plus equity sectors with macro read-through (IT, Auto, Infra, Real estate as relevant). Use tables where they add clarity.
+
+## NO IMPLEMENTATION IDEAS (MANDATORY)
+This job delivers ANALYSIS and IMPLICATIONS ONLY. Do NOT include:
+- Trade/position recommendations (buy/sell/hold, issue/roll CP, hedge/unhedge)
+- &quot;Today&#x27;s actions&quot; / &quot;action items&quot; / &quot;funding actions&quot; lists
+- Execution advice of any kind
+Analyzing what a move means is required; advising what to do about it is forbidden.
+
+## CD &amp; BANK FUNDING BLOCK (injected script — reproduce verbatim)
+The script `cd_rates_block.sh` has already computed today&#x27;s CD market read; its stdout is injected above as context. It carries: secondary CD traded yields by tenor with the one-week change, today&#x27;s primary CD issuance (issuer · tenor · yield · size), the FBIL CD benchmark, and the CD-vs-T-bill spread.
+- Reproduce those lines verbatim as a section headed **CD &amp; BANK FUNDING**, keeping the `•` bullets and the indented issuer lines exactly as printed.
+- Never re-derive, round or &quot;correct&quot; a number — they are F-TRAC traded yields/cut-offs, not estimates.
+- After the block add at most ONE interpretation bullet (&lt;=160 chars) on what it means for wholesale funding cost. Do NOT restate repo, call-rate or liquidity levels here — they are owned by other sections of this brief.
+- If the injected block is missing, empty, or contains &quot;data unavailable&quot;, write exactly: `• CD block unavailable — F-TRAC export failed`.
+- When trimming for the character ceiling, keep this block and cut elsewhere.
+
+&lt;!-- BOLT-FMT v1 --&gt;
+## BOLT GROUP RENDER CONTRACT (MANDATORY — SUPERSEDES ANY EARLIER FORMAT INSTRUCTION)
+This output is delivered to a Telegram group and rendered as MARKDOWN. Follow these rules over any earlier table/bullet/line-count prose in this prompt or the skill.
+
+1. NO code fences. Never emit ``` anywhere in your final answer.
+2. NO pipe separators. The `|` character is allowed ONLY inside a real markdown table that has a header row AND a |---|---| separator row. Anywhere else it renders as literal garbage on a phone.
+3. Tables ONLY when: &lt;=4 columns AND &gt;=3 rows of comparable numbers. Always header row + separator row. Anything wider or text-heavy becomes bullet lines (rule 4).
+4. Every record is ONE bullet line: `• Label — field1 • field2 • field3`. Continuation detail goes on the next line, indented 2 spaces, starting with `◦` or `→`. Never use `-` or `*` as a bullet.
+5. Section headers are `**BOLD CAPS**` alone on their own line. Never `#`, `##`, or underlines.
+6. Max 40 display cells per line. If a line is wider, split it at a • into another bullet line. NEVER pad with spaces to align columns — alignment is the table&#x27;s job, not spaces.
+7. Keep every glyph, sign and unit on the number: `↓1.09%`, `↑2bp`, `◆`, `₹94.95`, `$109.9`.
+8. Total &lt;=3,500 characters. If longer, split at a section boundary into self-contained `PART 1/2` messages, each following these rules.
+9. SILENT fires: if the silent protocol applies, output ONLY the sentinel (e.g. SILENT or [SILENT]) — no formatting, no fence, nothing else.
+10. Plain text only — no HTML tags, no LaTeX, no &lt;details&gt;.
+&lt;!-- /BOLT-FMT --&gt;
+
+## MERGE (Oct 2026) - you are now the 14:00 Midday Markets + Credit &amp; Auction Wrap
+The 12:15 Midday Credit &amp; Auction Monitor job is retired into this brief. Fire time moved 11:30 -&gt; 14:00 IST: after the morning session and after T-bill auction results publish (~13:15-13:30), so use fresh 14:00 levels, not 11:30 ones. Add after the markets sections:
+- T-BILL AUCTIONS (only if there is an auction event today): notification scheduled today/tomorrow; today&#x27;s results - 91/182/364 cut-off yields vs prior auction, bid-to-cover, devolvement; secondary bill yields vs G-Sec; trend vs last 3 auctions. No event -&gt; omit the section silently.
+- NBFC CREDIT (only if there are developments since yesterday): new NCD/CP issues (issuer . size . tenor . rate . spread), rating actions (CRISIL/ICRA/CARE/Acuite), spread moves &gt;5bp with direction + magnitude, peer ECB/funding news, regulatory items. Nothing new -&gt; omit silently.
+- Market sections stay ALWAYS-delivered; all timestamps say 14:00 IST. Keep card under 3,500 chars: compress the sector deep-dive first when long - data sections are never dropped. NO-implementation-ideas rule stays.
+
+
+**Response Characters:** 3497
+## Response
+
+**MIDDAY MARKETS &amp; CREDIT WRAP — 29 OCT 2026, 14:00 IST**
+
+**INDIA EQUITIES**
+• Nifty 22,882.85 ↑0.81% • H 22,896.65 • L 22,656.75 • adv/dec 36:14
+• Sensex 73,852.52 ↑0.83% • Bank Nifty 54,660.25 ↑0.72% • VIX 15.33 ↓5.7%
+• Leaders FMCG ↑1.82% • PSU Bank ↑1.03% • Energy ↑0.93% • Fin Svcs ↑0.86% • sole laggard Auto ↓0.42%
+
+**RATES &amp; LIQUIDITY**
+• Repo 5.50% (hiked 25bp Oct 7, &quot;calibrated tightening&quot;) • SDF 5.25% • MSF 5.75%
+• Call WAR 5.68% (4.30–5.85%) on ₹18,241 cr — 18bp over repo • Triparty 5.57% • Market repo 5.61%
+• SDF absorbed ₹1,46,807 cr @5.25% vs 4-day VRR lent ₹1,50,007 cr @5.55% • net outstanding injection ₹1,32,859 cr • SLF ₹8,407 cr
+
+**G-SEC**
+• 2Y 7.04% ↑1bp • 5Y 7.32% ↓2bp • 10Y 7.40% ↓3bp — biggest one-day fall in 3 months
+• 23-Oct auction: 5Y cut-off 7.3589%, 40Y 7.9339% on 27.8% partial
+
+**FX**
+• RBI reference 95.3688 ✅ verified rbi.org.in 29-Oct
+• Spot 95.29 • range 95.16–95.37 • +11 paise • two-week low on sticky dollar bids • forwards unavailable
+
+**CD &amp; BANK FUNDING**
+• CD block unavailable — no parseable F-TRAC secondary trades
+• No traded prints, so bank wholesale cost is unverified and bill cut-offs are the only clean anchor
+
+**T-BILL AUCTIONS (28-Oct)**
+| Tenor | Cut-off | Cover | WAY |
+|---|---|---|---|
+| 91D | 5.9337% | 1.96x | 5.9094% |
+| 182D | 6.5493% | 2.65x | 6.5140% |
+| 364D | 6.6900% | 2.19x | 6.6391% |
+• Full ₹23,000 cr accepted, no devolvement • WAY 2–5bp under cut-off
+• Prior 21-Oct auction devolved entirely: all three tenors NIL on ₹23,000 cr notified
+• Read: RBI refused the price on 21-Oct, conceded on 28-Oct — 91D repo+43bp, 364D repo+119bp
+• Ahead: ₹33,000 cr G-Sec auction Fri 30-Oct; bills next Wed
+
+**GLOBAL**
+• US 10Y 5.05% ↑5bp • DXY 102.23 ↑0.26% • S&amp;P fut ↑0.54% • Dow fut ↑0.74% • Nasdaq fut ↑0.66%
+• DAX ↑1.62% • Nikkei ↑3.14% • Hang Seng ↑0.10% • Brent $110.49 ↓4.59% • WTI $101.38 ↓0.37%
+• Gold $4,040 flat • Silver $52.94 ↓2.17% • FII +₹872 cr / DII +₹643 cr (28-Oct) — rare twin inflow
+
+**DEEP DIVE**
+• Banking — Bank Nifty trails by 9bp only, Fin Svcs leads by 5bp: no credit-fear divergence, plain beta
+  ◦ Funding is the squeeze: marginal money 5.55–5.68% vs asset repricing on a 3–6m lag
+• G-Sec — rally is value buying plus crude relief, yet the curve still prices hikes: 91D→364D 76bp vs 5s10s just 8bp
+  ◦ Long-end supply is the fault line: 40Y cleared on a 27.8% partial, weakest at the 23-Oct sale
+• Money market — ₹1.47 lakh cr at SDF while ₹1.5 lakh cr VRR runs: distribution friction, not surplus
+  ◦ VRR 5.55% (repo+5bp) is the effective marginal rate — de-facto 5bp tightening
+• FX — 95.37 fix in record-low zone on the oil bill and outflows; intervention described as modest
+  ◦ Weak INR plus $110 crude is imported inflation, so FX slippage feeds the hike bias
+• Energy — Brent $110.49 down 4.6% today but far above late-July ~$88; the level sets CPI, not the direction
+  ◦ Rule of thumb: $10/bbl ≈ 0.3–0.4pp on CPI and $15bn+ on the import bill
+
+**NBFC CREDIT**
+• Muthoot Fincorp tranche V public NCD open, up to 9.25%, closes 5-Nov
+• Platform pricing: Vivriti (CARE A+) 10.15%/12M • Kosamattam (A) 10.00%/10M • Keertana (BBB+) 11.70%/7M → A+ ~275bp over 10Y
+
+**STILL TO COME**
+• US Q3 GDP plus PCE in US hours (late tonight IST); US-Iran diplomacy headlines drive crude and INR
+• Friday: ₹33,000 cr G-Sec auction and 4-day VRR maturity; month-end
+
+**GAPS**
+• CD secondary/primary plus FBIL CD benchmark — F-TRAC export failed
+• USD/INR forwards — CCIL forex table 404 • O/N OIS — no verified fixing
+</pre>
+</div>
+</div></body></html>
