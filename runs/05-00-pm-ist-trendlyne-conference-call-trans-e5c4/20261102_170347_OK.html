@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily) — 2026-11-02 17:03:47 — Treasury Desk</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--card:#151d2e;--line:#243252;--ink:#e8edf6;--dim:#8fa3bf;--gold:#d4af37;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 'Inter',system-ui,sans-serif;padding:28px 20px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.logo small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:13px}
+.meta{color:var(--dim);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.st{padding:1px 9px;border-radius:5px;font-size:11px;font-weight:700}
+.st.OK{background:#14532d;color:#86efac}.st.FAIL{background:#7f1d1d;color:#fca5a5}.st.UNKNOWN{background:#713f12;color:#fcd34d}
+pre{background:#0b0f17;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font:12.5px/1.55 'JetBrains Mono',ui-monospace,monospace;color:#c9d6e8;white-space:pre-wrap;word-break:break-word}
+.back{display:inline-block;margin-bottom:14px;color:var(--teal)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{color:var(--dim);font-weight:600;background:var(--panel)}
+.job-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gold{color:var(--gold)}.purple{color:var(--purple)}
+.dim{color:var(--dim)}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:26px;font-weight:800;color:var(--gold)}.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+</style></head><body><div class="wrap">
+
+<a class="back" href="index.html">← All runs of 05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)</a>
+<div class="card">
+  <div class="job-h"><h1 style="font-size:19px">05:00 PM IST — Trendlyne Conference Call &amp; Transcript Tracker (daily)</h1>
+  <span class="st OK">OK</span></div>
+  <div class="dim small" style="margin-top:6px">
+    02 Nov 2026, 17:03:47 IST &nbsp;·&nbsp; <span class="gold">TREASURY</span>/Research &nbsp;·&nbsp; job e5c41a08d114
+  </div>
+</div>
+<div class="card">
+  <h2>OUTPUT — 02 Nov 2026, 17:03:47 IST</h2>
+  <pre>**Job ID:** e5c41a08d114
+**Run Time:** 2026-11-02 17:03:39
+**Schedule:** 0 17 * * *
+
+**Prompt Characters:** 3629
+## Prompt
+
+[IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user — do NOT use send_message or try to deliver the output yourself. Just produce your report/output as your final response and the system handles the rest. SILENT: If there is genuinely nothing new to report, respond with exactly &quot;[SILENT]&quot; (nothing else) to suppress delivery. [SILENT] is a literal ASCII control token — never translate or rephrase it, whatever language the rest of your answer uses. Never combine [SILENT] with content — either report your findings normally, or say [SILENT] and nothing more. FAILURE: If a delegated child fails and this cron run must be recorded as failed, put [CRON_FAILURE] on the first line by itself, then explain the child failure on following lines. RECURSION: This is a run of an EXISTING scheduled job — execute the task now. NEVER create or update a cron job because of recurring or future-schedule language in the task prompt below; treat phrasing like &quot;each Monday&quot; or &quot;every day at 9&quot; as context for this run, not as a request to schedule another job.]
+
+Trendlyne Conference Call Monitor .
+
+## SILENT PROTOCOL (MANDATORY)
+If after checking Trendlyne you find NO new conference calls or transcripts for tracked NBFC peers or relevant sectors since the last run, respond with exactly and only:
+SILENT
+Do NOT post &quot;no new calls today&quot; messages. Only post when there are genuinely new transcripts/calls.
+
+## TASK
+Check Trendlyne conference call/transcript section. Filter for:
+- the NBFC treasury desk earnings calls
+- Peer NBFC earnings calls
+- Any company in auto finance / 2W finance / EV finance / used vehicle finance / microfinance
+- Regulatory/sector calls relevant to NBFC treasury
+
+Use browser to navigate to Trendlyne. Check for new entries since last run. Deduplicate against previous output.
+
+If there ARE new calls, deliver: company name, call date, key points relevant to treasury (funding, spreads, asset quality, guidance).
+
+&lt;!-- BOLT-FMT v1 --&gt;
+## BOLT GROUP RENDER CONTRACT (MANDATORY — SUPERSEDES ANY EARLIER FORMAT INSTRUCTION)
+This output is delivered to a Telegram group and rendered as MARKDOWN. Follow these rules over any earlier table/bullet/line-count prose in this prompt or the skill.
+
+1. NO code fences. Never emit ``` anywhere in your final answer.
+2. NO pipe separators. The `|` character is allowed ONLY inside a real markdown table that has a header row AND a |---|---| separator row. Anywhere else it renders as literal garbage on a phone.
+3. Tables ONLY when: &lt;=4 columns AND &gt;=3 rows of comparable numbers. Always header row + separator row. Anything wider or text-heavy becomes bullet lines (rule 4).
+4. Every record is ONE bullet line: `• Label — field1 • field2 • field3`. Continuation detail goes on the next line, indented 2 spaces, starting with `◦` or `→`. Never use `-` or `*` as a bullet.
+5. Section headers are `**BOLD CAPS**` alone on their own line. Never `#`, `##`, or underlines.
+6. Max 40 display cells per line. If a line is wider, split it at a • into another bullet line. NEVER pad with spaces to align columns — alignment is the table&#x27;s job, not spaces.
+7. Keep every glyph, sign and unit on the number: `↓1.09%`, `↑2bp`, `◆`, `₹94.95`, `$109.9`.
+8. Total &lt;=3,500 characters. If longer, split at a section boundary into self-contained `PART 1/2` messages, each following these rules.
+9. SILENT fires: if the silent protocol applies, output ONLY the sentinel (e.g. SILENT or [SILENT]) — no formatting, no fence, nothing else.
+10. Plain text only — no HTML tags, no LaTeX, no &lt;details&gt;.
+&lt;!-- /BOLT-FMT --&gt;
+
+
+**Response Characters:** 2618
+## Response
+
+**4 NEW CALLS — Q2FY27 (2 NOV)**
+
+**PNB HOUSING FINANCE** — call 28 Oct, full transcript
+• Spread 2.43% ↑31bp QoQ (2.24% ex one-off prepay recovery) • NIM 3.67% ↑17bp • CoB 7.31% ↓5bp
+  ◦ Incremental CoB 7.26% ↓15bp vs incremental yield 9.64% — book yield 9.54%, positive jaws into FY28
+  ◦ Loan book ₹95,079 Cr ↑19% YoY; disb ₹9,609 Cr ↑60% (incl ₹838 Cr pool buyout); retail ₹9,250 Cr record
+  ◦ GNPA 0.91% (Q1 0.95%), negative credit cost ↓19bp on ₹75 Cr written-off recovery; CAR 27.03%/T1 26.62%
+  ◦ Repo +25bp: expects 15-20bp CoB pass-on, NIM &quot;broadly neutral to positive&quot;; rising leverage offsets. FY27 AUM guide 19-21%
+
+**AAVAS FINANCIERS** — call 26 Oct, full transcript
+• CoB 7.64% flat YoY • NIM 7.76% ↓5bp • spread guide &gt;5% reaffirmed
+  ◦ AUM ₹24,800 Cr ↑16.1%; ₹25,000 Cr crossed in Oct; H1 disb ₹3,510 Cr ↑30%
+  ◦ Q2 borrowings ₹1,679 Cr at 7.66%; total ₹21,600 Cr, ~30% repo-linked — most rate-sensitive of the four
+  ◦ Gross Stage 3 1.11%, net 0.70%; credit cost H1 24bp (guide &lt;25bp); CRAR 43.77%; liquidity ₹1,960 Cr + ₹300 Cr sanctions
+  ◦ No PLR hike yet post-repo; calls the rising cycle a spread tailwind, expects spread and NIM to improve over coming quarters
+
+**CITY UNION BANK** — call 28 Oct, full transcript
+• NIM 3.87% ↑9bp QoQ • CoF 4.74% ↓4bp • yield on advances 9.85%
+  ◦ Deposits ₹83,893 Cr ↑21%, CD ratio 86%, CASA 27%; FCNR inflows eased system liquidity so deposit rates unmoved
+  ◦ GNPA 1.44% (Q1 1.73%); slippage ₹175 Cr vs recovery ₹317 Cr → negative credit cost; ARC sale ₹803 Cr for ₹131 Cr, provision ₹792 Cr
+  ◦ Guide NIM 3.85-3.95% Q3/Q4, ROA &gt;1.6%, C/I 45-47%; 55% EBLR, 33% fixed, 12% MCLR — just over half the book reprices with repo
+
+**LIC HOUSING FINANCE** — call held today 11:30 IST, audio only, transcript pending
+• CoF 7.29% ↓13bp YoY • spread 1.75% ↓23bp • NIM 2.58% flat QoQ
+  ◦ Yield on advances 9.04% ↓36bp outpaced the CoF fall; incremental CoF 6.91% in Q2 — new money 38bp under book, compression should reverse
+  ◦ Loan book ₹3,26,173 Cr ↑5%; disb ₹18,127 Cr ↑11%; PAT ₹1,508.8 Cr ↑11%
+  ◦ Stage 3 2.05% (Q1 2.14%), ECL coverage 49% — thin versus HFC peers
+  ◦ Borrowings ₹2,78,780 Cr: NCD 45%, banks 38%, NHB 9%, deposits 3% — cleanest read on NBFC NCD/CP pricing this week
+
+**DESK READ**
+• Common thread: every lender guides 15-20bp CoB pass-through after the 25bp repo hike and still expects flat-to-better NIM
+• Repo linkage is the swing factor: Aavas ~30% of borrowings reprices directly; LICHF&#x27;s incremental CoF of 6.91% shows new money already 38bp under its 7.29% book
+• HFC asset quality uniformly improving; the risk now sits in margin, not credit
+</pre>
+</div>
+</div></body></html>
